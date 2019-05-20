@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>context on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/context/</link>
+    <description>Recent content in context on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 05 Oct 2018 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/context/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React Global State by Context Api</title>
+      <link>https://blog.axlight.com/posts/react-global-state-by-context-api/</link>
+      <pubDate>Fri, 05 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-global-state-by-context-api/</guid>
+      <description>A tiny library to help storing global state in React. I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state.</description>
+    </item>
+    
+  </channel>
+</rss>

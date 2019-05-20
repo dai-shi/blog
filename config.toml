@@ -1,0 +1,27 @@
+baseURL = "https://blog.axlight.com/"
+languageCode = "en-us"
+title = "Daishi Kato's blog"
+theme = "hugo-geo"
+publishDir = "docs"
+pygmentsCodefences = true
+
+[params]
+	showglobe = true
+	profilepic = "img/profile.png"
+	header = "Latest Posts"
+	css = ["/css/custom.css"]
+
+	[[params.socialbuttons]]
+	faicon = "github"
+	url = "https://github.com/dai-shi"
+	[[params.socialbuttons]]
+	faicon = "twitter"
+	url = "https://twitter.com/dai_shi"
+
+	[[params.navlinks]]
+	name = "All Posts"
+	url = "posts/"
+	
+	[[params.navlinks]]
+	name = "Contact"
+	url = "https://contact.axlight.com"
