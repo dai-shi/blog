@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Daishi Kato&#39;s blog</title>
-    <link>https://blog.axlight.com/posts/</link>
-    <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
+    <title>expo on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/expo/</link>
+    <description>Recent content in expo on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Oct 2018 12:00:00 +0900</lastBuildDate>
     
-	<atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.axlight.com/tags/expo/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -18,15 +18,6 @@
       
       <guid>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</guid>
       <description>Motivation Have you heard of React Native, GraphQL and TypeScript? I&amp;rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &amp;ldquo;Clean&amp;rdquo; I mean not only the boilerplate is minimalistic, but also we don&amp;rsquo;t allow &amp;ldquo;any&amp;rdquo; types.</description>
-    </item>
-    
-    <item>
-      <title>React Global State by Context Api</title>
-      <link>https://blog.axlight.com/posts/react-global-state-by-context-api/</link>
-      <pubDate>Fri, 05 Oct 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/posts/react-global-state-by-context-api/</guid>
-      <description>A tiny library to help storing global state in React. I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state.</description>
     </item>
     
   </channel>

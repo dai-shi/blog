@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Oct 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 20 Oct 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>apollo</title>
+      <link>https://blog.axlight.com/tags/apollo/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/apollo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>expo</title>
+      <link>https://blog.axlight.com/tags/expo/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/expo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graphql</title>
+      <link>https://blog.axlight.com/tags/graphql/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/graphql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react-native</title>
+      <link>https://blog.axlight.com/tags/react-native/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react-native/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>typescript</title>
+      <link>https://blog.axlight.com/tags/typescript/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/typescript/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>context</title>

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Clean Expo React Native React Apollo Graphql Typescript Boilerplate">
+    
+    <meta property="og:type" content="article">
+    <meta property="article:published_time" content="2018-10-20">
+    
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/">
+    <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+    
+    <meta property="og:tags" content="expo">
+    
+    <meta property="og:tags" content="react-native">
+    
+    <meta property="og:tags" content="apollo">
+    
+    <meta property="og:tags" content="graphql">
+    
+    <meta property="og:tags" content="typescript">
+    
+    <meta name="generator" content="Hugo 0.55.6" />
+    <title>Clean Expo React Native React Apollo Graphql Typescript Boilerplate &middot; Daishi Kato&#39;s blog</title>
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+		<h1>Clean Expo React Native React Apollo Graphql Typescript Boilerplate</h1>
+	</header>
+
+	<article>
+		
+
+<h3 id="motivation">Motivation</h3>
+
+<p>Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types.</p>
+
+<h3 id="features">Features</h3>
+
+<p>This boilerplate consists of:</p>
+
+<ul>
+<li>Expo</li>
+<li>React Apollo (+ Apollo Client)</li>
+<li>TypeScript (+ tslint)</li>
+</ul>
+
+<p>The points of this boilerplate are the followings:</p>
+
+<ul>
+<li>Only basic packages are included</li>
+<li>No &ldquo;any&rdquo; types including implicit ones are allowed</li>
+<li>GraphQL is mocked in the client side, so no server is required to run the app in the first place.</li>
+</ul>
+
+<h3 id="the-repository">The repository</h3>
+
+<p><a href="https://github.com/dai-shi/typescript-expo-apollo-boilerplate">https://github.com/dai-shi/typescript-expo-apollo-boilerplate</a></p>
+
+<h3 id="snippets">Snippets</h3>
+
+<p>Please checkout the code in the repository, but here&rsquo;s a piece of the code just for a reference.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewPost</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span><span style="color:#e6db74">{ADD_POST}</span> <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span><span style="color:#e6db74">{[&#39;queryPosts&#39;]}</span>&gt;
+    {(<span style="color:#a6e22e">addPost</span>) =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; {
+        <span style="color:#a6e22e">addPost</span>({ <span style="color:#a6e22e">variables</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span> } });
+      };
+      <span style="color:#66d9ef">return</span> (
+        &lt;<span style="color:#f92672">MyTextInput</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">{add}</span> /&gt;
+      );
+    }}
+  &lt;/<span style="color:#f92672">Mutation</span>&gt;
+);</code></pre></div>
+<h3 id="notes">Notes</h3>
+
+<p>The code will probably be improved. For example, the tslint config might not be enough. Also, I usually prefer SFCs to classes, and I found that recompose helps for it because it has type annotations.</p>
+
+	</article>
+</main>
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

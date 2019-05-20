@@ -6,10 +6,19 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 05 Oct 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 20 Oct 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Clean Expo React Native React Apollo Graphql Typescript Boilerplate</title>
+      <link>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</link>
+      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</guid>
+      <description>Motivation Have you heard of React Native, GraphQL and TypeScript? I&amp;rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &amp;ldquo;Clean&amp;rdquo; I mean not only the boilerplate is minimalistic, but also we don&amp;rsquo;t allow &amp;ldquo;any&amp;rdquo; types.</description>
+    </item>
     
     <item>
       <title>React Global State by Context Api</title>

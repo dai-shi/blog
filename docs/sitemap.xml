@@ -3,26 +3,61 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2018-10-05T12:00:00+09:00</lastmod>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2018-10-05T12:00:00+09:00</lastmod>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/apollo/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/expo/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/graphql/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react-native/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/typescript/</loc>
+    <lastmod>2018-10-20T12:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/react-global-state-by-context-api/</loc>
     <lastmod>2018-10-05T12:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2018-10-05T12:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
