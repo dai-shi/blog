@@ -3,13 +3,12 @@
 
 <main>
 	<header>
+    <h4>
+      <small>
+        {{ .Date.Format "2 January 2006" }}
+      </small>
+    </h4>
 		<h1>
-			<small>
-        <small>
-          {{ .Date.Format "2 January 2006" }}
-        </small>
-			</small>
-			<br>
       {{ .Title }}
     </h1>
     {{ if .Params.Subtitle }}
