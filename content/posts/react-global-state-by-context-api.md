@@ -1,10 +1,9 @@
 ---
 title: "React global state by Context API"
+subtitle: "A tiny library to help storing global state in React."
 date: 2018-10-05T12:00:00+09:00
 tags: ["react", "context", "global-state"]
 ---
-
-##### A tiny library to help storing global state in React.
 
 I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state. So far, I wasn't able to find something I really liked, hence I made a new one.
 

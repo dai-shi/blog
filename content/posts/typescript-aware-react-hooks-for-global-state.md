@@ -1,10 +1,9 @@
 ---
 title: "TypeScript-aware React hooks for global state"
+subtitle: "React hooks are awesome."
 date: 2018-10-28T12:00:00+09:00
 tags: ["react", "hooks", "typescript", "global-state"]
 ---
-
-##### React hooks are awesome.
 
 React Hooks API is a new proposal for React v16.7. It enables writing all components as functions with full functionality. You can develop "custom hooks" to add a new functionality. Although it's not released yet, I would like to introduce a new library to support global state. Note that it's still an experiment.
 
