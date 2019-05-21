@@ -126,6 +126,46 @@
     
 	</header>
 
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fclean-expo-react-native-react-apollo-graphql-typescript-boilerplate%2f&text=Clean%20Expo%20%28React%20Native%29%20%2b%20React%20Apollo%20%28GraphQL%29%20%2b%20TypeScript%20boilerplate by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fclean-expo-react-native-react-apollo-graphql-typescript-boilerplate%2f&t=Clean%20Expo%20%28React%20Native%29%20%2b%20React%20Apollo%20%28GraphQL%29%20%2b%20TypeScript%20boilerplate">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fclean-expo-react-native-react-apollo-graphql-typescript-boilerplate%2f&title=Clean%20Expo%20%28React%20Native%29%20%2b%20React%20Apollo%20%28GraphQL%29%20%2b%20TypeScript%20boilerplate">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fclean-expo-react-native-react-apollo-graphql-typescript-boilerplate%2f&title=Clean%20Expo%20%28React%20Native%29%20%2b%20React%20Apollo%20%28GraphQL%29%20%2b%20TypeScript%20boilerplate">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
 	<article>
 		
 

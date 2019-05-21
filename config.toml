@@ -11,6 +11,7 @@ disqusShortname = "blog-axlight-com"
 	profilepic = "img/profile.png"
 	header = "Latest Posts"
 	css = ["/css/custom.css"]
+	twitter = "@dai_shi"
 
 	[[params.socialbuttons]]
 	faicon = "github"
@@ -22,7 +23,6 @@ disqusShortname = "blog-axlight-com"
 	[[params.navlinks]]
 	name = "All Posts"
 	url = "posts/"
-	
 	[[params.navlinks]]
 	name = "Contact"
 	url = "https://contact.axlight.com"
