@@ -1,7 +1,7 @@
 ---
-title: "React Global State by Context Api"
+title: "React global state by Context API"
 date: 2018-10-05T12:00:00+09:00
-tags: ["react", "context"]
+tags: ["react", "context", "global-state"]
 ---
 
 ##### A tiny library to help storing global state in React.

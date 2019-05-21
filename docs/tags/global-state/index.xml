@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on Daishi Kato&#39;s blog</title>
-    <link>https://blog.axlight.com/posts/</link>
-    <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
+    <title>global-state on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/global-state/</link>
+    <description>Recent content in global-state on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 28 Oct 2018 12:00:00 +0900</lastBuildDate>
     
-	<atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://blog.axlight.com/tags/global-state/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
@@ -19,15 +19,6 @@
       <guid>https://blog.axlight.com/posts/typescript-aware-react-hooks-for-global-state/</guid>
       <description>React hooks are awesome. React Hooks API is a new proposal for React v16.7. It enables writing all components as functions with full functionality. You can develop &amp;ldquo;custom hooks&amp;rdquo; to add a new functionality. Although it&amp;rsquo;s not released yet, I would like to introduce a new library to support global state. Note that it&amp;rsquo;s still an experiment.
 The library It&amp;rsquo;s called &amp;ldquo;react-hooks-global-state&amp;rdquo; and is available in npm. Please also checkout the GitHub repository.</description>
-    </item>
-    
-    <item>
-      <title>Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate</title>
-      <link>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</link>
-      <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</guid>
-      <description>Motivation Have you heard of React Native, GraphQL and TypeScript? I&amp;rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &amp;ldquo;Clean&amp;rdquo; I mean not only the boilerplate is minimalistic, but also we don&amp;rsquo;t allow &amp;ldquo;any&amp;rdquo; types.</description>
     </item>
     
     <item>

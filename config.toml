@@ -6,7 +6,7 @@ publishDir = "docs"
 pygmentsCodefences = true
 
 [params]
-	showglobe = true
+	showglobe = false
 	profilepic = "img/profile.png"
 	header = "Latest Posts"
 	css = ["/css/custom.css"]

@@ -1,5 +1,5 @@
 ---
-title: "Clean Expo React Native React Apollo Graphql Typescript Boilerplate"
+title: "Clean Expo (React Native) + React Apollo (GraphQL) + TypeScript boilerplate"
 date: 2018-10-20T12:00:00+09:00
 tags: ["expo", "react-native", "apollo", "graphql", "typescript"]
 ---
