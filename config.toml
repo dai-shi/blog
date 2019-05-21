@@ -4,6 +4,7 @@ title = "Daishi Kato's blog"
 theme = "hugo-geo"
 publishDir = "docs"
 pygmentsCodefences = true
+disqusShortname = "blog-axlight-com"
 
 [params]
 	showglobe = false
