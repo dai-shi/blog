@@ -158,6 +158,6 @@ React Hooks API is not yet released and this library is still an experiment at t
 
 ### Changelog
 
-- _[2018-11-04]_: Initial publication.
-- _[2018-11-08]_: Follow the library API change and make the example more intuitive.
-- _[2018-11-12]_: The library API is changed again based on the Context API.
+- _[2018-11-04]:_ Initial publication.
+- _[2018-11-08]:_ Follow the library API change and make the example more intuitive.
+- _[2018-11-12]:_ The library API is changed again based on the Context API.

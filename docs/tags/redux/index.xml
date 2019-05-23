@@ -6,10 +6,22 @@
     <description>Recent content in redux on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 04 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Wed, 07 Nov 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/redux/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Redux middleware compatible React Hooks library for easy global state management</title>
+      <link>https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</link>
+      <pubDate>Wed, 07 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</guid>
+      <description>The library I&amp;rsquo;ve been developing a library to make use of React Hooks API. The library is for global state mangement with the aim to use it instead of Redux, especially for smaller applications. See the repository for more information and the source code.
+https://github.com/dai-shi/react-hooks-global-state
+Please also check out my previous posts [1] [2].
+Support for Redux middleware Originally, the library was extending useState for global state. Later, reducer is supported.</description>
+    </item>
     
     <item>
       <title>An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)</title>

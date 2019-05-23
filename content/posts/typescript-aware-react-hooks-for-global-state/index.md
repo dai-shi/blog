@@ -97,6 +97,6 @@ Feedbacks are appreciated via Twitter or GitHub issues. Thanks!
 
 ### Changelog
 
-- _[2018-10-28]_: Initial publication.
-- _[2018-11-08]_: Follow the library API change and make the example more intuitive.
-- _[2018-11-12]_: The library API is changed again based on the Context API.
+- _[2018-10-28]:_ Initial publication.
+- _[2018-11-08]:_ Follow the library API change and make the example more intuitive.
+- _[2018-11-12]:_ The library API is changed again based on the Context API.

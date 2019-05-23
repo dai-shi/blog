@@ -10,10 +10,7 @@
     </h4>
     {{ with .Resources.ByType "image" }}
       {{ with .GetMatch "{cover.*}" }}
-         {{ $cover := .Fit "800x600 Gaussian" }}
-         {{ with $cover }}
-            <img alt="cover" width="100%" src="{{ .Permalink }}" />
-         {{ end }}
+        <img alt="cover" width="100%" src="{{ .Permalink }}" />
       {{ end }}
     {{ end }}
 		<h1>
