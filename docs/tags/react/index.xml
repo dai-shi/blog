@@ -6,10 +6,19 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 28 Oct 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 04 Nov 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)</title>
+      <link>https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api/</link>
+      <pubDate>Sun, 04 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api/</guid>
+      <description>Motivation Everyone is excited about the new React Hooks API. So am I. Having been thinking how to manage global state, the Hooks API seems promising. By the way, I like Redux a lot, but I don&amp;rsquo;t like react-redux a.k.a connect very much. It is too complicated for beginners to use it properly. For example, reselect / memoization is a hard concept to explain. My recommendation is to structure a global state so that mapStateToProps only needs to select a part of the state without any logic.</description>
+    </item>
     
     <item>
       <title>TypeScript-aware React hooks for global state</title>
