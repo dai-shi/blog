@@ -6,10 +6,23 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Nov 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React global state by Context API for TypeScript</title>
+      <link>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</link>
+      <pubDate>Thu, 08 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</guid>
+      <description>Note: this post has nothing to do with React Hooks API.
+In my previous post, I introduced a library called react-context-global-state. After a while, I have better knowlege of TypeScript (yes, I&amp;rsquo;m a beginner!), and come up with fairly good type definitions. I just released a new version.
+https://www.npmjs.com/package/react-context-global-state
+Example code in TypeScript Let me breifly show how the code looks like in TypeScript.
+In a file named state.ts, we define a global state and export function components.</description>
+    </item>
     
     <item>
       <title>Redux middleware compatible React Hooks library for easy global state management</title>

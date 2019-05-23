@@ -6,17 +6,35 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 07 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 08 Nov 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>context</title>
+      <link>https://blog.axlight.com/tags/context/</link>
+      <pubDate>Thu, 08 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Wed, 07 Nov 2018 12:00:00 +0900</pubDate>
+      <pubDate>Thu, 08 Nov 2018 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Thu, 08 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     
@@ -26,15 +44,6 @@
       <pubDate>Wed, 07 Nov 2018 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Wed, 07 Nov 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     
@@ -89,15 +98,6 @@
       <pubDate>Sat, 20 Oct 2018 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react-native/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>context</title>
-      <link>https://blog.axlight.com/tags/context/</link>
-      <pubDate>Fri, 05 Oct 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/context/</guid>
       <description></description>
     </item>
     
