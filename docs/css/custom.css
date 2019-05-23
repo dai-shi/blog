@@ -5,3 +5,6 @@ pre {
 pre code {
   white-space: pre;
 }
+main article p > img {
+  max-width: 100%;
+}

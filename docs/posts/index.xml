@@ -6,10 +6,20 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 09 Nov 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React Hooks Tutorial on pure useReducer &#43; useContext for global state like Redux and comparison with react-hooks-global-state</title>
+      <link>https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</link>
+      <pubDate>Fri, 09 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</guid>
+      <description>In this article, I will first explain minimal code to implement global state with useReducer and useContext which are called &amp;ldquo;hooks&amp;rdquo; that will be available in React 16.7. I will then compare it with react-hooks-global-state which is a tiny library that I&amp;rsquo;ve been developing for global state management primarily for small applications.
+Note: Global state is convenient for sharing values among components far apart in the component tree, but it shouldn&amp;rsquo;t be abused because it would limit the reusability.</description>
+    </item>
     
     <item>
       <title>React global state by Context API for TypeScript</title>
