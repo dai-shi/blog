@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>abortable on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/abortable/</link>
+    <description>Recent content in abortable on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 31 Dec 2018 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/abortable/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Developing React custom hooks for abortable async functions with AbortController</title>
+      <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</link>
+      <pubDate>Mon, 31 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</guid>
+      <description>In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
+Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&amp;rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to abortable async functions for React with hooks</title>
+      <link>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</link>
+      <pubDate>Tue, 11 Dec 2018 10:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</guid>
+      <description>There is a follow-up article which describes the implementation details of the library. Please visit here.
+ TL;DR Just visit the example in codesandbox and try it.
+Background You can&amp;rsquo;t cancel promises in JavaScript and that&amp;rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.</description>
+    </item>
+    
+  </channel>
+</rss>

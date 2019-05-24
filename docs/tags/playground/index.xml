@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>playground on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/playground/</link>
+    <description>Recent content in playground on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 22 Dec 2018 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/playground/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Injecting a client-side script in GraphQL Playground in Apollo Server</title>
+      <link>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</link>
+      <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</guid>
+      <description>This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.
+Background When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers.</description>
+    </item>
+    
+  </channel>
+</rss>

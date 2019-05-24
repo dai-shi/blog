@@ -6,10 +6,62 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 31 Dec 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Developing React custom hooks for abortable async functions with AbortController</title>
+      <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</link>
+      <pubDate>Mon, 31 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</guid>
+      <description>In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
+Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&amp;rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.</description>
+    </item>
+    
+    <item>
+      <title>Developing React custom hooks for Redux without react-redux</title>
+      <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</link>
+      <pubDate>Fri, 14 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</guid>
+      <description>Background Ever since I learned Redux, I&amp;rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward.</description>
+    </item>
+    
+    <item>
+      <title>Introduction to abortable async functions for React with hooks</title>
+      <link>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</link>
+      <pubDate>Tue, 11 Dec 2018 10:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</guid>
+      <description>There is a follow-up article which describes the implementation details of the library. Please visit here.
+ TL;DR Just visit the example in codesandbox and try it.
+Background You can&amp;rsquo;t cancel promises in JavaScript and that&amp;rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.</description>
+    </item>
+    
+    <item>
+      <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching</title>
+      <link>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</link>
+      <pubDate>Thu, 29 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</guid>
+      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.
+https://reactjs.org/docs/hooks-intro.html
+Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
+    </item>
+    
+    <item>
+      <title>A deadly simple React bindings library for Redux with Hooks API</title>
+      <link>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</link>
+      <pubDate>Fri, 16 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
+      <description>There is a follow-up article which describes the implementation details of this library. Please visit here.
+ Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
+In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners.</description>
+    </item>
     
     <item>
       <title>React Hooks Tutorial on pure useReducer &#43; useContext for global state like Redux and comparison with react-hooks-global-state</title>

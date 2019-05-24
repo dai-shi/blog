@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Developing React custom hooks for Redux without react-redux" />
+<meta property="og:description" content="Background Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/" />
+<meta property="article:published_time" content="2018-12-14T12:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2018-12-14T12:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/cover.png"/>
+<meta name="twitter:title" content="Developing React custom hooks for Redux without react-redux"/>
+<meta name="twitter:description" content="Background Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>Developing React custom hooks for Redux without react-redux &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        14 December 2018
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/cover.png" />
+      
+    
+		<h1>
+      Developing React custom hooks for Redux without react-redux
+    </h1>
+    
+      <h5>An alternative library to react-redux or a feature proposal to react-redux</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-react-custom-hooks-for-redux-without-react-redux%2f&text=Developing%20React%20custom%20hooks%20for%20Redux%20without%20react-redux by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-react-custom-hooks-for-redux-without-react-redux%2f&t=Developing%20React%20custom%20hooks%20for%20Redux%20without%20react-redux">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-react-custom-hooks-for-redux-without-react-redux%2f&title=Developing%20React%20custom%20hooks%20for%20Redux%20without%20react-redux">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-react-custom-hooks-for-redux-without-react-redux%2f&title=Developing%20React%20custom%20hooks%20for%20Redux%20without%20react-redux">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="background">Background</h3>
+
+<p>Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward.</p>
+
+<p>React will introduce hooks soon, which allow creating stateful logic for function components. They are called custom hooks. There has been many discussions how to use hooks to create new React bindings for Redux. There are also many proposals that would replace Redux at all, including <a href="https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/">mine</a>.</p>
+
+<p>This article describes how to develop custom hooks for Redux (not replacing it) in a straightforward way. We first describe a naive implementation, and later introduce a Proxy approach to seamlessly improve performance to some extent.</p>
+
+<h3 id="a-naive-implementation">A naive implementation</h3>
+
+<p>Let&rsquo;s start with a naive implementation. If you are not familiar with Context API and Hooks API, please visit the official docs to learn them first. The rest of this article assumes the basic understanding of them.</p>
+
+<p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
+
+<p><a href="https://reactjs.org/docs/hooks-intro.html">https://reactjs.org/docs/hooks-intro.html</a></p>
+
+<p>We create a single context for passing a Redux store. There would be other ways like passing a Redux state or a part of the state for possible further improvements.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxStoreContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">store</span>, <span style="color:#a6e22e">children</span> }) =&gt; (
+  &lt;<span style="color:#f92672">ReduxStoreContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+    {<span style="color:#a6e22e">children</span>}
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ReduxStoreContext.Provider&gt;</span>
+);</code></pre></div>
+<p>We then define two hooks: <code>useReduxDispatch</code> and <code>useReduxState</code>. The reason we have separate hooks is that not all components use both hooks at the same time, and we want to hide the implementation how we use context as we might change the implementation in the future.</p>
+
+<p>The implementation of <code>useReduxDispatch</code> is very easy.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxDispatch</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">reduxStoreContext</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">dispatch</span>;
+};
+</code></pre></div>
+<p>The naive implementation of <code>useReduxState</code> is the following, using four hooks: <code>useContext</code>, <code>useRef</code>, <code>useEffect</code> and <code>useForceUpdate</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxState</span> <span style="color:#f92672">=</span> () =&gt; { 
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ReduxStoreContext</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>());
+  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> () =&gt; {
+      <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>();
+      <span style="color:#a6e22e">forceUpdate</span>();
+    };
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsubscribe</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">callback</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">unsubscribe</span>;
+  }, []);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>;
+};
+</code></pre></div>
+<p>Basically, we just subscribe to any changes in the state. (A minor note: this doesn&rsquo;t support changing the store on the fly which may be important for testing.)</p>
+
+<p>Here, <code>useForceUpdate</code> is implemented as below [<a href="https://github.com/facebook/react/issues/14110#issuecomment-446845886">1</a>].</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forcedReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">forcedReducer</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
+</code></pre></div>
+<h3 id="the-example-code-how-to-use-it">The example code how to use it</h3>
+
+<p>Let&rsquo;s see how we use these hooks. It&rsquo;s a bit long but bare with us.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;inc&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setText&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">text</span> };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">inc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(() =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;inc&#39;</span> }), []);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{inc}</span>&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextBox</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setText</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">event</span> =&gt; <span style="color:#a6e22e">dispatch</span>({
+    <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setText&#39;</span>,
+    <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>,
+  }), []);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Text</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{state.text}</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{setText}</span> /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+    &lt;<span style="color:#f92672">Counter</span> /&gt;
+    &lt;<span style="color:#f92672">TextBox</span> /&gt;
+  &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
+);</code></pre></div>
+<p>If you are familiar with Redux and hooks, there should be little problem reading the code, hopefully. (Again, we assume the store will never be changed, which can be wrong.)</p>
+
+<h3 id="improving-the-custom-hook-with-proxy">Improving the custom hook with Proxy</h3>
+
+<p>If you are familiar with Redux and react-redux, you notice that this is not ideal. If we click the button in Counter, not only it re-renders the Counter component, but also it re-renders the TextBox component. Well, this is not a problem until it is a problem. For small apps, it just works. For larger apps, it may have a performance problem. Anyway, we want to avoid unnecessary rendering if possible. The <code>mapStateToProps</code> function in react-redux is a well known approach for this. Developers specify which part of the state is used for a component. Defining such functions is not only extra work but also troublesome in some cases. It&rsquo;s easy to add heavy computations in such functions unless developers are familiar with memoization. We found beginner developers very hard on it.</p>
+
+<p>What if we don&rsquo;t need to specify anything, meaning no <code>mapStateToProps</code>? This is where Proxy comes in. With Proxy, the code can automatically detect which part of the state is used in rendering. Later, if the state is changed and it&rsquo;s notified by the subscription, it can know if the part of the interest is changed and re-render only if necessary.</p>
+
+<p>Let&rsquo;s modify our hook <code>useReduxState</code> to implement this feature. For now, we only care the first level of the state object (not deep in the object tree).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxState</span> <span style="color:#f92672">=</span> () =&gt; { 
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ReduxStoreContext</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>());
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">used</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>({});
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handler</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; ({
+    <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">name</span>) =&gt; {
+      <span style="color:#a6e22e">used</span>.<span style="color:#a6e22e">current</span>[<span style="color:#a6e22e">name</span>] <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">name</span>];
+    },
+  }), []);
+  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">callback</span> <span style="color:#f92672">=</span> () =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>();
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">changed</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">used</span>.<span style="color:#a6e22e">current</span>).<span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">key</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">!==</span> <span style="color:#a6e22e">nextState</span>[<span style="color:#a6e22e">key</span>]);
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">changed</span>) {
+        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextState</span>;
+        <span style="color:#a6e22e">forceUpdate</span>();
+      }
+    };
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsubscribe</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">callback</span>);
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">unsubscribe</span>;
+  }, []);
+  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>, <span style="color:#a6e22e">handler</span>);
+};
+</code></pre></div>
+<p>Now, it should not re-render TextBox even if we click the button in Counter in the example, and vice versa.</p>
+
+<p>This implementation is somewhat limited, and you might think that the shallow comparison is not enough. Maybe so, if you have already a concrete design of state structure. However, if you start designing a new state structure, you could design it so that the first-level separation is enough for performance. Also, note that for complex structure where you would need <code>reselect</code> in react-redux, you could use <code>useMemo</code> in a function component so that it returns a memoized element (ReactNode).</p>
+
+<h3 id="the-library">The library</h3>
+
+<p>We developed a library with this approach. This library actually allows deep comparison thanks to <a href="https://www.npmjs.com/package/proxyequal">proxyequal</a>. (Still, the shallow comparison described in the previous section may work better in a certain use case.)</p>
+
+<p><a href="https://github.com/dai-shi/react-hooks-easy-redux">https://github.com/dai-shi/react-hooks-easy-redux</a></p>
+
+<p>This repository contains several examples. You can also try them online. For example:</p>
+
+<p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-easy-redux/tree/master/examples/02_typescript?module=%2Fsrc%2FCounter.tsx&amp;view=preview">react-hooks-easy-redux-example - CodeSandbox</a></p>
+
+<h3 id="final-notes">Final notes</h3>
+
+<p>There could be some edge cases where this approach or the library doesn&rsquo;t work well. I would be happy to hear feedbacks either by Twitter or GitHub issues.</p>
+
+<p>The official react-redux has also discussions about the Proxy approach and they might implement it in the future. Would be nice. We look forward to the possibilities of React Hooks.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

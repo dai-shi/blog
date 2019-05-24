@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>fetch on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/fetch/</link>
+    <description>Recent content in fetch on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 29 Nov 2018 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/fetch/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching</title>
+      <link>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</link>
+      <pubDate>Thu, 29 Nov 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</guid>
+      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.
+https://reactjs.org/docs/hooks-intro.html
+Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
+    </item>
+    
+  </channel>
+</rss>

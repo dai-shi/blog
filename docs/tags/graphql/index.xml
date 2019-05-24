@@ -6,10 +6,31 @@
     <description>Recent content in graphql on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Oct 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 22 Dec 2018 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/graphql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Injecting a client-side script in GraphQL Playground in Apollo Server</title>
+      <link>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</link>
+      <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</guid>
+      <description>This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.
+Background When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers.</description>
+    </item>
+    
+    <item>
+      <title>Creating a Minimal Expo React Native Project with TypeScript and Jest</title>
+      <link>https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/</link>
+      <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/</guid>
+      <description>This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
+Install Expo CLI As described in the official doc, let&amp;rsquo;s install the CLI tool.
+$ npm install -g expo-cli  Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql.</description>
+    </item>
     
     <item>
       <title>Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate</title>
