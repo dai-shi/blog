@@ -3,50 +3,143 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/benchmark/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2019-05-02T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</loc>
+    <lastmod>2019-04-20T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</loc>
+    <lastmod>2019-04-18T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</loc>
+    <lastmod>2019-04-03T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/abortable/</loc>
+    <lastmod>2019-04-03T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/async/</loc>
+    <lastmod>2019-04-03T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/fetch/</loc>
+    <lastmod>2019-04-03T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/</loc>
+    <lastmod>2019-03-07T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/concurrent/</loc>
+    <lastmod>2019-03-07T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</loc>
+    <lastmod>2019-02-04T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</loc>
+    <lastmod>2019-01-29T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/worker/</loc>
+    <lastmod>2019-01-29T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</loc>
+    <lastmod>2019-01-22T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/node/</loc>
+    <lastmod>2019-01-22T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/wasm/</loc>
+    <lastmod>2019-01-22T12:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</loc>
+    <lastmod>2019-01-11T12:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/context/</loc>
+    <lastmod>2019-01-11T12:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</loc>
     <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/abortable/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/async/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2018-12-31T12:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -85,12 +178,6 @@
   
   <url>
     <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2018-12-14T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2018-12-14T12:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -135,12 +222,6 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/fetch/</loc>
-    <lastmod>2018-11-29T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</loc>
     <lastmod>2018-11-16T12:00:00+09:00</lastmod>
   </url>
@@ -153,12 +234,6 @@
   <url>
     <loc>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</loc>
     <lastmod>2018-11-08T12:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/context/</loc>
-    <lastmod>2018-11-08T12:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

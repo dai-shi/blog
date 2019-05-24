@@ -6,10 +6,23 @@
     <description>Recent content in context on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 08 Nov 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 11 Jan 2019 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/context/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>A thought on React Context default value</title>
+      <link>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</link>
+      <pubDate>Fri, 11 Jan 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</guid>
+      <description>Introduction It&amp;rsquo;s been about a year since React Context API is out. This is powerful and it&amp;rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.
+https://reactjs.org/docs/context.html
+https://reactjs.org/docs/hooks-intro.html
+Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
+ The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
+    </item>
     
     <item>
       <title>React global state by Context API for TypeScript</title>

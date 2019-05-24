@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>benchmark on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/benchmark/</link>
+    <description>Recent content in benchmark on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 May 2019 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
+      <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
+      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
+      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.
+https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4
+On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.
+https://github.com/dai-shi/reactive-react-redux
+It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
+    </item>
+    
+  </channel>
+</rss>

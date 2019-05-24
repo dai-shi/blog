@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="A thought on React Context default value" />
+<meta property="og:description" content="Introduction It&rsquo;s been about a year since React Context API is out. This is powerful and it&rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.
+https://reactjs.org/docs/context.html
+https://reactjs.org/docs/hooks-intro.html
+Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
+ The defaultValue argument is only used when a component does not have a matching Provider above it in the tree." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/a-thought-on-react-context-default-value/" />
+<meta property="article:published_time" content="2019-01-11T12:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-01-11T12:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/a-thought-on-react-context-default-value/cover.png"/>
+<meta name="twitter:title" content="A thought on React Context default value"/>
+<meta name="twitter:description" content="Introduction It&rsquo;s been about a year since React Context API is out. This is powerful and it&rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.
+https://reactjs.org/docs/context.html
+https://reactjs.org/docs/hooks-intro.html
+Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
+ The defaultValue argument is only used when a component does not have a matching Provider above it in the tree."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>A thought on React Context default value &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        11 January 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/a-thought-on-react-context-default-value/cover.png" />
+      
+    
+		<h1>
+      A thought on React Context default value
+    </h1>
+    
+      <h5>How do you like this idea?</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fa-thought-on-react-context-default-value%2f&text=A%20thought%20on%20React%20Context%20default%20value by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fa-thought-on-react-context-default-value%2f&t=A%20thought%20on%20React%20Context%20default%20value">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fa-thought-on-react-context-default-value%2f&title=A%20thought%20on%20React%20Context%20default%20value">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fa-thought-on-react-context-default-value%2f&title=A%20thought%20on%20React%20Context%20default%20value">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>It&rsquo;s been about a year since React Context API is out. This is powerful and it&rsquo;s even more powerful with upcoming React Hooks API, namely <code>useContext</code>. Please check out official documents to learn them in detail.</p>
+
+<p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
+
+<p><a href="https://reactjs.org/docs/hooks-intro.html">https://reactjs.org/docs/hooks-intro.html</a></p>
+
+<p>Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.</p>
+
+<blockquote>
+<p>The <code>defaultValue</code> argument is <strong>only</strong> used when a component does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing <code>undefined</code> as a Provider value does not cause consuming components to use <code>defaultValue</code>.</p>
+</blockquote>
+
+<p>So, this is only used if there&rsquo;s no Provider. It&rsquo;s often the case that we require a Provider and if it doesn&rsquo;t exist, we warn developers.</p>
+
+<h3 id="typical-solution">Typical solution</h3>
+
+<p>In various code, what I see is something like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyProvider</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MyContext</span>.<span style="color:#a6e22e">Provider</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useMyValueFoo</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">MyContext</span>);
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">value</span>) {
+    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;You probably forgot to put &lt;MyProvider&gt;.&#39;</span>);
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">foo</span>;
+};
+</code></pre></div>
+<p>The intention behind this code is to let developers notice if they forget to put Provider in the component tree.</p>
+
+<h3 id="my-proposal">My proposal</h3>
+
+<p>I thought what if we set this warning object in the default value. This would only work if we use an object value for a context, but here&rsquo;s the code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">warningObject</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">foo</span>() {
+    <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;You probably forgot to put &lt;MyProvider&gt;.&#39;</span>);
+  },
+};
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#a6e22e">warningObject</span>);
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyProvider</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MyContext</span>.<span style="color:#a6e22e">Provider</span>;
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useMyValueFoo</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">MyContext</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">value</span>.<span style="color:#a6e22e">foo</span>;
+};
+</code></pre></div>
+<p>Again, this only works for an object value. I&rsquo;m not sure other possible drawbacks. Maybe, it&rsquo;s hard to add a type annotation?</p>
+
+<p>I&rsquo;ve used it in my project. If you are interested, please check out how it&rsquo;s really used in the repository.</p>
+
+<p><a href="https://github.com/dai-shi/react-hooks-easy-redux">https://github.com/dai-shi/react-hooks-easy-redux</a></p>
+
+<h3 id="final-notes">Final notes</h3>
+
+<p>React hooks is still in alpha, but we are expecting it soon. Meanwhile, we look for its possibilities. Feedbacks are always welcome.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

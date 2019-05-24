@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>worker on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/worker/</link>
+    <description>Recent content in worker on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 29 Jan 2019 12:00:00 +0900</lastBuildDate>
+    
+	<atom:link href="https://blog.axlight.com/tags/worker/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Playing with React Hooks and Web Workers</title>
+      <link>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</link>
+      <pubDate>Tue, 29 Jan 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</guid>
+      <description>Introduction React Hooks is something I&amp;rsquo;ve been working on lately. What&amp;rsquo;s wonderful is creating custom hooks. If you encapsulate logic nicely in a hook, it can be shared among components and used intuitively. You can find my custom hooks in my GitHub repos, some of which are very experimental.
+This time, my experiment is to combine React Hooks and Web Workers. I know it&amp;rsquo;s not too difficult, but let me explain a bit in this short article.</description>
+    </item>
+    
+  </channel>
+</rss>

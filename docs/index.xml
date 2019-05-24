@@ -6,10 +6,111 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Dec 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Thu, 02 May 2019 12:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
+      <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
+      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
+      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.
+https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4
+On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.
+https://github.com/dai-shi/reactive-react-redux
+It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
+    </item>
+    
+    <item>
+      <title>New React Redux coding style with hooks without selectors</title>
+      <link>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</link>
+      <pubDate>Sat, 20 Apr 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</guid>
+      <description>Introduction React Redux is one of popular web tech stacks. As I found React hooks so promising, I have been developing a hooks-based library for React Redux called &amp;ldquo;reactive-react-redux.&amp;rdquo;
+https://github.com/dai-shi/reactive-react-redux
+Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&amp;rsquo;t need to care about optimization, but just focus on composition of logic.
+This library provides two basic hooks: useReduxState and useReduxDispatch. This article shows example code how to use them.</description>
+    </item>
+    
+    <item>
+      <title>Compose React hooks like composing React components</title>
+      <link>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</link>
+      <pubDate>Thu, 18 Apr 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</guid>
+      <description>This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&amp;rsquo;s jump in the code.
+React components Let&amp;rsquo;s use a minimalistic example. Here&amp;rsquo;s a component.
+const Person = ({ person }) =&amp;gt; ( &amp;lt;div&amp;gt; &amp;lt;div className=&amp;#34;personFirstName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;First Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.firstName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div className=&amp;#34;personLastName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;Last Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.lastName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; ); Well, this component is a little bit big, so let&amp;rsquo;s split it into functions and compose them.</description>
+    </item>
+    
+    <item>
+      <title>How to create React custom hooks for data fetching with useEffect</title>
+      <link>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</link>
+      <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</guid>
+      <description>Background React 16.8 added a new API, Hooks. If you haven&amp;rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.
+https://reactjs.org/docs/hooks-intro.html
+Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.</description>
+    </item>
+    
+    <item>
+      <title>How to properly use the React useRef hook in Concurrent Mode</title>
+      <link>https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/</link>
+      <pubDate>Thu, 07 Mar 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/</guid>
+      <description>Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
+ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.</description>
+    </item>
+    
+    <item>
+      <title>useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind</title>
+      <link>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</link>
+      <pubDate>Mon, 04 Feb 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</guid>
+      <description>Introduction While I don&amp;rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &amp;ldquo;useFetch&amp;rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
+I&amp;rsquo;ve started developing &amp;ldquo;useFetch&amp;rdquo; as a tutorial to build a custom hook.</description>
+    </item>
+    
+    <item>
+      <title>Playing with React Hooks and Web Workers</title>
+      <link>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</link>
+      <pubDate>Tue, 29 Jan 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</guid>
+      <description>Introduction React Hooks is something I&amp;rsquo;ve been working on lately. What&amp;rsquo;s wonderful is creating custom hooks. If you encapsulate logic nicely in a hook, it can be shared among components and used intuitively. You can find my custom hooks in my GitHub repos, some of which are very experimental.
+This time, my experiment is to combine React Hooks and Web Workers. I know it&amp;rsquo;s not too difficult, but let me explain a bit in this short article.</description>
+    </item>
+    
+    <item>
+      <title>My first WebAssembly trial with Node.js only</title>
+      <link>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</link>
+      <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</guid>
+      <description>Introduction One of the technologies we should keep eyes on in the web world is WebAssembly or wasm. As I am new to it, I won&amp;rsquo;t describe much of its fundamentals. Please visit the official web site to learn from scratch.
+https://webassembly.org/
+This short article describes my first trial on wasm. What I want to try is just to run example code, but I&amp;rsquo;d start with writing the example code in wasm(wat).</description>
+    </item>
+    
+    <item>
+      <title>A thought on React Context default value</title>
+      <link>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</link>
+      <pubDate>Fri, 11 Jan 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</guid>
+      <description>Introduction It&amp;rsquo;s been about a year since React Context API is out. This is powerful and it&amp;rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.
+https://reactjs.org/docs/context.html
+https://reactjs.org/docs/hooks-intro.html
+Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
+ The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
+    </item>
     
     <item>
       <title>Developing React custom hooks for abortable async functions with AbortController</title>
