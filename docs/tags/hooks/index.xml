@@ -6,10 +6,20 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 May 2019 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 27 May 2019 00:50:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Four patterns for global state with React hooks: Context or Redux</title>
+      <link>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</link>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</guid>
+      <description>Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
+Pattern 1: Prop passing Some might think it wouldn&amp;rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components.</description>
+    </item>
     
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>

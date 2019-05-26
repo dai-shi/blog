@@ -6,24 +6,33 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 May 2019 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 27 May 2019 00:50:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>benchmark</title>
-      <link>https://blog.axlight.com/tags/benchmark/</link>
-      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      <title>context</title>
+      <link>https://blog.axlight.com/tags/context/</link>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
       
-      <guid>https://blog.axlight.com/tags/benchmark/</guid>
+      <guid>https://blog.axlight.com/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>global-state</title>
+      <link>https://blog.axlight.com/tags/global-state/</link>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
     <item>
       <title>hooks</title>
       <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
@@ -32,7 +41,7 @@
     <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
@@ -41,9 +50,18 @@
     <item>
       <title>redux</title>
       <link>https://blog.axlight.com/tags/redux/</link>
-      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/redux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>benchmark</title>
+      <link>https://blog.axlight.com/tags/benchmark/</link>
+      <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/benchmark/</guid>
       <description></description>
     </item>
     
@@ -111,15 +129,6 @@
     </item>
     
     <item>
-      <title>context</title>
-      <link>https://blog.axlight.com/tags/context/</link>
-      <pubDate>Fri, 11 Jan 2019 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/context/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>apollo</title>
       <link>https://blog.axlight.com/tags/apollo/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
@@ -152,15 +161,6 @@
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/playground/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>global-state</title>
-      <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Fri, 14 Dec 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     

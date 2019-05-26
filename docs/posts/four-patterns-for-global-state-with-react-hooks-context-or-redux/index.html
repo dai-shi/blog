@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Four patterns for global state with React hooks: Context or Redux" />
+<meta property="og:description" content="Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
+Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/" />
+<meta property="article:published_time" content="2019-05-27T00:50:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-05-27T00:50:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/cover.jpg"/>
+<meta name="twitter:title" content="Four patterns for global state with React hooks: Context or Redux"/>
+<meta name="twitter:description" content="Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
+Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>Four patterns for global state with React hooks: Context or Redux &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        27 May 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/cover.jpg" />
+      
+    
+		<h1>
+      Four patterns for global state with React hooks: Context or Redux
+    </h1>
+    
+      <h5>And the libraries I developed</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-patterns-for-global-state-with-react-hooks-context-or-redux%2f&text=Four%20patterns%20for%20global%20state%20with%20React%20hooks%3a%20Context%20or%20Redux by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-patterns-for-global-state-with-react-hooks-context-or-redux%2f&t=Four%20patterns%20for%20global%20state%20with%20React%20hooks%3a%20Context%20or%20Redux">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-patterns-for-global-state-with-react-hooks-context-or-redux%2f&title=Four%20patterns%20for%20global%20state%20with%20React%20hooks%3a%20Context%20or%20Redux">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-patterns-for-global-state-with-react-hooks-context-or-redux%2f&title=Four%20patterns%20for%20global%20state%20with%20React%20hooks%3a%20Context%20or%20Redux">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Global state or shared state is one of the biggest issues
+when you start developing a React app.
+Should we use Redux? Do hooks provide a Redux-like solution?
+I would like to show four patterns toward using Redux.
+This is my personal opinion and mainly for new apps.</p>
+
+<h3 id="pattern-1-prop-passing">Pattern 1: Prop passing</h3>
+
+<p>Some might think it wouldn&rsquo;t scale, but the most basic pattern
+should still be prop passing. If the app is small enough,
+define local state in a parent component and simply pass it
+down to child components. I would tolerate two level passing,
+meaning one intermediate component.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+  <span style="color:#66d9ef">return</span> (
+    <span style="color:#f92672">&lt;&gt;</span>
+      &lt;<span style="color:#f92672">Child1</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
+      &lt;<span style="color:#f92672">Child2</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/&gt;</span>
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+  ...
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child2</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+  <span style="color:#f92672">&lt;&gt;</span>
+    &lt;<span style="color:#f92672">GrandChild</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/&gt;</span>
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+  ...
+);</code></pre></div>
+<h3 id="pattern-2-context">Pattern 2: Context</h3>
+
+<p>If an app needs to share state among components
+that are more deep than two level,
+it&rsquo;s time to introduce context.
+Context itself doesn&rsquo;t provide global state functionality,
+but combining local state and passing by context does the job.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueA}</span>&gt;
+      &lt;<span style="color:#f92672">Child1</span> /&gt;
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextA.Provider&gt;</span>
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">GrandChild1</span> /&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild1</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">GrandGrandChild1</span> /&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandGrandChild1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
+  <span style="color:#66d9ef">return</span> (
+    ...
+  );
+};</code></pre></div>
+<p>Note that all components with <code>useContext(ContextA)</code> will re-render
+if <code>stateA</code> is changed, even if it&rsquo;s only a tiny part of the state.
+Hence, it&rsquo;s not recommended to use a context for multiple purpose.</p>
+
+<h3 id="pattern-3-multiple-contexts">Pattern 3: Multiple contexts</h3>
+
+<p>Using multiple contexts is fine and rather recommended to separate concerns.
+Contexts don&rsquo;t have to be application-wide and they can be used
+for parts of component tree. Only if your contexts can be used anywhere
+in your app, defining them at the root is a good reason.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerB</span>, <span style="color:#a6e22e">initialStateB</span>);
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerC</span>, <span style="color:#a6e22e">initialStateC</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>], [<span style="color:#a6e22e">stateB</span>]);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>], [<span style="color:#a6e22e">stateC</span>]);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueA}</span>&gt;
+      &lt;<span style="color:#f92672">ContextB</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueB}</span>&gt;
+        &lt;<span style="color:#f92672">ContextC</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueC}</span>&gt;
+          ...
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextC.Provider&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextB.Provider&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextA.Provider&gt;</span>
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
+  <span style="color:#66d9ef">return</span> (
+    ...
+  );
+};</code></pre></div>
+<p>This is going to be a bit of mess, if we have more contexts.
+It&rsquo;s time to introduce some libraries.
+There are several libraries to support multiple contexts
+and some of them provide hooks API.</p>
+
+<hr />
+
+<p>I&rsquo;ve been developing such a library called &ldquo;react-hooks-global-state&rdquo;.</p>
+
+<p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
+
+<p>Here&rsquo;s example code how it looks like.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { 
+  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
+  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
+  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
+};
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">GlobalStateProvider</span>&gt;
+    ...
+  &lt;/<span style="color:#f92672">GlobalStateProvider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">valueA</span>, <span style="color:#a6e22e">updateA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;a&#39;</span>);
+  <span style="color:#66d9ef">return</span> (
+    ...
+  );
+};</code></pre></div>
+<p>There is at least a caveat in this library.
+It uses an undocumented feature called <code>observedBits</code> and not only
+it&rsquo;s unstable, but with its limitation, this library is only performant
+if the number of sub-states (like <code>a</code>, <code>b</code>, <code>c</code>) is equal or smaller than 31.</p>
+
+<h3 id="pattern-4-redux">Pattern 4: Redux</h3>
+
+<p>The biggest limitation with multiple contexts is that
+dispatch functions are also separated.
+If your app gets big and several contexts need to be updated
+with a single action, it&rsquo;s time to introduce Redux.
+(Or, actually you could dispatch multiple actions for a single event,
+I personally don&rsquo;t like that pattern very much.)</p>
+
+<p>There are various libraries to use Redux with hooks, and
+the official react-redux is about to release its hooks API.</p>
+
+<hr />
+
+<p>Since I&rsquo;ve put lots of effort in this domain,
+let me introduce my library called &ldquo;reactive-react-redux&rdquo;.</p>
+
+<p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
+
+<p>Unlike traditional react-redux, this library doesn&rsquo;t
+require <code>mapStateToProps</code> or a selector.
+You can simply use global state from Redux
+and the library tracks the state usage with Proxy for optimization.</p>
+
+<p>Here&rsquo;s example code how it looks like.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<span style="color:#66d9ef">import</span> {
+  <span style="color:#a6e22e">ReduxProvider</span>,
+  <span style="color:#a6e22e">useReduxDispatch</span>,
+  <span style="color:#a6e22e">useReduxState</span>,
+} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
+  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
+  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  ...
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+    ...
+  &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">a</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
+  <span style="color:#66d9ef">return</span> (
+    ...
+  );
+};</code></pre></div>
+<h3 id="final-thoughts">Final thoughts</h3>
+
+<p>For moderate to large apps, it is likely that a single event
+changes several parts of the state and hence the UI.
+So, the use of Redux (or any kind of app state management)
+seems natural in this case.</p>
+
+<p>However, apollo-client and forthcoming react-cache would
+play a role of data management, and the role of UI state management
+would get smaller. In that case, the multiple contexts pattern
+could make more sense for moderate apps.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
