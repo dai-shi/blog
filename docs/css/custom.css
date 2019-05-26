@@ -1,5 +1,5 @@
 pre {
-  overflow: auto;
+  overflow-x: scroll;
   word-wrap: normal;
 }
 pre code {
@@ -7,4 +7,8 @@ pre code {
 }
 main article p > img {
   max-width: 100%;
+}
+#content {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
