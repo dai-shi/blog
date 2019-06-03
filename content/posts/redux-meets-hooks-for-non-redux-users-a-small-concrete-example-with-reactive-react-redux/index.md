@@ -193,7 +193,7 @@ but for this example, components are just flat.
 
 App is also identical to the original example.
 
-```javascript
+```jsx
 import * as React from 'react';
 
 import Footer from './Footer';
@@ -215,7 +215,7 @@ export default App;
 
 There are small modifications but not major.
 
-```javascript
+```jsx
 import * as React from 'react';
 
 type Props = {
@@ -245,7 +245,7 @@ export default Todo;
 We don't have `mapStateToProps` nor selectors.
 `getVisibleTodos` is simply called in render.
 
-```javascript
+```jsx
 import * as React from 'react';
 import { useReduxState } from 'reactive-react-redux';
 
@@ -287,7 +287,7 @@ export default VisibleTodoList;
 Again, as `useReduxState` return the entire state,
 it simply uses its property to evaluate `active`.
 
-```javascript
+```jsx
 import * as React from 'react';
 import { useReduxState } from 'reactive-react-redux';
 
@@ -324,7 +324,7 @@ export default FilterLink;
 Because we rely on type checking,
 it's OK to pass strings to filter prop to FilterLink.
 
-```javascript
+```jsx
 import * as React from 'react';
 
 import FilterLink from './FilterLink';
@@ -346,7 +346,7 @@ export default Footer;
 This is a bit modified from the original example
 to use controlled form with `useState`.
 
-```javascript
+```jsx
 import * as React from 'react';
 import { useState } from 'react';
 

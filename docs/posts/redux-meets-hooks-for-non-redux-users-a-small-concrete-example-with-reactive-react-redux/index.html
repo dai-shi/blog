@@ -343,26 +343,25 @@ but for this example, components are just flat.</p>
 <h4 id="src-components-app-tsx">./src/components/App.tsx</h4>
 
 <p>App is also identical to the original example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Footer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Footer&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">AddTodo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./AddTodo&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">VisibleTodoList</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./VisibleTodoList&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; (
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">AddTodo</span> <span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">VisibleTodoList</span> <span style="color:#f92672">/&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Footer</span> <span style="color:#f92672">/&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">AddTodo</span> /&gt;
+    &lt;<span style="color:#f92672">VisibleTodoList</span> /&gt;
+    &lt;<span style="color:#f92672">Footer</span> /&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
 <h4 id="src-components-todo-tsx">.src/components/Todo.tsx</h4>
 
 <p>There are small modifications but not major.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Props</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">onClick</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">e</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">MouseEvent</span>) =&gt; <span style="color:#66d9ef">void</span>;
@@ -370,26 +369,25 @@ but for this example, components are just flat.</p>
   <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>;
 };
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Todo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Props</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">onClick</span>, <span style="color:#a6e22e">completed</span>, <span style="color:#a6e22e">text</span> }) =&gt; (
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span>
-    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onClick</span>}
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Todo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span>&lt;<span style="color:#f92672">Props</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">onClick</span>, <span style="color:#a6e22e">completed</span>, <span style="color:#a6e22e">text</span> }) =&gt; (
+  &lt;<span style="color:#f92672">li</span>
+    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onClick}</span>
     <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;presentation&#34;</span>
-    <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{
-      <span style="color:#a6e22e">textDecoration</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">completed</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;line-through&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;none&#39;</span>,
-      <span style="color:#a6e22e">cursor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;pointer&#39;</span>,
+    <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span>
+      <span style="color:#a6e22e">textDecoration</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">completed</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">line</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">through</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">none</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
+      <span style="color:#a6e22e">cursor</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">pointer</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
     }}
-  <span style="color:#f92672">&gt;</span>
+  &gt;
     {<span style="color:#a6e22e">text</span>}
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+  &lt;/<span style="color:#f92672">li</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;</code></pre></div>
 <h4 id="src-components-visibletodolist-tsx">.src/components/VisibleTodoList.tsx</h4>
 
 <p>We don&rsquo;t have <code>mapStateToProps</code> nor selectors.
 <code>getVisibleTodos</code> is simply called in render.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
@@ -410,25 +408,24 @@ but for this example, components are just flat.</p>
 };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">VisibleTodoList</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>&lt;<span style="color:#f92672">State</span>&gt;();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visibleTodos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">getVisibleTodos</span>(<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">todos</span>, <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">visibilityFilter</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useToggleTodo</span>();
   <span style="color:#66d9ef">return</span> (
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+    &lt;<span style="color:#f92672">ul</span>&gt;
       {<span style="color:#a6e22e">visibleTodos</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">todo</span> =&gt; (
-        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Todo</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>} {...<span style="color:#a6e22e">todo</span>} <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">toggleTodo</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} <span style="color:#f92672">/&gt;</span>
+        &lt;<span style="color:#f92672">Todo</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{todo.id}</span> {<span style="color:#a6e22e">...todo</span>} <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">toggleTodo</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} <span style="color:#f92672">/&gt;</span>
       ))}
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+    &lt;/<span style="color:#f92672">ul</span>&gt;
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">VisibleTodoList</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">VisibleTodoList</span>;</code></pre></div>
 <h4 id="src-components-filterlink-tsx">.src/components/FilterLink.tsx</h4>
 
 <p>Again, as <code>useReduxState</code> return the entire state,
 it simply uses its property to evaluate <code>active</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSetVisibilityFilter</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../actions&#39;</span>;
@@ -438,50 +435,48 @@ it simply uses its property to evaluate <code>active</code>.</p>
   <span style="color:#a6e22e">filter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">VisibilityFilterType</span>;
 };
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">FilterLink</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Props</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">children</span> }) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">FilterLink</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span>&lt;<span style="color:#f92672">Props</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">children</span> }) =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>&lt;<span style="color:#f92672">State</span>&gt;();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">active</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">visibilityFilter</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setVisibilityFilter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSetVisibilityFilter</span>();
   <span style="color:#66d9ef">return</span> (
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span>
+    &lt;<span style="color:#f92672">button</span>
       <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>
-      <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">setVisibilityFilter</span>(<span style="color:#a6e22e">filter</span>)}
+      <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setVisibilityFilter</span>(<span style="color:#a6e22e">filter</span>)}
       <span style="color:#a6e22e">disabled</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">active</span>}
       <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{
         <span style="color:#a6e22e">marginLeft</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;4px&#39;</span>,
       }}
     <span style="color:#f92672">&gt;</span>
       {<span style="color:#a6e22e">children</span>}
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+    &lt;/<span style="color:#f92672">button</span>&gt;
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FilterLink</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FilterLink</span>;</code></pre></div>
 <h4 id="src-components-footer-tsx">.src/components/Footer.tsx</h4>
 
 <p>Because we rely on type checking,
 it&rsquo;s OK to pass strings to filter prop to FilterLink.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./FilterLink&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Footer</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; (
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Show</span><span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ALL&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">All</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/FilterLink&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ACTIVE&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Active</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/FilterLink&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_COMPLETED&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Completed</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/FilterLink&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Show</span><span style="color:#f92672">:</span> &lt;/<span style="color:#f92672">span</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ALL&#34;</span>&gt;<span style="color:#a6e22e">All</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ACTIVE&#34;</span>&gt;<span style="color:#a6e22e">Active</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_COMPLETED&#34;</span>&gt;<span style="color:#a6e22e">Completed</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Footer</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Footer</span>;</code></pre></div>
 <h4 id="src-components-addtodo-tsx">.src/components/AddTodo.tsx</h4>
 
 <p>This is a bit modified from the original example
 to use controlled form with <code>useState</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useAddTodo</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../actions&#39;</span>;
@@ -490,9 +485,9 @@ to use controlled form with <code>useState</code>.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">text</span>, <span style="color:#a6e22e">setText</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#39;&#39;</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAddTodo</span>();
   <span style="color:#66d9ef">return</span> (
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">form</span>
-        <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">e</span>) =&gt; {
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">form</span>
+        <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(e)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; {
           <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
           <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">trim</span>()) {
             <span style="color:#66d9ef">return</span>;
@@ -501,15 +496,14 @@ to use controlled form with <code>useState</code>.</p>
           <span style="color:#a6e22e">setText</span>(<span style="color:#e6db74">&#39;&#39;</span>);
         }}
       <span style="color:#f92672">&gt;</span>
-        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">text</span>} <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> =&gt; <span style="color:#a6e22e">setText</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)} <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Add</span> <span style="color:#a6e22e">Todo</span><span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
-      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/form&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{text}</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{e</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setText</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)} <span style="color:#f92672">/&gt;</span>
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;<span style="color:#a6e22e">Add</span> <span style="color:#a6e22e">Todo</span>&lt;/<span style="color:#f92672">button</span>&gt;
+      &lt;/<span style="color:#f92672">form</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">AddTodo</span>;
-</code></pre></div>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">AddTodo</span>;</code></pre></div>
 <h3 id="online-demo">Online demo</h3>
 
 <p>Please visit the <a href="https://codesandbox.io/s/github/dai-shi/reactive-react-redux/tree/master/examples/11_todolist">codesandbox</a> and run the example in your browser.</p>
