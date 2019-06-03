@@ -211,7 +211,7 @@ const App: React.FC = () => (
 export default App;
 ```
 
-#### .src/components/Todo.tsx
+#### ./src/components/Todo.tsx
 
 There are small modifications but not major.
 
@@ -240,7 +240,7 @@ const Todo: React.FC<Props> = ({ onClick, completed, text }) => (
 export default Todo;
 ```
 
-#### .src/components/VisibleTodoList.tsx
+#### ./src/components/VisibleTodoList.tsx
 
 We don't have `mapStateToProps` or selectors.
 `getVisibleTodos` is simply called in render.
@@ -282,7 +282,7 @@ const VisibleTodoList: React.FC = () => {
 export default VisibleTodoList;
 ```
 
-#### .src/components/FilterLink.tsx
+#### ./src/components/FilterLink.tsx
 
 Again, as `useReduxState` return the entire state,
 it simply uses its property to evaluate `active`.
@@ -319,7 +319,7 @@ const FilterLink: React.FC<Props> = ({ filter, children }) => {
 export default FilterLink;
 ```
 
-#### .src/components/Footer.tsx
+#### ./src/components/Footer.tsx
 
 Because we rely on type checking,
 it's OK to pass strings to filter prop to FilterLink.
@@ -341,7 +341,7 @@ const Footer: React.FC = () => (
 export default Footer;
 ```
 
-#### .src/components/AddTodo.tsx
+#### ./src/components/AddTodo.tsx
 
 This is a bit modified from the original example
 to use controlled form with `useState`.
