@@ -40,7 +40,7 @@ The example is written in TypeScript.
 If you are not familiar with TypeScript,
 try ignoring `State`, `Action` and `*Type`.
 
-The following is the type definisions for State and Action.
+The following is the type definitions for State and Action.
 
 #### ./src/types/index.ts
 
@@ -242,7 +242,7 @@ export default Todo;
 
 #### .src/components/VisibleTodoList.tsx
 
-We don't have `mapStateToProps` nor selectors.
+We don't have `mapStateToProps` or selectors.
 `getVisibleTodos` is simply called in render.
 
 ```jsx

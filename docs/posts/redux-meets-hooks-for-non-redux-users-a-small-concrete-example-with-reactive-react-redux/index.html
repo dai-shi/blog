@@ -206,7 +206,7 @@ It&rsquo;s the famous Todo List example from Redux.</p>
 If you are not familiar with TypeScript,
 try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
 
-<p>The following is the type definisions for State and Action.</p>
+<p>The following is the type definitions for State and Action.</p>
 
 <h4 id="src-types-index-ts">./src/types/index.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">VisibilityFilterType</span> <span style="color:#f92672">=</span>
@@ -385,7 +385,7 @@ but for this example, components are just flat.</p>
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;</code></pre></div>
 <h4 id="src-components-visibletodolist-tsx">.src/components/VisibleTodoList.tsx</h4>
 
-<p>We don&rsquo;t have <code>mapStateToProps</code> nor selectors.
+<p>We don&rsquo;t have <code>mapStateToProps</code> or selectors.
 <code>getVisibleTodos</code> is simply called in render.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
