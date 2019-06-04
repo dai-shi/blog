@@ -185,7 +185,7 @@ They are not really action creators, but hooks that return action dispatchers.
 
 ### Components
 
-We don't distinguish container components from container components.
+We don't distinguish presentational components from container components.
 It could be still open for discussion about how to structure components,
 but for this example, components are just flat.
 
