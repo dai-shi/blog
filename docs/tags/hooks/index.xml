@@ -6,10 +6,20 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Jun 2019 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 15 Jun 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Super performant global state with React context and hooks</title>
+      <link>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</link>
+      <pubDate>Sat, 15 Jun 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</guid>
+      <description>Introduction There are many libraries to provide global state in React. React itself doesn&amp;rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&amp;rsquo;s properly implemented. It&amp;rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
+This post introduces a library for global state with performance.</description>
+    </item>
     
     <item>
       <title>Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux</title>

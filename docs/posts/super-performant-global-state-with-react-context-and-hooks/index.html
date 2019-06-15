@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Super performant global state with React context and hooks" />
+<meta property="og:description" content="Introduction There are many libraries to provide global state in React. React itself doesn&rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&rsquo;s properly implemented. It&rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
+This post introduces a library for global state with performance." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/" />
+<meta property="article:published_time" content="2019-06-15T23:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-06-15T23:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/cover.jpg"/>
+<meta name="twitter:title" content="Super performant global state with React context and hooks"/>
+<meta name="twitter:description" content="Introduction There are many libraries to provide global state in React. React itself doesn&rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&rsquo;s properly implemented. It&rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
+This post introduces a library for global state with performance."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>Super performant global state with React context and hooks &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        15 June 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/cover.jpg" />
+      
+    
+		<h1>
+      Super performant global state with React context and hooks
+    </h1>
+    
+      <h5>Yet another Redux-like library</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsuper-performant-global-state-with-react-context-and-hooks%2f&text=Super%20performant%20global%20state%20with%20React%20context%20and%20hooks by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fsuper-performant-global-state-with-react-context-and-hooks%2f&t=Super%20performant%20global%20state%20with%20React%20context%20and%20hooks">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsuper-performant-global-state-with-react-context-and-hooks%2f&title=Super%20performant%20global%20state%20with%20React%20context%20and%20hooks">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsuper-performant-global-state-with-react-context-and-hooks%2f&title=Super%20performant%20global%20state%20with%20React%20context%20and%20hooks">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>There are many libraries to provide global state in React.
+React itself doesn&rsquo;t provide such a feature,
+probably because separation of concerns is important
+and having global state naively is not idiomatic.
+However, in certain cases, having global state is good
+as long as it&rsquo;s properly implemented.
+It&rsquo;s likely that performance drops down
+compared to using non-global state (incl. multiple contexts).</p>
+
+<p>This post introduces a library for global state with performance.</p>
+
+<h3 id="problem">Problem</h3>
+
+<p>Combining context and useReducer and develop
+a Redux-like feature is easy.
+One would say it&rsquo;s enough if they don&rsquo;t
+need Redux DevTools and Redux middleware.</p>
+
+<p>But still, there is a problem if an app gets bigger.
+Technically, useContext doesn&rsquo;t have mechanism to bail out,
+and all components that useContext re-render every time
+context value is changed.
+That is why react-redux gave up using context directly
+and move back to subscriptions.</p>
+
+<p>Anyhow, this problem happens if you use context value
+for a single big state object. Unless your app
+is very small, this limitation can&rsquo;t be ignored.</p>
+
+<p>Another problem is how to specify which part of state
+a component needs to render. Selectors are often
+used in such a scenario, but it is not trivial to write
+proper selectors unless you have good knowledge of
+referential equality and memoization.</p>
+
+<h3 id="solution">Solution</h3>
+
+<p>The first problem is solved by stopping context propagation
+when context value is changed. This is done by undocumented
+feature called &ldquo;calculateChangedBits&rdquo;. Because propagation is
+stopped, no updates are pushed to components, and now components
+need to pull changes. We use subscriptions for that.
+Some experienced developers might think why we still need to
+use context if we use subscriptions. This is an assumption,
+but using context is safer for concurrent mode and probably
+fits better for React developer tools.</p>
+
+<p>The second problem is solved by tracking state usage in component
+rendering. This is done by Proxy.
+It&rsquo;s a bit magical, but basically it&rsquo;s only for performance
+optimization. It doesn&rsquo;t change the semantics at all.</p>
+
+<h3 id="library">Library</h3>
+
+<p>I implemented these features as a library.</p>
+
+<p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
+
+<p>It&rsquo;s still new as of writing, but it&rsquo;s ready for review.</p>
+
+<h3 id="example">Example</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useReducer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span>,
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setText&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">text</span> };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`unknown action type: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      {Math.<span style="color:#a6e22e">random</span>()}
+      &lt;<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> })}<span style="color:#f92672">&gt;+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> })}<span style="color:#f92672">&gt;-</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextBox</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      {Math.<span style="color:#a6e22e">random</span>()}
+      &lt;<span style="color:#f92672">div</span>&gt;
+        &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Text</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{state.text}</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{event</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setText&#39;</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> })} <span style="color:#f92672">/&gt;</span>
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">useValue</span><span style="color:#f92672">=</span><span style="color:#e6db74">{useValue}</span>&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">Counter</span> /&gt;
+    &lt;<span style="color:#f92672">Counter</span> /&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">TextBox</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">TextBox</span> /&gt;
+    &lt;<span style="color:#f92672">TextBox</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+);
+
+<span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));</code></pre></div>
+<h3 id="demo">Demo</h3>
+
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/01_minimal?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>I didn&rsquo;t explain everything about the library.
+Most notably, this library is kind of a fork of
+<a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>,
+and actually the hooks API is identical, which is also similar to
+<a href="https://react-redux.js.org/api/hooks">react-redux hooks</a>.
+If you are a redux user and already convinced of
+DevTools and middleware, just use those libraries.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
