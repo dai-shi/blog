@@ -9,7 +9,7 @@ tags: ["react", "context", "hooks", "redux", "benchmark"]
 
 React-Redux provides [hooks API](https://react-redux.js.org/api/hooks)
 with nice abstraction.
-Especially, `useSelector` is probaly less missused than `mapStateToProps`.
+Especially, `useSelector` is probaly less misused than `mapStateToProps`.
 
 [react-tracked](https://github.com/dai-shi/react-tracked)
 is a library for global state without Redux.
