@@ -6,10 +6,22 @@
     <description>Recent content in benchmark on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 May 2019 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 16 Jun 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
+      <link>https://blog.axlight.com/posts/benchmark-react-tracked/</link>
+      <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/benchmark-react-tracked/</guid>
+      <description>Introduction React-Redux provides hooks API with nice abstraction. Especially, useSelector is probaly less missused than mapStateToProps.
+react-tracked is a library for global state without Redux. This library provides almost compatible hooks API to React-Redux. It&amp;rsquo;s developed with performance in mind, and it should be as performant as React-Redux, even though it utilizes only React context. See the GitHub repo for more information.
+https://github.com/dai-shi/react-tracked
+This post shows benchmark results to convince that it actually is performant in one scenario.</description>
+    </item>
     
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
