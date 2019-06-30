@@ -6,10 +6,21 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jun 2019 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 01 Jul 2019 08:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React hooks useState and useReducer are equivalent in theoretical expressiveness</title>
+      <link>https://blog.axlight.com/posts/react-hooks-usestate-and-usereducer-are-equivalent-in-theoretical-expressiveness/</link>
+      <pubDate>Mon, 01 Jul 2019 08:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-hooks-usestate-and-usereducer-are-equivalent-in-theoretical-expressiveness/</guid>
+      <description>Introduction useReducer is a powerful hook. It&amp;rsquo;s known that useState is implemented with useReducer.
+In the React hooks docs, it&amp;rsquo;s noted like this:
+ useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.</description>
+    </item>
     
     <item>
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
