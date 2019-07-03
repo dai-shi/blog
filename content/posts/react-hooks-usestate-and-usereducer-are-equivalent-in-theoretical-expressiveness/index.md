@@ -27,7 +27,7 @@ JSX seems clean to me.
 ### Example
 
 If you create a custom hook, whether you useState or useReducer is
-just about internal implementation issue.
+just about an internal implementation issue.
 Let's look at an example. We implement a simple counter example
 with two hooks. For both cases, hooks return action callbacks,
 which is important to hide implementation details in this comparison.
@@ -85,12 +85,12 @@ const useCounter = () => {
 };
 ```
 
-Which do you feel comfortable?
+Which do you feel comfortable with?
 
 ### Bonus
 
 If useState is as powerful as useReducer, useReducer
-should be able to implemented with useState in userland.
+should be able to be implemented with useState in userland.
 
 ```javascript
 const useReducer = (reducer, initialArg, init) => {

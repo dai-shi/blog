@@ -199,7 +199,7 @@ JSX seems clean to me.</p>
 <h3 id="example">Example</h3>
 
 <p>If you create a custom hook, whether you useState or useReducer is
-just about internal implementation issue.
+just about an internal implementation issue.
 Let&rsquo;s look at an example. We implement a simple counter example
 with two hooks. For both cases, hooks return action callbacks,
 which is important to hide implementation details in this comparison.</p>
@@ -251,12 +251,12 @@ which is important to hide implementation details in this comparison.</p>
   <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
 };
 </code></pre></div>
-<p>Which do you feel comfortable?</p>
+<p>Which do you feel comfortable with?</p>
 
 <h3 id="bonus">Bonus</h3>
 
 <p>If useState is as powerful as useReducer, useReducer
-should be able to implemented with useState in userland.</p>
+should be able to be implemented with useState in userland.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialArg</span>, <span style="color:#a6e22e">init</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(
     <span style="color:#a6e22e">init</span> <span style="color:#f92672">?</span> () =&gt; <span style="color:#a6e22e">init</span>(<span style="color:#a6e22e">initialArg</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">initialArg</span>,
