@@ -6,15 +6,24 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jul 2019 08:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jul 2019 16:19:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>context</title>
+      <link>https://blog.axlight.com/tags/context/</link>
+      <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>hooks</title>
       <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Mon, 01 Jul 2019 08:00:00 +0900</pubDate>
+      <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
@@ -23,9 +32,18 @@
     <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Mon, 01 Jul 2019 08:00:00 +0900</pubDate>
+      <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redux</title>
+      <link>https://blog.axlight.com/tags/redux/</link>
+      <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     
@@ -44,24 +62,6 @@
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/benchmark/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>context</title>
-      <link>https://blog.axlight.com/tags/context/</link>
-      <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/context/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>redux</title>
-      <link>https://blog.axlight.com/tags/redux/</link>
-      <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     

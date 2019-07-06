@@ -6,10 +6,21 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 01 Jul 2019 08:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 06 Jul 2019 16:19:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Four different approaches to non-Redux global state libraries</title>
+      <link>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</link>
+      <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
+      <description>Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
+Technically, there are several implementations how to store state and notify changes. We don&amp;rsquo;t go in detail in this post, but just note two axes.
+ whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end.</description>
+    </item>
     
     <item>
       <title>React hooks useState and useReducer are equivalent in theoretical expressiveness</title>

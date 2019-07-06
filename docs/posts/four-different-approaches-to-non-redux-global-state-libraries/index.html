@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Four different approaches to non-Redux global state libraries" />
+<meta property="og:description" content="Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
+Technically, there are several implementations how to store state and notify changes. We don&rsquo;t go in detail in this post, but just note two axes.
+ whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/" />
+<meta property="article:published_time" content="2019-07-06T16:19:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-07-06T16:19:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/cover.jpg"/>
+<meta name="twitter:title" content="Four different approaches to non-Redux global state libraries"/>
+<meta name="twitter:description" content="Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
+Technically, there are several implementations how to store state and notify changes. We don&rsquo;t go in detail in this post, but just note two axes.
+ whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>Four different approaches to non-Redux global state libraries &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        6 July 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/cover.jpg" />
+      
+    
+		<h1>
+      Four different approaches to non-Redux global state libraries
+    </h1>
+    
+      <h5>From the consuming perspective</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-different-approaches-to-non-redux-global-state-libraries%2f&text=Four%20different%20approaches%20to%20non-Redux%20global%20state%20libraries by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-different-approaches-to-non-redux-global-state-libraries%2f&t=Four%20different%20approaches%20to%20non-Redux%20global%20state%20libraries">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-different-approaches-to-non-redux-global-state-libraries%2f&title=Four%20different%20approaches%20to%20non-Redux%20global%20state%20libraries">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ffour-different-approaches-to-non-redux-global-state-libraries%2f&title=Four%20different%20approaches%20to%20non-Redux%20global%20state%20libraries">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Since React hooks landed,
+there has been many libraries proposed for global state.
+Some of them are simple wrappers around context.
+Whereas, some of them are full featured state management systems.</p>
+
+<p>Technically, there are several implementations how to store
+state and notify changes.
+We don&rsquo;t go in detail in this post, but just note two axes.</p>
+
+<ol>
+<li>whether context based or external store</li>
+<li>whether subscriptions based or context propagation</li>
+</ol>
+
+<p>In this post, we focus on API design of hooks at the consumer end.
+In my observation,
+there are four approaches to the API design.
+Let&rsquo;s see each approach by example in pseudo code.
+As a simple example, we assume an app that has the followings.</p>
+
+<ul>
+<li>two global counters,</li>
+<li>two counter components, and</li>
+<li>an action to increment both counters.</li>
+</ul>
+
+<p>Note that it is implementation agnostic at the provider end.
+So, <code>&lt;Provider&gt;</code> doesn&rsquo;t necessarily imply React context.</p>
+
+<h3 id="approach-1-multiple-contexts">Approach 1: Multiple contexts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Counter1Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span><span style="color:#e6db74">{0}</span>&gt;
+    &lt;<span style="color:#f92672">Counter2Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span><span style="color:#e6db74">{0}</span>&gt;
+      &lt;<span style="color:#f92672">Counter1</span> /&gt;
+      &lt;<span style="color:#f92672">Counter2</span> /&gt;
+    &lt;/<span style="color:#f92672">Counter2Provider</span>&gt;
+  &lt;/<span style="color:#f92672">Counter1Provider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count1</span>, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
+  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count2</span>, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>This approach is probably the most idiomatic.
+One could easily implement this approach with React context and useContext.</p>
+
+<p>The libraries with this approach:
+<a href="https://github.com/diegohaz/constate">constate</a> and
+<a href="https://github.com/jamiebuilds/unstated-next">unstated-next</a></p>
+
+<h3 id="approach-2-select-by-property-names-or-paths">Approach 2: Select by property names (or paths)</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#a6e22e">count1</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">count2</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span> }}&gt;
+    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count1&#39;</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count2&#39;</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>This approach is to put more values in a single store.
+A single store allows to dispatch one action to change multiple values.
+You specify a property name to get a corresponding value.
+It&rsquo;s simple to specify by a name, but somewhat limited in a complex case.</p>
+
+<p>The libraries with this approach:
+<a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a> and
+<a href="https://github.com/storeon/storeon">shareon</a></p>
+
+<h3 id="approach-3-select-by-selector-functions">Approach 3: Select by selector functions</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#a6e22e">count1</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">count2</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span> }}&gt;
+    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>); <span style="color:#75715e">// changed
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>); <span style="color:#75715e">// changed
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>Only two lines are changed from the previous code.
+Selector functions are more flexible than property names.
+So flexible that it may be misused like doing expensive computations.
+Most importantly, performance optimization often requires
+to keep object referential equality.</p>
+
+<p>The libraries with this approach:
+<a href="https://github.com/react-spring/zustand">zustand</a> and
+<a href="https://github.com/atlassian/react-sweet-state">react-sweet-state</a></p>
+
+<h3 id="approach-4-state-usage-tracking">Approach 4: State usage tracking</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span> <span style="color:#a6e22e">count1</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">count2</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">0</span> }}&gt;
+    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{incrementBoth}</span>&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>Notice the <code>state</code> part is changed from the previous code.
+The <code>dispatch</code> part is not changed.
+This approach eliminates selector functions, and it&rsquo;s hardly misused.
+One big concern is performance optimization.
+It&rsquo;s out of the scope of this post, but according to some benchmarks,
+it&rsquo;s actually fairly good.
+Please checkout <a href="https://blog.axlight.com/posts/benchmark-react-tracked/">the other post</a> if you are interested.</p>
+
+<p>The libraries with this approach:
+<a href="https://github.com/dai-shi/react-tracked">react-tracked</a></p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>The example might be too artificial, but I hope it explains the differences.
+Personally, I would use any approaches
+depending on cases and their requirements.</p>
+
+<p>As a final note, the second purpose of this post is to let readers know
+the last approach, &ldquo;state usage tracking.&rdquo; I hope you get it.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

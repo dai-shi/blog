@@ -4,37 +4,54 @@
   
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2019-07-01T08:00:00+09:00</lastmod>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-07-01T08:00:00+09:00</lastmod>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/context/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2019-07-06T16:19:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/react-hooks-usestate-and-usereducer-are-equivalent-in-theoretical-expressiveness/</loc>
     <lastmod>2019-07-01T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2019-07-01T08:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-07-01T08:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2019-07-01T08:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -50,18 +67,6 @@
   
   <url>
     <loc>https://blog.axlight.com/tags/benchmark/</loc>
-    <lastmod>2019-06-16T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/context/</loc>
-    <lastmod>2019-06-16T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2019-06-16T23:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
