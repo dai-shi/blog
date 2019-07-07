@@ -40,7 +40,7 @@ The idea to use Proxy API for tracking is not new.
 Immer and MobX use Proxy to detect changes.
 The difference is the purpose.
 Immer uses Proxy to detect mutation or say "write operation."
-Whereas, state usage tracking is for "read operation." 
+Whereas, state usage tracking is for "read operation."
 
 My proposition is to combine React's reactive system with Proxy-based tracking. 
 Thanks to React hooks, it's extremely easy to use.
