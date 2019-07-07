@@ -2,7 +2,7 @@
 title: "New React Redux coding style with hooks without selectors"
 subtitle: "Use custom hooks instead of selectors"
 date: 2019-04-20T12:00:00+09:00
-tags: ["react", "hooks", "redux"]
+tags: ["react", "hooks", "redux", "proxy"]
 ---
 
 ### Introduction

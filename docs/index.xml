@@ -6,10 +6,22 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 06 Jul 2019 16:19:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 07 Jul 2019 17:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</title>
+      <link>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</link>
+      <pubDate>Sun, 07 Jul 2019 17:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</guid>
+      <description>Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.
+In general, I would avoid using global state. It would reduce the isolation of components. Multiple contexts should work fine for certain use cases.
+But, what if we really need a global state.
+Problem When a state is a non-trivial object, it&amp;rsquo;s not likely to use all properties of the object for one component to render.</description>
+    </item>
     
     <item>
       <title>Four different approaches to non-Redux global state libraries</title>

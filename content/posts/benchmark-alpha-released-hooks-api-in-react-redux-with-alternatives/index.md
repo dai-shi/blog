@@ -2,7 +2,7 @@
 title: "Benchmark the alpha-released hooks API in React Redux with alternatives"
 subtitle: "To compare with reactive-react-redux"
 date: 2019-05-02T12:00:00+09:00
-tags: ["react", "hooks", "redux", "benchmark"]
+tags: ["react", "hooks", "redux", "proxy", "benchmark"]
 ---
 
 ### Introduction

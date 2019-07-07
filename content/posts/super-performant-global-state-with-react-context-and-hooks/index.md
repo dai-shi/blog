@@ -2,7 +2,7 @@
 title: "Super performant global state with React context and hooks"
 subtitle: "Yet another Redux-like library"
 date: 2019-06-15T23:00:00+09:00
-tags: ["react", "context", "hooks", "global-state"]
+tags: ["react", "context", "hooks", "global-state", "proxy"]
 ---
 
 ### Introduction

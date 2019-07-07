@@ -2,7 +2,7 @@
 title: "Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux"
 subtitle: "The Todo List example from Redux"
 date: 2019-06-03T23:00:00+09:00
-tags: ["react", "hooks", "global-state", "redux", "typescript"]
+tags: ["react", "hooks", "global-state", "redux", "typescript", "proxy"]
 ---
 
 ### Introduction

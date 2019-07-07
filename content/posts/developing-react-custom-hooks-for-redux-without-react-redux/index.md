@@ -2,7 +2,7 @@
 title: "Developing React custom hooks for Redux without react-redux"
 subtitle: "An alternative library to react-redux or a feature proposal to react-redux"
 date: 2018-12-14T12:00:00+09:00
-tags: ["react", "hooks", "typescript", "global-state", "redux"]
+tags: ["react", "hooks", "typescript", "global-state", "redux", "proxy"]
 ---
 
 ### Background

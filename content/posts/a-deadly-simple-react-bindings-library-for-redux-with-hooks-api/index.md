@@ -2,7 +2,7 @@
 title: "A deadly simple React bindings library for Redux with Hooks API"
 subtitle: "Love Redux and Hooks API."
 date: 2018-11-16T12:00:00+09:00
-tags: ["react", "hooks", "typescript", "global-state", "redux"]
+tags: ["react", "hooks", "typescript", "global-state", "redux", "proxy"]
 ---
 
 > There is a follow-up article which describes the implementation details of this library. Please visit [here](https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/).
