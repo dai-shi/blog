@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="How to use react-tracked: React hooks-oriented Todo List example" />
+<meta property="og:description" content="Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
+We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
+https://github.com/dai-shi/react-tracked
+The example we show is the one from Redux: Todo List" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/" />
+<meta property="article:published_time" content="2019-07-08T01:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-07-08T01:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/cover.jpg"/>
+<meta name="twitter:title" content="How to use react-tracked: React hooks-oriented Todo List example"/>
+<meta name="twitter:description" content="Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
+We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
+https://github.com/dai-shi/react-tracked
+The example we show is the one from Redux: Todo List"/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>How to use react-tracked: React hooks-oriented Todo List example &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        8 July 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/cover.jpg" />
+      
+    
+		<h1>
+      How to use react-tracked: React hooks-oriented Todo List example
+    </h1>
+    
+      <h5>With immer</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-use-react-tracked-react-hooks-oriented-todo-list-example%2f&text=How%20to%20use%20react-tracked%3a%20React%20hooks-oriented%20Todo%20List%20example by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-use-react-tracked-react-hooks-oriented-todo-list-example%2f&t=How%20to%20use%20react-tracked%3a%20React%20hooks-oriented%20Todo%20List%20example">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-use-react-tracked-react-hooks-oriented-todo-list-example%2f&title=How%20to%20use%20react-tracked%3a%20React%20hooks-oriented%20Todo%20List%20example">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-use-react-tracked-react-hooks-oriented-todo-list-example%2f&title=How%20to%20use%20react-tracked%3a%20React%20hooks-oriented%20Todo%20List%20example">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>React hooks have changed the way to compose components.
+This post will show an example which is very hooks-oriented.</p>
+
+<p>We use two libraries: react-tracked and immer.
+While immer makes it easy to update state in an immutable way,
+react-tracked makes it easy to read state with tracking for optimization.
+Please check out the repo for more details.</p>
+
+<p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
+
+<p>The example we show is the one from Redux: <a href="https://redux.js.org/basics/example">Todo List</a></p>
+
+<h3 id="folder-structure">Folder structure</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- src/
+  - index.tsx
+  - state.ts
+  - hooks/
+    - useAddTodo.ts
+    - useToggleTodo.ts
+    - useVisibilityFilter.ts
+    - useVisibleTodos.ts
+  - components/
+    - AddTodo.tsx
+    - App.tsx
+    - FilterLink.tsx
+    - Footer.tsx
+    - Todo.tsx
+    - VisibleTodoList.tsx</code></pre></div>
+<p>We have two folders <code>components</code> and <code>hooks</code>.
+Components are basically views. Hooks include logic.</p>
+
+<h3 id="src-state-ts">src/state.ts</h3>
+
+<p>In this example, we don&rsquo;t use reducers.
+We define a state only and some types.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">VisibilityFilterType</span> <span style="color:#f92672">=</span>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_ALL&#39;</span>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_COMPLETED&#39;</span>
+  <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_ACTIVE&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">TodoType</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>;
+  <span style="color:#a6e22e">text</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">completed</span>: <span style="color:#66d9ef">boolean</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">todos</span>: <span style="color:#66d9ef">TodoType</span>[];
+  <span style="color:#a6e22e">visibilityFilter</span>: <span style="color:#66d9ef">VisibilityFilterType</span>;
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span>: <span style="color:#66d9ef">State</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">todos</span><span style="color:#f92672">:</span> [],
+  <span style="color:#a6e22e">visibilityFilter</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SHOW_ALL&#39;</span>,
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SetState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">useValue</span><span style="color:#f92672">&gt;</span>[<span style="color:#ae81ff">1</span>];</code></pre></div>
+<p>Notice the last line. It might be a bit tricky.
+<code>SetState</code> is a type for <code>setState</code>.</p>
+
+<h3 id="src-hooks-useaddtodo-ts">src/hooks/useAddTodo.ts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
+
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">nextTodoId</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAddTodo</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SetState</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">text</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">produce</span>(<span style="color:#a6e22e">s</span>, (<span style="color:#a6e22e">draft</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#a6e22e">draft</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">push</span>({
+        <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">nextTodoId</span><span style="color:#f92672">++</span>,
+        <span style="color:#a6e22e">text</span>,
+        <span style="color:#a6e22e">completed</span>: <span style="color:#66d9ef">false</span>,
+      });
+    }));
+  }, [<span style="color:#a6e22e">setState</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">addTodo</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useAddTodo</span>;</code></pre></div>
+<p>This is the hook responsible for adding an item.
+We use immer here, but it&rsquo;s not necessary.</p>
+
+<h3 id="src-hooks-usetoggletodo-ts">src/hooks/useToggleTodo.ts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">SetState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useToggleTodo</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">SetState</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">produce</span>(<span style="color:#a6e22e">s</span>, (<span style="color:#a6e22e">draft</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">found</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">draft</span>.<span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">find</span>(<span style="color:#a6e22e">todo</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">id</span>);
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">found</span>) {
+        <span style="color:#a6e22e">found</span>.<span style="color:#a6e22e">completed</span> <span style="color:#f92672">=</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">found</span>.<span style="color:#a6e22e">completed</span>;
+      }
+    }));
+  }, [<span style="color:#a6e22e">setState</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">toggleTodo</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useToggleTodo</span>;</code></pre></div>
+<p>Same idea of this hook to toggle an item.</p>
+
+<h3 id="src-hooks-usevisibilityfilter-ts">src/hooks/useVisibilityFilter.ts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useTracked</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">VisibilityFilterType</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">SetState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useVisibilityFilter</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">SetState</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setVisibilityFilter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">filter</span>: <span style="color:#66d9ef">VisibilityFilterType</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">s</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">produce</span>(<span style="color:#a6e22e">s</span>, (<span style="color:#a6e22e">draft</span>) <span style="color:#f92672">=&gt;</span> {
+      <span style="color:#a6e22e">draft</span>.<span style="color:#a6e22e">visibilityFilter</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span>;
+    }));
+  }, [<span style="color:#a6e22e">setState</span>]);
+  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">visibilityFilter</span>, <span style="color:#a6e22e">setVisibilityFilter</span>] <span style="color:#66d9ef">as</span> [
+    <span style="color:#a6e22e">VisibilityFilterType</span>,
+    <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">setVisibilityFilter</span>,
+  ];
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibilityFilter</span>;</code></pre></div>
+<p>This hook is for both returning the current <code>visibilityFilter</code>
+and a setter function. We use <code>useTracked</code> for this.
+It is a combined hook to combine <code>useTrackedState</code> and <code>useDispatch</code>.</p>
+
+<h3 id="src-hooks-usevisibletodos-ts">src/hooks/useVisibleTodos.ts</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useTrackedState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">VisibilityFilterType</span>, <span style="color:#a6e22e">State</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">getVisibleTodos</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">todos</span>: <span style="color:#66d9ef">TodoType</span>[], <span style="color:#a6e22e">filter</span>: <span style="color:#66d9ef">VisibilityFilterType</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">filter</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SHOW_ALL&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">todos</span>;
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SHOW_COMPLETED&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">completed</span>);
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SHOW_ACTIVE&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">todos</span>.<span style="color:#a6e22e">filter</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">=&gt;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">completed</span>);
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">`Unknown filter: </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">filter</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useVisibleTodos</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">getVisibleTodos</span>(<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">todos</span>, <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">visibilityFilter</span>);
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibleTodos</span>;</code></pre></div>
+<p>This hook handles filtering of Todo items.</p>
+
+<h3 id="src-components-addtodo-tsx">src/components/AddTodo.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useAddTodo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useAddTodo&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">AddTodo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">text</span>, <span style="color:#a6e22e">setText</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAddTodo</span>();
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">form</span>
+        <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(e)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; {
+          <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
+          <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">trim</span>()) {
+            <span style="color:#66d9ef">return</span>;
+          }
+          <span style="color:#a6e22e">addTodo</span>(<span style="color:#a6e22e">text</span>);
+          <span style="color:#a6e22e">setText</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+        }}
+      <span style="color:#f92672">&gt;</span>
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{text}</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{e</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setText</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)} <span style="color:#f92672">/&gt;</span>
+        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;<span style="color:#a6e22e">Add</span> <span style="color:#a6e22e">Todo</span>&lt;/<span style="color:#f92672">button</span>&gt;
+      &lt;/<span style="color:#f92672">form</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">AddTodo</span>;</code></pre></div>
+<p>There&rsquo;s nothing special to note except for <code>useAddTodo</code> being imported
+from the <code>hooks</code> folder.</p>
+
+<h3 id="src-components-todo-tsx">src/components/Todo.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Props</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">onClick</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">e</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">MouseEvent</span>) =&gt; <span style="color:#66d9ef">void</span>;
+  <span style="color:#a6e22e">completed</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">boolean</span>;
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>;
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Todo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span>&lt;<span style="color:#f92672">Props</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">onClick</span>, <span style="color:#a6e22e">completed</span>, <span style="color:#a6e22e">text</span> }) =&gt; (
+  &lt;<span style="color:#f92672">li</span>
+    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onClick}</span>
+    <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;presentation&#34;</span>
+    <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span>
+      <span style="color:#a6e22e">textDecoration</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">completed</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">line</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">through</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">none</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
+      <span style="color:#a6e22e">cursor</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">pointer</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
+    }}
+  &gt;
+    {<span style="color:#a6e22e">text</span>}
+  &lt;/<span style="color:#f92672">li</span>&gt;
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;</code></pre></div>
+<p>This is a componet with no hooks dependency.</p>
+
+<h3 id="src-components-visibletodolist-tsx">src/components/VisibleTodoList.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useVisibleTodos</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useVisibleTodos&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useToggleTodo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useToggleTodo&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Todo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Todo&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">VisibleTodoList</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visibleTodos</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useVisibleTodos</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">toggleTodo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useToggleTodo</span>();
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">ul</span>&gt;
+      {<span style="color:#a6e22e">visibleTodos</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">todo</span> =&gt; (
+        &lt;<span style="color:#f92672">Todo</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{todo.id}</span> {<span style="color:#a6e22e">...todo</span>} <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">toggleTodo</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} <span style="color:#f92672">/&gt;</span>
+      ))}
+    &lt;/<span style="color:#f92672">ul</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">VisibleTodoList</span>;</code></pre></div>
+<p>This is different from the original example. We moved the filtering logic to hooks.</p>
+
+<h3 id="src-components-filterlink-tsx">src/components/FilterLink.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useVisibilityFilter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useVisibilityFilter&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Props</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">filter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">VisibilityFilterType</span>;
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">FilterLink</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span>&lt;<span style="color:#f92672">Props</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">filter</span>, <span style="color:#a6e22e">children</span> }) =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">visibilityFilter</span>, <span style="color:#a6e22e">setVisibilityFilter</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useVisibilityFilter</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">active</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">filter</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">visibilityFilter</span>;
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">button</span>
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>
+      <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setVisibilityFilter</span>(<span style="color:#a6e22e">filter</span>)}
+      <span style="color:#a6e22e">disabled</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">active</span>}
+      <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{
+        <span style="color:#a6e22e">marginLeft</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;4px&#39;</span>,
+      }}
+    <span style="color:#f92672">&gt;</span>
+      {<span style="color:#a6e22e">children</span>}
+    &lt;/<span style="color:#f92672">button</span>&gt;
+  );
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FilterLink</span>;</code></pre></div>
+<p>This uses the <code>useVisibilityFilter</code> hook.
+Notice the hook returns a tuple, a value and a setter function.</p>
+
+<h3 id="src-components-footer-tsx">src/components/Footer.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./FilterLink&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Footer</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Show</span><span style="color:#f92672">:</span> &lt;/<span style="color:#f92672">span</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ALL&#34;</span>&gt;<span style="color:#a6e22e">All</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_ACTIVE&#34;</span>&gt;<span style="color:#a6e22e">Active</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+    &lt;<span style="color:#f92672">FilterLink</span> <span style="color:#a6e22e">filter</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;SHOW_COMPLETED&#34;</span>&gt;<span style="color:#a6e22e">Completed</span>&lt;/<span style="color:#f92672">FilterLink</span>&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Footer</span>;</code></pre></div>
+<p>Nothing special to note for this component.</p>
+
+<h3 id="src-components-app-tsx">src/components/App.tsx</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Footer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Footer&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">AddTodo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./AddTodo&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">VisibleTodoList</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./VisibleTodoList&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">AddTodo</span> /&gt;
+    &lt;<span style="color:#f92672">VisibleTodoList</span> /&gt;
+    &lt;<span style="color:#f92672">Footer</span> /&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>This is the component to compose other components all together.</p>
+
+<h3 id="src-index-tsx">src/index.tsx</h3>
+
+<p>Finally, we need the entry point.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useValue</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/App&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Index</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">useValue</span><span style="color:#f92672">=</span><span style="color:#e6db74">{useValue}</span>&gt;
+    &lt;<span style="color:#f92672">App</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+);
+
+<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">App</span>), document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));</code></pre></div>
+<p>Notice the <code>&lt;Provider&gt;</code> passes the <code>useValue</code> from state.ts.</p>
+
+<h3 id="online-demo">Online demo</h3>
+
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/07_todolist?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<p><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/07_todolist">Source code in the repo</a></p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>As I wrote this post, I noticed something.
+My original motivation is to show how to use react-tracked.
+However, this example is also good to show how setState and
+custom hooks can separate concerns without reducers.
+The other minor finding for me is that immer doesn&rsquo;t help much
+in custom hooks in this example.</p>
+
+<p>We didn&rsquo;t discuss much about performance optimization.
+There&rsquo;s some room for improvement.
+One of the easiest ones is to use <code>React.memo</code>.
+Optimization could be a separate topic for future posts.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

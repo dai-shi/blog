@@ -6,10 +6,22 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 07 Jul 2019 17:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 08 Jul 2019 01:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to use react-tracked: React hooks-oriented Todo List example</title>
+      <link>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</link>
+      <pubDate>Mon, 08 Jul 2019 01:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</guid>
+      <description>Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
+We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
+https://github.com/dai-shi/react-tracked
+The example we show is the one from Redux: Todo List</description>
+    </item>
     
     <item>
       <title>What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</title>
