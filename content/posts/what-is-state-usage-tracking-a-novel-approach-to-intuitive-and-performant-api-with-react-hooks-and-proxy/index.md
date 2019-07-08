@@ -74,7 +74,8 @@ because it comes at a cost. That is why benchmarking is important.
 The hook is simple and straightforward to use.
 If it's usable with comparable performance, it's good to go.
 
-[See this post for the benchmark result](https://blog.axlight.com/posts/benchmark-react-tracked/)
+The benchmark result shows [state usage tracking is as fast as selectors](https://blog.axlight.com/posts/benchmark-react-tracked/).
+Actually, it is faster in certain scenarios.
 
 ### Projects using state usage tracking
 
