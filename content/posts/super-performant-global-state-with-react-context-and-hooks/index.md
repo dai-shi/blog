@@ -55,7 +55,7 @@ but using context is safer for concurrent mode and probably
 fits better for React developer tools.
 
 The second problem is solved by tracking state usage in component
-rendering. This is done by Proxy. 
+rendering. This is done by Proxy.
 It's a bit magical, but basically it's only for performance
 optimization. It doesn't change the semantics at all.
 
