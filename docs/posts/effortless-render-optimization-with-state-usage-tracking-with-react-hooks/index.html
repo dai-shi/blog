@@ -175,7 +175,7 @@ text-align: center;
 	<article>
 		
 
-<h2 id="introduction">Introduction</h2>
+<h3 id="introduction">Introduction</h3>
 
 <p>React useContext is very handy to avoid prop drilling.
 It can be used to define global state or shared state
@@ -189,7 +189,7 @@ to re-render components.</p>
 <p>This post shows some example code about the problem
 and the solution with state usage tracking.</p>
 
-<h2 id="problem">Problem</h2>
+<h3 id="problem">Problem</h3>
 
 <p>Let&rsquo;s assume a person object as a state.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
@@ -224,7 +224,7 @@ even the render result is the same.</p>
 Typically, most smaller apps just work, but some bigger apps
 might have performance issues.</p>
 
-<h2 id="solution-state-usage-tracking">Solution: state usage tracking</h2>
+<h3 id="solution-state-usage-tracking">Solution: state usage tracking</h3>
 
 <p>Let&rsquo;s see how state usage tracking solves this.</p>
 
@@ -253,7 +253,7 @@ this component will not re-render as long as the first name is not updated.</p>
 
 <p>This is effortless render optimization.</p>
 
-<h2 id="advanced-example">Advanced Example</h2>
+<h3 id="advanced-example">Advanced Example</h3>
 
 <p>Some readers might think
 this can also be accomplished by <code>useSelector</code>-like hooks.</p>
@@ -293,18 +293,18 @@ and let&rsquo;s create a component with a condition.</p>
 <p>Reproducing the same behavior with <code>useSelector</code> would
 not be easy and probably end up with separating components.</p>
 
-<h2 id="projects-using-state-usage-tracking">Projects using state usage tracking</h2>
+<h3 id="projects-using-state-usage-tracking">Projects using state usage tracking</h3>
 
 <p>There are two projects using state usage tracking.</p>
 
-<h4 id="reactive-react-redux">reactive-react-redux</h4>
+<h5 id="reactive-react-redux">reactive-react-redux</h5>
 
 <p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
 
 <p>This is an alternative library to react-redux.
 It has the same hooks API and <code>useTrackedState</code> hook.</p>
 
-<h4 id="react-tracked">react-tracked</h4>
+<h5 id="react-tracked">react-tracked</h5>
 
 <p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
 

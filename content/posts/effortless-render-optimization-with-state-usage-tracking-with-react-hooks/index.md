@@ -5,7 +5,7 @@ date: 2019-07-21T13:00:00+09:00
 tags: ["react", "context", "hooks", "redux", "proxy", "global-state"]
 ---
 
-## Introduction
+### Introduction
 
 React useContext is very handy to avoid prop drilling.
 It can be used to define global state or shared state
@@ -19,7 +19,7 @@ to re-render components.
 This post shows some example code about the problem
 and the solution with state usage tracking.
 
-## Problem
+### Problem
 
 Let's assume a person object as a state.
 
@@ -65,7 +65,7 @@ Please note this is not really a problem, until it becomes a problem.
 Typically, most smaller apps just work, but some bigger apps
 might have performance issues.
 
-## Solution: state usage tracking
+### Solution: state usage tracking
 
 Let's see how state usage tracking solves this.
 
@@ -102,7 +102,7 @@ this component will not re-render as long as the first name is not updated.
 
 This is effortless render optimization.
 
-## Advanced Example
+### Advanced Example
 
 Some readers might think
 this can also be accomplished by `useSelector`-like hooks.
@@ -147,18 +147,18 @@ This component will re-render either in two scenarios.
 Reproducing the same behavior with `useSelector` would
 not be easy and probably end up with separating components.
 
-## Projects using state usage tracking
+### Projects using state usage tracking
 
 There are two projects using state usage tracking.
 
-#### reactive-react-redux
+##### reactive-react-redux
 
 https://github.com/dai-shi/reactive-react-redux
 
 This is an alternative library to react-redux.
 It has the same hooks API and `useTrackedState` hook.
 
-#### react-tracked
+##### react-tracked
 
 https://github.com/dai-shi/react-tracked
 
