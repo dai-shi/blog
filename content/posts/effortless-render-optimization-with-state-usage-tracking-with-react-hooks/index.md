@@ -112,7 +112,7 @@ Here's another example in which `useTracked` is much easier.
 ```javascript
 const initialState = {
   firstName: 'Harry',
-  lastName: 'Potter',
+  familyName: 'Potter',
   showFullName: false,
 };
 ```
