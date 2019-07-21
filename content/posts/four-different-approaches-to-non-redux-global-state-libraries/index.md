@@ -7,7 +7,7 @@ tags: ["react", "context", "hooks", "redux"]
 
 ### Introduction
 
-Since React hooks landed, 
+Since React hooks landed,
 there has been many libraries proposed for global state.
 Some of them are simple wrappers around context.
 Whereas, some of them are full featured state management systems.

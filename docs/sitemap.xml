@@ -4,49 +4,66 @@
   
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/context/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/proxy/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</loc>
     <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/context/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>
@@ -58,18 +75,6 @@
   <url>
     <loc>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</loc>
     <lastmod>2019-07-07T17:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/proxy/</loc>
-    <lastmod>2019-07-07T17:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
-    <lastmod>2019-07-07T17:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

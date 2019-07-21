@@ -6,10 +6,21 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 08 Jul 2019 01:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 21 Jul 2019 13:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Effortless render optimization with state usage tracking with React hooks</title>
+      <link>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</link>
+      <pubDate>Sun, 21 Jul 2019 13:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
+      <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.
+However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
+This post shows some example code about the problem and the solution with state usage tracking.</description>
+    </item>
     
     <item>
       <title>How to use react-tracked: React hooks-oriented Todo List example</title>
