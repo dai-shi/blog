@@ -6,10 +6,20 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 21 Jul 2019 13:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 27 Jul 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How I developed a Concurrent Mode friendly library for React Redux</title>
+      <link>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</link>
+      <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</guid>
+      <description>Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&amp;rsquo;s discuss why it&amp;rsquo;s important and what&amp;rsquo;s the technique behind it.
+React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change.</description>
+    </item>
     
     <item>
       <title>Effortless render optimization with state usage tracking with React hooks</title>

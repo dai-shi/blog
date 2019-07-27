@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="How I developed a Concurrent Mode friendly library for React Redux" />
+<meta property="og:description" content="Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&rsquo;s discuss why it&rsquo;s important and what&rsquo;s the technique behind it.
+React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/" />
+<meta property="article:published_time" content="2019-07-27T23:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-07-27T23:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/cover.jpg"/>
+<meta name="twitter:title" content="How I developed a Concurrent Mode friendly library for React Redux"/>
+<meta name="twitter:description" content="Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&rsquo;s discuss why it&rsquo;s important and what&rsquo;s the technique behind it.
+React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>How I developed a Concurrent Mode friendly library for React Redux &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        27 July 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/cover.jpg" />
+      
+    
+		<h1>
+      How I developed a Concurrent Mode friendly library for React Redux
+    </h1>
+    
+      <h5>Get ready for Concurrent Mode</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-i-developed-a-concurrent-mode-friendly-library-for-react-redux%2f&text=How%20I%20developed%20a%20Concurrent%20Mode%20friendly%20library%20for%20React%20Redux by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-i-developed-a-concurrent-mode-friendly-library-for-react-redux%2f&t=How%20I%20developed%20a%20Concurrent%20Mode%20friendly%20library%20for%20React%20Redux">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-i-developed-a-concurrent-mode-friendly-library-for-react-redux%2f&title=How%20I%20developed%20a%20Concurrent%20Mode%20friendly%20library%20for%20React%20Redux">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-i-developed-a-concurrent-mode-friendly-library-for-react-redux%2f&title=How%20I%20developed%20a%20Concurrent%20Mode%20friendly%20library%20for%20React%20Redux">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>I have been developing several React hooks libraries for months.
+In this post, I will explain why and how I developed
+a React Redux binding library with React hooks.
+The library is implemented to be concurrent mode friendly.
+Let&rsquo;s discuss why it&rsquo;s important and what&rsquo;s the technique behind it.</p>
+
+<p>React concurrent mode has not come yet,
+and all discussions are based on the current unstable behavior.
+Please note that when concurrent mode is released and
+best practice is researched, things may change.</p>
+
+<h3 id="what-is-concurrent-mode">What is Concurrent Mode</h3>
+
+<p>My understanding of concurrent mode is
+a React render mode that can prioritize some renders over others.
+In concurrent mode,
+React can pause render in the middle of component tree
+and throw away the partially rendered result.</p>
+
+<p>Let&rsquo;s take simple example code.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentA</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    <span style="color:#a6e22e">Hello</span>
+    &lt;<span style="color:#f92672">ChildA</span> /&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ChildA</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentB</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    <span style="color:#a6e22e">Hello</span>
+    {<span style="color:#a6e22e">renderChildB</span>()}
+  &lt;/<span style="color:#f92672">div</span>&gt;
+)
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">renderChildB</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
+);</code></pre></div>
+<p>Two components <code>ParentA</code> and <code>ParentB</code> would produce the same result.
+There&rsquo;s probably no difference in sync mode (= no concurrent mode).
+But, in concurrent mode, React can pause ChildA to render
+after ParentA rendered.
+That&rsquo;s not possible with <code>ParentB</code>,
+because it invokes <code>renderChildB</code> immediately.</p>
+
+<p>If React detects a higher priority task,
+it will pause render and throw it away.
+It will then do the task and restart the render again.
+(Or does it continue?)</p>
+
+<p>To pause render, a component has to be defined like <code>ParentA</code>.
+It&rsquo;s not a big problem, because developers are already used to it.
+But, there are other cases that developers have to care for concurrent mode.
+If a component doesn&rsquo;t expect the pause, it may behave incorrectly.
+I will describe a concrete problem with react-redux in the next section.
+Before going into that, let me note there are at least two levels in a solution.</p>
+
+<p>The first level is if there&rsquo;s a problem in concurrent mode,
+it falls back in sync mode.
+This is hypothetically done like <code>renderChildB</code> or
+we can do the fallback with <code>useLayoutEffect</code> which runs effects in sync.
+If the frequency of this fallback is very low,
+we would be able to get benefits of concurrent mode in most situations.
+But if the frequency is very high, we would expect the same behavior
+as in sync mode, even if we enable concurrent mode.</p>
+
+<p>The second level is to make it work
+fully in concurrent mode without sync mode fallback.
+This would allow us to get benefits all the time.</p>
+
+<h3 id="problem">Problem</h3>
+
+<p>Now let&rsquo;s discuss a problem in react-redux v7.1.0.
+The following is example code using <code>useSelector</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+    &lt;<span style="color:#f92672">Parent</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;
+  );
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    &lt;<span style="color:#f92672">Child</span> /&gt;
+    &lt;<span style="color:#f92672">Child</span> /&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>);
+  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+};</code></pre></div>
+<p>Even with this small example, there&rsquo;s a problem in concurrent mode.
+More precisely, it may or may not be a problem depending on
+the requirement of an app.</p>
+
+<p>The problem is that the first <code>Child</code> and the second <code>Child</code>
+may render different <code>count</code>.
+This could happen in the following steps.</p>
+
+<ol>
+<li>Initially, <code>state = { count: 1 }</code></li>
+<li><code>Parent</code> renders</li>
+<li>The first <code>Child</code> renders with count=1</li>
+<li>An interrupting task comes which updates <code>state = { count: 2 }</code></li>
+<li>The second <code>Child</code> renders with count=2</li>
+<li>State updates trigger <code>Child</code> components re-render</li>
+<li>Both <code>Child</code> components render with count=2</li>
+</ol>
+
+<p>So, there&rsquo;s a certain point where inconsistent <code>count</code>s appear.
+What could be worse is, in a certain case when
+components re-render just before step 6,
+<code>Child</code> components do not re-render with updated count at step 6.
+(I hope this could be solved by removing a line in the source code.)</p>
+
+<p>The reason why this happens is that
+<code>useSelector</code> invokes <code>store.getState()</code> in render.
+In Redux, state is immutable, but store can only have one latest version.
+Hence, the result <code>store.getState()</code> is not stable over time.</p>
+
+<p>The following screencast shows the inconsistency with 50 child components.</p>
+
+<p><img src="./screenshot1.gif" alt="screenshot1" title="Screenshot of react-redux example" /></p>
+
+<h3 id="solution-in-reactive-react-redux-4-1-0">Solution in reactive-react-redux 4.1.0</h3>
+
+<p>I have been developing a library called reactive-react-redux
+which is an alternative to react-redux. Only hooks API is supported.</p>
+
+<p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
+
+<p>This library solves the problem I described in the previous section.
+Let me note that react-redux originally tried to solve the problem in v6.
+I think it solved in a certain sense.
+However, there are no way to bail out rendering with useContext,
+and react-redux v6 wasn&rsquo;t able to support hooks API.
+react-redux v7 like v5 uses store context and
+subscriptions to support hooks API.</p>
+
+<p>The way react-redux v6 works is that it puts store state in a context,
+and it doesn&rsquo;t use <code>store.getState()</code> in child components.
+Context can have multiple versions (snapshots) of state and the problem solved.</p>
+
+<p>My library reactive-react-redux v4 solves the problem by
+adding subscription mechanism to state context.
+In other words, it&rsquo;s a mix of react-redux v6 and v7.
+My library uses <a href="https://github.com/dai-shi/reactive-react-redux/issues/29">an undocumented feature of calculateChangedBits</a>
+to mix state context and subscriptions,
+which allows optimizing render performance.</p>
+
+<p>There was a performance issue in react-redux v6,
+probably because it lets context propagates to all child components.
+reactive-react-redux v4 stops the propagation and
+its performance is very good.
+<a href="https://github.com/dai-shi/reactive-react-redux/issues/32#issuecomment-513507770">A benchmark result</a>
+shows that it performs equally to or slightly better than react-redux v7.</p>
+
+<h3 id="tool-to-test-libraries">Tool to test libraries</h3>
+
+<p>I wasn&rsquo;t very confident at first
+whether my library actually works in concurrent mode without the problem.
+So, I developed a testing tool.
+(The screencast of the previous section is by the tool.)</p>
+
+<p><a href="https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-mode">https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-mode</a></p>
+
+<p>This tool has a small app to display many counts and check the inconsistency.
+Here&rsquo;s the result with jest.</p>
+
+<pre><code>  react-redux
+    ✓ check1: updated properly (975ms)
+    ✕ check2: no tearing during update (18ms)
+    ✓ check3: ability to interrupt render (1ms)
+    ✕ check4: proper update after interrupt (5083ms)
+  reactive-react-redux
+    ✓ check1: updated properly (1448ms)
+    ✓ check2: no tearing during update (3ms)
+    ✓ check3: ability to interrupt render
+    ✓ check4: proper update after interrupt (751ms)
+</code></pre>
+
+<p>If a library passes all four checks, it&rsquo;s likely that
+it works in concurrent mode and get benefits from it.
+The check3 is to test if a task can interrupt render.
+If it falls back in sync mode, this check will fail.</p>
+
+<p>My original implementation in reactitve-react-redux v4.0.0
+had the issue and the check3 failed.
+That was because I used <code>useLayoutEffect</code> which runs effects in sync.
+reactive-react-redux v4.1.0 eliminates it and passes all the checks.</p>
+
+<p>As of writing, there are not much documentation
+about concurrent mode, and everything is based on observation.
+That means, anything could be wrong. Please be reminded.</p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>Concurrent mode is not yet released.
+So, in some sense, everything is hypothetical.
+However, I found it valuable to build a testing tool,
+because we then can discuss with the behavior even if it&rsquo;s unstable.
+The behavior can be changed later,
+but we can update the tool to follow the change.</p>
+
+<p>So, the primary goal of this post is to encourage
+people to try out the tool and give feedback.</p>
+
+<p>The secondary goal is to inform the technique I did
+in reactive-react-redux.
+There could still be more rooms for improvement and fix.
+So, feedback is welcome too.</p>
+
+<p>Lastly, I developed some other libraries with the same technique.</p>
+
+<p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
+
+<p>react-tracked provides the same hooks API as in reactive-react-redux without redux.</p>
+
+<p><a href="https://github.com/dai-shi/use-context-selector">https://github.com/dai-shi/use-context-selector</a></p>
+
+<p>use-context-selector provides <code>useContextSelector</code> hook in userland.</p>
+
+<hr />
+
+<p>Hope you enjoyed the post.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
