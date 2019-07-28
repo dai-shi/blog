@@ -134,7 +134,7 @@ components re-render just before step 6,
 The reason why this happens is that
 `useSelector` invokes `store.getState()` in render.
 In Redux, state is immutable, but store can only have one latest version.
-Hence, the result `store.getState()` is not stable over time.
+Hence, the result of `store.getState()` is not stable over time.
 
 The following screencast shows the inconsistency with 50 child components.
 
