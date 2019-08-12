@@ -9,7 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.axlight.com/" />
 
-<meta property="og:updated_time" content="2019-07-27T23:00:00&#43;09:00"/>
+<meta property="og:updated_time" content="2019-08-12T10:00:00&#43;09:00"/>
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
@@ -113,6 +113,42 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">Developing React custom hooks for abortable async functions with AbortController</a>
+			<br>
+			<small>
+				31 December 2018
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
+Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.
+		
+			... <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
+			
+				<a href="https://blog.axlight.com/tags/abortable"><span class="label label-success">abortable</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -438,43 +474,6 @@ Please also check out my previous posts [1] [2].
 Support for Redux middleware Originally, the library was extending useState for global state. Later, reducer is supported.
 		
 			... <a href="https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/">An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)</a>
-			<br>
-			<small>
-				4 November 2018
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Motivation Everyone is excited about the new React Hooks API. So am I. Having been thinking how to manage global state, the Hooks API seems promising. By the way, I like Redux a lot, but I don&rsquo;t like react-redux a.k.a connect very much. It is too complicated for beginners to use it properly. For example, reselect / memoization is a hard concept to explain. My recommendation is to structure a global state so that mapStateToProps only needs to select a part of the state without any logic.
-		
-			... <a href="https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/">Read More</a>
 		
 	</div>
 	<div class="panel-footer">

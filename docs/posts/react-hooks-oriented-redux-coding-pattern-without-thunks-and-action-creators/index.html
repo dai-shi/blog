@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="React hooks-oriented Redux coding pattern without thunks and action creators" />
+<meta property="og:description" content="Motivation I love Redux. But that doesn&rsquo;t mean I like all parts of Redux eco system. Some people dislike Redux because of its boilerplate code. That&rsquo;s sad. Boilerplate code is not from the Redux core, but from the eco system. Don&rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
+I think I have my own understanding of how to use Redux with React." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/" />
+<meta property="article:published_time" content="2019-08-12T10:00:00&#43;09:00"/>
+<meta property="article:modified_time" content="2019-08-12T10:00:00&#43;09:00"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/cover.jpg"/>
+<meta name="twitter:title" content="React hooks-oriented Redux coding pattern without thunks and action creators"/>
+<meta name="twitter:description" content="Motivation I love Redux. But that doesn&rsquo;t mean I like all parts of Redux eco system. Some people dislike Redux because of its boilerplate code. That&rsquo;s sad. Boilerplate code is not from the Redux core, but from the eco system. Don&rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
+I think I have my own understanding of how to use Redux with React."/>
+
+    <meta name="generator" content="Hugo 0.55.6" />
+    
+      <title>React hooks-oriented Redux coding pattern without thunks and action creators &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        12 August 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/cover.jpg" />
+      
+    
+		<h1>
+      React hooks-oriented Redux coding pattern without thunks and action creators
+    </h1>
+    
+      <h5>With TypeScript</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2freact-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators%2f&text=React%20hooks-oriented%20Redux%20coding%20pattern%20without%20thunks%20and%20action%20creators by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2freact-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators%2f&t=React%20hooks-oriented%20Redux%20coding%20pattern%20without%20thunks%20and%20action%20creators">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2freact-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators%2f&title=React%20hooks-oriented%20Redux%20coding%20pattern%20without%20thunks%20and%20action%20creators">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2freact-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators%2f&title=React%20hooks-oriented%20Redux%20coding%20pattern%20without%20thunks%20and%20action%20creators">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="motivation">Motivation</h3>
+
+<p>I love Redux. But that doesn&rsquo;t mean I like all parts of Redux eco system.
+Some people dislike Redux because of its boilerplate code. That&rsquo;s sad.
+Boilerplate code is not from the Redux core, but from the eco system.
+Don&rsquo;t get me wrong. Best practices are nice and I think
+the recent work of Redux Starter Kit is great. (Claps to Mark)</p>
+
+<p>I think I have my own understanding of how to use Redux with React.
+It may not be common and probably it will never be the mainstream.
+I understand Redux is useful and tuned for larger applications.
+What I have in mind is the usage for smaller apps and for beginners.</p>
+
+<p>For smaller apps and for beginners, there seems to be several hurdles.
+The first one for me was <code>mapStateToProps</code>.
+I developed
+<a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
+to solve it.
+It provides super simple <code>useTrackedState</code>.
+It was developed before the Redux hooks API is available.
+Now, <code>useSelector</code> from the new hooks API is so nice.
+It&rsquo;s much less ugly than <code>mapStateToProps</code>.
+Note that <code>useTrackedState</code> is still easier,
+because it doesn&rsquo;t require memoization for optimization.</p>
+
+<p>Another hurdle for me is async actions.
+I generally like the middleware system of Redux and the elegance
+of the implementation of redux-thunk.
+But, I find some difficulties with it. Basically, it&rsquo;s too flexible.
+It&rsquo;s like exposing the middleware system to userland, to some extent.
+Just like people misuse selectors having heavy computation,
+people misuse thunks, or overuse them.
+redux-observable and redux-saga seem to provide better abstraction
+but they are complex systems. They would fit with larger apps.</p>
+
+<p>So, in this post, I would like to show example code as an alternative pattern.
+It doesn&rsquo;t use middleware, but React custom hooks.
+Here&rsquo;re some points in this pattern.</p>
+
+<ul>
+<li>No async libraries (Run async tasks outside of Redux)</li>
+<li>No action creators (Define action types in TypeScript)</li>
+</ul>
+
+<p>Without a word, let&rsquo;s dive into the code.</p>
+
+<p>(By the way, yet another hurdle for me is <code>combineReducers</code>,
+but it&rsquo;s out of the scope of this post.)</p>
+
+<h3 id="example">Example</h3>
+
+<p>The example to use is <a href="https://redux.js.org/advanced/async-actions">Async Actions</a> in the official Redux Advanced Tutorial.</p>
+
+<h3 id="code">Code</h3>
+
+<h5 id="folder-structure">Folder structure</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- src/
+  - index.tsx
+  - store/
+    - actions.ts
+    - reducers.ts
+  - hooks/
+    - useSelectSubreddit.ts
+    - useInvalidateSubreddit.ts
+    - useFetchPostsIfNeeded.ts
+  - components/
+    - App.tsx
+    - Picker.tsx
+    - Posts.tsx</code></pre></div>
+<h5 id="src-index-tsx">./src/index.tsx</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./store/reducers&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/App&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">rootReducer</span>);
+
+<span style="color:#a6e22e">render</span>(
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+    &lt;<span style="color:#f92672">App</span> /&gt;
+  &lt;/<span style="color:#f92672">Provider</span>&gt;,
+  document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>),
+);</code></pre></div>
+<p>This is the entry point. Nothing special in this file.</p>
+
+<h5 id="src-store-actions-ts">src/store/actions.ts</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">boolean</span>;
+  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">boolean</span>;
+  <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">Post</span>[];
+  <span style="color:#a6e22e">lastUpdated?</span>: <span style="color:#66d9ef">number</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=</span> {
+  [<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">selectedSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>;
+  <span style="color:#a6e22e">postsBySubreddit</span>: <span style="color:#66d9ef">PostsBySubreddit</span>;
+};
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SelectSubredditAction</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>;
+  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+};
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">InvalidateSubredditAction</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>;
+  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+};
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">RequestPostsAction</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>;
+  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+};
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">ReceivePostsAction</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>;
+  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[];
+  <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">number</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">SelectSubredditAction</span>
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">InvalidateSubredditAction</span>
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">RequestPostsAction</span>
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">ReceivePostsAction</span>;</code></pre></div>
+<p>This defines <code>State</code> and <code>Action</code> types.
+No action constants and no action creators are defined.</p>
+
+<h5 id="src-store-reducers-ts">src/store/reducers.ts</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<span style="color:#66d9ef">import</span> {
+  <span style="color:#a6e22e">SubredditPosts</span>,
+  <span style="color:#a6e22e">SelectedSubreddit</span>,
+  <span style="color:#a6e22e">PostsBySubreddit</span>,
+  <span style="color:#a6e22e">State</span>,
+  <span style="color:#a6e22e">Action</span>,
+} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./actions&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> (
+  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;reactjs&#39;</span>,
+  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>;
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SubredditPosts</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
+  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+  <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
+}, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> {
+        ...<span style="color:#a6e22e">state</span>,
+        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">true</span>,
+      };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> {
+        ...<span style="color:#a6e22e">state</span>,
+        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
+        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+      };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> {
+        ...<span style="color:#a6e22e">state</span>,
+        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
+        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+        <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">action.posts</span>,
+        <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">action.receivedAt</span>,
+      };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> (
+  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">PostsBySubreddit</span> <span style="color:#f92672">=</span> {},
+  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+)<span style="color:#f92672">:</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> {
+        ...<span style="color:#a6e22e">state</span>,
+        [<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">posts</span>(<span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>], <span style="color:#a6e22e">action</span>),
+      };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>({
+  <span style="color:#a6e22e">postsBySubreddit</span>,
+  <span style="color:#a6e22e">selectedSubreddit</span>,
+});
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">rootReducer</span>;</code></pre></div>
+<p>This is a normal reducer file with type annotations.
+Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
+
+<h5 id="src-hooks-useselectsubreddit-ts">src/hooks/useSelectSubreddit.ts</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">dispatch</span>({
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>,
+      <span style="color:#a6e22e">subreddit</span>,
+    });
+  }, [<span style="color:#a6e22e">dispatch</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">selectSubreddit</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useSelectSubreddit</span>;</code></pre></div>
+<p>This is something instead of an action creator.
+It&rsquo;s a hook to return a callback function
+that creates and dispatches an action.
+Let&rsquo;s call it &ldquo;an action hook.&rdquo;
+This one is a sync action hook.</p>
+
+<h5 id="src-hooks-useinvalidatesubreddit-ts">src/hooks/useInvalidateSubreddit.ts</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">dispatch</span>({
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>,
+      <span style="color:#a6e22e">subreddit</span>,
+    });
+  }, [<span style="color:#a6e22e">dispatch</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">invalidateSubreddit</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;</code></pre></div>
+<p>This is another sync action hook.</p>
+
+<h5 id="src-hooks-usefetchpostsifneeded-ts">src/hooks/useFetchPostsIfNeeded.ts</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">Post</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">shouldFetchPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>, <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">subreddit</span>];
+  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+  }
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">isFetching</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">didInvalidate</span>;
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">extractPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span>: <span style="color:#66d9ef">unknown</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Post</span>[] <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span> <span style="color:#66d9ef">as</span> {
+      <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+        <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> {
+          <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+            <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+            <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+          };
+        }[];
+      };
+    }).<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">child</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">data</span>);
+    <span style="color:#75715e">// type check
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">every</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
+      <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>
+    ))) {
+      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>;
+    }
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStore</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">shouldFetchPosts</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>(), <span style="color:#a6e22e">subreddit</span>)) {
+      <span style="color:#66d9ef">return</span>;
+    }
+    <span style="color:#a6e22e">dispatch</span>({
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>,
+      <span style="color:#a6e22e">subreddit</span>,
+    });
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://www.reddit.com/r/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">subreddit</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.json`</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">extractPosts</span>(<span style="color:#a6e22e">json</span>);
+    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unexpected json format&#39;</span>);
+    <span style="color:#a6e22e">dispatch</span>({
+      <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>,
+      <span style="color:#a6e22e">subreddit</span>,
+      <span style="color:#a6e22e">posts</span>,
+      <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">Date.now</span>(),
+    });
+  }, [<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">store</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span>;
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>;</code></pre></div>
+<p>This one is an async action hook.
+This is the logic that would be written with thunk.
+There are a few important points in this file.</p>
+
+<ul>
+<li>Because this is not middleware, we don&rsquo;t have direct access to the state.
+It uses <code>useStore</code>, which is something we shouldn&rsquo;t misuse.
+This is the biggest caveat in this entire pattern.</li>
+<li><code>extractPosts</code> is a kind of type guard to test json from the network.</li>
+<li>We don&rsquo;t implement error handing as is <a href="https://redux.js.org/advanced/async-actions#note-on-error-handling">in the original tutorial</a>.</li>
+</ul>
+
+<h5 id="src-components-app-tsx">src/components/App.tsx</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span>, <span style="color:#a6e22e">useEffect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">SelectedSubreddit</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useSelectSubreddit&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useFetchPostsIfNeeded&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useInvalidateSubreddit&#39;</span>;
+
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Picker</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Picker&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Posts</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Posts&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span>: <span style="color:#66d9ef">React.FC</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">selectedSubreddit</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>);
+  <span style="color:#66d9ef">const</span> {
+    <span style="color:#a6e22e">isFetching</span>,
+    <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">posts</span>,
+    <span style="color:#a6e22e">lastUpdated</span>,
+  } <span style="color:#f92672">=</span> <span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">selectedSubreddit</span>] <span style="color:#f92672">||</span> {
+    <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
+    <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
+    <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">undefined</span>,
+  };
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>();
+  <span style="color:#a6e22e">useEffect</span>(() <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+  }, [<span style="color:#a6e22e">fetchPostsIfNeeded</span>, <span style="color:#a6e22e">selectedSubreddit</span>]);
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelectSubreddit</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">nextSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">selectSubreddit</span>(<span style="color:#a6e22e">nextSubreddit</span>);
+  }, [<span style="color:#a6e22e">selectSubreddit</span>]);
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleRefreshClick</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>: <span style="color:#66d9ef">React.MouseEvent</span>) <span style="color:#f92672">=&gt;</span> {
+    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
+    <span style="color:#a6e22e">invalidateSubreddit</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+  };
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>;
+  <span style="color:#66d9ef">return</span> (
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Picker</span>
+        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedSubreddit</span>}
+        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleChange</span>}
+        <span style="color:#a6e22e">options</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;reactjs&#39;</span>, <span style="color:#e6db74">&#39;frontend&#39;</span>]}
+      <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">p</span><span style="color:#f92672">&gt;</span>
+        {<span style="color:#a6e22e">lastUpdated</span> <span style="color:#f92672">&amp;&amp;</span> (
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span><span style="color:#f92672">&gt;</span>
+            <span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">updated</span> <span style="color:#a6e22e">at</span> {<span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">lastUpdated</span>).<span style="color:#a6e22e">toLocaleTimeString</span>()}.
+            {<span style="color:#e6db74">&#39; &#39;</span>}
+          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
+        )}
+        {<span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> (
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRefreshClick</span>}<span style="color:#f92672">&gt;</span>
+            <span style="color:#a6e22e">Refresh</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+        )}
+      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/p&gt;</span>
+      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Loading</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;}</span>
+      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Empty</span>.<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;}</span>
+      {<span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> (
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">opacity</span>: <span style="color:#66d9ef">isFetching</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">0.5</span> : <span style="color:#66d9ef">1</span> }}<span style="color:#f92672">&gt;</span>
+          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Posts</span> <span style="color:#a6e22e">posts</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">posts</span>} <span style="color:#960050;background-color:#1e0010">/&gt;</span>
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+      )}
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+  );
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
+<p>This is a root component or a container component.
+Unfortunately, the code looks like boilerplate.
+But, it should be mostly the same with a normal React app.
+I think the second caveat in this pattern is requiring
+the <code>useCallback</code> hook.</p>
+
+<h5 id="src-components-picker-tsx">src/components/Picker.tsx</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Picker</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
+  <span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>;
+  <span style="color:#a6e22e">onChange</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+  <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">string</span>[];
+}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">onChange</span>, <span style="color:#a6e22e">options</span> }) <span style="color:#f92672">=&gt;</span> (
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span><span style="color:#f92672">&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h1</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">value</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h1&gt;</span>
+    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">select</span>
+      <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
+      <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}
+    <span style="color:#f92672">&gt;</span>
+      {<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">option</span> <span style="color:#f92672">=&gt;</span> (
+        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>} <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>}<span style="color:#f92672">&gt;</span>
+          {<span style="color:#a6e22e">option</span>}
+        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
+      ))}
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/select&gt;</span>
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;</code></pre></div>
+<p>This is a stateless component.
+Nothing is changed except for type annotations.</p>
+
+<h5 id="src-components-posts-tsx">src/components/Posts.tsx</h5>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Posts</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
+  <span style="color:#a6e22e">posts</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+    <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+  }[];
+}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">posts</span> }) <span style="color:#f92672">=&gt;</span> (
+  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+    {<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
+      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span>}<span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+    ))}
+  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+);
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;</code></pre></div>
+<p>This is another stateless component.
+We could import <code>Post</code> from <code>actions.ts</code>.</p>
+
+<p>That&rsquo;s everything. We are all set.</p>
+
+<h3 id="demo">Demo</h3>
+
+<iframe src="https://codesandbox.io/embed/github/dai-shi/reactive-react-redux/tree/master/examples/12_async?fontsize=14" title="reactive-react-redux-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<p><a href="https://github.com/dai-shi/reactive-react-redux/tree/master/examples/12_async">Source code in the repo</a></p>
+
+<p>Notice this code is based on
+<a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
+instead of react-redux. reactive-react-redux has a compatible hooks API
+with react-redux, except for <code>useStore</code>.
+In this demo, <code>useStore</code> is implemented with another context.</p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>This coding pattern may not be new, and I&rsquo;m sure somebody else
+has already tried it out.
+However, it makes more sense with React hooks and TypeScript.
+It can eliminate some boilerplate code.
+This example uses <code>isFetching</code> flag to show a loading status,
+but that will change with React Suspense.
+This pattern should ease the transition to React Suspense.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

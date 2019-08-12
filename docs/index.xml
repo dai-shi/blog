@@ -6,10 +6,20 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 27 Jul 2019 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 12 Aug 2019 10:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>React hooks-oriented Redux coding pattern without thunks and action creators</title>
+      <link>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</link>
+      <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</guid>
+      <description>Motivation I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux eco system. Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad. Boilerplate code is not from the Redux core, but from the eco system. Don&amp;rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
+I think I have my own understanding of how to use Redux with React.</description>
+    </item>
     
     <item>
       <title>How I developed a Concurrent Mode friendly library for React Redux</title>

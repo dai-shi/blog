@@ -4,7 +4,54 @@
   
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/async/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -14,49 +61,13 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/concurrent/</loc>
     <lastmod>2019-07-27T23:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/proxy/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2019-07-27T23:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -152,12 +163,6 @@
   
   <url>
     <loc>https://blog.axlight.com/tags/abortable/</loc>
-    <lastmod>2019-04-03T12:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/async/</loc>
     <lastmod>2019-04-03T12:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
