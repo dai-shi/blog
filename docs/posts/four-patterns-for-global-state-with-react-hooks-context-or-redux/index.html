@@ -9,8 +9,8 @@
 Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/" />
-<meta property="article:published_time" content="2019-05-27T00:50:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-05-27T00:50:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-05-27T00:50:00+09:00" />
+<meta property="article:modified_time" content="2019-05-27T00:50:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/cover.jpg"/>
@@ -18,7 +18,7 @@ Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most b
 <meta name="twitter:description" content="Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
 Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>Four patterns for global state with React hooks: Context or Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -192,8 +192,8 @@ meaning one intermediate component.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
   <span style="color:#66d9ef">return</span> (
     <span style="color:#f92672">&lt;&gt;</span>
-      &lt;<span style="color:#f92672">Child1</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
-      &lt;<span style="color:#f92672">Child2</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
+      &lt;<span style="color:#f92672">Child1</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
+      &lt;<span style="color:#f92672">Child2</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
     <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/&gt;</span>
   );
 };
@@ -204,7 +204,7 @@ meaning one intermediate component.</p>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child2</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
   <span style="color:#f92672">&lt;&gt;</span>
-    &lt;<span style="color:#f92672">GrandChild</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{stateA}</span> <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span><span style="color:#e6db74">{dispatchA}</span> /&gt;
+    &lt;<span style="color:#f92672">GrandChild</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/&gt;</span>
 );
 
@@ -224,7 +224,7 @@ but combining local state and passing by context does the job.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueA}</span>&gt;
+    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
       &lt;<span style="color:#f92672">Child1</span> /&gt;
     <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextA.Provider&gt;</span>
   );
@@ -266,9 +266,9 @@ in your app, defining them at the root is a good reason.</p>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>], [<span style="color:#a6e22e">stateB</span>]);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>], [<span style="color:#a6e22e">stateC</span>]);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueA}</span>&gt;
-      &lt;<span style="color:#f92672">ContextB</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueB}</span>&gt;
-        &lt;<span style="color:#f92672">ContextC</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{valueC}</span>&gt;
+    &lt;<span style="color:#f92672">ContextA</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
+      &lt;<span style="color:#f92672">ContextB</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueB</span>}&gt;
+        &lt;<span style="color:#f92672">ContextC</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueC</span>}&gt;
           ...
         <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextC.Provider&gt;</span>
       <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ContextB.Provider&gt;</span>
@@ -365,7 +365,7 @@ and the library tracks the state usage with Proxy for optimization.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
     ...
   &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
 );

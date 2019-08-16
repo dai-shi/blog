@@ -76,7 +76,7 @@ The example to use is [Async Actions](https://redux.js.org/advanced/async-action
     - Posts.tsx
 ```
 
-##### ./src/index.tsx
+##### src/index.tsx
 
 ```jsx
 import * as React from 'react';

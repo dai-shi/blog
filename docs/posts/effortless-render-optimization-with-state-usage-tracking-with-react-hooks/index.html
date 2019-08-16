@@ -10,8 +10,8 @@ However, useContext is not specifically designed for global state and there&rsqu
 This post shows some example code about the problem and the solution with state usage tracking." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/" />
-<meta property="article:published_time" content="2019-07-21T13:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-07-21T13:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-07-21T13:00:00+09:00" />
+<meta property="article:modified_time" content="2019-07-21T13:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/cover.jpg"/>
@@ -20,7 +20,7 @@ This post shows some example code about the problem and the solution with state 
 However, useContext is not specifically designed for global state and there&rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
 This post shows some example code about the problem and the solution with state usage tracking."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>Effortless render optimization with state usage tracking with React hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -203,7 +203,7 @@ and the solution with state usage tracking.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">children</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">PersonContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{[person,</span> <span style="color:#a6e22e">setPerson</span><span style="color:#960050;background-color:#1e0010">]</span>}&gt;
+    &lt;<span style="color:#f92672">PersonContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{[<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>]}&gt;
       {<span style="color:#a6e22e">children</span>}
     <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/PersonContext.Provider&gt;</span>
   );

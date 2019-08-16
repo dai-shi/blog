@@ -9,8 +9,8 @@
 React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/" />
-<meta property="article:published_time" content="2019-07-27T23:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-07-27T23:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-07-27T23:00:00+09:00" />
+<meta property="article:modified_time" content="2019-07-27T23:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/cover.jpg"/>
@@ -18,7 +18,7 @@ React concurrent mode has not come yet, and all discussions are based on the cur
 <meta name="twitter:description" content="Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&rsquo;s discuss why it&rsquo;s important and what&rsquo;s the technique behind it.
 React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>How I developed a Concurrent Mode friendly library for React Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -253,7 +253,7 @@ This would allow us to get benefits all the time.</p>
 <p>Now let&rsquo;s discuss a problem in react-redux v7.1.0.
 The following is example code using <code>useSelector</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span><span style="color:#e6db74">{store}</span>&gt;
+  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
     &lt;<span style="color:#f92672">Parent</span> /&gt;
   &lt;/<span style="color:#f92672">Provider</span>&gt;
   );

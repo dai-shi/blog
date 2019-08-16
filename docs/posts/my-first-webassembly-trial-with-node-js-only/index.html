@@ -10,8 +10,8 @@ https://webassembly.org/
 This short article describes my first trial on wasm. What I want to try is just to run example code, but I&rsquo;d start with writing the example code in wasm(wat)." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/" />
-<meta property="article:published_time" content="2019-01-22T12:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-01-22T12:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-01-22T12:00:00+09:00" />
+<meta property="article:modified_time" content="2019-01-22T12:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/cover.png"/>
@@ -20,7 +20,7 @@ This short article describes my first trial on wasm. What I want to try is just 
 https://webassembly.org/
 This short article describes my first trial on wasm. What I want to try is just to run example code, but I&rsquo;d start with writing the example code in wasm(wat)."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>My first WebAssembly trial with Node.js only &middot; Daishi Kato&#39;s blog</title>
     
@@ -188,14 +188,14 @@ text-align: center;
 <p><strong>Wasm</strong> is a binary format, but there&rsquo;s a textual representation of it called <strong>wat</strong>. It&rsquo;s written in S-exp. Here&rsquo;s my first example.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-lisp" data-lang="lisp">(module
   (func $fib (param $i i32) (result i32)
-    (if (result i32)
+    (<span style="color:#66d9ef">if</span> (result i32)
       (i32.le_s (get_local $i) (i32.const <span style="color:#ae81ff">1</span>))
       (then (get_local $i))
       (else
         (i32.add
           (call $fib (i32.sub (get_local $i) (i32.const <span style="color:#ae81ff">1</span>)))
           (call $fib (i32.sub (get_local $i) (i32.const <span style="color:#ae81ff">2</span>)))))))
-  (export <span style="color:#e6db74">&#34;fib&#34;</span> (func $fib)))</code></pre></div>
+  (<span style="color:#a6e22e">export</span> <span style="color:#e6db74">&#34;fib&#34;</span> (func $fib)))</code></pre></div>
 <p>Can you guess what this code is? The almost-equivalent code in JavaScript is the following.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fib</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">i</span>) =&gt; {
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span>) {

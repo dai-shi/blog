@@ -10,8 +10,8 @@ https://reactjs.org/docs/hooks-intro.html
 Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/" />
-<meta property="article:published_time" content="2018-11-29T12:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2018-11-29T12:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2018-11-29T12:00:00+09:00" />
+<meta property="article:modified_time" content="2018-11-29T12:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/cover.png"/>
@@ -20,7 +20,7 @@ Besides stateful function components, this new feature allow us to build a custo
 https://reactjs.org/docs/hooks-intro.html
 Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching &middot; Daishi Kato&#39;s blog</title>
     
@@ -190,10 +190,10 @@ text-align: center;
 <p>Given the readers already learned the basis of React Hooks, we&rsquo;d start with the goal example how a custom hook we develop would be used.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyComponent</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#e6db74">&#39;http://...&#39;</span>);
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span><span style="color:#e6db74">{error}</span> /&gt;;
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">error</span>} /&gt;;
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">loading</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Loading</span> /&gt;;
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">DataView</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">{data}</span> /&gt;
+    &lt;<span style="color:#f92672">DataView</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} /&gt;
   );
 };</code></pre></div>
 <p>Here, <code>useFetch</code> is the custom hook. Isn&rsquo;t it intuitive? <code>MyComponent</code> is a &ldquo;stateful&rdquo; function component whereas <code>DataView</code> is can be a stateless function component which should be more reusable.</p>
@@ -306,7 +306,7 @@ text-align: center;
     <span style="color:#a6e22e">readBody</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">body</span> =&gt; <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">text</span>(),
   }), []);
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#e6db74">&#39;http://...&#39;</span>, <span style="color:#a6e22e">opts</span>);
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span><span style="color:#e6db74">{error}</span> /&gt;;
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">error</span>} /&gt;;
   <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">loading</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Loading</span> /&gt;;
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Result</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">data</span>}&lt;/<span style="color:#f92672">span</span>&gt;

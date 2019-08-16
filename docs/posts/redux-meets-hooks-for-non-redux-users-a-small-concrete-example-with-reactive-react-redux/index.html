@@ -8,15 +8,15 @@
 <meta property="og:description" content="Introduction If you had already used Redux and loved it, you might not understand why people try using React context and hooks to replace Redux (a.k.a no Redux hype). For those who would think Redux DevTools Extension and middleware are nice to have, Redux and context &#43; hooks are actually two options. Context &#43; hooks is just fine to share state among components, however if apps get bigger, they are likely to require Redux or other similar solutions; otherwise they end up having many contexts that can&rsquo;t be handled very easily." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/" />
-<meta property="article:published_time" content="2019-06-03T23:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-06-03T23:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-06-03T23:00:00+09:00" />
+<meta property="article:modified_time" content="2019-06-03T23:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/cover.jpg"/>
 <meta name="twitter:title" content="Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux"/>
 <meta name="twitter:description" content="Introduction If you had already used Redux and loved it, you might not understand why people try using React context and hooks to replace Redux (a.k.a no Redux hype). For those who would think Redux DevTools Extension and middleware are nice to have, Redux and context &#43; hooks are actually two options. Context &#43; hooks is just fine to share state among components, however if apps get bigger, they are likely to require Redux or other similar solutions; otherwise they end up having many contexts that can&rsquo;t be handled very easily."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -371,11 +371,11 @@ but for this example, components are just flat.</p>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Todo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">FC</span>&lt;<span style="color:#f92672">Props</span>&gt; <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">onClick</span>, <span style="color:#a6e22e">completed</span>, <span style="color:#a6e22e">text</span> }) =&gt; (
   &lt;<span style="color:#f92672">li</span>
-    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onClick}</span>
+    <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onClick</span>}
     <span style="color:#a6e22e">role</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;presentation&#34;</span>
-    <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span><span style="color:#e6db74">{{</span>
-      <span style="color:#a6e22e">textDecoration</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#a6e22e">completed</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">line</span><span style="color:#960050;background-color:#1e0010">-</span><span style="color:#a6e22e">through</span><span style="color:#960050;background-color:#1e0010">&#39;</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">none</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
-      <span style="color:#a6e22e">cursor</span><span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">pointer</span><span style="color:#960050;background-color:#1e0010">&#39;,</span>
+    <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{
+      <span style="color:#a6e22e">textDecoration</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">completed</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#39;line-through&#39;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;none&#39;</span>,
+      <span style="color:#a6e22e">cursor</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;pointer&#39;</span>,
     }}
   &gt;
     {<span style="color:#a6e22e">text</span>}
@@ -414,7 +414,7 @@ but for this example, components are just flat.</p>
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">ul</span>&gt;
       {<span style="color:#a6e22e">visibleTodos</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">todo</span> =&gt; (
-        &lt;<span style="color:#f92672">Todo</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{todo.id}</span> {<span style="color:#a6e22e">...todo</span>} <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">toggleTodo</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} <span style="color:#f92672">/&gt;</span>
+        &lt;<span style="color:#f92672">Todo</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>} {<span style="color:#a6e22e">...todo</span>} <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">toggleTodo</span>(<span style="color:#a6e22e">todo</span>.<span style="color:#a6e22e">id</span>)} /&gt;
       ))}
     &lt;/<span style="color:#f92672">ul</span>&gt;
   );
@@ -442,12 +442,12 @@ it simply uses its property to evaluate <code>active</code>.</p>
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">button</span>
       <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>
-      <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{()</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setVisibilityFilter</span>(<span style="color:#a6e22e">filter</span>)}
+      <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">setVisibilityFilter</span>(<span style="color:#a6e22e">filter</span>)}
       <span style="color:#a6e22e">disabled</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">active</span>}
       <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{
         <span style="color:#a6e22e">marginLeft</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;4px&#39;</span>,
       }}
-    <span style="color:#f92672">&gt;</span>
+    &gt;
       {<span style="color:#a6e22e">children</span>}
     &lt;/<span style="color:#f92672">button</span>&gt;
   );
@@ -487,7 +487,7 @@ to use controlled form with <code>useState</code>.</p>
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;
       &lt;<span style="color:#f92672">form</span>
-        <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">{(e)</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; {
+        <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">e</span>) =&gt; {
           <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
           <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">text</span>.<span style="color:#a6e22e">trim</span>()) {
             <span style="color:#66d9ef">return</span>;
@@ -495,8 +495,8 @@ to use controlled form with <code>useState</code>.</p>
           <span style="color:#a6e22e">addTodo</span>(<span style="color:#a6e22e">text</span>);
           <span style="color:#a6e22e">setText</span>(<span style="color:#e6db74">&#39;&#39;</span>);
         }}
-      <span style="color:#f92672">&gt;</span>
-        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{text}</span> <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span><span style="color:#e6db74">{e</span> <span style="color:#960050;background-color:#1e0010">=</span>&gt; <span style="color:#a6e22e">setText</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)} <span style="color:#f92672">/&gt;</span>
+      &gt;
+        &lt;<span style="color:#f92672">input</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">text</span>} <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> =&gt; <span style="color:#a6e22e">setText</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)} /&gt;
         &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;submit&#34;</span>&gt;<span style="color:#a6e22e">Add</span> <span style="color:#a6e22e">Todo</span>&lt;/<span style="color:#f92672">button</span>&gt;
       &lt;/<span style="color:#f92672">form</span>&gt;
     &lt;/<span style="color:#f92672">div</span>&gt;

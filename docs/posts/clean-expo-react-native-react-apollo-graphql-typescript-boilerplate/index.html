@@ -8,15 +8,15 @@
 <meta property="og:description" content="Motivation Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/" />
-<meta property="article:published_time" content="2018-10-20T12:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2018-10-20T12:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2018-10-20T12:00:00+09:00" />
+<meta property="article:modified_time" content="2018-10-20T12:00:00+09:00" />
 
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/cover.png"/>
 <meta name="twitter:title" content="Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate"/>
 <meta name="twitter:description" content="Motivation Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate &middot; Daishi Kato&#39;s blog</title>
     
@@ -199,13 +199,13 @@ text-align: center;
 
 <p>Please checkout the code in the repository, but here&rsquo;s a piece of the code just for a reference.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewPost</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span><span style="color:#e6db74">{ADD_POST}</span> <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span><span style="color:#e6db74">{[&#39;queryPosts&#39;]}</span>&gt;
+  &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ADD_POST</span>} <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;queryPosts&#39;</span>]}&gt;
     {(<span style="color:#a6e22e">addPost</span>) =&gt; {
       <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; {
         <span style="color:#a6e22e">addPost</span>({ <span style="color:#a6e22e">variables</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span> } });
       };
       <span style="color:#66d9ef">return</span> (
-        &lt;<span style="color:#f92672">MyTextInput</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span><span style="color:#e6db74">{add}</span> /&gt;
+        &lt;<span style="color:#f92672">MyTextInput</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">add</span>} /&gt;
       );
     }}
   &lt;/<span style="color:#f92672">Mutation</span>&gt;

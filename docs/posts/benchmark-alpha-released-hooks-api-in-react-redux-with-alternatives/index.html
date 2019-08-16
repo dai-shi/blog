@@ -12,8 +12,8 @@ https://github.com/dai-shi/reactive-react-redux
 It&rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/" />
-<meta property="article:published_time" content="2019-05-02T12:00:00&#43;09:00"/>
-<meta property="article:modified_time" content="2019-05-02T12:00:00&#43;09:00"/>
+<meta property="article:published_time" content="2019-05-02T12:00:00+09:00" />
+<meta property="article:modified_time" content="2019-05-02T12:00:00+09:00" />
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Benchmark the alpha-released hooks API in React Redux with alternatives"/>
@@ -23,7 +23,7 @@ On the other hand, I&rsquo;ve been developing a new React Redux binding library 
 https://github.com/dai-shi/reactive-react-redux
 It&rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example."/>
 
-    <meta name="generator" content="Hugo 0.55.6" />
+    <meta name="generator" content="Hugo 0.56.3" />
     
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives &middot; Daishi Kato&#39;s blog</title>
     
@@ -219,22 +219,22 @@ text-align: center;
     <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">id</span>));
   }, [<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">id</span>]);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">tr</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">{selected</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">danger</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#34;&#34;</span>}&gt;
+    &lt;<span style="color:#f92672">tr</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selected</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;danger&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>}&gt;
       &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;{<span style="color:#a6e22e">id</span>}&lt;/<span style="color:#f92672">td</span>&gt;
-      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-4&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onSelect}</span>&gt;{<span style="color:#a6e22e">label</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
-      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onRemove}</span>&gt;{<span style="color:#a6e22e">GlyphIcon</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
+      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-4&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onSelect</span>}&gt;{<span style="color:#a6e22e">label</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
+      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onRemove</span>}&gt;{<span style="color:#a6e22e">GlyphIcon</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
       &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-6&#34;</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
     &lt;/<span style="color:#f92672">tr</span>&gt;
   );
 });
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">InnerRowList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">data</span> }) =&gt; {
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">i</span>) =&gt; &lt;<span style="color:#f92672">Row</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{item.id}</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span><span style="color:#e6db74">{i}</span> /&gt;);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">i</span>) =&gt; &lt;<span style="color:#f92672">Row</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span>} <span style="color:#a6e22e">i</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">i</span>} /&gt;);
 });
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RowList</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>);
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">{data}</span> /&gt;;
+  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} /&gt;;
 };</code></pre></div>
 <p>You may find that it uses <code>React.memo</code> several times, which is to optimize without <code>connect.</code></p>
 
@@ -249,24 +249,24 @@ text-align: center;
     <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">remove</span>(<span style="color:#a6e22e">id</span>));
   }, [<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">id</span>]);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">tr</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">{selected</span> <span style="color:#960050;background-color:#1e0010">?</span> <span style="color:#960050;background-color:#1e0010">&#34;</span><span style="color:#a6e22e">danger</span><span style="color:#960050;background-color:#1e0010">&#34;</span> <span style="color:#960050;background-color:#1e0010">:</span> <span style="color:#960050;background-color:#1e0010">&#34;&#34;</span>}&gt;
+    &lt;<span style="color:#f92672">tr</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selected</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;danger&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;&#34;</span>}&gt;
       &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;{<span style="color:#a6e22e">id</span>}&lt;/<span style="color:#f92672">td</span>&gt;
-      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-4&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onSelect}</span>&gt;{<span style="color:#a6e22e">label</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
-      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span><span style="color:#e6db74">{onRemove}</span>&gt;{<span style="color:#a6e22e">GlyphIcon</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
+      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-4&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onSelect</span>}&gt;{<span style="color:#a6e22e">label</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
+      &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-1&#34;</span>&gt;&lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onRemove</span>}&gt;{<span style="color:#a6e22e">GlyphIcon</span>}&lt;/<span style="color:#f92672">a</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
       &lt;<span style="color:#f92672">td</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;col-md-6&#34;</span>&gt;&lt;/<span style="color:#f92672">td</span>&gt;
     &lt;/<span style="color:#f92672">tr</span>&gt;
   );
 });
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">InnerRowList</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">selectedId</span> }) =&gt; {
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">i</span>) =&gt; &lt;<span style="color:#f92672">Row</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span><span style="color:#e6db74">{item.id}</span> <span style="color:#a6e22e">item</span><span style="color:#f92672">=</span><span style="color:#e6db74">{item}</span> <span style="color:#a6e22e">selected</span><span style="color:#f92672">=</span><span style="color:#e6db74">{selectedId</span> <span style="color:#960050;background-color:#1e0010">===</span> <span style="color:#a6e22e">item.id</span>} /&gt;);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">i</span>) =&gt; &lt;<span style="color:#f92672">Row</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span>} <span style="color:#a6e22e">item</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">item</span>} <span style="color:#a6e22e">selected</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedId</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">id</span>} /&gt;);
 });
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RowList</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">selected</span>;
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span><span style="color:#e6db74">{data}</span> <span style="color:#a6e22e">selectedId</span><span style="color:#f92672">=</span><span style="color:#e6db74">{selectedId}</span> /&gt;;
+  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} <span style="color:#a6e22e">selectedId</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedId</span>} /&gt;;
 };</code></pre></div>
 <p>Due to the nature that <code>useReduxState</code> in reactive-react-redux doesn&rsquo;t take a selector, the code structure is slightly different. It passes an <code>item</code> object and a <code>selected</code> flag, instead of an <code>i</code> index, to the <code>Row</code> component. This code style is similar to that of <code>react-hooks</code> benchmark code.</p>
 
