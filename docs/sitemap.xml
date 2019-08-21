@@ -3,14 +3,49 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/context/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -20,31 +55,7 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/async/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
     <lastmod>2019-08-12T10:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -75,12 +86,6 @@
   <url>
     <loc>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</loc>
     <lastmod>2019-07-21T13:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/context/</loc>
-    <lastmod>2019-07-21T13:00:00+09:00</lastmod>
-    <priority>0</priority>
   </url>
   
   <url>

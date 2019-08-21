@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="4 options to prevent extra rerenders with React context" />
+<meta property="og:description" content="Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/" />
+<meta property="article:published_time" content="2019-08-21T21:00:00+09:00" />
+<meta property="article:modified_time" content="2019-08-21T21:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/cover.jpg"/>
+<meta name="twitter:title" content="4 options to prevent extra rerenders with React context"/>
+<meta name="twitter:description" content="Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable."/>
+
+    <meta name="generator" content="Hugo 0.56.3" />
+    
+      <title>4 options to prevent extra rerenders with React context &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        21 August 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/cover.jpg" />
+      
+    
+		<h1>
+      4 options to prevent extra rerenders with React context
+    </h1>
+    
+      <h5>How do you like react-tracked</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2f4-options-to-prevent-extra-rerenders-with-react-context%2f&text=4%20options%20to%20prevent%20extra%20rerenders%20with%20React%20context by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2f4-options-to-prevent-extra-rerenders-with-react-context%2f&t=4%20options%20to%20prevent%20extra%20rerenders%20with%20React%20context">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2f4-options-to-prevent-extra-rerenders-with-react-context%2f&title=4%20options%20to%20prevent%20extra%20rerenders%20with%20React%20context">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2f4-options-to-prevent-extra-rerenders-with-react-context%2f&title=4%20options%20to%20prevent%20extra%20rerenders%20with%20React%20context">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>React context and useContext are very handy.
+You would have no problem using it while developing a small app.
+If the size of your app became non-trivial,
+you might experience some performance issues with regard to useContext.
+This is because useContext will trigger rerender
+whenever the context value is changed.
+This happens even if the part of the value is not used in render.
+This is by design. If useContext were to conditionally
+trigger rerenders, the hook would become non-composable.</p>
+
+<p>There has been several discussions, especially in <a href="https://github.com/facebook/react/issues/14110">this issue</a>.
+Currently, there&rsquo;s no direct solution from React core.
+Three options are described in <a href="https://github.com/facebook/react/issues/15156#issuecomment-474590693">this issue</a>.</p>
+
+<p>This post shows an example with these three options and
+another option with a library called <a href="https://github.com/dai-shi/react-tracked">react-tracked</a>.</p>
+
+<h3 id="base-example">Base example</h3>
+
+<p>Let&rsquo;s have a minimal example: A person object with <code>firstName</code> and <code>familyName</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Harry&#39;</span>,
+  <span style="color:#a6e22e">familyName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Potter&#39;</span>,
+};
+</code></pre></div>
+<p>We define a reducer to feed into useReducer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">firstName</span> };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFamilyName&#39;</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">familyName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">familyName</span> };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unexpected action type&#39;</span>);
+  }
+};
+</code></pre></div>
+<p>Our context provider looks like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NaiveContext</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">PersonContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}&gt;
+      &lt;<span style="color:#f92672">PersonFirstName</span> /&gt;
+      &lt;<span style="color:#f92672">PersonFamilyName</span> /&gt;
+    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/PersonContext.Provider&gt;</span>
+  );
+};</code></pre></div>
+<p><code>PersonFirstName</code> is implemented like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">PersonContext</span>);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>
+      &lt;<span style="color:#f92672">input</span>
+        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">firstName</span>}
+        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+          <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+        }}
+      /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>Similar to this, <code>PersonFamilyName</code> is implemented.</p>
+
+<p>So, what would happen is if <code>familyName</code> is changed,
+<code>PersonFirstName</code> will rerender resulting in the same output as before.
+Because users wouldn&rsquo;t notice the change, this wouldn&rsquo;t be a big problem.
+But, it may slow down when the number of components to rerender is large.</p>
+
+<p>Now, how to solve this? Here are 4 options.</p>
+
+<h3 id="option-1-split-contexts">Option 1: Split contexts</h3>
+
+<p>The most preferable option is to split contexts.
+In our example, it will be like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState1</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Harry&#39;</span>,
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState2</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">familyName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Potter&#39;</span>,
+};
+</code></pre></div>
+<p>We define two reducers and use two contexts.
+If this makes sense in your app, it&rsquo;s always recommended in idiomatic React.
+But if you need to keep them in a single state, you can&rsquo;t take this option.
+Our example is probably so, because it&rsquo;s meant to be a single person object.</p>
+
+<h3 id="option-2-react-memo">Option 2: React.memo</h3>
+
+<p>The second option is to use React.memo.
+I think this is also idiomatic.</p>
+
+<p>We don&rsquo;t change the context in the base example.
+<code>PersonFirstName</code> is re-implmented with two components.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">InnerPersonFirstName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">firstName</span>, <span style="color:#a6e22e">dispatch</span> }) =&gt; (
+  &lt;<span style="color:#f92672">div</span>&gt;
+    <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>
+    &lt;<span style="color:#f92672">input</span>
+      <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">firstName</span>}
+      <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+        <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+      }}
+    /&gt;
+  &lt;/<span style="color:#f92672">div</span>&gt;
+);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">PersonContext</span>);
+  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerPersonFirstName</span> <span style="color:#a6e22e">firstName</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">firstName</span>} <span style="color:#a6e22e">dispatch</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatch</span>} /&gt;;
+};</code></pre></div>
+<p>When <code>familyName</code> in the person object is changed,
+<code>PersonFirstName</code> rerenders.
+But, <code>InnerPersonFirstName</code> doesn&rsquo;t rerender because <code>firstName</code> isn&rsquo;t changed.</p>
+
+<p>All complex logic is moved into <code>InnerPersonFirstName</code>
+and <code>PersonFirstName</code> is typically lightweight.
+So, performance wouldn&rsquo;t be an issue with this pattern.</p>
+
+<h3 id="option-3-usememo">Option 3: useMemo</h3>
+
+<p>If React.memo doesn&rsquo;t work as you expect, you can useMemo as the third option.
+I wouldn&rsquo;t personally recommend this.
+There might be some limitations. For example, you can&rsquo;t use hooks.</p>
+
+<p><code>PersonFirstName</code> looks like this with useMemo.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">PersonContext</span>);
+  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">firstName</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>;
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; {
+    <span style="color:#66d9ef">return</span> (
+      &lt;<span style="color:#f92672">div</span>&gt;
+        <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>
+        &lt;<span style="color:#f92672">input</span>
+          <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">firstName</span>}
+          <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+            <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+          }}
+        /&gt;
+      &lt;/<span style="color:#f92672">div</span>&gt;
+    );
+  }, [<span style="color:#a6e22e">firstName</span>, <span style="color:#a6e22e">dispatch</span>]);
+};</code></pre></div>
+<h3 id="option-4-react-tracked">Option 4: react-tracked</h3>
+
+<p>The fourth option is to use a library.</p>
+
+<p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
+
+<p>With this library, our provider would look a bit different like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(() =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>));
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReactTracked</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">Provider</span>&gt;
+      &lt;<span style="color:#f92672">PersonFirstName</span> /&gt;
+      &lt;<span style="color:#f92672">PersonFamilyName</span> /&gt;
+    &lt;/<span style="color:#f92672">Provider</span>&gt;
+  );
+};</code></pre></div>
+<p><code>PersonFirstName</code> is implemented like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>
+      &lt;<span style="color:#f92672">input</span>
+        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">firstName</span>}
+        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+          <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+        }}
+      /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>Notice the change from the base example.
+It&rsquo;s just one line change.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-diff" data-lang="diff"><span style="color:#f92672">-  const [state, dispatch] = useContext(PersonContext);
+</span><span style="color:#f92672"></span><span style="color:#a6e22e">+  const [state, dispatch] = useTracked();
+</span></code></pre></div>
+<p>How does this work?
+The state returned by <code>useTracked()</code> is wrapped by Proxy,
+and its usage is tracked.
+It means that the hook knows
+that only the <code>firstName</code> property is used in render.
+This allows to only trigger rerender
+when used properties are changed.
+This effortless optimization is what I call &ldquo;state usage tracking.&rdquo;</p>
+
+<h3 id="what-is-state-usage-tracking">What is state usage tracking</h3>
+
+<p>For more information, please visit my other blog posts. For example:</p>
+
+<p><a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</a></p>
+
+<p>There&rsquo;s also <a href="https://github.com/dai-shi/react-tracked#blogs">a list of blog posts</a>.</p>
+
+<h3 id="full-example-demo">Full example demo</h3>
+
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/08_comparison?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
+
+<p><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/08_comparison">Source code in the repo</a></p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>If you have already read some previous blog posts of mine,
+there can be no new findings in this post.</p>
+
+<p>I would like to learn more coding patterns from others.
+Please let me know how it would look like in your use case.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
