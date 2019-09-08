@@ -6,10 +6,20 @@
     <description>Recent content in worker on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 29 Jan 2019 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 08 Sep 2019 16:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/worker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How I Developed React Hooks for Web Workers</title>
+      <link>https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/</link>
+      <pubDate>Sun, 08 Sep 2019 16:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/</guid>
+      <description>Introduction I have been developing several react hooks libraries. They provide custom hooks for certain purposes. One of them is for web workers. I started it for fun. I got some feedbacks and improved. This post shows the current implementation which aims the use in production.
+In this field, Comlink provides a nice transparent API with Proxies. Some might have already tried it with React. I have two reasons why I don&amp;rsquo;t use it for my library.</description>
+    </item>
     
     <item>
       <title>Playing with React Hooks and Web Workers</title>
