@@ -31,7 +31,7 @@ I was so interested in fixing this problem that I can't help myself stopping dev
 ### Redux-in-Worker
 
 My library is called "redux-in-worker."
-There are so many similar libraries in npmjs.com.
+There are so many similar libraries in [npm](https://www.npmjs.com).
 I hope this library name makes sense.
 
 <https://github.com/dai-shi/redux-in-worker>
