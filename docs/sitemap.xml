@@ -4,7 +4,48 @@
   
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2019-09-08T16:00:00+09:00</lastmod>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/worker/</loc>
+    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -14,31 +55,7 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-09-08T16:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2019-09-08T16:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-09-08T16:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2019-09-08T16:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/worker/</loc>
     <lastmod>2019-09-08T16:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>
@@ -55,24 +72,12 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2019-08-21T21:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</loc>
     <lastmod>2019-08-12T10:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/async/</loc>
-    <lastmod>2019-08-12T10:00:00+09:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2019-08-12T10:00:00+09:00</lastmod>
     <priority>0</priority>
   </url>

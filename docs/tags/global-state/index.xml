@@ -6,10 +6,20 @@
     <description>Recent content in global-state on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 21 Aug 2019 21:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Mon, 16 Sep 2019 11:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/global-state/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Off-main-thread React Redux with Performance</title>
+      <link>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</link>
+      <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</guid>
+      <description>Introduction It is said that Redux has been overused in some use cases and React context+hooks plays well in such use cases. While I agree with it, Redux should work well in some other situations. Redux should help developing larger apps with many developers. Various libraries in Redux ecosystem should accelerate development. There&amp;rsquo;s another situation in which Redux may help, and that is Web Workers.
+A while back, Surma posted a nice blog post: React + Redux + Comlink = Off-main-thread</description>
+    </item>
     
     <item>
       <title>4 options to prevent extra rerenders with React context</title>
