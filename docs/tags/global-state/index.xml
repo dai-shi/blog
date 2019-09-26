@@ -36,7 +36,7 @@ A while back, Surma posted a nice blog post: React + Redux + Comlink = Off-main-
       <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</guid>
-      <description>Motivation I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux eco system. Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad. Boilerplate code is not from the Redux core, but from the eco system. Don&amp;rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
+      <description>Motivation I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&amp;rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
 I think I have my own understanding of how to use Redux with React.</description>
     </item>
     

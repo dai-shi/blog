@@ -7,9 +7,9 @@ tags: ["react", "hooks", "redux", "global-state", "async"]
 
 ### Motivation
 
-I love Redux. But that doesn't mean I like all parts of Redux eco system.
+I love Redux. But that doesn't mean I like all parts of Redux ecosystem.
 Some people dislike Redux because of its boilerplate code. That's sad.
-Boilerplate code is not from the Redux core, but from the eco system.
+Boilerplate code is not from the Redux core, but from the ecosystem.
 Don't get me wrong. Best practices are nice and I think
 the recent work of Redux Starter Kit is great. (Claps to Mark)
 
