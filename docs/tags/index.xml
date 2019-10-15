@@ -6,24 +6,51 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Sep 2019 11:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 15 Oct 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
+      <title>context</title>
+      <link>https://blog.axlight.com/tags/context/</link>
+      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
+      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxy</title>
+      <link>https://blog.axlight.com/tags/proxy/</link>
+      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
+      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
@@ -48,24 +75,6 @@
     </item>
     
     <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Sun, 08 Sep 2019 16:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>context</title>
-      <link>https://blog.axlight.com/tags/context/</link>
-      <pubDate>Wed, 21 Aug 2019 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/context/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>async</title>
       <link>https://blog.axlight.com/tags/async/</link>
       <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
@@ -80,15 +89,6 @@
       <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/concurrent/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>proxy</title>
-      <link>https://blog.axlight.com/tags/proxy/</link>
-      <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     
