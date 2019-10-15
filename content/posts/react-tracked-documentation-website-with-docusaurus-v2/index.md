@@ -2,7 +2,7 @@
 title: "React Tracked Documentation Website with Docusaurus v2"
 subtitle: "A library for global state with React Hooks"
 date: 2019-10-15T23:00:00+09:00
-tags: ["react", "context", "hooks", "global-state", "proxy"]
+tags: ["react", "context", "hooks", "global-state"]
 ---
 
 ### Introduction

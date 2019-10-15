@@ -39,15 +39,6 @@
     </item>
     
     <item>
-      <title>proxy</title>
-      <link>https://blog.axlight.com/tags/proxy/</link>
-      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/proxy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
       <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
@@ -89,6 +80,15 @@
       <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/concurrent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxy</title>
+      <link>https://blog.axlight.com/tags/proxy/</link>
+      <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     
