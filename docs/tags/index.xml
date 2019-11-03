@@ -6,10 +6,55 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 15 Oct 2019 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 21:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>concurrent</title>
+      <link>https://blog.axlight.com/tags/concurrent/</link>
+      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/concurrent/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>fetch</title>
+      <link>https://blog.axlight.com/tags/fetch/</link>
+      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/fetch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>suspense</title>
+      <link>https://blog.axlight.com/tags/suspense/</link>
+      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/suspense/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>context</title>
@@ -26,24 +71,6 @@
       <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     
@@ -71,15 +98,6 @@
       <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/async/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>concurrent</title>
-      <link>https://blog.axlight.com/tags/concurrent/</link>
-      <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/concurrent/</guid>
       <description></description>
     </item>
     
@@ -125,15 +143,6 @@
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/abortable/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fetch</title>
-      <link>https://blog.axlight.com/tags/fetch/</link>
-      <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/fetch/</guid>
       <description></description>
     </item>
     
