@@ -128,7 +128,7 @@ Check out the official docs for details.
       Developing a React Library for Suspense for Data Fetching in Concurrent Mode
     </h1>
     
-      <h5>A new experimental react-hooks-fetch</h5>
+      <h5>New experimental react-hooks-fetch</h5>
     
 	</header>
 
@@ -175,7 +175,7 @@ text-align: center;
 	<article>
 		
 
-<h2 id="introduction">Introduction</h2>
+<h3 id="introduction">Introduction</h3>
 
 <p>We have been waiting for &ldquo;Suspense for Data Fetching&rdquo; for a long time.
 It is now provided as an experimental feature in
@@ -208,7 +208,7 @@ in useEffect or componentDidMount.</p>
 <p>This post doesn&rsquo;t provide any specific answer to best practices yet,
 but here&rsquo;s what I did now.</p>
 
-<h2 id="createfetcher">createFetcher</h2>
+<h3 id="createfetcher">createFetcher</h3>
 
 <p>Let&rsquo;s create a &ldquo;fetcher&rdquo; that wraps a fetch function.
 This can be an arbitrary async function that returns a Promise.</p>
@@ -309,7 +309,7 @@ As of writing, we do it in the component file globally,
 assuming we know what we want as an initial &ldquo;suspendable.&rdquo;
 This would probably make testing difficult.</p>
 
-<h2 id="usesuspendable">useSuspendable</h2>
+<h3 id="usesuspendable">useSuspendable</h3>
 
 <p>The fetcher created by <code>createFetcher</code> is functionally complete,
 but it would be nice to have handy hooks to use &ldquo;suspendable&rdquo;s.</p>
@@ -338,7 +338,7 @@ almost like a normal &ldquo;suspendable&rdquo; but with a slight difference.
 If you invoke <code>refetch</code>, instead of returning a new &ldquo;suspendable,&rdquo;
 it will replace the state value with the new &ldquo;suspendable.&rdquo;</p>
 
-<h2 id="the-library">The library</h2>
+<h3 id="the-library">The library</h3>
 
 <p>I&rsquo;ve developed the above code into a library.</p>
 
@@ -346,7 +346,7 @@ it will replace the state value with the new &ldquo;suspendable.&rdquo;</p>
 
 <p>This is highly experimental and it will change.</p>
 
-<h2 id="demo">Demo</h2>
+<h3 id="demo">Demo</h3>
 
 <p>Here&rsquo;s one small example using this library.</p>
 
@@ -354,7 +354,7 @@ it will replace the state value with the new &ldquo;suspendable.&rdquo;</p>
 
 <p>There are some other examples in the repo.</p>
 
-<h2 id="closing-notes">Closing notes</h2>
+<h3 id="closing-notes">Closing notes</h3>
 
 <p>I hesitated a bit to write a post like this, which is highly experimental
 and can even change in a couple of days after writing.

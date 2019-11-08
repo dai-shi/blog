@@ -1,11 +1,11 @@
 ---
 title: "Developing a React Library for Suspense for Data Fetching in Concurrent Mode"
-subtitle: "A new experimental react-hooks-fetch"
+subtitle: "New experimental react-hooks-fetch"
 date: 2019-11-03T21:00:00+09:00
 tags: ["react", "hooks", "fetch", "suspense", "concurrent"]
 ---
 
-## Introduction
+### Introduction
 
 We have been waiting for "Suspense for Data Fetching" for a long time.
 It is now provided as an experimental feature in
@@ -36,7 +36,7 @@ in useEffect or componentDidMount.
 This post doesn't provide any specific answer to best practices yet,
 but here's what I did now.
 
-## createFetcher
+### createFetcher
 
 Let's create a "fetcher" that wraps a fetch function.
 This can be an arbitrary async function that returns a Promise.
@@ -147,7 +147,7 @@ As of writing, we do it in the component file globally,
 assuming we know what we want as an initial "suspendable."
 This would probably make testing difficult.
 
-## useSuspendable
+### useSuspendable
 
 The fetcher created by `createFetcher` is functionally complete,
 but it would be nice to have handy hooks to use "suspendable"s.
@@ -179,7 +179,7 @@ almost like a normal "suspendable" but with a slight difference.
 If you invoke `refetch`, instead of returning a new "suspendable,"
 it will replace the state value with the new "suspendable."
 
-## The library
+### The library
 
 I've developed the above code into a library.
 
@@ -187,7 +187,7 @@ I've developed the above code into a library.
 
 This is highly experimental and it will change.
 
-## Demo
+### Demo
 
 Here's one small example using this library.
 
@@ -195,7 +195,7 @@ Here's one small example using this library.
 
 There are some other examples in the repo.
 
-## Closing notes
+### Closing notes
 
 I hesitated a bit to write a post like this, which is highly experimental
 and can even change in a couple of days after writing.
