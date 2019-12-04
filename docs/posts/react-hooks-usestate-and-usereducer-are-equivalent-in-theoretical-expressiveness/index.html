@@ -268,6 +268,8 @@ should be able to be implemented with useState in userland.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>], [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>]);
 };
 </code></pre></div>
+<p>(Note: This doesn&rsquo;t support the <a href="https://overreacted.io/a-complete-guide-to-useeffect/#why-usereducer-is-the-cheat-mode-of-hooks">cheat mode</a>.)</p>
+
 <h3 id="final-notes">Final notes</h3>
 
 <p>Most of my libraries are written with useReducer,

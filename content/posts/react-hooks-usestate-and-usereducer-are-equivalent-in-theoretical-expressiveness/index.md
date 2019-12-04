@@ -105,6 +105,8 @@ const useReducer = (reducer, initialArg, init) => {
 };
 ```
 
+(Note: This doesn't support the [cheat mode](https://overreacted.io/a-complete-guide-to-useeffect/#why-usereducer-is-the-cheat-mode-of-hooks).)
+
 ### Final notes
 
 Most of my libraries are written with useReducer,
