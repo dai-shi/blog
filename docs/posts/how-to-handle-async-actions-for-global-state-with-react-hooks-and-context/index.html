@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="How to Handle Async Actions for Global State With React Hooks and Context" />
+<meta property="og:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+https://react-tracked.js.org
+This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/" />
+<meta property="article:published_time" content="2019-12-20T23:00:00+09:00" />
+<meta property="article:modified_time" content="2019-12-20T23:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png"/>
+<meta name="twitter:title" content="How to Handle Async Actions for Global State With React Hooks and Context"/>
+<meta name="twitter:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+https://react-tracked.js.org
+This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext."/>
+
+    <meta name="generator" content="Hugo 0.58.3" />
+    
+      <title>How to Handle Async Actions for Global State With React Hooks and Context &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        20 December 2019
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png" />
+      
+    
+		<h1>
+      How to Handle Async Actions for Global State With React Hooks and Context
+    </h1>
+    
+      <h5>With React Tracked</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-handle-async-actions-for-global-state-with-react-hooks-and-context%2f&text=How%20to%20Handle%20Async%20Actions%20for%20Global%20State%20With%20React%20Hooks%20and%20Context by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-handle-async-actions-for-global-state-with-react-hooks-and-context%2f&t=How%20to%20Handle%20Async%20Actions%20for%20Global%20State%20With%20React%20Hooks%20and%20Context">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-handle-async-actions-for-global-state-with-react-hooks-and-context%2f&title=How%20to%20Handle%20Async%20Actions%20for%20Global%20State%20With%20React%20Hooks%20and%20Context">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-handle-async-actions-for-global-state-with-react-hooks-and-context%2f&title=How%20to%20Handle%20Async%20Actions%20for%20Global%20State%20With%20React%20Hooks%20and%20Context">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>I have been developing React Tracked, which is
+a library for global state with React Hooks and Context.</p>
+
+<p><a href="https://react-tracked.js.org">https://react-tracked.js.org</a></p>
+
+<p>This is a small library and focuses on only one thing.
+It optimizes re-renders using state usage tracking.
+More technically, it uses Proxies to detect the usage in render,
+and only triggers re-renders if necessary.</p>
+
+<p>Because of that, the usage of React Tracked is very straightforward.
+It is just like the normal useContext. Here&rsquo;s an example.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
+  <span style="color:#75715e">// The above line is almost like the following.
+</span><span style="color:#75715e"></span>  <span style="color:#75715e">// const [state, setState] = useContext(Context);
+</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increment</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">prev</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> }));
+  };
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>}
+      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">increment</span>}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};</code></pre></div>
+<p>For a concrete example, please check out &ldquo;Getting Started&rdquo; in
+<a href="https://react-tracked.js.org">the doc</a>.</p>
+
+<p>Now, because React Tracked is a wrapper around React Hooks and Context,
+it doesn&rsquo;t support async actions natively.
+This post shows some examples how to handle async actions.
+It&rsquo;s written for React Tracked, but it can be used without React Tracked.</p>
+
+<p>The example we use is a simple data fetching from a server.
+The first pattern is without any libraries, and uses custom hooks.
+The rest is using three libraries, one of which is my own.</p>
+
+<h3 id="custom-hooks-without-libraries">Custom hooks without libraries</h3>
+
+<p>Let&rsquo;s look at a native solution. We define a store at first.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContainer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useState</span>({ <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> });
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
+</code></pre></div>
+<p>This is one of the patterns to create a store (container) in React Tracked.
+Please check out the <a href="https://react-tracked.js.org/docs/recipes#recipes-for-createcontainer">recipes</a> for other patterns.</p>
+
+<p>Next, we create a custom hook.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useData</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">actions</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
+      <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> }));
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span> }));
+    },
+  };
+  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">actions</span>];
+};
+</code></pre></div>
+<p>This is a new hook based on useTracked and it returns state and actions.
+You can invoke <code>action.fetch(1)</code> to start fetching.</p>
+
+<p>Note: Consider wrapping with useCallback if you need a stable async function.</p>
+
+<p>React Tracked actually accepts a custom hook,
+so this custom hook can be embedded in the container.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContainer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>({ <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> });
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">actions</span> <span style="color:#f92672">=</span> {
+    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
+      <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> }));
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span> }));
+    },
+  };
+  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">actions</span>];
+};
+
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
+</code></pre></div>
+<p>Try the working example.</p>
+
+<p><a href="https://codesandbox.io/s/hungry-nightingale-qjeis">https://codesandbox.io/s/hungry-nightingale-qjeis</a></p>
+
+<h3 id="usethunkreducer">useThunkReducer</h3>
+
+<p><a href="https://github.com/nathanbuchar/react-hook-thunk-reducer">react-hooks-thunk-reducer</a> provides a custom hook <code>useThunkReducer</code>.
+This hook returns <code>dispatch</code> which accepts a thunk function.</p>
+
+<p>The same example can be implemented like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContainer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useThunkReducer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hook-thunk-reducer&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">data</span> };
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useThunkReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
+</code></pre></div>
+<p>Invoking an async action would be like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">id</span> =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; {
+  <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span> });
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+  <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>, <span style="color:#a6e22e">data</span> });
+};
+
+<span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">fetchData</span>(<span style="color:#ae81ff">1</span>));
+</code></pre></div>
+<p>It should be familiar to redux-thunk users.</p>
+
+<p>Try the working example.</p>
+
+<p><a href="https://codesandbox.io/s/crimson-currying-og54c">https://codesandbox.io/s/crimson-currying-og54c</a></p>
+
+<h3 id="usesagereducer">useSageReducer</h3>
+
+<p><a href="https://github.com/azmenak/use-saga-reducer">use-saga-reducer</a> provides a custom hook <code>useSageReducer</code>.
+Because this library uses <a href="https://redux-saga.js.org/docs/api/index.html#external-api">External API</a>, you can use redux-saga without Redux.</p>
+
+<p>Let&rsquo;s implement the same example again with Sagas.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContainer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">call</span>, <span style="color:#a6e22e">put</span>, <span style="color:#a6e22e">takeLatest</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-saga/effects&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useSagaReducer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;use-saga-reducer&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">data</span> };
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fetcher</span>(<span style="color:#a6e22e">action</span>) {
+  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span> });
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() =&gt; <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>));
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() =&gt; <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>());
+  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>, <span style="color:#a6e22e">data</span> });
+};
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fetchingSaga</span>() {
+  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeLatest</span>(<span style="color:#e6db74">&#39;FETCH_DATA&#39;</span>, <span style="color:#a6e22e">fetcher</span>);
+}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useSagaReducer</span>(<span style="color:#a6e22e">fetchingSaga</span>, <span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
+</code></pre></div>
+<p>Invoking it is simple.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_DATA&#39;</span>, <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> });
+</code></pre></div>
+<p>Notice the similarity and the difference.
+If you are not familiar with generator functions, it may seem weird.</p>
+
+<p>Anyway, try the working example.</p>
+
+<p><a href="https://codesandbox.io/s/fancy-silence-1pukj">https://codesandbox.io/s/fancy-silence-1pukj</a></p>
+
+<p>(Unfortunately, this sandbox doesn&rsquo;t work online as of writing. Please &ldquo;Export to ZIP&rdquo; and run locally.)</p>
+
+<h3 id="usereducerasync">useReducerAsync</h3>
+
+<p><a href="https://github.com/dai-shi/use-reducer-async">use-reducer-async</a> provides a custom hook <code>useReducerAsync</code>.
+This is the library I developed, inspired by <code>useSageReducer</code>.
+It&rsquo;s not capable of what generator functions can do,
+but it works with any async functions.</p>
+
+<p>The following is the same example with this hook.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContainer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReducerAsync</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;use-reducer-async&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+  } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>) {
+    <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">data</span> };
+  } <span style="color:#66d9ef">else</span> {
+    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncActionHandlers</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">FETCH_DATA</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">action</span>) =&gt; {
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span> });
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>, <span style="color:#a6e22e">data</span> });
+  },
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducerAsync</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">asyncActionHandlers</span>);
+<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
+</code></pre></div>
+<p>You can invoke it in the same way.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_DATA&#39;</span>, <span style="color:#a6e22e">id</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> });
+</code></pre></div>
+<p>The pattern is similar to useSagaReducer, but
+the syntax is similar to useThunkReducer or the native solution.</p>
+
+<p>Try the working example.</p>
+
+<p><a href="https://codesandbox.io/s/bitter-frost-4lxck">https://codesandbox.io/s/bitter-frost-4lxck</a></p>
+
+<h3 id="comparison">Comparison</h3>
+
+<p>Although it can be biased, here&rsquo;s what I suggest.
+If you would like a solution without libraries, use the native one.
+If you are saga users, use useSagaReducer with no doubt.
+If you like redux-thunk, useThunkReducer would be good.
+Otherwise, consider useReducerAsync or the native solution.</p>
+
+<p>For TypeScript users, my recommendations are useSageReducer and useReducerAsync.
+The native solution should also work.
+Please check out the fully typed examples in React Tracked.</p>
+
+<ul>
+<li><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/12_async">https://github.com/dai-shi/react-tracked/tree/master/examples/12_async</a></li>
+<li><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/13_saga">https://github.com/dai-shi/react-tracked/tree/master/examples/13_saga</a></li>
+</ul>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>To be honest, I think the native solution works fine for small apps.
+So, I wasn&rsquo;t so motivated to create a library. However, during
+writing a tutorial for React Tracked, I noticed that having a pattern
+restricted by a library is easier to explain. use-reducer-async
+is a tiny library and it&rsquo;s nothing fancy. But, it shows a pattern.</p>
+
+<p>The other note about async actions is Suspense for Data Fetching.
+It&rsquo;s currently in the experimental channel.
+The new recommended way of data fetching is Render-as-You-Fetch pattern.
+That&rsquo;s totally different from the patterns described in this post.
+We will see how it goes. Most likely, that new pattern
+requires a library that would ease developers to follow the pattern.
+If you are interested, please check out my
+<a href="https://github.com/dai-shi/react-hooks-fetch">experimental project</a>.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

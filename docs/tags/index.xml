@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,45 @@
     <item>
       <title>async</title>
       <link>https://blog.axlight.com/tags/async/</link>
-      <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/async/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>context</title>
+      <link>https://blog.axlight.com/tags/context/</link>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/context/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>global-state</title>
+      <link>https://blog.axlight.com/tags/global-state/</link>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     
@@ -39,47 +75,11 @@
     </item>
     
     <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>suspense</title>
       <link>https://blog.axlight.com/tags/suspense/</link>
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/suspense/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>context</title>
-      <link>https://blog.axlight.com/tags/context/</link>
-      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/context/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>global-state</title>
-      <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     

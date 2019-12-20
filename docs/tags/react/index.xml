@@ -6,10 +6,22 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to Handle Async Actions for Global State With React Hooks and Context</title>
+      <link>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</link>
+      <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</guid>
+      <description>Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+https://react-tracked.js.org
+This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.</description>
+    </item>
     
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>

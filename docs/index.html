@@ -9,7 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.axlight.com/" />
 
-<meta property="og:updated_time" content="2019-12-16T22:00:00+09:00" />
+<meta property="og:updated_time" content="2019-12-20T23:00:00+09:00" />
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
@@ -113,6 +113,46 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/">How to Handle Async Actions for Global State With React Hooks and Context</a>
+			<br>
+			<small>
+				20 December 2019
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+https://react-tracked.js.org
+This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.
+		
+			... <a href="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/context"><span class="label label-success">context</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -454,46 +494,6 @@ This post shows some example code about the problem and the solution with state 
 </div>
 
 
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/">How to use react-tracked: React hooks-oriented Todo List example</a>
-			<br>
-			<small>
-				8 July 2019
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
-We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
-https://github.com/dai-shi/react-tracked
-The example we show is the one from Redux: Todo List
-		
-			... <a href="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/context"><span class="label label-success">context</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
 
 <div class="text-center center-block">
 	
@@ -551,7 +551,18 @@ The example we show is the one from Redux: Todo List
         
     
     
-    <li class="page-item"><a class="page-link" href="/page/4/">4</a></li>
+    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
+    
+    
+    
+    
+    
+    
+        
+        
+    
+    
+    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
     
     
     <li class="page-item">
@@ -559,7 +570,7 @@ The example we show is the one from Redux: Todo List
     </li>
     
     <li class="page-item">
-        <a href="/page/4/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/5/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
     </li>
     
 </ul>
