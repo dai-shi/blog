@@ -32,7 +32,7 @@ Let's look at an example. We implement a simple counter example
 with two hooks. For both cases, hooks return action callbacks,
 which is important to hide implementation details in this comparison.
 
-##### useReducer
+#### useReducer
 
 ```javascript
 const initialState = { count1: 0, count2: 0 };
@@ -62,7 +62,7 @@ const useCounter = () => {
 };
 ```
 
-##### useState
+#### useState
 
 ```javascript
 const initialState = { count1: 0, count2: 0 };

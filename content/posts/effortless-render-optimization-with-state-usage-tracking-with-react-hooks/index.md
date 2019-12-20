@@ -151,14 +151,14 @@ not be easy and probably end up with separating components.
 
 There are two projects using state usage tracking.
 
-##### reactive-react-redux
+#### reactive-react-redux
 
 https://github.com/dai-shi/reactive-react-redux
 
 This is an alternative library to react-redux.
 It has the same hooks API and `useTrackedState` hook.
 
-##### react-tracked
+#### react-tracked
 
 https://github.com/dai-shi/react-tracked
 

@@ -204,7 +204,7 @@ Let&rsquo;s look at an example. We implement a simple counter example
 with two hooks. For both cases, hooks return action callbacks,
 which is important to hide implementation details in this comparison.</p>
 
-<h5 id="usereducer">useReducer</h5>
+<h4 id="usereducer">useReducer</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
@@ -231,7 +231,7 @@ which is important to hide implementation details in this comparison.</p>
   <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
 };
 </code></pre></div>
-<h5 id="usestate">useState</h5>
+<h4 id="usestate">useState</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounter</span> <span style="color:#f92672">=</span> () =&gt; {

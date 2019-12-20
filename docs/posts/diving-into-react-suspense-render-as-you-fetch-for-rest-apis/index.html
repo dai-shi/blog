@@ -191,7 +191,7 @@ For more complex use cases with GraphQL, it&rsquo;s worth looking into
 <p>Let&rsquo;s first discuss the problems with the typical solution,
 which is to start data fetching in useEffect.</p>
 
-<h5 id="too-many-loading-indicators">Too many loading indicators</h5>
+<h4 id="too-many-loading-indicators">Too many loading indicators</h4>
 
 <p>Typical useEffect based data fetching is like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -214,7 +214,7 @@ component and share it among child components.</p>
 
 <p>The Suspense component is a native solution to this issue.</p>
 
-<h5 id="fetch-calls-run-too-late">Fetch calls run too late</h5>
+<h4 id="fetch-calls-run-too-late">Fetch calls run too late</h4>
 
 <p>In the above example, <code>fetchData</code> runs in useEffect.
 It runs only after all components are painted on a browser.
@@ -225,7 +225,7 @@ Fetch calls can only invoked only after components are loaded.</p>
 
 <p>We&rsquo;d want starting a fetch call and loading a component at the same time.</p>
 
-<h5 id="fetch-calls-waterfall">Fetch calls waterfall</h5>
+<h4 id="fetch-calls-waterfall">Fetch calls waterfall</h4>
 
 <p>Because of the timing described above,
 there is a specific behavior called &ldquo;waterfall.&rdquo;
@@ -237,7 +237,7 @@ the fetch call in the child component can start.</p>
 <p>Please also refer <a href="https://reactjs.org/docs/concurrent-mode-suspense.html#approach-1-fetch-on-render-not-using-suspense">the React documentation</a>
 for an example about waterfall.</p>
 
-<h5 id="troublesome-useeffect-deps-usecallback">Troublesome useEffect deps / useCallback</h5>
+<h4 id="troublesome-useeffect-deps-usecallback">Troublesome useEffect deps / useCallback</h4>
 
 <p>It&rsquo;s recommended to put props that are used in useEffect
 to deps of the useEffect second argument.
@@ -275,7 +275,7 @@ or more precisely there has been no other means until Suspense lands.</p>
 Otherwise, it&rsquo;s hard to understand the library for the new pattern.
 Here&rsquo;s some random points to understand the new pattern.</p>
 
-<h5 id="don-t-useeffect">Don&rsquo;t useEffect</h5>
+<h4 id="don-t-useeffect">Don&rsquo;t useEffect</h4>
 
 <p>Don&rsquo;t think remote data as an effect of props.
 Create it at the same time when elements are created.</p>
@@ -286,7 +286,7 @@ Create it at the same time when elements are created.</p>
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fetchRemoteData</span>();
 &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">remoteData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">remoteData</span>} /&gt;</code></pre></div>
-<h5 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h5>
+<h4 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h4>
 
 <p>Pass fetching data as props along with its dependent props.</p>
 
@@ -303,7 +303,7 @@ Create it at the same time when elements are created.</p>
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Typically done in callbacks.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>};</code></pre></div>
-<h5 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h5>
+<h4 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h4>
 
 <p>Thanks to Suspense, the render code doesn&rsquo;t need to care
 if data is locally available or fetching remotely.
@@ -325,7 +325,7 @@ if we have a good library.</p>
 which can be used just like local data.
 That means, if the result is not ready it will throw a promise.</p>
 
-<h5 id="single-fetch">Single fetch</h5>
+<h4 id="single-fetch">Single fetch</h4>
 
 <p>The simplest example is just one fetch call.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
@@ -336,7 +336,7 @@ That means, if the result is not ready it will throw a promise.</p>
 
 <span style="color:#75715e">// Create a React element
 </span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;</code></pre></div>
-<h5 id="multiple-fetch">Multiple fetch</h5>
+<h4 id="multiple-fetch">Multiple fetch</h4>
 
 <p>If we need to run two fetch calls in parallel,
 we create them at the same time.</p>
@@ -358,7 +358,7 @@ whether the result is shown at once or one by one.</p>
 <p>Check out <a href="https://reactjs.org/docs/concurrent-mode-reference.html#suspensecomponent">the API documentation</a>
 to learn more about how to use Suspense and SuspenseList.</p>
 
-<h5 id="dynamic-fetch">Dynamic fetch</h5>
+<h4 id="dynamic-fetch">Dynamic fetch</h4>
 
 <p>Data fetching is not always static,
 we may need to fetch data dynamically.
@@ -382,7 +382,7 @@ we need a state like this.</p>
 but this pattern could apply to all non-React callbacks.
 Just simply take it as feeding suspendable results into React tree.</p>
 
-<h5 id="incremental-fetch">Incremental fetch</h5>
+<h4 id="incremental-fetch">Incremental fetch</h4>
 
 <p>If two fetch calls are dependent and we want to show
 the intermediate state to a user, we need incremental loading.</p>
@@ -454,7 +454,7 @@ we have been developing some experimental libraries.
 They are ongoing projects and will not reflect
 what is described in this post in the future.</p>
 
-<h5 id="react-suspense-fetch">react-suspense-fetch</h5>
+<h4 id="react-suspense-fetch">react-suspense-fetch</h4>
 
 <p><a href="https://github.com/dai-shi/react-suspense-fetch">https://github.com/dai-shi/react-suspense-fetch</a></p>
 
@@ -464,7 +464,7 @@ but it follows the convention of throwing promises.</p>
 
 <p>Note that the API can change soon.</p>
 
-<h5 id="react-hooks-fetch">react-hooks-fetch</h5>
+<h4 id="react-hooks-fetch">react-hooks-fetch</h4>
 
 <p><a href="https://github.com/dai-shi/react-hooks-fetch">https://github.com/dai-shi/react-hooks-fetch</a></p>
 

@@ -58,7 +58,7 @@ The example to use is [Async Actions](https://redux.js.org/advanced/async-action
 
 ### Code
 
-##### Folder structure
+#### Folder structure
 
 ```yaml
 - src/
@@ -76,7 +76,7 @@ The example to use is [Async Actions](https://redux.js.org/advanced/async-action
     - Posts.tsx
 ```
 
-##### src/index.tsx
+#### src/index.tsx
 
 ```jsx
 import * as React from 'react';
@@ -98,7 +98,7 @@ render(
 
 This is the entry point. Nothing special in this file.
 
-##### src/store/actions.ts
+#### src/store/actions.ts
 
 ```typescript
 export type Post = {
@@ -156,7 +156,7 @@ export type Action =
 This defines `State` and `Action` types.
 No action constants and no action creators are defined.
 
-##### src/store/reducers.ts
+#### src/store/reducers.ts
 
 ```typescript
 import { combineReducers } from 'redux';
@@ -238,7 +238,7 @@ export default rootReducer;
 This is a normal reducer file with type annotations.
 Note that we don't use any explicit and implicit `any`.
 
-##### src/hooks/useSelectSubreddit.ts
+#### src/hooks/useSelectSubreddit.ts
 
 ```typescript
 import { useCallback } from 'react';
@@ -266,7 +266,7 @@ that creates and dispatches an action.
 Let's call it "an action hook."
 This one is a sync action hook.
 
-##### src/hooks/useInvalidateSubreddit.ts
+#### src/hooks/useInvalidateSubreddit.ts
 
 ```typescript
 import { useCallback } from 'react';
@@ -290,7 +290,7 @@ export default useInvalidateSubreddit;
 
 This is another sync action hook.
 
-##### src/hooks/useFetchPostsIfNeeded.ts
+#### src/hooks/useFetchPostsIfNeeded.ts
 
 ```typescript
 import { useCallback } from 'react';
@@ -371,7 +371,7 @@ There are a few important points in this file.
 - `extractPosts` is a kind of type guard to test json from the network.
 - We don't implement error handing as is [in the original tutorial](https://redux.js.org/advanced/async-actions#note-on-error-handling).
 
-##### src/components/App.tsx
+#### src/components/App.tsx
 
 ```tsx
 import * as React from 'react';
@@ -457,7 +457,7 @@ But, it should be mostly the same with a normal React app.
 I think the second caveat in this pattern is requiring
 the `useCallback` hook.
 
-##### src/components/Picker.tsx
+#### src/components/Picker.tsx
 
 ```tsx
 import * as React from 'react';
@@ -488,7 +488,7 @@ export default Picker;
 This is a stateless component.
 Nothing is changed except for type annotations.
 
-##### src/components/Posts.tsx
+#### src/components/Posts.tsx
 
 ```tsx
 import * as React from 'react';

@@ -23,7 +23,7 @@ For more complex use cases with GraphQL, it's worth looking into
 Let's first discuss the problems with the typical solution,
 which is to start data fetching in useEffect.
 
-##### Too many loading indicators
+#### Too many loading indicators
 
 Typical useEffect based data fetching is like this.
 
@@ -50,7 +50,7 @@ component and share it among child components.
 
 The Suspense component is a native solution to this issue.
 
-##### Fetch calls run too late
+#### Fetch calls run too late
 
 In the above example, `fetchData` runs in useEffect.
 It runs only after all components are painted on a browser.
@@ -61,7 +61,7 @@ Fetch calls can only invoked only after components are loaded.
 
 We'd want starting a fetch call and loading a component at the same time.
 
-##### Fetch calls waterfall
+#### Fetch calls waterfall
 
 Because of the timing described above,
 there is a specific behavior called "waterfall."
@@ -73,7 +73,7 @@ the fetch call in the child component can start.
 Please also refer [the React documentation](https://reactjs.org/docs/concurrent-mode-suspense.html#approach-1-fetch-on-render-not-using-suspense)
 for an example about waterfall.
 
-##### Troublesome useEffect deps / useCallback
+#### Troublesome useEffect deps / useCallback
 
 It's recommended to put props that are used in useEffect
 to deps of the useEffect second argument.
@@ -115,7 +115,7 @@ Render-as-You-Fetch requires a new mental model.
 Otherwise, it's hard to understand the library for the new pattern.
 Here's some random points to understand the new pattern.
 
-##### Don't useEffect
+#### Don't useEffect
 
 Don't think remote data as an effect of props.
 Create it at the same time when elements are created.
@@ -130,7 +130,7 @@ const remoteData = fetchRemoteData();
 <Component remoteData={remoteData} />
 ```
 
-##### Pass remote data as props or store in state
+#### Pass remote data as props or store in state
 
 Pass fetching data as props along with its dependent props.
 
@@ -155,7 +155,7 @@ const Component = () => {
 };
 ```
 
-##### Treat remote data just like local data
+#### Treat remote data just like local data
 
 Thanks to Suspense, the render code doesn't need to care
 if data is locally available or fetching remotely.
@@ -181,7 +181,7 @@ We assume we had a library that allow to create a suspendable result,
 which can be used just like local data.
 That means, if the result is not ready it will throw a promise.
 
-##### Single fetch
+#### Single fetch
 
 The simplest example is just one fetch call.
 
@@ -196,7 +196,7 @@ const result = prefetch(async () => (await fetch('https://swapi.co/api/people/1/
 <Component result={result} />
 ```
 
-##### Multiple fetch
+#### Multiple fetch
 
 If we need to run two fetch calls in parallel,
 we create them at the same time.
@@ -222,7 +222,7 @@ whether the result is shown at once or one by one.
 Check out [the API documentation](https://reactjs.org/docs/concurrent-mode-reference.html#suspensecomponent)
 to learn more about how to use Suspense and SuspenseList.
 
-##### Dynamic fetch
+#### Dynamic fetch
 
 Data fetching is not always static,
 we may need to fetch data dynamically.
@@ -250,7 +250,7 @@ This is an example of prefetching in a callback,
 but this pattern could apply to all non-React callbacks.
 Just simply take it as feeding suspendable results into React tree.
 
-##### Incremental fetch
+#### Incremental fetch
 
 If two fetch calls are dependent and we want to show
 the intermediate state to a user, we need incremental loading.
@@ -327,7 +327,7 @@ we have been developing some experimental libraries.
 They are ongoing projects and will not reflect
 what is described in this post in the future.
 
-##### react-suspense-fetch
+#### react-suspense-fetch
 
 <https://github.com/dai-shi/react-suspense-fetch>
 
@@ -337,7 +337,7 @@ but it follows the convention of throwing promises.
 
 Note that the API can change soon.
 
-##### react-hooks-fetch
+#### react-hooks-fetch
 
 <https://github.com/dai-shi/react-hooks-fetch>
 

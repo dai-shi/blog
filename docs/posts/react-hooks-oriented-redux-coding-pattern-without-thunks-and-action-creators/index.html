@@ -228,7 +228,7 @@ but it&rsquo;s out of the scope of this post.)</p>
 
 <h3 id="code">Code</h3>
 
-<h5 id="folder-structure">Folder structure</h5>
+<h4 id="folder-structure">Folder structure</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- src/
   - index.tsx
   - store/
@@ -242,7 +242,7 @@ but it&rsquo;s out of the scope of this post.)</p>
     - App.tsx
     - Picker.tsx
     - Posts.tsx</code></pre></div>
-<h5 id="src-index-tsx">src/index.tsx</h5>
+<h4 id="src-index-tsx">src/index.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
@@ -260,7 +260,7 @@ but it&rsquo;s out of the scope of this post.)</p>
 );</code></pre></div>
 <p>This is the entry point. Nothing special in this file.</p>
 
-<h5 id="src-store-actions-ts">src/store/actions.ts</h5>
+<h4 id="src-store-actions-ts">src/store/actions.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
   <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
@@ -314,7 +314,7 @@ but it&rsquo;s out of the scope of this post.)</p>
 <p>This defines <code>State</code> and <code>Action</code> types.
 No action constants and no action creators are defined.</p>
 
-<h5 id="src-store-reducers-ts">src/store/reducers.ts</h5>
+<h4 id="src-store-reducers-ts">src/store/reducers.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
 <span style="color:#66d9ef">import</span> {
   <span style="color:#a6e22e">SubredditPosts</span>,
@@ -392,7 +392,7 @@ No action constants and no action creators are defined.</p>
 <p>This is a normal reducer file with type annotations.
 Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
 
-<h5 id="src-hooks-useselectsubreddit-ts">src/hooks/useSelectSubreddit.ts</h5>
+<h4 id="src-hooks-useselectsubreddit-ts">src/hooks/useSelectSubreddit.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -416,7 +416,7 @@ that creates and dispatches an action.
 Let&rsquo;s call it &ldquo;an action hook.&rdquo;
 This one is a sync action hook.</p>
 
-<h5 id="src-hooks-useinvalidatesubreddit-ts">src/hooks/useInvalidateSubreddit.ts</h5>
+<h4 id="src-hooks-useinvalidatesubreddit-ts">src/hooks/useInvalidateSubreddit.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -436,7 +436,7 @@ This one is a sync action hook.</p>
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;</code></pre></div>
 <p>This is another sync action hook.</p>
 
-<h5 id="src-hooks-usefetchpostsifneeded-ts">src/hooks/useFetchPostsIfNeeded.ts</h5>
+<h4 id="src-hooks-usefetchpostsifneeded-ts">src/hooks/useFetchPostsIfNeeded.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -515,7 +515,7 @@ This is the biggest caveat in this entire pattern.</li>
 <li>We don&rsquo;t implement error handing as is <a href="https://redux.js.org/advanced/async-actions#note-on-error-handling">in the original tutorial</a>.</li>
 </ul>
 
-<h5 id="src-components-app-tsx">src/components/App.tsx</h5>
+<h4 id="src-components-app-tsx">src/components/App.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span>, <span style="color:#a6e22e">useEffect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
@@ -597,7 +597,7 @@ But, it should be mostly the same with a normal React app.
 I think the second caveat in this pattern is requiring
 the <code>useCallback</code> hook.</p>
 
-<h5 id="src-components-picker-tsx">src/components/Picker.tsx</h5>
+<h4 id="src-components-picker-tsx">src/components/Picker.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Picker</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
@@ -624,7 +624,7 @@ the <code>useCallback</code> hook.</p>
 <p>This is a stateless component.
 Nothing is changed except for type annotations.</p>
 
-<h5 id="src-components-posts-tsx">src/components/Posts.tsx</h5>
+<h4 id="src-components-posts-tsx">src/components/Posts.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Posts</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
