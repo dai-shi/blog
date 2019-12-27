@@ -309,9 +309,9 @@ This hook returns <code>dispatch</code> which accepts a thunk function.</p>
 
 <p><a href="https://codesandbox.io/s/crimson-currying-og54c">https://codesandbox.io/s/crimson-currying-og54c</a></p>
 
-<h3 id="usesagereducer">useSageReducer</h3>
+<h3 id="usesagareducer">useSagaReducer</h3>
 
-<p><a href="https://github.com/azmenak/use-saga-reducer">use-saga-reducer</a> provides a custom hook <code>useSageReducer</code>.
+<p><a href="https://github.com/azmenak/use-saga-reducer">use-saga-reducer</a> provides a custom hook <code>useSagaReducer</code>.
 Because this library uses <a href="https://redux-saga.js.org/docs/api/index.html#external-api">External API</a>, you can use redux-saga without Redux.</p>
 
 <p>Let&rsquo;s implement the same example again with Sagas.</p>
@@ -359,7 +359,7 @@ If you are not familiar with generator functions, it may seem weird.</p>
 <h3 id="usereducerasync">useReducerAsync</h3>
 
 <p><a href="https://github.com/dai-shi/use-reducer-async">use-reducer-async</a> provides a custom hook <code>useReducerAsync</code>.
-This is the library I developed, inspired by <code>useSageReducer</code>.
+This is the library I developed, inspired by <code>useSagaReducer</code>.
 It&rsquo;s not capable of what generator functions can do,
 but it works with any async functions.</p>
 
@@ -408,7 +408,7 @@ If you are saga users, use useSagaReducer with no doubt.
 If you like redux-thunk, useThunkReducer would be good.
 Otherwise, consider useReducerAsync or the native solution.</p>
 
-<p>For TypeScript users, my recommendations are useSageReducer and useReducerAsync.
+<p>For TypeScript users, my recommendations are useSagaReducer and useReducerAsync.
 The native solution should also work.
 Please check out the fully typed examples in React Tracked.</p>
 

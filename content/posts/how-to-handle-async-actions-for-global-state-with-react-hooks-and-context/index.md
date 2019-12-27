@@ -156,9 +156,9 @@ Try the working example.
 
 <https://codesandbox.io/s/crimson-currying-og54c>
 
-### useSageReducer
+### useSagaReducer
 
-[use-saga-reducer](https://github.com/azmenak/use-saga-reducer) provides a custom hook `useSageReducer`.
+[use-saga-reducer](https://github.com/azmenak/use-saga-reducer) provides a custom hook `useSagaReducer`.
 Because this library uses [External API](https://redux-saga.js.org/docs/api/index.html#external-api), you can use redux-saga without Redux.
 
 Let's implement the same example again with Sagas.
@@ -212,7 +212,7 @@ Anyway, try the working example.
 ### useReducerAsync
 
 [use-reducer-async](https://github.com/dai-shi/use-reducer-async) provides a custom hook `useReducerAsync`.
-This is the library I developed, inspired by `useSageReducer`.
+This is the library I developed, inspired by `useSagaReducer`.
 It's not capable of what generator functions can do,
 but it works with any async functions.
 
@@ -267,7 +267,7 @@ If you are saga users, use useSagaReducer with no doubt.
 If you like redux-thunk, useThunkReducer would be good.
 Otherwise, consider useReducerAsync or the native solution.
 
-For TypeScript users, my recommendations are useSageReducer and useReducerAsync.
+For TypeScript users, my recommendations are useSagaReducer and useReducerAsync.
 The native solution should also work.
 Please check out the fully typed examples in React Tracked.
 
