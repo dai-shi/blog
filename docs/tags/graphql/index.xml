@@ -6,10 +6,22 @@
     <description>Recent content in graphql on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 22 Dec 2018 12:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jan 2020 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/graphql/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Lazy Load Apollo Link in Apollo Client</title>
+      <link>https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/</link>
+      <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/</guid>
+      <description>Introduction This is a short post about my small library.
+Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
+Typically, you would initialize apollo client like this.
+import { ApolloClient } from &amp;#39;apollo-client&amp;#39;; import { InMemoryCache } from &amp;#39;apollo-cache-inmemory&amp;#39;; import { HttpLink } from &amp;#39;apollo-link-http&amp;#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, });  I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.</description>
+    </item>
     
     <item>
       <title>Injecting a client-side script in GraphQL Playground in Apollo Server</title>

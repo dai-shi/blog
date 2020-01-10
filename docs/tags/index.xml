@@ -6,10 +6,46 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 10 Jan 2020 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>apollo</title>
+      <link>https://blog.axlight.com/tags/apollo/</link>
+      <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/apollo/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>apollo-link</title>
+      <link>https://blog.axlight.com/tags/apollo-link/</link>
+      <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/apollo-link/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>graphql</title>
+      <link>https://blog.axlight.com/tags/graphql/</link>
+      <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/graphql/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>lazy-loading</title>
+      <link>https://blog.axlight.com/tags/lazy-loading/</link>
+      <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/lazy-loading/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>async</title>
@@ -165,29 +201,11 @@
     </item>
     
     <item>
-      <title>apollo</title>
-      <link>https://blog.axlight.com/tags/apollo/</link>
-      <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/apollo/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>express</title>
       <link>https://blog.axlight.com/tags/express/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/express/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>graphql</title>
-      <link>https://blog.axlight.com/tags/graphql/</link>
-      <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/graphql/</guid>
       <description></description>
     </item>
     

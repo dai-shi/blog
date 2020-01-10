@@ -3,17 +3,52 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/tags/apollo/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/apollo-link/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/graphql/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/lazy-loading/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/tags/async/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/context/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url>
   
@@ -33,17 +68,7 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url>
   
@@ -243,17 +268,7 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/apollo/</loc>
-    <lastmod>2018-12-22T12:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/express/</loc>
-    <lastmod>2018-12-22T12:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/graphql/</loc>
     <lastmod>2018-12-22T12:00:00+09:00</lastmod>
   </url>
   

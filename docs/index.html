@@ -9,7 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.axlight.com/" />
 
-<meta property="og:updated_time" content="2019-12-20T23:00:00+09:00" />
+<meta property="og:updated_time" content="2020-01-10T23:00:00+09:00" />
 
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
@@ -113,6 +113,44 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/">Lazy Load Apollo Link in Apollo Client</a>
+			<br>
+			<small>
+				10 January 2020
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction This is a short post about my small library.
+Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
+Typically, you would initialize apollo client like this.
+import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, });  I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.
+		
+			... <a href="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/apollo"><span class="label label-success">apollo</span></a>
+			
+				<a href="https://blog.axlight.com/tags/graphql"><span class="label label-success">graphql</span></a>
+			
+				<a href="https://blog.axlight.com/tags/apollo-link"><span class="label label-success">apollo-link</span></a>
+			
+				<a href="https://blog.axlight.com/tags/lazy-loading"><span class="label label-success">lazy-loading</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -446,47 +484,6 @@ React concurrent mode has not come yet, and all discussions are based on the cur
 				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
 			
 				<a href="https://blog.axlight.com/tags/concurrent"><span class="label label-success">concurrent</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/">Effortless render optimization with state usage tracking with React hooks</a>
-			<br>
-			<small>
-				21 July 2019
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.
-However, useContext is not specifically designed for global state and there&rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
-This post shows some example code about the problem and the solution with state usage tracking.
-		
-			... <a href="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/context"><span class="label label-success">context</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
-			
-				<a href="https://blog.axlight.com/tags/proxy"><span class="label label-success">proxy</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
 			
 		</small>
 		
