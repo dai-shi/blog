@@ -46,7 +46,7 @@ import { lazy } from 'apollo-link-lazy';
 const link = lazy(() => import('./link'));
 ```
 
-`import` returns a promise, but there's no `await`.
+`import()` returns a promise, but there's no `await`.
 How is this possible?
 
 ## How to implement
