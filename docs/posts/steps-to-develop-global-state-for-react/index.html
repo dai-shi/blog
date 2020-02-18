@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Steps to Develop Global State for React With Hooks Without Context" />
+<meta property="og:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
+The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
+https://github.com/dai-shi/react-hooks-global-state
+This post shows simplified versions of the code step by step." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/" />
+<meta property="article:published_time" content="2020-02-18T23:00:00+09:00" />
+<meta property="article:modified_time" content="2020-02-18T23:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png"/>
+<meta name="twitter:title" content="Steps to Develop Global State for React With Hooks Without Context"/>
+<meta name="twitter:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
+The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
+https://github.com/dai-shi/react-hooks-global-state
+This post shows simplified versions of the code step by step."/>
+
+    <meta name="generator" content="Hugo 0.58.3" />
+    
+      <title>Steps to Develop Global State for React With Hooks Without Context &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        18 February 2020
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png" />
+      
+    
+		<h1>
+      Steps to Develop Global State for React With Hooks Without Context
+    </h1>
+    
+      <h5>Support Concurrent Mode</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&text=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&t=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		
+
+<h3 id="introduction">Introduction</h3>
+
+<p>Developing with React hooks is fun for me.
+I have been developing several libraries.
+The very first library was a library for global state.
+It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which
+turns out to be too long to read.</p>
+
+<p>The initial version of the library was published in Oct 2018.
+Time has passed since then, I learned a lot, and now
+v1.0.0 of the library is published.</p>
+
+<p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
+
+<p>This post shows simplified versions of the code step by step.
+It would help understand what this library is aiming at,
+while the real code is a bit complex in TypeScript.</p>
+
+<h3 id="step-1-global-variable">Step 1: Global variable</h3>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+  <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span>,
+};
+</code></pre></div>
+<p>Let&rsquo;s have a global variable like the above.
+We assume this structure throughout this post.
+One would create a React hook to read this global variable.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">globalState</span>;
+};
+</code></pre></div>
+<p>This is not actually a React hook
+because it doesn&rsquo;t depend on any React primitive hooks.</p>
+
+<p>Now, this is not what we usually want, because it doesn&rsquo;t re-render
+when the global variable changes.</p>
+
+<h3 id="step-2-re-render-on-updates">Step 2: Re-render on updates</h3>
+
+<p>We need to use React <code>useState</code> hook to make it reactive.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>);
+  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listener</span> <span style="color:#f92672">=</span> () =&gt; {
+      <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">globalState</span>);
+    };
+    <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">listener</span>);
+    <span style="color:#a6e22e">listener</span>(); <span style="color:#75715e">// in case it&#39;s already changed
+</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> () =&gt; <span style="color:#a6e22e">listeners</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">listener</span>); <span style="color:#75715e">// cleanup
+</span><span style="color:#75715e"></span>  }, []);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+};
+</code></pre></div>
+<p>This allows to update React state from outside.
+If you update the global variable, you need to notify listeners.
+Let&rsquo;s create a function for updating.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">nextGlobalState</span>) =&gt; {
+  <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextGlobalState</span>;
+  <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
+};
+</code></pre></div>
+<p>With this, we can change <code>useGlobalState</code> to return a tuple like <code>useState</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>);
+  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+    <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>  }, []);
+  <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setGlobalState</span>];
+};
+</code></pre></div>
+<h3 id="step-3-container">Step 3: Container</h3>
+
+<p>Usually, the global variable is in a file scope.
+Let&rsquo;s put it in a function scope to narrow down the scope a bit
+and make it more reusable.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">nextGlobalState</span>) =&gt; {
+    <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextGlobalState</span>;
+    <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
+  };
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>);
+    <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listener</span> <span style="color:#f92672">=</span> () =&gt; {
+        <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">globalState</span>);
+      };
+      <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">listener</span>);
+      <span style="color:#a6e22e">listener</span>(); <span style="color:#75715e">// in case it&#39;s already changed
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> () =&gt; <span style="color:#a6e22e">listeners</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">listener</span>); <span style="color:#75715e">// cleanup
+</span><span style="color:#75715e"></span>    }, []);
+    <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setGlobalState</span>];
+  };
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">setGlobalState</span>,
+    <span style="color:#a6e22e">useGlobalState</span>,
+  };
+};
+</code></pre></div>
+<p>We don&rsquo;t go in detail about TypeScript in this post,
+but this form allows to annotate types of <code>useGlobalState</code>
+by inferring types of <code>initialState</code>.</p>
+
+<h3 id="step-4-scoped-access">Step 4: Scoped access</h3>
+
+<p>Although we can create multiple containers,
+usually we put several items in a global state.</p>
+
+<p>Typical global state libraries have some functionality
+to scope only a part of the state.
+For example, React Redux uses selector interface to
+get a derived value from a global state.</p>
+
+<p>We take a simpler approach here,
+which is to use a string key of a global state.
+In our example, it&rsquo;s like <code>count</code> and <code>text</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">fromEntries</span>(Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">initialState</span>).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">key</span> =&gt; [<span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()]));
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">nextValue</span>) =&gt; {
+    <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">globalState</span>, [<span style="color:#a6e22e">key</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">nextValue</span> };
+    <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
+  };
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">key</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>[<span style="color:#a6e22e">key</span>]);
+    <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listener</span> <span style="color:#f92672">=</span> () =&gt; {
+        <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">globalState</span>[<span style="color:#a6e22e">key</span>]);
+      };
+      <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">listener</span>);
+      <span style="color:#a6e22e">listener</span>(); <span style="color:#75715e">// in case it&#39;s already changed
+</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> () =&gt; <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">listener</span>); <span style="color:#75715e">// cleanup
+</span><span style="color:#75715e"></span>    }, []);
+    <span style="color:#66d9ef">return</span> [<span style="color:#a6e22e">state</span>, (<span style="color:#a6e22e">nextValue</span>) =&gt; <span style="color:#a6e22e">setGlobalState</span>(<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">nextValue</span>)];
+  };
+
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">setGlobalState</span>,
+    <span style="color:#a6e22e">useGlobalState</span>,
+  };
+};
+</code></pre></div>
+<p>We omit the use of useCallback in this code for simplicity,
+but it&rsquo;s generally recommended for a library.</p>
+
+<h3 id="step-5-functional-updates">Step 5: Functional Updates</h3>
+
+<p>React <code>useState</code> allows <a href="https://reactjs.org/docs/hooks-reference.html#functional-updates">functional updates</a>.
+Let&rsquo;s implement this feature.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">nextValue</span>) =&gt; {
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">nextValue</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;function&#39;</span>) {
+      <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">globalState</span>, [<span style="color:#a6e22e">key</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">nextValue</span>(<span style="color:#a6e22e">globalState</span>[<span style="color:#a6e22e">key</span>]) };
+    } <span style="color:#66d9ef">else</span> {
+      <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">globalState</span>, [<span style="color:#a6e22e">key</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">nextValue</span> };
+    }
+    <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
+  };
+
+  <span style="color:#75715e">// ...
+</span></code></pre></div>
+<h3 id="step-6-reducer">Step 6: Reducer</h3>
+
+<p>Those who are familiar with Redux may prefer reducer interface.
+React hook useReducer also has basically the same interface.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>) =&gt; {
+  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">fromEntries</span>(Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">initialState</span>).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">key</span> =&gt; [<span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()]));
+
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">action</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prevState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">globalState</span>;
+    <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">reducer</span>(<span style="color:#a6e22e">globalState</span>, <span style="color:#a6e22e">action</span>);
+    Object.<span style="color:#a6e22e">keys</span>((<span style="color:#a6e22e">key</span>) =&gt; {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">!==</span> <span style="color:#a6e22e">globalState</span>[<span style="color:#a6e22e">key</span>]) {
+        <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
+      }
+    });
+  };
+
+  <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>
+  <span style="color:#66d9ef">return</span> {
+    <span style="color:#a6e22e">useGlobalState</span>,
+    <span style="color:#a6e22e">dispatch</span>,
+  };
+};
+</code></pre></div>
+<h3 id="step-6-concurrent-mode">Step 6: Concurrent Mode</h3>
+
+<p>In order to get benefits from Concurrent Mode,
+we need to use React state instead of an external variable.
+The current solution to it is to link a React state to our global state.</p>
+
+<p>The implementation is very tricky, but in essence we create a hook
+to create a state and link it.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalStateProvider</span> <span style="color:#f92672">=</span> () =&gt; {
+    <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">patchedReducer</span>, <span style="color:#a6e22e">globalState</span>);
+    <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+      <span style="color:#a6e22e">linkedDispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dispatch</span>;
+      <span style="color:#75715e">// ...
+</span><span style="color:#75715e"></span>    }, []);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">prevState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#a6e22e">state</span>);
+    Object.<span style="color:#a6e22e">keys</span>((<span style="color:#a6e22e">key</span>) =&gt; {
+      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">current</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">!==</span> <span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">key</span>]) {
+        <span style="color:#75715e">// we need to pass the next value to listener
+</span><span style="color:#75715e"></span>        <span style="color:#a6e22e">listeners</span>[<span style="color:#a6e22e">key</span>].<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>(<span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">key</span>]));
+      }
+    });
+    <span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>;
+    <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+      <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>;
+    }, [<span style="color:#a6e22e">state</span>]);
+  };
+</code></pre></div>
+<p>The <code>patchedReducer</code> is required to allow <code>setGlobalState</code>
+to update global state.
+The <code>useGlobalStateProvider</code> hook should be used in a stable component
+such as an app root component.</p>
+
+<p>Note that this is not a well-known technique,
+and there might be some limitations.
+For instance, invoking listeners in render is not actually recommended.</p>
+
+<p>To support Concurrent Mode in a proper way, we would need core support.
+Currently, <code>useMutableSource</code> hook is proposed in
+<a href="https://github.com/reactjs/rfcs/pull/147">this RFC</a>.</p>
+
+<h3 id="closing-notes">Closing notes</h3>
+
+<p>This is mostly how <a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a>
+is implemented.
+The real code in the library is a bit more complex in TypeScript,
+contains <code>getGlobalState</code> for reading global state from outside, and
+has limited support for Redux middleware and DevTools.</p>
+
+<p>Finally, I have developed some other libraries around global state
+and React context, as listed below.</p>
+
+<ul>
+<li><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></li>
+<li><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></li>
+<li><a href="https://github.com/dai-shi/use-context-selector">https://github.com/dai-shi/use-context-selector</a></li>
+</ul>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

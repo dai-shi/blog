@@ -6,10 +6,22 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Jan 2020 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 18 Feb 2020 23:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Steps to Develop Global State for React With Hooks Without Context</title>
+      <link>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</link>
+      <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</guid>
+      <description>Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&amp;rsquo;s naively called &amp;ldquo;react-hooks-global-state&amp;rdquo; which turns out to be too long to read.
+The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
+https://github.com/dai-shi/react-hooks-global-state
+This post shows simplified versions of the code step by step.</description>
+    </item>
     
     <item>
       <title>Lazy Load Apollo Link in Apollo Client</title>

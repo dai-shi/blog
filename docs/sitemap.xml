@@ -3,17 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/typescript/</loc>
+    <lastmod>2020-02-18T23:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/tags/apollo/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/apollo-link/</loc>
-    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url>
   
@@ -33,16 +73,6 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2020-01-10T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/async/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url>
@@ -53,22 +83,7 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</loc>
-    <lastmod>2019-12-20T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url>
   
@@ -104,11 +119,6 @@
   
   <url>
     <loc>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</loc>
-    <lastmod>2019-09-16T11:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2019-09-16T11:00:00+09:00</lastmod>
   </url>
   
@@ -149,11 +159,6 @@
   
   <url>
     <loc>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</loc>
-    <lastmod>2019-07-08T01:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/typescript/</loc>
     <lastmod>2019-07-08T01:00:00+09:00</lastmod>
   </url>
   
