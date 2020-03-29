@@ -9,6 +9,7 @@
 I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a custom hook." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/cover.png"/>
 <meta property="article:published_time" content="2019-02-04T12:00:00+09:00" />
 <meta property="article:modified_time" content="2019-02-04T12:00:00+09:00" />
 
@@ -18,7 +19,7 @@ I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a cu
 <meta name="twitter:description" content="Introduction While I don&rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &ldquo;useFetch&rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
 I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a custom hook."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,52 +172,31 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>While I don&rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &ldquo;useFetch&rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.</p>
-
 <p>I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a custom hook.</p>
-
 <p><a href="https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/">React Hooks Tutorial on Developing a Custom Hook for Data Fetching</a></p>
-
 <p>Since then, the support for AbortController is added, which is incredible if you are fetching one-time-only data like typeahead suggest.</p>
-
 <p>Now, to make this &ldquo;useFetch&rdquo; hook more usable, this article describes about supporting Suspense and also Concurrent React a bit.</p>
-
 <h3 id="react-suspense">React Suspense</h3>
-
 <p><a href="https://reactjs.org/docs/code-splitting.html#suspense">Code-Splitting - React</a></p>
-
 <p>Suspense is currently described in the Code-Splitting section. However, its general purpose is to catch a promise in a component tree and render a fallback element. When the promise is resolved, it will render a normal tree. The good part of Suspense is that you can place anywhere up in the tree, and you could even place only one Suspense at the top.</p>
-
 <p>One uncertain point is whether this functionality will be the same when Suspense for data fetching is released. Never mind. We should be able to follow the upcoming changes.</p>
-
 <h3 id="concurrent-react">Concurrent React</h3>
-
 <p><a href="https://reactjs.org/blog/2018/11/27/react-16-roadmap.html#react-16x-q2-2019-the-one-with-concurrent-mode">React 16.x Roadmap - React Blog</a></p>
-
 <p>There is no documentation about Concurrent Mode yet. As far as I understand, what we need to care is that a) the render function can be called more than once, and b) the render phase and the commit phase is not synchronous. As for a), the render function should be pure or at least it shouldn&rsquo;t change the world if it’s called twice. For b), we shouldn’t assume the call order of useEffect of multiple components. I may still misunderstand something, though. I hope some guidelines for React hooks to be available in the future.</p>
-
 <h3 id="the-library">The library</h3>
-
 <p><a href="https://github.com/dai-shi/react-hooks-fetch">https://github.com/dai-shi/react-hooks-fetch</a></p>
-
 <p>Let&rsquo;s look at how &ldquo;useFetch&rdquo; is implemented. If you would like to see how it’s used, jump to the next section.</p>
-
 <p>Firstly, there&rsquo;s some utility functions, and two notable ones:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
-</code></pre></div>
-<p>This is a custom hook to force re-rendering.</p>
+</code></pre></div><p>This is a custom hook to force re-rendering.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createPromiseResolver</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">resolve</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">r</span>) =&gt; { <span style="color:#a6e22e">resolve</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">r</span>; });
   <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">resolve</span>, <span style="color:#a6e22e">promise</span> };
 };
-</code></pre></div>
-<p>This is a naive way to create promise that can be resolved from outside.</p>
-
+</code></pre></div><p>This is a naive way to create promise that can be resolved from outside.</p>
 <p>Next is the main part of the hook:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">opts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defaultOpts</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
@@ -224,13 +204,12 @@ text-align: center;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">loading</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#66d9ef">false</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">promiseResolver</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(<span style="color:#a6e22e">createPromiseResolver</span>, [<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">opts</span>]);
-</code></pre></div>
-<p>We define some variables with <code>useRef</code>, and promiseResolver with <code>useMemo</code>.</p>
+</code></pre></div><p>We define some variables with <code>useRef</code>, and promiseResolver with <code>useMemo</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#75715e">// ...continued
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">finished</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
-    (<span style="color:#66d9ef">async</span> () =&gt; {
+    (<span style="color:#a6e22e">async</span> () =&gt; {
       <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">input</span>) <span style="color:#66d9ef">return</span>;
       <span style="color:#75715e">// start fetching
 </span><span style="color:#75715e"></span>      <span style="color:#a6e22e">loading</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
@@ -245,13 +224,13 @@ text-align: center;
       };
       <span style="color:#66d9ef">try</span> {
         <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">readBody</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defaultReadBody</span>, ...<span style="color:#a6e22e">init</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">opts</span>;
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, {
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, {
           ...<span style="color:#a6e22e">init</span>,
           <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span>,
         });
         <span style="color:#75715e">// check response
 </span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
           <span style="color:#a6e22e">onFinish</span>(<span style="color:#66d9ef">null</span>, <span style="color:#a6e22e">body</span>);
         } <span style="color:#66d9ef">else</span> {
           <span style="color:#a6e22e">onFinish</span>(<span style="color:#a6e22e">createFetchError</span>(<span style="color:#a6e22e">response</span>), <span style="color:#66d9ef">null</span>);
@@ -273,8 +252,7 @@ text-align: center;
     };
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cleanup</span>;
   }, [<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">opts</span>]);
-</code></pre></div>
-<p>Hmm, too long. Some notes: a) <code>forceUpdate()</code> is called when variables are updated. b) At the end of async function, <code>primiseResolver.resolve()</code> is called. c) the <code>cleanup</code> is to abort running fetch and clear variables. d) the input array of <code>useEffect</code> is <code>[input, opts]</code>.</p>
+</code></pre></div><p>Hmm, too long. Some notes: a) <code>forceUpdate()</code> is called when variables are updated. b) At the end of async function, <code>primiseResolver.resolve()</code> is called. c) the <code>cleanup</code> is to abort running fetch and clear variables. d) the input array of <code>useEffect</code> is <code>[input, opts]</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">  <span style="color:#75715e">// ...continued
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">loading</span>.<span style="color:#a6e22e">current</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">promiseResolver</span>.<span style="color:#a6e22e">promise</span>;
   <span style="color:#66d9ef">return</span> {
@@ -282,11 +260,8 @@ text-align: center;
     <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">current</span>,
   };
 };
-</code></pre></div>
-<p>Finally, it returns some of the variables, but before that if it&rsquo;s still in the loading state, it throws a promise so that Suspense catches it and show a fallback loading component.</p>
-
+</code></pre></div><p>Finally, it returns some of the variables, but before that if it&rsquo;s still in the loading state, it throws a promise so that Suspense catches it and show a fallback loading component.</p>
 <h3 id="how-to-use-it">How to use it</h3>
-
 <p>Let me show the minimal example.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">Suspense</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
@@ -309,27 +284,18 @@ text-align: center;
   &lt;/<span style="color:#f92672">Suspense</span>&gt;
 );
 
-<span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));</code></pre></div>
-<p>The component that uses <code>useFetch</code> does not handle the loading state and <code>Suspense</code> outside of the component does it and shows loading state. One important note is the line <code>if (!data) return null;</code> which is required because it&rsquo;s null at first. This is not very nice at the moment, and we would like to find out if there’s a workaround.</p>
-
+<span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
+</code></pre></div><p>The component that uses <code>useFetch</code> does not handle the loading state and <code>Suspense</code> outside of the component does it and shows loading state. One important note is the line <code>if (!data) return null;</code> which is required because it&rsquo;s null at first. This is not very nice at the moment, and we would like to find out if there’s a workaround.</p>
 <p>You can try this example in codesandbox.</p>
-
 <p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-fetch/tree/master/examples/01_minimal">react-hooks-fetch-example - CodeSandbox</a></p>
-
 <p>There are some other examples you can find in the GitHub repo with the link to codesandbox.</p>
-
 <h3 id="final-notes">Final notes</h3>
-
 <p>At first, I was hoping to use both Suspense and ErrorBoundary to show the loading state and the error state so that the main component with <code>useFetch</code> only cares about successful case. It turns out that it involves more or less hacks, and I ended up with normal error variable return by a hook. There&rsquo;s also a note in the <a href="https://reactjs.org/docs/react-component.html#error-boundaries">doc</a>:</p>
-
 <blockquote>
 <p>Only use error boundaries for recovering from unexpected exceptions; <strong>don&rsquo;t try to use them for control flow.</strong></p>
 </blockquote>
-
 <p>Suspense is also hard to work with AbortController. At the point of writing it&rsquo;s pretty much like a hack. For those who are interested, the code is <a href="https://github.com/dai-shi/react-hooks-fetch/blob/0fbd03e6581a3e8e9ef13b4ce72ae3c2101ebc5a/examples/04_abort/src/App.tsx">here</a>. I really want to find a better way for this. I’m curious how react-cache handle aborting. Until then, we continue to improve it.</p>
-
 <h3 id="changelog">Changelog</h3>
-
 <ul>
 <li><em>[2019-02-04]:</em> Initial publication.</li>
 <li><em>[2019-02-05]:</em> Improved code simplicity.</li>

@@ -23,7 +23,7 @@ On the other hand, I&rsquo;ve been developing a new React Redux binding library 
 https://github.com/dai-shi/reactive-react-redux
 It&rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives &middot; Daishi Kato&#39;s blog</title>
     
@@ -174,36 +174,20 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>Recently, React Redux released hooks API. It&rsquo;s v7.1.0-alpha.4 as of writing.</p>
-
 <p><a href="https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4">https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4</a></p>
-
 <p>On the other hand, I&rsquo;ve been developing a new React Redux binding library with hooks and Proxy.</p>
-
 <p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
-
 <p>It&rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</p>
-
 <p>As a benchmark tool, <a href="https://github.com/krausest/js-framework-benchmark">js-framework-benchmark</a> is used. For comparison, bare <code>react-hooks</code> implementation and connect-based <code>react-redux</code> implementation are also included.</p>
-
 <h3 id="benchmark-results">Benchmark results</h3>
-
 <p>The following is the results of four implementations. Please refer <a href="https://github.com/krausest/js-framework-benchmark#readme">the tool doc</a> for detailed information.</p>
-
-<p><img src="./screenshot1.png" alt="screenshot1" /></p>
-
-<p><img src="./screenshot2.png" alt="screenshot2" /></p>
-
-<p><img src="./screenshot3.png" alt="screenshot3" /></p>
-
+<p><img src="./screenshot1.png" alt="screenshot1"></p>
+<p><img src="./screenshot2.png" alt="screenshot2"></p>
+<p><img src="./screenshot3.png" alt="screenshot3"></p>
 <p>The <code>react-hooks</code> result is basically the best (with some exceptions) because its implementation is basic without Redux. The <code>react-redux-hooks</code> result is pretty good and sometimes better than the <code>react-redux</code> result. The <code>reactive-react-redux</code> result is mostly OK and notably it&rsquo;s relatively good in memory allocation.</p>
-
 <h3 id="the-code-at-a-glance">The code at a glance</h3>
-
 <p>Let&rsquo;s quickly look at the code. The following is from <code>react-redux-hooks</code> benchmark code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">i</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">state</span>) =&gt; {
@@ -235,9 +219,8 @@ text-align: center;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">RowList</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>);
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} /&gt;;
-};</code></pre></div>
-<p>You may find that it uses <code>React.memo</code> several times, which is to optimize without <code>connect.</code></p>
-
+};
+</code></pre></div><p>You may find that it uses <code>React.memo</code> several times, which is to optimize without <code>connect.</code></p>
 <p>The following benchmark code is for <code>reactive-react-redux.</code></p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Row</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">item</span>, <span style="color:#a6e22e">selected</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">label</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">item</span>;
@@ -267,15 +250,11 @@ text-align: center;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">selected</span>;
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">InnerRowList</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} <span style="color:#a6e22e">selectedId</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedId</span>} /&gt;;
-};</code></pre></div>
-<p>Due to the nature that <code>useReduxState</code> in reactive-react-redux doesn&rsquo;t take a selector, the code structure is slightly different. It passes an <code>item</code> object and a <code>selected</code> flag, instead of an <code>i</code> index, to the <code>Row</code> component. This code style is similar to that of <code>react-hooks</code> benchmark code.</p>
-
+};
+</code></pre></div><p>Due to the nature that <code>useReduxState</code> in reactive-react-redux doesn&rsquo;t take a selector, the code structure is slightly different. It passes an <code>item</code> object and a <code>selected</code> flag, instead of an <code>i</code> index, to the <code>Row</code> component. This code style is similar to that of <code>react-hooks</code> benchmark code.</p>
 <p>For concrete benchmark code, refer <a href="https://github.com/dai-shi/js-framework-benchmark/tree/9627d3ca6f0637727c31ea6cf04c82e3115bb88b">the repo</a>.</p>
-
 <h3 id="conclusion-so-far">Conclusion so far</h3>
-
 <p>For this benchmark, the alpha hooks API in React Redux is already performant as is. The <code>useSelector</code> hook is straightforward for transition from <code>connect</code>.</p>
-
 <p>The result for <code>reactive-react-redux</code> shows comparable performance. The overhead of Proxy should be tolerable for non intensive use cases. The coding style is different from <code>react-redux,</code> so it should be seen not as a replacement of react-redux, but as a new coding style with React hooks and Redux. Because it&rsquo;s similar to bare <code>react-hooks</code> benchmark code, it could be more intuitive and fit well for people who newly learn Redux.</p>
 
 	</article>

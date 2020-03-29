@@ -11,6 +11,7 @@ This library solves a performance issue with React Context. For those who are in
 What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fancy features. You can simply replace Context." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/cover.jpg"/>
 <meta property="article:published_time" content="2019-10-15T23:00:00+09:00" />
 <meta property="article:modified_time" content="2019-10-15T23:00:00+09:00" />
 
@@ -22,7 +23,7 @@ https://github.com/dai-shi/react-tracked
 This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.
 What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fancy features. You can simply replace Context."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>React Tracked Documentation Website with Docusaurus v2 &middot; Daishi Kato&#39;s blog</title>
     
@@ -175,65 +176,48 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>I have been developing a React Hooks library called React Tracked.
 This is the library I put much effort lately as well as
 my other libraries.</p>
-
 <p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
-
 <p>This library solves a performance issue with React Context.
 For those who are interested in the fundamental problem,
 please take a look at <a href="https://github.com/facebook/react/issues/14110">the long issue</a>.</p>
-
 <p>What&rsquo;s notable in this library is that
 it doesn&rsquo;t provide any new fancy features.
 You can simply replace Context.Provider and useContext
 with the custom ones, it just works with performance.</p>
-
 <p>Because it doesn&rsquo;t provide any fancy features,
 how would I tell the benefit of the library
 for those who don&rsquo;t know the problem yet?
 This is my motivation for starting a new documentation website.</p>
-
 <p>The documentation website is up and running:</p>
-
 <p><a href="https://react-tracked.js.org">https://react-tracked.js.org</a></p>
-
 <h3 id="docusaurus">Docusaurus</h3>
-
 <p><a href="https://docusaurus.io">Docusaurus</a> is one of the popular
 documentation tools. It&rsquo;s used by many projects like Create React App,
 Redux families, Jest and so on.
 Docusaurus is planning to release v2 soon,
 and that sounds promising.
 If I were to create a new website, why would I not use the new tool?</p>
-
 <p>It turns out that v2 is pretty simple to configure.
 What you need is only three files at the minimum.</p>
-
 <ul>
 <li><code>docusaurus.config.js</code> to configure some basic stuff</li>
 <li><code>sidebars.js</code> to configure the markdown documents</li>
 <li><code>src/pages/index.js</code> to create the main page</li>
 </ul>
-
 <p>I&rsquo;m not really sure if this is the correct way at this point.
 We should soon have better Docusaurus documentation.
 If you are interested in how I configured it, check out
 <a href="https://github.com/dai-shi/react-tracked/tree/5469f0bafa5794a0aa69f4d084365061e9383771/website">the repo</a>.</p>
-
 <h3 id="a-custom-plugin">A custom plugin</h3>
-
 <p>There&rsquo;s something I want to do at this point.
 I don&rsquo;t want to create code snippets
 for both JavaScript and TypeScript.
 The JavaScript snippet could be generated from the TypeScript snippet.
 So, I developed a small plugin (theme) to do that on the fly.</p>
-
 <p>The result is pretty neat.
 Here&rsquo;s a code snippet in markdown.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">```typescript ts2js
@@ -259,43 +243,29 @@ export const SharedStateProvider: React.FC = ({ children }) =&gt; (
     {children}
   &lt;/MyContext.Provider&gt;
 );
-```</code></pre></div>
-<p>Just with this, the website shows something like the following.</p>
-
-<p><img src="./ts2js-scn.png" alt="Screenshot" /></p>
-
+```
+</code></pre></div><p>Just with this, the website shows something like the following.</p>
+<p><img src="./ts2js-scn.png" alt="Screenshot"></p>
 <p>If you click the &ldquo;TypeScript&rdquo; tab, the TypeScript snippet will be shown.</p>
-
 <p>A small hint implementing this is that because &ldquo;tsc&rdquo; doesn&rsquo;t preserve spaces,
 prettier is used to re-format the snippet.</p>
-
 <p>If this were something valuable, we might consider publishing
 it as an installable plugin.
 In the meantime, you can check out <a href="https://github.com/dai-shi/react-tracked/tree/5469f0bafa5794a0aa69f4d084365061e9383771/website/custom_modules/docusaurus-theme-ts2js-codeblock">the code</a>.</p>
-
 <p>To be honest, I would like to do it at the build time.
 That would probably require developing a plugin instead of a theme.</p>
-
 <h3 id="logo">Logo</h3>
-
 <p>Well, can you imagine a documentation website without a logo?
 So I created the logo. I hope the website is good looking now.</p>
-
 <h3 id="discord">Discord</h3>
-
 <p>Many OSS projects have community channels.
 I think it&rsquo;s a good timing to start at least one.
 So I made a Discord server. The invitation link is <a href="https://discord.gg/MrQdmzd">here</a>.</p>
-
 <h3 id="summary">Summary</h3>
-
 <p>Again, the React Tracked documentation website is available at:</p>
-
 <p><a href="https://react-tracked.js.org">https://react-tracked.js.org</a></p>
-
 <p>Please visit there to learn React Tracked and/or Docusaurus v2.
 Hope you like it. Feedback are welcome in the Discord channel or other means.</p>
-
 <p>My plan is to add more contents in the website.
 It would be important to understand what people want to know.
 Would someone help on it?</p>

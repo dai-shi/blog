@@ -10,6 +10,7 @@ Check out the official docs for details.
  Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference  They are trying best to explain new mind sets with analogies. That means it&rsquo;s totally different from the usage with traditional React." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/cover.jpg"/>
 <meta property="article:published_time" content="2019-11-03T21:00:00+09:00" />
 <meta property="article:modified_time" content="2019-11-03T21:00:00+09:00" />
 
@@ -20,7 +21,7 @@ Check out the official docs for details.
 Check out the official docs for details.
  Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference  They are trying best to explain new mind sets with analogies. That means it&rsquo;s totally different from the usage with traditional React."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Developing a React Library for Suspense for Data Fetching in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -173,16 +174,11 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>We have been waiting for &ldquo;Suspense for Data Fetching&rdquo; for a long time.
 It is now provided as an experimental feature in
 <a href="https://reactjs.org/blog/2019/10/22/react-release-channels.html">the experimental channel</a>.</p>
-
 <p>Check out the official docs for details.</p>
-
 <ol>
 <li><a href="https://reactjs.org/docs/concurrent-mode-intro.html">Introducing Concurrent Mode</a></li>
 <li><a href="https://reactjs.org/docs/concurrent-mode-suspense.html">Suspense for Data Fetching</a></li>
@@ -190,48 +186,37 @@ It is now provided as an experimental feature in
 <li><a href="https://reactjs.org/docs/concurrent-mode-adoption.html">Adopting Concurrent Mode</a></li>
 <li><a href="https://reactjs.org/docs/concurrent-mode-reference.html">Concurrent Mode API Reference</a></li>
 </ol>
-
 <p>They are trying best to explain new mind sets with analogies.
 That means it&rsquo;s totally different from the usage with traditional React.
 Yes, it is different and promising.</p>
-
 <p>This post is to explore a usage with Suspense for Data Fetching.
 Please note that all features are experimental and
 the current understanding could be wrong in the future.</p>
-
 <p>To get the benefit of Suspense for Data Fetching in Concurrent Mode,
 we should use the &ldquo;Render-as-You-Fetch&rdquo; pattern.
 This requires to start fetching before rendering.
 We need to have new mental model because we are so used to fetching
 in useEffect or componentDidMount.</p>
-
 <p>This post doesn&rsquo;t provide any specific answer to best practices yet,
 but here&rsquo;s what I did now.</p>
-
 <h3 id="createfetcher">createFetcher</h3>
-
 <p>Let&rsquo;s create a &ldquo;fetcher&rdquo; that wraps a fetch function.
 This can be an arbitrary async function that returns a Promise.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
-</code></pre></div>
-<p>This is a general GET fetcher that takes a url as an input
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
+</code></pre></div><p>This is a general GET fetcher that takes a url as an input
 and assumes a JSON response.
 Typically, we&rsquo;d want to create more specialized fetchers.</p>
-
 <p>A fetcher provides two methods: <code>prefetch</code> and <code>lazyFetch</code>.</p>
-
 <p>If you invoke <code>prefetch</code>, it will start the fetch function
 and you will get a &ldquo;suspendable.&rdquo;
 A &ldquo;suspendable&rdquo; is an object with two properties: <code>data</code> and <code>refetch</code>.
 The <code>data</code> is to get the promise result, but it will throw a promise
 if the promise is not resolved.
 The <code>refetch</code> will run the fetch function again and returns a new &ldquo;suspendable.&rdquo;</p>
-
 <p>If you invoke <code>lazyFeth</code>, you will get a &ldquo;suspendable&rdquo;-like,
 with fallback data and a lazy flag.
 It will actually never suspend, but you can treat it as a &ldquo;suspendable&rdquo;
 just like the one returned by <code>prefetch</code>.</p>
-
 <p>Now, the TypeScript typing of createFetcher is the following:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Suspendable</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Data</span>, <span style="color:#a6e22e">Input</span><span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">Data</span>;
@@ -246,14 +231,14 @@ just like the one returned by <code>prefetch</code>.</p>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span><span style="color:#f92672">:</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Data</span>, <span style="color:#a6e22e">Input</span><span style="color:#f92672">&gt;</span>(
   <span style="color:#a6e22e">fetchFunc</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Data</span><span style="color:#f92672">&gt;</span>,
-) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Fetcher</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Data</span>, <span style="color:#a6e22e">Input</span><span style="color:#f92672">&gt;</span>;</code></pre></div>
-<p>The implementation of this is a bit long.</p>
+) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Fetcher</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Data</span>, <span style="color:#a6e22e">Input</span><span style="color:#f92672">&gt;</span>;
+</code></pre></div><p>The implementation of this is a bit long.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">refetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
-    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">async</span> () =&gt; {
+    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">async</span> () =&gt; {
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
+        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
       } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
         <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>;
       } <span style="color:#66d9ef">finally</span> {
@@ -295,28 +280,21 @@ just like the one returned by <code>prefetch</code>.</p>
     },
   };
 };
-</code></pre></div>
-<p>The use of <code>prefetch</code> is almost always preferred.
+</code></pre></div><p>The use of <code>prefetch</code> is almost always preferred.
 The <code>lazyFetch</code> is only provided as a workaround
 for the &ldquo;Fetch-on-Render&rdquo; pattern.</p>
-
 <p>Once you get a &ldquo;suspendable,&rdquo;
 you can use it in render and React will take care of the rest.</p>
-
 <p>Because we need to invoke <code>prefetch</code> before creating a React element.
 we could only do it outside of render functions.
 As of writing, we do it in the component file globally,
 assuming we know what we want as an initial &ldquo;suspendable.&rdquo;
 This would probably make testing difficult.</p>
-
 <h3 id="usesuspendable">useSuspendable</h3>
-
 <p>The fetcher created by <code>createFetcher</code> is functionally complete,
-but it would be nice to have handy hooks to use &ldquo;suspendable&rdquo;s.</p>
-
+but it would be nice to have handy hooks to use &ldquo;suspendable&quot;s.</p>
 <p>The simplest one is <code>useSuspendable</code>.
 It simply stores a single &ldquo;suspendable&rdquo; in a local state.</p>
-
 <p>The implementation of <code>useSuspendable</code> is the following.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSuspendable</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">suspendable</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">suspendable</span>);
@@ -332,30 +310,19 @@ It simply stores a single &ldquo;suspendable&rdquo; in a local state.</p>
     <span style="color:#a6e22e">lazy</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">lazy</span>,
   };
 };
-</code></pre></div>
-<p>The result returned by the useSuspendable hook is
+</code></pre></div><p>The result returned by the useSuspendable hook is
 almost like a normal &ldquo;suspendable&rdquo; but with a slight difference.
 If you invoke <code>refetch</code>, instead of returning a new &ldquo;suspendable,&rdquo;
 it will replace the state value with the new &ldquo;suspendable.&rdquo;</p>
-
 <h3 id="the-library">The library</h3>
-
 <p>I&rsquo;ve developed the above code into a library.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-fetch">https://github.com/dai-shi/react-hooks-fetch</a></p>
-
 <p>This is highly experimental and it will change.</p>
-
 <h3 id="demo">Demo</h3>
-
 <p>Here&rsquo;s one small example using this library.</p>
-
 <p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-fetch/tree/master/examples/02_typescript">Codesandbox</a></p>
-
 <p>There are some other examples in the repo.</p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>I hesitated a bit to write a post like this, which is highly experimental
 and can even change in a couple of days after writing.
 Nevertheless, I would like the community to try the new world

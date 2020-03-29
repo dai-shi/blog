@@ -8,6 +8,7 @@
 <meta property="og:description" content="Background Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/cover.png"/>
 <meta property="article:published_time" content="2018-12-14T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-12-14T12:00:00+09:00" />
 
@@ -16,7 +17,7 @@
 <meta name="twitter:title" content="Developing React custom hooks for Redux without react-redux"/>
 <meta name="twitter:description" content="Background Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Developing React custom hooks for Redux without react-redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -169,40 +170,28 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="background">Background</h3>
-
+		<h3 id="background">Background</h3>
 <p>Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward.</p>
-
 <p>React will introduce hooks soon, which allow creating stateful logic for function components. They are called custom hooks. There has been many discussions how to use hooks to create new React bindings for Redux. There are also many proposals that would replace Redux at all, including <a href="https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/">mine</a>.</p>
-
 <p>This article describes how to develop custom hooks for Redux (not replacing it) in a straightforward way. We first describe a naive implementation, and later introduce a Proxy approach to seamlessly improve performance to some extent.</p>
-
 <h3 id="a-naive-implementation">A naive implementation</h3>
-
 <p>Let&rsquo;s start with a naive implementation. If you are not familiar with Context API and Hooks API, please visit the official docs to learn them first. The rest of this article assumes the basic understanding of them.</p>
-
 <p><a href="https://reactjs.org/docs/context.html">https://reactjs.org/docs/context.html</a></p>
-
 <p><a href="https://reactjs.org/docs/hooks-intro.html">https://reactjs.org/docs/hooks-intro.html</a></p>
-
 <p>We create a single context for passing a Redux store. There would be other ways like passing a Redux state or a part of the state for possible further improvements.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxStoreContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>();
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">store</span>, <span style="color:#a6e22e">children</span> }) =&gt; (
   &lt;<span style="color:#f92672">ReduxStoreContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
     {<span style="color:#a6e22e">children</span>}
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ReduxStoreContext.Provider&gt;</span>
-);</code></pre></div>
-<p>We then define two hooks: <code>useReduxDispatch</code> and <code>useReduxState</code>. The reason we have separate hooks is that not all components use both hooks at the same time, and we want to hide the implementation how we use context as we might change the implementation in the future.</p>
-
+);
+</code></pre></div><p>We then define two hooks: <code>useReduxDispatch</code> and <code>useReduxState</code>. The reason we have separate hooks is that not all components use both hooks at the same time, and we want to hide the implementation how we use context as we might change the implementation in the future.</p>
 <p>The implementation of <code>useReduxDispatch</code> is very easy.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxDispatch</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">reduxStoreContext</span>);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">dispatch</span>;
 };
-</code></pre></div>
-<p>The naive implementation of <code>useReduxState</code> is the following, using four hooks: <code>useContext</code>, <code>useRef</code>, <code>useEffect</code> and <code>useForceUpdate</code>.</p>
+</code></pre></div><p>The naive implementation of <code>useReduxState</code> is the following, using four hooks: <code>useContext</code>, <code>useRef</code>, <code>useEffect</code> and <code>useForceUpdate</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxState</span> <span style="color:#f92672">=</span> () =&gt; { 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ReduxStoreContext</span>);
@@ -217,15 +206,11 @@ text-align: center;
   }, []);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>;
 };
-</code></pre></div>
-<p>Basically, we just subscribe to any changes in the state. (A minor note: this doesn&rsquo;t support changing the store on the fly which may be important for testing.)</p>
-
+</code></pre></div><p>Basically, we just subscribe to any changes in the state. (A minor note: this doesn&rsquo;t support changing the store on the fly which may be important for testing.)</p>
 <p>Here, <code>useForceUpdate</code> is implemented as below [<a href="https://github.com/facebook/react/issues/14110#issuecomment-446845886">1</a>].</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forcedReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">forcedReducer</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
-</code></pre></div>
-<h3 id="the-example-code-how-to-use-it">The example code how to use it</h3>
-
+</code></pre></div><h3 id="the-example-code-how-to-use-it">The example code how to use it</h3>
 <p>Let&rsquo;s see how we use these hooks. It&rsquo;s a bit long but bare with us.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
@@ -270,15 +255,11 @@ text-align: center;
     &lt;<span style="color:#f92672">Counter</span> /&gt;
     &lt;<span style="color:#f92672">TextBox</span> /&gt;
   &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
-);</code></pre></div>
-<p>If you are familiar with Redux and hooks, there should be little problem reading the code, hopefully. (Again, we assume the store will never be changed, which can be wrong.)</p>
-
+);
+</code></pre></div><p>If you are familiar with Redux and hooks, there should be little problem reading the code, hopefully. (Again, we assume the store will never be changed, which can be wrong.)</p>
 <h3 id="improving-the-custom-hook-with-proxy">Improving the custom hook with Proxy</h3>
-
 <p>If you are familiar with Redux and react-redux, you notice that this is not ideal. If we click the button in Counter, not only it re-renders the Counter component, but also it re-renders the TextBox component. Well, this is not a problem until it is a problem. For small apps, it just works. For larger apps, it may have a performance problem. Anyway, we want to avoid unnecessary rendering if possible. The <code>mapStateToProps</code> function in react-redux is a well known approach for this. Developers specify which part of the state is used for a component. Defining such functions is not only extra work but also troublesome in some cases. It&rsquo;s easy to add heavy computations in such functions unless developers are familiar with memoization. We found beginner developers very hard on it.</p>
-
 <p>What if we don&rsquo;t need to specify anything, meaning no <code>mapStateToProps</code>? This is where Proxy comes in. With Proxy, the code can automatically detect which part of the state is used in rendering. Later, if the state is changed and it&rsquo;s notified by the subscription, it can know if the part of the interest is changed and re-render only if necessary.</p>
-
 <p>Let&rsquo;s modify our hook <code>useReduxState</code> to implement this feature. For now, we only care the first level of the state object (not deep in the object tree).</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReduxState</span> <span style="color:#f92672">=</span> () =&gt; { 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
@@ -305,25 +286,15 @@ text-align: center;
   }, []);
   <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">current</span>, <span style="color:#a6e22e">handler</span>);
 };
-</code></pre></div>
-<p>Now, it should not re-render TextBox even if we click the button in Counter in the example, and vice versa.</p>
-
+</code></pre></div><p>Now, it should not re-render TextBox even if we click the button in Counter in the example, and vice versa.</p>
 <p>This implementation is somewhat limited, and you might think that the shallow comparison is not enough. Maybe so, if you have already a concrete design of state structure. However, if you start designing a new state structure, you could design it so that the first-level separation is enough for performance. Also, note that for complex structure where you would need <code>reselect</code> in react-redux, you could use <code>useMemo</code> in a function component so that it returns a memoized element (ReactNode).</p>
-
 <h3 id="the-library">The library</h3>
-
 <p>We developed a library with this approach. This library actually allows deep comparison thanks to <a href="https://www.npmjs.com/package/proxyequal">proxyequal</a>. (Still, the shallow comparison described in the previous section may work better in a certain use case.)</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-easy-redux">https://github.com/dai-shi/react-hooks-easy-redux</a></p>
-
 <p>This repository contains several examples. You can also try them online. For example:</p>
-
 <p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-easy-redux/tree/master/examples/02_typescript?module=%2Fsrc%2FCounter.tsx&amp;view=preview">react-hooks-easy-redux-example - CodeSandbox</a></p>
-
 <h3 id="final-notes">Final notes</h3>
-
 <p>There could be some edge cases where this approach or the library doesn&rsquo;t work well. I would be happy to hear feedbacks either by Twitter or GitHub issues.</p>
-
 <p>The official react-redux has also discussions about the Proxy approach and they might implement it in the future. Would be nice. We look forward to the possibilities of React Hooks.</p>
 
 	</article>

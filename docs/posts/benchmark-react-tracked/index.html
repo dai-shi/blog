@@ -11,6 +11,7 @@ https://github.com/dai-shi/react-tracked
 This post shows benchmark results to convince that it actually is performant in one scenario." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/benchmark-react-tracked/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/benchmark-react-tracked/cover.jpg"/>
 <meta property="article:published_time" content="2019-06-16T23:00:00+09:00" />
 <meta property="article:modified_time" content="2019-06-16T23:00:00+09:00" />
 
@@ -22,7 +23,7 @@ react-tracked is a library for global state without Redux. This library provides
 https://github.com/dai-shi/react-tracked
 This post shows benchmark results to convince that it actually is performant in one scenario."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -175,51 +176,36 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>React-Redux provides <a href="https://react-redux.js.org/api/hooks">hooks API</a>
 with nice abstraction.
 Especially, <code>useSelector</code> is probaly less misused than <code>mapStateToProps</code>.</p>
-
 <p><a href="https://github.com/dai-shi/react-tracked">react-tracked</a>
 is a library for global state without Redux.
 This library provides almost compatible hooks API to React-Redux.
 It&rsquo;s developed with performance in mind, and it should
 be as performant as React-Redux, even though it utilizes
 only React context. See the GitHub repo for more information.</p>
-
 <p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
-
 <p>This post shows benchmark results to convince that
 it actually is performant in one scenario.</p>
-
 <p>It&rsquo;s worth mentioning that react-tracked, as the name implies,
 has another <code>useTrackedState</code> hook that has capability of
 state usage tracking. Unlike <code>useSelector</code>, developers don&rsquo;t need
 to define selectors for this hook.</p>
-
 <p>It&rsquo;s also worth mentioning that another library
 <a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
 provides the <code>useTrackedState</code> hook for Redux.
 See the GitHub repo for more information.</p>
-
 <p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
-
 <p>We compare all hooks described above.</p>
-
 <h3 id="benchmark-tool">Benchmark tool</h3>
-
 <p>To benchmark different frameworks,
 <a href="https://github.com/krausest/js-framework-benchmark">js-framework-benchmark</a>
 is used.</p>
-
 <p>Checkout <a href="https://github.com/dai-shi/js-framework-benchmark/tree/55fb0b4e4a283cfc49970900b6685ea10fe5eb64">the forked repo</a>
 if you want to reproduce the benchmark result at your end.</p>
-
 <h3 id="benchmark-results">Benchmark results</h3>
-
 <ul>
 <li>react-tracked-useTrackedState: <code>useTrackedState</code> in react-tracked v0.4.0</li>
 <li>react-tracked-useSelector: <code>useSelector</code> in react-tracked v0.4.0</li>
@@ -227,15 +213,10 @@ if you want to reproduce the benchmark result at your end.</p>
 <li>reactive-react-redux-useSelector: <code>useSelector</code> in reactive-react-redux v4.0.0-beta.0</li>
 <li>react-redux-hooks: <code>useSelector</code> in react-redux v7.1.0</li>
 </ul>
-
-<p><img src="./screenshot1.png" alt="screenshot1" /></p>
-
-<p><img src="./screenshot2.png" alt="screenshot2" /></p>
-
-<p><img src="./screenshot3.png" alt="screenshot3" /></p>
-
+<p><img src="./screenshot1.png" alt="screenshot1"></p>
+<p><img src="./screenshot2.png" alt="screenshot2"></p>
+<p><img src="./screenshot3.png" alt="screenshot3"></p>
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>The benchmark code for <code>useSelector</code> is almost identical
 among three libraries.
 The code for <code>useTrackedState</code> is also identical
@@ -244,7 +225,6 @@ However, the code for <code>useSelector</code> and
 the code for <code>useTrackedState</code> is a bit different
 and they are optimized separately.
 Hence, be reminded when comparing with different hooks.</p>
-
 <p>I hope these results encourage developers to try my two libraries.</p>
 
 	</article>

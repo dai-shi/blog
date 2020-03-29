@@ -11,6 +11,7 @@ But, what if we really need a global state.
 Problem When a state is a non-trivial object, it&rsquo;s not likely to use all properties of the object for one component to render." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg"/>
 <meta property="article:published_time" content="2019-07-07T17:00:00+09:00" />
 <meta property="article:modified_time" content="2019-07-07T17:00:00+09:00" />
 
@@ -22,7 +23,7 @@ In general, I would avoid using global state. It would reduce the isolation of c
 But, what if we really need a global state.
 Problem When a state is a non-trivial object, it&rsquo;s not likely to use all properties of the object for one component to render."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy &middot; Daishi Kato&#39;s blog</title>
     
@@ -175,21 +176,14 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>There are many libraries for global state with React hooks.
 React Redux also provides hooks API, which is very clean.</p>
-
 <p>In general, I would avoid using global state.
 It would reduce the isolation of components.
 Multiple contexts should work fine for certain use cases.</p>
-
 <p>But, what if we really need a global state.</p>
-
 <h3 id="problem">Problem</h3>
-
 <p>When a state is a non-trivial object, it&rsquo;s not likely to
 use all properties of the object for one component to render. 
 What most libraries do is to provide a selector interface.
@@ -199,11 +193,8 @@ In general, a selector is a function,
 but there are alternative ways to specify part of the state.
 For example, by property names or paths.
 In any case, developers are responsible to write proper selectors. </p>
-
 <p>This is not only about React Redux, but applicable to most libraries. </p>
-
 <h3 id="solution-state-usage-tracking">Solution &ldquo;state usage tracking&rdquo;</h3>
-
 <p>State usage tracking is to automate that process.
 Instead of developers specify which part of a state to be used,
 the system tracks how the state is used.
@@ -213,7 +204,6 @@ Immer and MobX use Proxy to detect changes.
 The difference is the purpose.
 Immer uses Proxy to detect mutation or say &ldquo;write operation.&rdquo;
 Whereas, state usage tracking is for &ldquo;read operation.&rdquo;</p>
-
 <p>My proposition is to combine React&rsquo;s reactive system with Proxy-based tracking. 
 Thanks to React hooks, it&rsquo;s extremely easy to use.
 My current implementation provides <code>useTrackedState</code> hook.
@@ -224,9 +214,7 @@ With tracking, the hook will only trigger re-render
 if the used part of the state is changed.
 Because there&rsquo;s no point of re-rendering
 if only unused part of the state is changed. </p>
-
 <h3 id="no-semantics-change">No semantics change</h3>
-
 <p>It&rsquo;s important to note that state usage tracking won&rsquo;t change any semantics.
 Let&rsquo;s suppose only unused part of the state is changed.
 In this case, the hook triggers re-render,
@@ -234,30 +222,22 @@ but a component will render the correct result. 
 If the hook doesn&rsquo;t actually track anything,
 we will get the same result.
 The difference is only that it may slow down. </p>
-
 <p>The point is that there is no semantics change in the useTrackedState hook.
 It only optimizes re-renders. Developers need to code what, not how.
 It&rsquo;s different from using selectors to control re-renders.</p>
-
 <h3 id="performance">Performance</h3>
-
 <p>Only the remaining question is the optimization in practice,
 because it comes at a cost. That is why benchmarking is important.
 The hook is simple and straightforward to use.
 If it&rsquo;s usable with comparable performance, it&rsquo;s good to go.</p>
-
 <p>The benchmark result shows <a href="https://blog.axlight.com/posts/benchmark-react-tracked/">state usage tracking is as fast as selectors</a>.
 Actually, it is faster in certain scenarios.</p>
-
 <h3 id="projects-using-state-usage-tracking">Projects using state usage tracking</h3>
-
 <ul>
 <li><a href="https://github.com/dai-shi/react-tracked">react-tracked</a>: Non-Redux global state</li>
 <li><a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>: React Redux alternative</li>
 </ul>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>This short post explained the idea of state usage tracking.
 Unlike my other posts, there was no code snippet.
 I hope the idea is explained well without code.

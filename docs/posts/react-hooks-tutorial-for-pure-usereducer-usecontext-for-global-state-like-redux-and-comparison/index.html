@@ -9,6 +9,7 @@
 Note: Global state is convenient for sharing values among components far apart in the component tree, but it shouldn&rsquo;t be abused because it would limit the reusability." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/cover.png"/>
 <meta property="article:published_time" content="2018-11-09T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-11-09T12:00:00+09:00" />
 
@@ -18,7 +19,7 @@ Note: Global state is convenient for sharing values among components far apart i
 <meta name="twitter:description" content="In this article, I will first explain minimal code to implement global state with useReducer and useContext which are called &ldquo;hooks&rdquo; that will be available in React 16.7. I will then compare it with react-hooks-global-state which is a tiny library that I&rsquo;ve been developing for global state management primarily for small applications.
 Note: Global state is convenient for sharing values among components far apart in the component tree, but it shouldn&rsquo;t be abused because it would limit the reusability."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>React Hooks Tutorial on pure useReducer &#43; useContext for global state like Redux and comparison with react-hooks-global-state &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,16 +172,10 @@ text-align: center;
 
 
 	<article>
-		
-
-<p>In this article, I will first explain minimal code to implement global state with useReducer and useContext which are called &ldquo;hooks&rdquo; that will be available in React 16.7. I will then compare it with <a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a> which is a tiny library that I&rsquo;ve been developing for global state management primarily for small applications.</p>
-
+		<p>In this article, I will first explain minimal code to implement global state with useReducer and useContext which are called &ldquo;hooks&rdquo; that will be available in React 16.7. I will then compare it with <a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a> which is a tiny library that I&rsquo;ve been developing for global state management primarily for small applications.</p>
 <p>Note: Global state is convenient for sharing values among components far apart in the component tree, but it shouldn&rsquo;t be abused because it would limit the reusability. Consider if values could be simply passed as props down the component tree.</p>
-
-<h3 id="pure-usereducer-usecontext-example-without-any-libraries">Pure useReducer + useContext example without any libraries</h3>
-
+<h3 id="pure-usereducer--usecontext-example-without-any-libraries">Pure useReducer + useContext example without any libraries</h3>
 <p>Let&rsquo;s look at the code. It&rsquo;s written in TypeScript. My TypeScript preference is enabling the strict mode, more precisely with <code>noImplicitAny</code> and <code>noAny</code>(tslint). I&rsquo;m pretty interested in writing code in TypeScript without type annotations as much as possible which would just look like normal JavaScript.</p>
-
 <p>The following is the application specific part, and initialState and reducer are defined. The file is simply named &ldquo;common.ts&rdquo; as it&rsquo;s also used in the next section.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
@@ -234,9 +229,7 @@ text-align: center;
     <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
   }
 };
-</code></pre></div>
-<p>The code above should be familiar to people who have used Redux before. The type definition is unfortunately included just because we define it in a separate file.</p>
-
+</code></pre></div><p>The code above should be familiar to people who have used Redux before. The type definition is unfortunately included just because we define it in a separate file.</p>
 <p>Next, we define a Provider component and two hooks, in a file named &ldquo;state2.tsx&rdquo;.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
@@ -265,9 +258,8 @@ text-align: center;
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> &lt;<span style="color:#f92672">K</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">keyof</span> <span style="color:#a6e22e">State</span>&gt;(<span style="color:#a6e22e">property</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">K</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">stateCtx</span>);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">property</span>]; <span style="color:#75715e">// only one depth selector for comparison
-</span><span style="color:#75715e"></span>};</code></pre></div>
-<p>In this &ldquo;state2.tsx&rdquo;, we use two contexts for state itself and dispatch function. Notice two tweaks for type annotations for the default dispatch value and the argument of useGlobalState. (Feedback appreciated. I&rsquo;m still a beginner in TypeScript.)</p>
-
+</span><span style="color:#75715e"></span>};
+</code></pre></div><p>In this &ldquo;state2.tsx&rdquo;, we use two contexts for state itself and dispatch function. Notice two tweaks for type annotations for the default dispatch value and the argument of useGlobalState. (Feedback appreciated. I&rsquo;m still a beginner in TypeScript.)</p>
 <p>The use of hooks should be easy. For example, this is &ldquo;Counter2.tsx&rdquo;. Notice <code>useCallback</code> for optimization which could be omitted if child components don&rsquo;t rely on shallow comparing.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
@@ -289,8 +281,8 @@ text-align: center;
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;</code></pre></div>
-<p>To make this work, we need to put <code>Provider</code> up in the component tree, probably the top, something like the following code.</p>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
+</code></pre></div><p>To make this work, we need to put <code>Provider</code> up in the component tree, probably the top, something like the following code.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Counter2&#39;</span>;
@@ -304,23 +296,17 @@ text-align: center;
   &lt;/<span style="color:#f92672">Provider</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
-<p>Quite simple, isn&rsquo;t it? Now, let&rsquo;s see the other example.</p>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>Quite simple, isn&rsquo;t it? Now, let&rsquo;s see the other example.</p>
 <h3 id="react-hooks-global-state">react-hooks-global-state</h3>
-
 <p>The previous section explains a &ldquo;pure&rdquo; example. In this article, &ldquo;pure&rdquo; simply means no third-party library. The example code in this section uses the library.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
-
 <p>The file &ldquo;common.ts&rdquo; is exactly the same as the previous example, and the &ldquo;state.ts&rdquo; file with this library is the following.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">reducer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./common&#39;</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
-</code></pre></div>
-<p>Could it be simpler than this? The power of custom hooks, thanks to the React team.</p>
-
+</code></pre></div><p>Could it be simpler than this? The power of custom hooks, thanks to the React team.</p>
 <p>The &ldquo;Counter.tsx&rdquo; file below is slightly different from the &ldquo;Counter2.tsx&rdquo; above because useGlobalState returns an array, and the dispatch function is available globally.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
@@ -340,40 +326,28 @@ text-align: center;
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;</code></pre></div>
-<h3 id="the-working-example">The working example</h3>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
+</code></pre></div><h3 id="the-working-example">The working example</h3>
 <p>You can try running these examples working side by side.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/dai-shi/react-hooks-global-state.git
 cd react-hooks-global-state
 npm install
-npm run examples:comparison</code></pre></div>
-<p>Open <a href="http://localhost:8080">http://localhost:8080</a> and you will see something like this.</p>
-
-<p><img src="./screenshot1.png" alt="scrrenshot1" title="Screenshot of the example" /></p>
-
+npm run examples:comparison
+</code></pre></div><p>Open http://localhost:8080 and you will see something like this.</p>
+<p><img src="./screenshot1.png" alt="scrrenshot1" title="Screenshot of the example"></p>
 <h3 id="comparison-notes">Comparison notes</h3>
-
 <p>Let me breifly explain differences of two approaches with some backgrounds that can&rsquo;t be seen in the examples. Note that I&rsquo;m a bit biased, of course. In this section, (A) denotes the first approach without any third-party libraries, and (B) denotes the second approach with react-hooks-global-state.</p>
-
 <ol>
 <li>One obvious difference is (B) requires less code just because the library provides common code. Whereas, (A) doesn&rsquo;t require any libraries and you have control of everything. It depends on developers whether they want more control or more opinionated restriction.</li>
 <li>(A) uses <code>useDispatch</code> to get <code>dispatch</code> function, while (B) has a global <code>dispatch</code> imported from &lsquo;state.ts&rsquo;. It might not be good for code reusability unless you carefully split code for reusable one and the one that depends on a variable outside, but it allows to define actions (functions that return action objects) in component files without caring about memoization, which could be easier for beginners. Because this approach is contradictory to action creators in Redux, there might be other drawbacks.</li>
 <li>(B) is rather for smaller applications, specializing for &ldquo;one depth selector&rdquo;, and it makes the use of <code>observedBits</code>. In the examples of previous sections, if you click &ldquo;+1&rdquo; to increment the counter, the Counter component is re-rendered in both (A) and (B); however, while the Person component is also re-rendered in (A), it is not so in (B). In order to avoid re-rendering in (A), you need to use the memoization technique which shouldn&rsquo;t be too difficult with <code>React.memo</code> or <code>useMemo</code>, but it&rsquo;s still difficult for beginners. In the case you need &ldquo;deep selector&rdquo;, you need memoization or something (bail out?) both in (A) and (B), so there&rsquo;s no reason to pick (B) as it has an extra cost for the &ldquo;one depth selector&rdquo; specialization.</li>
 </ol>
-
 <p>As a side note, react-hooks-global-state has two styles of the usage. One is the setState style <code>createGlobalState</code> and the other is the reducer style <code>createStore</code>. In this article, we only explain about <code>createStore</code>, but the primary motivation of this library is <code>createGlobalState</code>, which is much simpler. In contrast, <code>createStore</code> has more capabilities including naive Redux middleware support and hacky Redux DevTools Extention support. See <a href="https://github.com/dai-shi/react-hooks-global-state/tree/master/examples/08_thunk">the working example</a> if you are interested.</p>
-
-<p><img src="./screenshot2.png" alt="scrrenshot2" title="Screenshot of Redux DevTools Extention" /></p>
-
+<p><img src="./screenshot2.png" alt="scrrenshot2" title="Screenshot of Redux DevTools Extention"></p>
 <h3 id="a-final-note">A final note</h3>
-
 <p>I like Redux, and if I need the full Redux feature, I would use Redux. I hope <code>react-redux</code> provides nice custom hooks some time soon. The library react-hooks-global-state is probably for smaller use cases, or complementary to other libraries like React Apollo. Will see&hellip;</p>
-
 <p>React hooks are still not yet released as of writing. Until then, this is still an experimental project.</p>
-
 <h3 id="changelog">Changelog</h3>
-
 <ul>
 <li><em>[2018-11-10]:</em> Initial publication.</li>
 <li><em>[2018-11-11]:</em> Use useCallback for optimization.</li>

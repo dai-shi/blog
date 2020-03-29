@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Daishi Kato&#39;s blog</title>
@@ -6,7 +6,7 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 18 Feb 2020 23:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2020 20:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,9 +14,36 @@
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
+      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redux</title>
+      <link>https://blog.axlight.com/tags/redux/</link>
+      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/redux/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>worker</title>
+      <link>https://blog.axlight.com/tags/worker/</link>
+      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/worker/</guid>
       <description></description>
     </item>
     
@@ -26,24 +53,6 @@
       <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>redux</title>
-      <link>https://blog.axlight.com/tags/redux/</link>
-      <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     
@@ -134,15 +143,6 @@
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/suspense/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>worker</title>
-      <link>https://blog.axlight.com/tags/worker/</link>
-      <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/worker/</guid>
       <description></description>
     </item>
     

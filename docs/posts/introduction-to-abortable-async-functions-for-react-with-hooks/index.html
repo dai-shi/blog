@@ -10,6 +10,7 @@
 Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png"/>
 <meta property="article:published_time" content="2018-12-11T10:00:00+09:00" />
 <meta property="article:modified_time" content="2018-12-11T10:00:00+09:00" />
 
@@ -20,7 +21,7 @@ Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of
  TL;DR Just visit the example in codesandbox and try it.
 Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Introduction to abortable async functions for React with hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -173,65 +174,38 @@ text-align: center;
 
 
 	<article>
-		
-
-<blockquote>
+		<blockquote>
 <p>There is a follow-up article which describes the implementation details of the library. Please visit <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">here</a>.</p>
 </blockquote>
-
-<h3 id="tl-dr">TL;DR</h3>
-
+<h3 id="tldr">TL;DR</h3>
 <p>Just visit the <a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead">example</a> in codesandbox and try it.</p>
-
 <h3 id="background">Background</h3>
-
 <p>You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework. As is noted JavaScript doesn&rsquo;t have cancellation mechanism, but DOM has it. It&rsquo;s called <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">AbortController</a>. It&rsquo;s only supported in recent browsers, but polyfills should help for old browsers and Node.js.</p>
-
-<hr />
-
+<hr>
 <p>React Hooks API is a new feature coming soon in React 16.7. You can create a custom hook to share logic across components. Hooks are just functions and you can compose them easily. There has been many of proposals for custom hooks, including handling async functions. To my knowledge, there has been no proposal for abortable async functions. If we could use abortable async functions easily with hooks, it would be useful for small use cases where introducing big frameworks is not a good option.</p>
-
-<hr />
-
+<hr>
 <p>In this article, we take a use case to illustrate how it can be implemented in hooks. We don&rsquo;t go deep in the library implementation, rather focus on the usage of it to understand how it is acceptable. The use case is so-called &ldquo;typeahead search&rdquo; where you have a textbox in which you can type, and as you type a search query, the search result is shown on the fly. There are three difficulties in this use case; a) we have to deal with async side effect in hooks, b) we need to abort a previous incomplete search which is no longer valid, and c) we want a delay before starting a search to reduce the number of network requests.</p>
-
 <h3 id="hooks-to-handle-async-functions">Hooks to handle async functions</h3>
-
 <p>Now, let&rsquo;s look into hooks to handle abortable async functions. The first is a hook to create an async task.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTask</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">inputs</span>);
-</code></pre></div>
-<p><code>func</code> is a function with an argument which is AbortController. This function returns a promise, but the function is responsible to cancel the promise by AbortController. It&rsquo;s just a rule of this hook. No magic. <code>inputs</code> is an array of inputs just like the second argument of <code>useEffect</code>. This controls when to create an async task. This is surely tricky, but let&rsquo;s assume developers are already used to using the second argument of <code>useEffect</code>. The <code>task</code> returned by this hook contains information about the state of the task and you can destructure it easily: <code>const { pending, error, result } = task;</code></p>
-
-<hr />
-
+</code></pre></div><p><code>func</code> is a function with an argument which is AbortController. This function returns a promise, but the function is responsible to cancel the promise by AbortController. It&rsquo;s just a rule of this hook. No magic. <code>inputs</code> is an array of inputs just like the second argument of <code>useEffect</code>. This controls when to create an async task. This is surely tricky, but let&rsquo;s assume developers are already used to using the second argument of <code>useEffect</code>. The <code>task</code> returned by this hook contains information about the state of the task and you can destructure it easily: <code>const { pending, error, result } = task;</code></p>
+<hr>
 <p>The second hook is to run an async task created by the first hook above.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">useAsyncRun</span>(<span style="color:#a6e22e">task</span>);
-</code></pre></div>
-<p>This starts an async task just once. However, that doesn&rsquo;t mean only one async task will run. As described above, we can control creating async tasks by <code>inputs</code>, hence eventually it runs several async tasks. The important part of <code>useAsyncRun</code> is that it automatically aborts a previous task if it&rsquo;s not yet finished. You can pass a falsy value to the argument of <code>useAsyncRun</code> by which you can control when to start an async task.</p>
-
-<hr />
-
+</code></pre></div><p>This starts an async task just once. However, that doesn&rsquo;t mean only one async task will run. As described above, we can control creating async tasks by <code>inputs</code>, hence eventually it runs several async tasks. The important part of <code>useAsyncRun</code> is that it automatically aborts a previous task if it&rsquo;s not yet finished. You can pass a falsy value to the argument of <code>useAsyncRun</code> by which you can control when to start an async task.</p>
+<hr>
 <p>The core hooks are just the above two, but we want another hook for our use case. The third hook is to combine several async tasks sequentially.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">combinedTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncCombineSeq</span>(<span style="color:#a6e22e">task1</span>, <span style="color:#a6e22e">task2</span>);
-</code></pre></div>
-<p>The <code>combinedTask</code> returned by this hook contains the information about the state of the combined task, but for <code>result</code>, it should be easier and type-safe to read it from each tasks instead.</p>
-
-<hr />
-
+</code></pre></div><p>The <code>combinedTask</code> returned by this hook contains the information about the state of the combined task, but for <code>result</code>, it should be easier and type-safe to read it from each tasks instead.</p>
+<hr>
 <p>While <code>useAsyncTask</code> is sufficient to create an async task, it&rsquo;s not trivial to write a <code>func</code> with the rule that it needs to handle AbortController. Hence, we provide two helper hooks that wrap <code>useAsyncTask</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskTimeout</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>);
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskFetch</span>(<span style="color:#a6e22e">url</span>);
-</code></pre></div>
-<p><code>useAsyncTaskTimeout</code> is just to wait a certain amount of time and then run <code>func</code>.</p>
-
+</code></pre></div><p><code>useAsyncTaskTimeout</code> is just to wait a certain amount of time and then run <code>func</code>.</p>
 <p><code>useAsyncTaskFetch</code> is to fetch JSON data from <code>url</code>. You can also use &ldquo;POST&rdquo; method and fetch non-JSON data with options.</p>
-
 <h3 id="the-use-case-example">The use case example</h3>
-
 <p>It&rsquo;s time to code and run the use case. We use GitHub repository search. In this use case example, as you type a query string, it will show the search result.</p>
-
-<p><img src="./screenshot1.gif" alt="screenshot1" title="Screencast of the example" /></p>
-
+<p><img src="./screenshot1.gif" alt="screenshot1" title="Screencast of the example"></p>
 <p>Here is the code to realize this example. For the concrete code in TypeScript, visit the <a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead">example</a> in codesandbox or the <a href="https://github.com/dai-shi/react-hooks-async">repository</a> in GitHub.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GitHubSearch</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">query</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span>
@@ -270,30 +244,21 @@ text-align: center;
       &lt;<span style="color:#f92672">GitHubSearch</span> <span style="color:#a6e22e">query</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">query</span>} /&gt;
     &lt;/<span style="color:#f92672">div</span>&gt;
   );
-};</code></pre></div>
-<p>Some notes for the code:</p>
-
+};
+</code></pre></div><p>Some notes for the code:</p>
 <ol>
 <li>The first argument of <code>useAsyncTaskTimeout</code> is one of the trickiest one. Because the hook uses input identity to create an async task, you need to memoize it to control it. We use <code>useCallback</code> in this case. Note that the return value of the first argument function is not important here.</li>
 <li>We use <code>query &amp;&amp;</code> in the first argument of <code>useAsyncRun</code>. This is to prevent running an async task when <code>query === ''</code>, and we don&rsquo;t render anything by <code>if (!query) return null;</code>.</li>
 <li><code>timeoutTask.pending</code> represents the waiting phase of 500ms delay, whereas <code>fetchTask.pending</code> represents the networking phase. Unfortunately, we can&rsquo;t distinguish the connecting phase and the transferring phase within the networking phase.</li>
 <li>You can manually abort the fetch task by pressing a button in <code>&lt;Loading abort={fetchTask.abort} /&gt;</code> whose code is not shown in this article.</li>
 </ol>
-
 <p>Check out how it&rsquo;s working in the demo.</p>
-
 <p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead?module=%2Fsrc%2FGitHubSearch.tsx">react-hooks-async-example - CodeSandbox</a></p>
-
 <h3 id="the-library">The library</h3>
-
 <p>If you are interested, please check out the library. We are still not sure how this is acceptable, and would like to hear various feedbacks, including custom hooks design, use cases, implementation issues, and so on. Please drop me a note by Twitter and GitHub issues.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-async">https://github.com/dai-shi/react-hooks-async</a></p>
-
 <h3 id="final-notes">Final notes</h3>
-
 <p>I hesitated a bit before starting developing this idea, because in the React roadmap, we are expecting Suspense and react-cache in the near future. This will change a lot in data fetching in general.</p>
-
 <p>Well, at the point of writing, Suspense and react-cache aren&rsquo;t here yet. Neither is hooks, though. Hooks without Suspense may or may not play a role in data fetching for a certain use case. We will see.</p>
 
 	</article>

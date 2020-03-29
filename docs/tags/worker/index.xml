@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>worker on Daishi Kato&#39;s blog</title>
@@ -6,10 +6,21 @@
     <description>Recent content in worker on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Sep 2019 11:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 29 Mar 2020 20:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/worker/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware</title>
+      <link>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</link>
+      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</guid>
+      <description>Introduction Redux is a framework-agnostic library for global state. It&amp;rsquo;s often used with React.
+While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&amp;rsquo;t get the benefit with Redux.
+I&amp;rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode.</description>
+    </item>
     
     <item>
       <title>Off-main-thread React Redux with Performance</title>

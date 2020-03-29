@@ -9,6 +9,7 @@
 Background When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/cover.png"/>
 <meta property="article:published_time" content="2018-12-22T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-12-22T12:00:00+09:00" />
 
@@ -18,7 +19,7 @@ Background When developing a GraphQL server with Apollo Server, GraphQL Playgrou
 <meta name="twitter:description" content="This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.
 Background When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Injecting a client-side script in GraphQL Playground in Apollo Server &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,20 +172,12 @@ text-align: center;
 
 
 	<article>
-		
-
-<p>This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.</p>
-
+		<p>This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.</p>
 <h3 id="background">Background</h3>
-
 <p>When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers. However, what if we need to call OAuth provider to get an accessToken? Surely, we could run <code>curl</code> to get a token, copy it in the terminal and paste it in the browser. It should be much easier if we could simply sign in in the browser.</p>
-
-<hr />
-
+<hr>
 <p>A quick look into the Apollo Server code and the Playground code, there seems no configuration to inject a script that runs in the browser. While not being sure if there&rsquo;s a recommended way for this, I try to patch it.</p>
-
 <h3 id="the-example-code">The example code</h3>
-
 <p>Here is the code based on the Apollo Server tutorial. It simply adds a string in HTML.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">ApolloServer</span>, <span style="color:#a6e22e">gql</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;apollo-server-express&#39;</span>);
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">express</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">require</span>(<span style="color:#e6db74">&#39;express&#39;</span>);
@@ -240,23 +233,14 @@ text-align: center;
 <span style="color:#a6e22e">app</span>.<span style="color:#a6e22e">listen</span>(<span style="color:#a6e22e">port</span>, () =&gt; {
   <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">`Open http://localhost:</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">port</span><span style="color:#e6db74">}${</span><span style="color:#a6e22e">server</span>.<span style="color:#a6e22e">graphqlPath</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
 });
-</code></pre></div>
-<p>What is nice here is that Playground exposes the Redux store as <code>window.s</code>. Notice the string replacement is not robust and if Playground changes the spaces in HTML, it won&rsquo;t work.</p>
-
+</code></pre></div><p>What is nice here is that Playground exposes the Redux store as <code>window.s</code>. Notice the string replacement is not robust and if Playground changes the spaces in HTML, it won&rsquo;t work.</p>
 <h3 id="how-to-run">How to run</h3>
-
 <p>You can check out the GitHub repository and run this example.</p>
-
 <p><a href="https://github.com/dai-shi/apollo-server-patch-playground-example">https://github.com/dai-shi/apollo-server-patch-playground-example</a></p>
-
 <p>You can also run it in codesandbox.</p>
-
 <p><a href="https://codesandbox.io/s/github/dai-shi/apollo-server-patch-playground-example/tree/master/?module=%2Fsrc%2Fserver.js">apollo-server-patch-playground-example - CodeSandbox</a></p>
-
 <p>(Until now, I didn&rsquo;t realize that CodeSandbox is capable to run Apollo Server. How nice!)</p>
-
 <h3 id="final-notes">Final notes</h3>
-
 <p>As I noted, this is just a workaround at the point of writing. I&rsquo;m pretty sure this is not what we want and would like to look for a recommended solution.</p>
 
 	</article>

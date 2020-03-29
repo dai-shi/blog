@@ -8,6 +8,7 @@
 <meta property="og:description" content="Motivation Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/cover.png"/>
 <meta property="article:published_time" content="2018-10-20T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-10-20T12:00:00+09:00" />
 
@@ -16,7 +17,7 @@
 <meta name="twitter:title" content="Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate"/>
 <meta name="twitter:description" content="Motivation Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate &middot; Daishi Kato&#39;s blog</title>
     
@@ -167,36 +168,24 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="motivation">Motivation</h3>
-
+		<h3 id="motivation">Motivation</h3>
 <p>Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types.</p>
-
 <h3 id="features">Features</h3>
-
 <p>This boilerplate consists of:</p>
-
 <ul>
 <li>Expo</li>
 <li>React Apollo (+ Apollo Client)</li>
 <li>TypeScript (+ tslint)</li>
 </ul>
-
 <p>The points of this boilerplate are the followings:</p>
-
 <ul>
 <li>Only basic packages are included</li>
 <li>No &ldquo;any&rdquo; types including implicit ones are allowed</li>
 <li>GraphQL is mocked in the client side, so no server is required to run the app in the first place.</li>
 </ul>
-
 <h3 id="the-repository">The repository</h3>
-
 <p><a href="https://github.com/dai-shi/typescript-expo-apollo-boilerplate">https://github.com/dai-shi/typescript-expo-apollo-boilerplate</a></p>
-
 <h3 id="snippets">Snippets</h3>
-
 <p>Please checkout the code in the repository, but here&rsquo;s a piece of the code just for a reference.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewPost</span> <span style="color:#f92672">=</span> () =&gt; (
   &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ADD_POST</span>} <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;queryPosts&#39;</span>]}&gt;
@@ -209,9 +198,8 @@ text-align: center;
       );
     }}
   &lt;/<span style="color:#f92672">Mutation</span>&gt;
-);</code></pre></div>
-<h3 id="notes">Notes</h3>
-
+);
+</code></pre></div><h3 id="notes">Notes</h3>
 <p>The code will probably be improved. For example, the tslint config might not be enough. Also, I usually prefer SFCs to classes, and I found that recompose helps for it because it has type annotations.</p>
 
 	</article>

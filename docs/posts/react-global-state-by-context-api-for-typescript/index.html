@@ -12,6 +12,7 @@ Example code in TypeScript Let me breifly show how the code looks like in TypeSc
 In a file named state.ts, we define a global state and export function components." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/cover.png"/>
 <meta property="article:published_time" content="2018-11-08T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-11-08T12:00:00+09:00" />
 
@@ -24,7 +25,7 @@ https://www.npmjs.com/package/react-context-global-state
 Example code in TypeScript Let me breifly show how the code looks like in TypeScript.
 In a file named state.ts, we define a global state and export function components."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>React global state by Context API for TypeScript &middot; Daishi Kato&#39;s blog</title>
     
@@ -177,18 +178,11 @@ text-align: center;
 
 
 	<article>
-		
-
-<p><em>Note: this post has nothing to do with React Hooks API.</em></p>
-
+		<p><em>Note: this post has nothing to do with React Hooks API.</em></p>
 <p>In <a href="https://blog.axlight.com/posts/react-global-state-by-context-api/">my previous post</a>, I introduced a library called react-context-global-state. After a while, I have better knowlege of TypeScript (yes, I&rsquo;m a beginner!), and come up with fairly good type definitions. I just released a new version.</p>
-
 <p><a href="https://www.npmjs.com/package/react-context-global-state">https://www.npmjs.com/package/react-context-global-state</a></p>
-
 <h3 id="example-code-in-typescript">Example code in TypeScript</h3>
-
 <p>Let me breifly show how the code looks like in TypeScript.</p>
-
 <p>In a file named state.ts, we define a global state and export function components. The <code>State</code> type is also exported.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
 
@@ -204,8 +198,7 @@ text-align: center;
 <span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">StateProvider</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
-</code></pre></div>
-<p>In App.tsx, we provide the state using Context.</p>
+</code></pre></div><p>In App.tsx, we provide the state using Context.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateProvider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
@@ -220,8 +213,8 @@ text-align: center;
   &lt;/<span style="color:#f92672">StateProvider</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
-<p>In Counter.tsx, we consume the part of the state by specifying the name.</p>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>In Counter.tsx, we consume the part of the state by specifying the name.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateConsumerType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
@@ -245,19 +238,15 @@ text-align: center;
   &lt;/<span style="color:#f92672">Counter1StateConsumer</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;</code></pre></div>
-<p>Notice how <code>Counter1StateConsumer</code> is defined above. I&rsquo;m not quite sure if this is the best way in TypeScript. Probably, it&rsquo;s ideal if it could just be constrained by the <code>name=&quot;counter1&quot;</code> prop.</p>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
+</code></pre></div><p>Notice how <code>Counter1StateConsumer</code> is defined above. I&rsquo;m not quite sure if this is the best way in TypeScript. Probably, it&rsquo;s ideal if it could just be constrained by the <code>name=&quot;counter1&quot;</code> prop.</p>
 <p>The full example code is available in the repository.</p>
-
 <p><a href="https://github.com/dai-shi/react-context-global-state">https://github.com/dai-shi/react-context-global-state</a></p>
-
-<p>And, you can run it like the following and open <a href="http://localhost:8080">http://localhost:8080</a> in your browser to see it working.</p>
+<p>And, you can run it like the following and open http://localhost:8080 in your browser to see it working.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git glone https://github.com/dai-shi/react-context-global-state.git
 npm install
-npm run examples:typescript</code></pre></div>
-<h3 id="some-thoughts">Some thoughts</h3>
-
+npm run examples:typescript
+</code></pre></div><h3 id="some-thoughts">Some thoughts</h3>
 <p>While global state is convenient, it&rsquo;s better not to overuse it. It&rsquo;s essentially a global variable, which in general should be avoided. In React, we should first consider using local state and passing it in the component tree. Global state is certainly useful if two components far apart in the tree need to share a value. In such a case, the Context API may fit well. This library is meant for rather small applications in which using Redux or alike requires too much effort.</p>
 
 	</article>

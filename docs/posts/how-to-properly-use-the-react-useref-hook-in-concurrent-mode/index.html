@@ -9,6 +9,7 @@
  React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png"/>
 <meta property="article:published_time" content="2019-03-07T12:00:00+09:00" />
 <meta property="article:modified_time" content="2019-03-07T12:00:00+09:00" />
 
@@ -18,7 +19,7 @@
 <meta name="twitter:description" content="Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
  React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>How to properly use the React useRef hook in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,23 +172,15 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>According to <a href="https://reactjs.org/blog/2018/11/27/react-16-roadmap.html">React 16.x Roadmap</a>, we are expecting Concurrent Mode soon.</p>
-
 <blockquote>
 <p>React 16.x (~Q2 2019): The One with Concurrent Mode
 Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.</p>
 </blockquote>
-
 <p>While it is an opt-in feature, you can enable it easily and if your component isn&rsquo;t properly implemented, it won&rsquo;t work correctly. In short, you can&rsquo;t make side effects in your render function. This has always been true, but it hadn&rsquo;t been a real issue until we have Concurrent Mode. In Concurrent Mode, render functions could be invoked multiple times without actually committing (meaning, for example, applying changes to the DOM). Luckily, Strict Mode intentionally invoke render functions twice, and you can notice the wrong behavior in the development mode. Refer <a href="https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects">the doc</a> for more information.</p>
-
 <p>This short article focuses on <code>useRef</code>, one of React Hooks. The useRef hook is pretty powerful and often can be abused. In general, developers should avoid using <code>useRef</code> if they could use <code>useState</code> instead.</p>
-
 <p>This article shows example code that uses <code>useRef</code> improperly and how to fix it. The example is a simple counter just to illustrate the issue. It&rsquo;s not product code, and you can actually implement the same example with <code>useState</code>.</p>
-
 <h3 id="the-bad-code">The bad code</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BadCounter</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -195,9 +188,8 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
   <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
 };
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">BadCounter</span>;</code></pre></div>
-<p>It works as expected in a traditional React where the render phase and the commit phase is one-to-one. However, if it invokes the render function multiple time without committing, the count increases unexpectedly.</p>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">BadCounter</span>;
+</code></pre></div><p>It works as expected in a traditional React where the render phase and the commit phase is one-to-one. However, if it invokes the render function multiple time without committing, the count increases unexpectedly.</p>
 <h3 id="the-good-code">The good code</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useEffect</span>, <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GoodCounter</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -209,11 +201,9 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
   <span style="color:#a6e22e">currentCount</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">currentCount</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
 };
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">GoodCounter</span>;</code></pre></div>
-<p>This code uses <code>useEffect</code>, whose first argument function is only invoked in the commit phase. The <code>currentCount</code> is a local variable within the render function scope, and it will only change the ref <code>count</code> in the commit phase. The ref is essentially a global variable outside the function scope, hence modifying it is a side effect.</p>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">GoodCounter</span>;
+</code></pre></div><p>This code uses <code>useEffect</code>, whose first argument function is only invoked in the commit phase. The <code>currentCount</code> is a local variable within the render function scope, and it will only change the ref <code>count</code> in the commit phase. The ref is essentially a global variable outside the function scope, hence modifying it is a side effect.</p>
 <h3 id="the-demo">The demo</h3>
-
 <p>To run the two code examples above, here&rsquo;s the App component.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, {
   <span style="color:#a6e22e">useReducer</span>,
@@ -236,17 +226,12 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
     &lt;/<span style="color:#f92672">ConcurrentMode</span>&gt;
   );
 };
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
-<p>(In fact, we don&rsquo;t need <code>ConcurrentMode</code>, but just <code>StrictMode</code> is enough.)</p>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>(In fact, we don&rsquo;t need <code>ConcurrentMode</code>, but just <code>StrictMode</code> is enough.)</p>
 <p>Please checkout the following codesandbox to see the actual behavior.</p>
-
-<iframe src="https://codesandbox.io/embed/x2p46v02z4?fontsize=14" title="x2p46v02z4" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
+<!-- raw HTML omitted -->
 <h3 id="final-notes">Final notes</h3>
-
 <p>The reason I want to use <code>useRef</code> is to develop a bindings library for Redux. It requires to subscribe the global store and update components when the state is updated. The ref is used to keep track of the last rendered state. For more information, check out the GitHub repository.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-easy-redux">https://github.com/dai-shi/react-hooks-easy-redux</a></p>
 
 	</article>

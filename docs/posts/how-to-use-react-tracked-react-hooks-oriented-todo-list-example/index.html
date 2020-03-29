@@ -11,6 +11,7 @@ https://github.com/dai-shi/react-tracked
 The example we show is the one from Redux: Todo List" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/cover.jpg"/>
 <meta property="article:published_time" content="2019-07-08T01:00:00+09:00" />
 <meta property="article:modified_time" content="2019-07-08T01:00:00+09:00" />
 
@@ -22,7 +23,7 @@ We use two libraries: react-tracked and immer. While immer makes it easy to upda
 https://github.com/dai-shi/react-tracked
 The example we show is the one from Redux: Todo List"/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>How to use react-tracked: React hooks-oriented Todo List example &middot; Daishi Kato&#39;s blog</title>
     
@@ -175,22 +176,15 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>React hooks have changed the way to compose components.
 This post will show an example which is very hooks-oriented.</p>
-
 <p>We use two libraries: react-tracked and immer.
 While immer makes it easy to update state in an immutable way,
 react-tracked makes it easy to read state with tracking for optimization.
 Please check out the repo for more details.</p>
-
 <p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
-
 <p>The example we show is the one from Redux: <a href="https://redux.js.org/basics/example">Todo List</a></p>
-
 <h3 id="folder-structure">Folder structure</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- src/
   - index.tsx
@@ -206,12 +200,10 @@ Please check out the repo for more details.</p>
     - FilterLink.tsx
     - Footer.tsx
     - Todo.tsx
-    - VisibleTodoList.tsx</code></pre></div>
-<p>We have two folders <code>components</code> and <code>hooks</code>.
+    - VisibleTodoList.tsx
+</code></pre></div><p>We have two folders <code>components</code> and <code>hooks</code>.
 Components are basically views. Hooks include logic.</p>
-
-<h3 id="src-state-ts">src/state.ts</h3>
-
+<h3 id="srcstatets">src/state.ts</h3>
 <p>In this example, we don&rsquo;t use reducers.
 We define a state only and some types.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
@@ -239,11 +231,10 @@ We define a state only and some types.</p>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
 
-<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SetState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">useValue</span><span style="color:#f92672">&gt;</span>[<span style="color:#ae81ff">1</span>];</code></pre></div>
-<p>Notice the last line. It might be a bit tricky.
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">SetState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReturnType</span><span style="color:#f92672">&lt;</span><span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">useValue</span><span style="color:#f92672">&gt;</span>[<span style="color:#ae81ff">1</span>];
+</code></pre></div><p>Notice the last line. It might be a bit tricky.
 <code>SetState</code> is a type for <code>setState</code>.</p>
-
-<h3 id="src-hooks-useaddtodo-ts">src/hooks/useAddTodo.ts</h3>
+<h3 id="srchooksuseaddtodots">src/hooks/useAddTodo.ts</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
@@ -266,11 +257,10 @@ We define a state only and some types.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">addTodo</span>;
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useAddTodo</span>;</code></pre></div>
-<p>This is the hook responsible for adding an item.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useAddTodo</span>;
+</code></pre></div><p>This is the hook responsible for adding an item.
 We use immer here, but it&rsquo;s not necessary.</p>
-
-<h3 id="src-hooks-usetoggletodo-ts">src/hooks/useToggleTodo.ts</h3>
+<h3 id="srchooksusetoggletodots">src/hooks/useToggleTodo.ts</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
@@ -290,10 +280,9 @@ We use immer here, but it&rsquo;s not necessary.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">toggleTodo</span>;
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useToggleTodo</span>;</code></pre></div>
-<p>Same idea of this hook to toggle an item.</p>
-
-<h3 id="src-hooks-usevisibilityfilter-ts">src/hooks/useVisibilityFilter.ts</h3>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useToggleTodo</span>;
+</code></pre></div><p>Same idea of this hook to toggle an item.</p>
+<h3 id="srchooksusevisibilityfilterts">src/hooks/useVisibilityFilter.ts</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useTracked</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">produce</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;immer&#39;</span>;
@@ -313,12 +302,11 @@ We use immer here, but it&rsquo;s not necessary.</p>
   ];
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibilityFilter</span>;</code></pre></div>
-<p>This hook is for both returning the current <code>visibilityFilter</code>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibilityFilter</span>;
+</code></pre></div><p>This hook is for both returning the current <code>visibilityFilter</code>
 and a setter function. We use <code>useTracked</code> for this.
 It is a combined hook to combine <code>useTrackedState</code> and <code>useDispatch</code>.</p>
-
-<h3 id="src-hooks-usevisibletodos-ts">src/hooks/useVisibleTodos.ts</h3>
+<h3 id="srchooksusevisibletodosts">src/hooks/useVisibleTodos.ts</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useTrackedState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">VisibilityFilterType</span>, <span style="color:#a6e22e">State</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../state&#39;</span>;
@@ -341,10 +329,9 @@ It is a combined hook to combine <code>useTrackedState</code> and <code>useDispa
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">getVisibleTodos</span>(<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">todos</span>, <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">visibilityFilter</span>);
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibleTodos</span>;</code></pre></div>
-<p>This hook handles filtering of Todo items.</p>
-
-<h3 id="src-components-addtodo-tsx">src/components/AddTodo.tsx</h3>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useVisibleTodos</span>;
+</code></pre></div><p>This hook handles filtering of Todo items.</p>
+<h3 id="srccomponentsaddtodotsx">src/components/AddTodo.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
@@ -372,11 +359,10 @@ It is a combined hook to combine <code>useTrackedState</code> and <code>useDispa
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">AddTodo</span>;</code></pre></div>
-<p>There&rsquo;s nothing special to note except for <code>useAddTodo</code> being imported
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">AddTodo</span>;
+</code></pre></div><p>There&rsquo;s nothing special to note except for <code>useAddTodo</code> being imported
 from the <code>hooks</code> folder.</p>
-
-<h3 id="src-components-todo-tsx">src/components/Todo.tsx</h3>
+<h3 id="srccomponentstodotsx">src/components/Todo.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Props</span> <span style="color:#f92672">=</span> {
@@ -398,10 +384,9 @@ from the <code>hooks</code> folder.</p>
   &lt;/<span style="color:#f92672">li</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;</code></pre></div>
-<p>This is a componet with no hooks dependency.</p>
-
-<h3 id="src-components-visibletodolist-tsx">src/components/VisibleTodoList.tsx</h3>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Todo</span>;
+</code></pre></div><p>This is a componet with no hooks dependency.</p>
+<h3 id="srccomponentsvisibletodolisttsx">src/components/VisibleTodoList.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useVisibleTodos</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useVisibleTodos&#39;</span>;
@@ -420,10 +405,9 @@ from the <code>hooks</code> folder.</p>
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">VisibleTodoList</span>;</code></pre></div>
-<p>This is different from the original example. We moved the filtering logic to hooks.</p>
-
-<h3 id="src-components-filterlink-tsx">src/components/FilterLink.tsx</h3>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">VisibleTodoList</span>;
+</code></pre></div><p>This is different from the original example. We moved the filtering logic to hooks.</p>
+<h3 id="srccomponentsfilterlinktsx">src/components/FilterLink.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useVisibilityFilter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../hooks/useVisibilityFilter&#39;</span>;
@@ -450,11 +434,10 @@ from the <code>hooks</code> folder.</p>
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FilterLink</span>;</code></pre></div>
-<p>This uses the <code>useVisibilityFilter</code> hook.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">FilterLink</span>;
+</code></pre></div><p>This uses the <code>useVisibilityFilter</code> hook.
 Notice the hook returns a tuple, a value and a setter function.</p>
-
-<h3 id="src-components-footer-tsx">src/components/Footer.tsx</h3>
+<h3 id="srccomponentsfootertsx">src/components/Footer.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./FilterLink&#39;</span>;
@@ -468,10 +451,9 @@ Notice the hook returns a tuple, a value and a setter function.</p>
   &lt;/<span style="color:#f92672">div</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Footer</span>;</code></pre></div>
-<p>Nothing special to note for this component.</p>
-
-<h3 id="src-components-app-tsx">src/components/App.tsx</h3>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Footer</span>;
+</code></pre></div><p>Nothing special to note for this component.</p>
+<h3 id="srccomponentsapptsx">src/components/App.tsx</h3>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Footer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Footer&#39;</span>;
@@ -486,11 +468,9 @@ Notice the hook returns a tuple, a value and a setter function.</p>
   &lt;/<span style="color:#f92672">div</span>&gt;
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
-<p>This is the component to compose other components all together.</p>
-
-<h3 id="src-index-tsx">src/index.tsx</h3>
-
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>This is the component to compose other components all together.</p>
+<h3 id="srcindextsx">src/index.tsx</h3>
 <p>Finally, we need the entry point.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
@@ -505,24 +485,18 @@ Notice the hook returns a tuple, a value and a setter function.</p>
   &lt;/<span style="color:#f92672">Provider</span>&gt;
 );
 
-<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">App</span>), document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));</code></pre></div>
-<p>Notice the <code>&lt;Provider&gt;</code> passes the <code>useValue</code> from state.ts.</p>
-
+<span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">App</span>), document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
+</code></pre></div><p>Notice the <code>&lt;Provider&gt;</code> passes the <code>useValue</code> from state.ts.</p>
 <h3 id="online-demo">Online demo</h3>
-
-<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/07_todolist?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
+<!-- raw HTML omitted -->
 <p><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/07_todolist">Source code in the repo</a></p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>As I wrote this post, I noticed something.
 My original motivation is to show how to use react-tracked.
 However, this example is also good to show how setState and
 custom hooks can separate concerns without reducers.
 The other minor finding for me is that immer doesn&rsquo;t help much
 in custom hooks in this example.</p>
-
 <p>We didn&rsquo;t discuss much about performance optimization.
 There&rsquo;s some room for improvement.
 One of the easiest ones is to use <code>React.memo</code>.

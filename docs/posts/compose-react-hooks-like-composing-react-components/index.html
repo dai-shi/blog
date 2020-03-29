@@ -10,6 +10,7 @@ React components Let&rsquo;s use a minimalistic example. Here&rsquo;s a componen
 const Person = ({ person }) =&gt; ( &lt;div&gt; &lt;div className=&#34;personFirstName&#34;&gt; &lt;span&gt;First Name:&lt;span&gt; &lt;span&gt;{person.firstName}&lt;/span&gt; &lt;/div&gt; &lt;div className=&#34;personLastName&#34;&gt; &lt;span&gt;Last Name:&lt;span&gt; &lt;span&gt;{person.lastName}&lt;/span&gt; &lt;/div&gt; &lt;/div&gt; ); Well, this component is a little bit big, so let&rsquo;s split it into functions and compose them." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/cover.png"/>
 <meta property="article:published_time" content="2019-04-18T12:00:00+09:00" />
 <meta property="article:modified_time" content="2019-04-18T12:00:00+09:00" />
 
@@ -20,7 +21,7 @@ const Person = ({ person }) =&gt; ( &lt;div&gt; &lt;div className=&#34;personFir
 React components Let&rsquo;s use a minimalistic example. Here&rsquo;s a component.
 const Person = ({ person }) =&gt; ( &lt;div&gt; &lt;div className=&#34;personFirstName&#34;&gt; &lt;span&gt;First Name:&lt;span&gt; &lt;span&gt;{person.firstName}&lt;/span&gt; &lt;/div&gt; &lt;div className=&#34;personLastName&#34;&gt; &lt;span&gt;Last Name:&lt;span&gt; &lt;span&gt;{person.lastName}&lt;/span&gt; &lt;/div&gt; &lt;/div&gt; ); Well, this component is a little bit big, so let&rsquo;s split it into functions and compose them."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Compose React hooks like composing React components &middot; Daishi Kato&#39;s blog</title>
     
@@ -173,12 +174,8 @@ text-align: center;
 
 
 	<article>
-		
-
-<p>This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&rsquo;s jump in the code.</p>
-
+		<p>This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&rsquo;s jump in the code.</p>
 <h3 id="react-components">React components</h3>
-
 <p>Let&rsquo;s use a minimalistic example. Here&rsquo;s a component.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">person</span> }) =&gt; (
   &lt;<span style="color:#f92672">div</span>&gt;
@@ -191,8 +188,8 @@ text-align: center;
       &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">lastName</span>}&lt;/<span style="color:#f92672">span</span>&gt;
     &lt;/<span style="color:#f92672">div</span>&gt;
   &lt;/<span style="color:#f92672">div</span>&gt;
-);</code></pre></div>
-<p>Well, this component is a little bit big, so let&rsquo;s split it into functions and compose them.</p>
+);
+</code></pre></div><p>Well, this component is a little bit big, so let&rsquo;s split it into functions and compose them.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">FirstName</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">name</span> }) =&gt; (
   &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">className</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;personFirstName&#34;</span>&gt;
     &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>&lt;<span style="color:#f92672">span</span>&gt;
@@ -210,19 +207,17 @@ text-align: center;
     &lt;<span style="color:#f92672">FirstName</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">firstName</span>} /&gt;
     &lt;<span style="color:#f92672">LastName</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">lastName</span>} /&gt;
   &lt;/<span style="color:#f92672">div</span>&gt;
-);</code></pre></div>
-<p>Now, it looks organized. Why do we do this? Because, we can then use <code>FirstName</code> component in other components. It&rsquo;s reusability.</p>
-
+);
+</code></pre></div><p>Now, it looks organized. Why do we do this? Because, we can then use <code>FirstName</code> component in other components. It&rsquo;s reusability.</p>
 <h3 id="react-hooks">React hooks</h3>
-
 <p>What about hooks? Let&rsquo;s suppose we have <code>usePerson</code> hook, which returns the person object. It&rsquo;s not important how it&rsquo;s implemented, but for example, we can assume it&rsquo;s with <code>useContext</code> as a simple concrete case.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">usePerson</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">firstName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">firstName</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lastName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">lastName</span>;
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">firstName</span>}{<span style="color:#e6db74">&#39; &#39;</span>}{<span style="color:#a6e22e">lastName</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-};</code></pre></div>
-<p>This is over-simplified, but let us split it into functions and compose them.</p>
+};
+</code></pre></div><p>This is over-simplified, but let us split it into functions and compose them.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">usePerson</span>();
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">firstName</span>;
@@ -235,17 +230,12 @@ text-align: center;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">firstName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFirstName</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lastName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useLastName</span>();
   <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">firstName</span>}{<span style="color:#e6db74">&#39; &#39;</span>}{<span style="color:#a6e22e">lastName</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-};</code></pre></div>
-<p>I hope you get the idea. Now, you can reuse <code>useFirstName</code> hook in other components.</p>
-
+};
+</code></pre></div><p>I hope you get the idea. Now, you can reuse <code>useFirstName</code> hook in other components.</p>
 <h3 id="conclusion">Conclusion</h3>
-
 <p>Composition matters. A component can be built with other components, so can a hook be built with other hooks.</p>
-
-<hr />
-
+<hr>
 <h3 id="appendix">Appendix</h3>
-
 <p>We have <code>children</code> in components. What would be an equivalent in hooks? I&rsquo;m not 100% certain about this, but it might be hooks factory. Or, it&rsquo;s just one variant of it. Here&rsquo;s the code for the example above.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createPersonHooks</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">usePerson</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -257,11 +247,9 @@ text-align: center;
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">lastName</span>;
   };
   <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">useFirstName</span>, <span style="color:#a6e22e">useLastName</span> };
-};</code></pre></div>
-<p>Again, I&rsquo;m not so sure about it, but just an idea. <a href="https://github.com/diegohaz/constate">Constate</a> seems to take a similar approach.</p>
-
-<hr />
-
+};
+</code></pre></div><p>Again, I&rsquo;m not so sure about it, but just an idea. <a href="https://github.com/diegohaz/constate">Constate</a> seems to take a similar approach.</p>
+<hr>
 <p>Comments would be appreciated by <a href="https://twitter.com/dai_shi">Twitter</a>.</p>
 
 	</article>

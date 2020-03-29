@@ -11,6 +11,7 @@ Coding style using this library is mentally different from the official react-re
 This library provides two basic hooks: useReduxState and useReduxDispatch. This article shows example code how to use them." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/cover.png"/>
 <meta property="article:published_time" content="2019-04-20T12:00:00+09:00" />
 <meta property="article:modified_time" content="2019-04-20T12:00:00+09:00" />
 
@@ -22,7 +23,7 @@ https://github.com/dai-shi/reactive-react-redux
 Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&rsquo;t need to care about optimization, but just focus on composition of logic.
 This library provides two basic hooks: useReduxState and useReduxDispatch. This article shows example code how to use them."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>New React Redux coding style with hooks without selectors &middot; Daishi Kato&#39;s blog</title>
     
@@ -175,20 +176,12 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>React Redux is one of popular web tech stacks. As I found React hooks so promising, I have been developing a hooks-based library for React Redux called &ldquo;reactive-react-redux.&rdquo;</p>
-
 <p><a href="https://github.com/dai-shi/reactive-react-redux">https://github.com/dai-shi/reactive-react-redux</a></p>
-
 <p>Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&rsquo;t need to care about optimization, but just focus on composition of logic.</p>
-
 <p>This library provides two basic hooks: <code>useReduxState</code> and <code>useReduxDispatch</code>. This article shows example code how to use them.</p>
-
 <h3 id="preliminary">Preliminary</h3>
-
 <p>We use a tiny example in this article. The following is how our Redux store state looks like.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [
@@ -197,73 +190,60 @@ text-align: center;
     { <span style="color:#a6e22e">title</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ttt3&#39;</span>, <span style="color:#a6e22e">description</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ddd3&#39;</span> },
   },
 };
-</code></pre></div>
-<h3 id="how-to-usereduxstate">How to useReduxState</h3>
-
+</code></pre></div><h3 id="how-to-usereduxstate">How to useReduxState</h3>
 <p>We can create a custom hook based on <code>useReduxState</code>. Let&rsquo;s create a hook that receives an item index and returns an item object.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useItem</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">index</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">index</span>];
 };
-</code></pre></div>
-<p>Now, we use this hook to create a component.</p>
+</code></pre></div><p>Now, we use this hook to create a component.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Item</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">index</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useItem</span>(<span style="color:#a6e22e">index</span>);
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">title</span>}{<span style="color:#e6db74">&#39; - &#39;</span>}{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">description</span>}&lt;/<span style="color:#f92672">div</span>&gt;
   );
-};</code></pre></div>
-<p>This style is totally different from the one with <code>connect</code>, which would look like the following.</p>
+};
+</code></pre></div><p>This style is totally different from the one with <code>connect</code>, which would look like the following.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Item</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">item</span> }) =&gt; (
   &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">title</span>}{<span style="color:#e6db74">&#39; - &#39;</span>}{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">description</span>}&lt;/<span style="color:#f92672">div</span>&gt;
 );
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mapStateToProps</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">ownProps</span>) =&gt; ({
   <span style="color:#a6e22e">item</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">items</span>[<span style="color:#a6e22e">ownProps</span>.<span style="color:#a6e22e">index</span>],
 });
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ConnectedItem</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">connect</span>(<span style="color:#a6e22e">mapStateToProps</span>)(<span style="color:#a6e22e">Item</span>);</code></pre></div>
-<h3 id="effortless-optimization-with-usereduxstate">Effortless optimization with useReduxState</h3>
-
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ConnectedItem</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">connect</span>(<span style="color:#a6e22e">mapStateToProps</span>)(<span style="color:#a6e22e">Item</span>);
+</code></pre></div><h3 id="effortless-optimization-with-usereduxstate">Effortless optimization with useReduxState</h3>
 <p>Suppose our component only uses <code>title</code> and no <code>description</code>, our component would be something like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ItemWithTitle</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">index</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useItem</span>(<span style="color:#a6e22e">index</span>);
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">div</span>&gt;
   );
-};</code></pre></div>
-<p>Because <code>useReduxState</code> tracks the usage of state in render, it won&rsquo;t trigger re-render if only description is changed. We don&rsquo;t need to create &ldquo;useItemWithTitle&rdquo; and &ldquo;useItemWithTitleAndDescription&rdquo; hooks, but just one &ldquo;useItem&rdquo; does the job.</p>
-
+};
+</code></pre></div><p>Because <code>useReduxState</code> tracks the usage of state in render, it won&rsquo;t trigger re-render if only description is changed. We don&rsquo;t need to create &ldquo;useItemWithTitle&rdquo; and &ldquo;useItemWithTitleAndDescription&rdquo; hooks, but just one &ldquo;useItem&rdquo; does the job.</p>
 <p>This is an important aspect of the hook. We can even create &ldquo;useItemTitle.&rdquo;</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useItemTitle</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">index</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">item</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useItem</span>(<span style="color:#a6e22e">index</span>);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">item</span>.<span style="color:#a6e22e">title</span>;
 };
-</code></pre></div>
-<p>Note that the examples above can be over-simplified and they don&rsquo;t seem very useful, but hopefully they explain the idea.</p>
-
+</code></pre></div><p>Note that the examples above can be over-simplified and they don&rsquo;t seem very useful, but hopefully they explain the idea.</p>
 <h3 id="how-to-usereduxdispatch">How to useReduxDispatch</h3>
-
 <p>There can be various patterns for useReduxDispatch.</p>
-
 <p>Probably the simplest is to create a hook to dispatch a specific action.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAddItem</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">addItem</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">title</span> =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ADD_ITEM&#39;</span>, <span style="color:#a6e22e">title</span> }, [<span style="color:#a6e22e">dispatch</span>]);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">addItem</span>;
 };
-</code></pre></div>
-<p>If you already have an action creator, you can create a general hook.</p>
+</code></pre></div><p>If you already have an action creator, you can create a general hook.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAction</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">actionCreator</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">useCallback</span>((...<span style="color:#a6e22e">args</span>) =&gt; <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">actionCreator</span>(...<span style="color:#a6e22e">args</span>)), [<span style="color:#a6e22e">dispatch</span>];
 };
-</code></pre></div>
-<p>You could also pass action creators, if you prefer.</p>
+</code></pre></div><p>You could also pass action creators, if you prefer.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useActions</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">actionCreators</span>) =&gt; {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>};
-</code></pre></div>
-<h2 id="final-thoughts">Final thoughts</h2>
-
+</code></pre></div><h2 id="final-thoughts">Final thoughts</h2>
 <p>When I started writing this article, I was hoping to come up with better example code so that readers get aha. Reading the entire article again, I&rsquo;m not very confident if this is appealing as expected. I decided to let go anyway, and will see. Comments would be appreciated by <a href="https://twitter.com/dai_shi">Twitter</a> or <a href="https://github.com/dai-shi/reactive-react-redux/issues">GitHub issues</a>.</p>
 
 	</article>

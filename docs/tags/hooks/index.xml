@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>hooks on Daishi Kato&#39;s blog</title>
@@ -105,7 +105,8 @@ React concurrent mode has not come yet, and all discussions are based on the cur
       <guid>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
       <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.
 However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
-This post shows some example code about the problem and the solution with state usage tracking.</description>
+This post shows some example code about the problem and the solution with state usage tracking.
+Problem Let&amp;rsquo;s assume a person object as a state.</description>
     </item>
     
     <item>
@@ -375,7 +376,8 @@ Support for Redux middleware Originally, the library was extending useState for 
       
       <guid>https://blog.axlight.com/posts/typescript-aware-react-hooks-for-global-state/</guid>
       <description>React Hooks API is a new proposal for React v16.7. It enables writing all components as functions with full functionality. You can develop &amp;ldquo;custom hooks&amp;rdquo; to add a new functionality. Although it&amp;rsquo;s not released yet, I would like to introduce a new library to support global state. Note that it&amp;rsquo;s still an experiment.
-The library It&amp;rsquo;s called &amp;ldquo;react-hooks-global-state&amp;rdquo; and is available in npm. Please also checkout the GitHub repository.</description>
+The library It&amp;rsquo;s called &amp;ldquo;react-hooks-global-state&amp;rdquo; and is available in npm. Please also checkout the GitHub repository.
+https://github.com/dai-shi/react-hooks-global-state</description>
     </item>
     
   </channel>

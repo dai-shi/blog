@@ -10,6 +10,7 @@ https://reactjs.org/docs/hooks-intro.html
 Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/cover.png"/>
 <meta property="article:published_time" content="2018-11-29T12:00:00+09:00" />
 <meta property="article:modified_time" content="2018-11-29T12:00:00+09:00" />
 
@@ -20,7 +21,7 @@ Besides stateful function components, this new feature allow us to build a custo
 https://reactjs.org/docs/hooks-intro.html
 Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching &middot; Daishi Kato&#39;s blog</title>
     
@@ -173,20 +174,12 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&rsquo;t.</p>
-
 <p><a href="https://reactjs.org/docs/hooks-intro.html">https://reactjs.org/docs/hooks-intro.html</a></p>
-
 <p>Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;. This simplicity encourages building custom hooks, and this trend reminds me of npm&rsquo;s early days.</p>
-
 <p>This article explains how to write a custom hook and shows how it can share logic even if it&rsquo;s a few lines of code. We take a simple data fetching (Fetch API) as an example.</p>
-
 <h3 id="the-goal">The goal</h3>
-
 <p>Given the readers already learned the basis of React Hooks, we&rsquo;d start with the goal example how a custom hook we develop would be used.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyComponent</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#e6db74">&#39;http://...&#39;</span>);
@@ -195,17 +188,14 @@ text-align: center;
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">DataView</span> <span style="color:#a6e22e">data</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">data</span>} /&gt;
   );
-};</code></pre></div>
-<p>Here, <code>useFetch</code> is the custom hook. Isn&rsquo;t it intuitive? <code>MyComponent</code> is a &ldquo;stateful&rdquo; function component whereas <code>DataView</code> is can be a stateless function component which should be more reusable.</p>
-
+};
+</code></pre></div><p>Here, <code>useFetch</code> is the custom hook. Isn&rsquo;t it intuitive? <code>MyComponent</code> is a &ldquo;stateful&rdquo; function component whereas <code>DataView</code> is can be a stateless function component which should be more reusable.</p>
 <h3 id="writing-a-custom-hook">Writing a custom hook</h3>
-
 <p>Let&rsquo;s see how we write a custom hook to realize the above goal. A custom hook is just a function that uses some other hooks. We define a function first.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>};
-</code></pre></div>
-<p>This hook returns three values, so we define three state values. Note that we don&rsquo;t need to combine them in one state object.</p>
+</code></pre></div><p>This hook returns three values, so we define three state values. Note that we don&rsquo;t need to combine them in one state object.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">setError</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">true</span>);
@@ -213,36 +203,34 @@ text-align: center;
   <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> };
 };
-</code></pre></div>
-<p>Now, the main part is defined in a <code>useEffect</code> hook. Notice, we pass <code>url</code> in the input array.</p>
+</code></pre></div><p>Now, the main part is defined in a <code>useEffect</code> hook. Notice, we pass <code>url</code> in the input array.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">setError</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">true</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#66d9ef">async</span> () =&gt; {
+    (<span style="color:#a6e22e">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
       <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">data</span>);
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
     })();
   }, [<span style="color:#a6e22e">url</span>]);
   <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> };
 };
-</code></pre></div>
-<p>We haven&rsquo;t implemented error handling. Let&rsquo;s add it.</p>
+</code></pre></div><p>We haven&rsquo;t implemented error handling. Let&rsquo;s add it.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">setError</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">true</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#66d9ef">async</span> () =&gt; {
+    (<span style="color:#a6e22e">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
         <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
           <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">data</span>);
         } <span style="color:#66d9ef">else</span> {
           <span style="color:#a6e22e">setError</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>));
@@ -255,13 +243,9 @@ text-align: center;
   }, [<span style="color:#a6e22e">url</span>]);
   <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> };
 };
-</code></pre></div>
-<p>This is the basic custom hook to achieve our goal. It&rsquo;s reusable in several components. You can check out the working example in this codesandbox.</p>
-
+</code></pre></div><p>This is the basic custom hook to achieve our goal. It&rsquo;s reusable in several components. You can check out the working example in this codesandbox.</p>
 <p><a href="https://codesandbox.io/s/github/dai-shi/react-hooks-fetch/tree/master/examples/01_minimal">https://codesandbox.io/s/github/dai-shi/react-hooks-fetch/tree/master/examples/01_minimal</a></p>
-
 <h3 id="extending-the-custom-hook">Extending the custom hook</h3>
-
 <p>Our hook is still basic, and we might want to support POST method or non-JSON data. There could be various ways to extend this hook. Let&rsquo;s try a simple way to keep Fetch API as much as possible.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">defaultOpts</span> <span style="color:#f92672">=</span> {};
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">opts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">defaultOpts</span>) =&gt; {
@@ -273,12 +257,12 @@ text-align: center;
     ...<span style="color:#a6e22e">init</span>
   } <span style="color:#f92672">=</span> <span style="color:#a6e22e">opts</span>;
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#66d9ef">async</span> () =&gt; {
+    (<span style="color:#a6e22e">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">init</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">init</span>);
         <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
           <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">body</span>);
         } <span style="color:#66d9ef">else</span> {
           <span style="color:#a6e22e">setError</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>));
@@ -291,9 +275,7 @@ text-align: center;
   }, [<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">opts</span>]);
   <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">error</span>, <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">data</span> };
 };
-</code></pre></div>
-<p>One of the difficulties of this extended custom hook is that <code>opts</code> is passed in the input array of <code>useEffect</code>. Unless users carefully understand how it works, it may cause calling <code>fetch</code>es infinitely.</p>
-
+</code></pre></div><p>One of the difficulties of this extended custom hook is that <code>opts</code> is passed in the input array of <code>useEffect</code>. Unless users carefully understand how it works, it may cause calling <code>fetch</code>es infinitely.</p>
 <p>The following is one example how to use this custom hook.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PostRemoteData</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">opts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; ({
@@ -311,15 +293,11 @@ text-align: center;
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Result</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">data</span>}&lt;/<span style="color:#f92672">span</span>&gt;
   );
-};</code></pre></div>
-<h3 id="the-library">The library</h3>
-
+};
+</code></pre></div><h3 id="the-library">The library</h3>
 <p>Although this is just a tiny custom hook, I made it as a library and publish it in npmjs.com.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-fetch">https://github.com/dai-shi/react-hooks-fetch</a></p>
-
 <h3 id="final-notes">Final notes</h3>
-
 <p>Actually, I&rsquo;m not quite sure if Fetch API is an appropriate topic to explain building a custom hook. People might prefer data fetching layers isolated from view layers. Nevertheless, I hope this article explains how to develop a custom hook, and helps noticing its reusability.</p>
 
 	</article>

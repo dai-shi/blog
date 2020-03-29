@@ -9,6 +9,7 @@
 I think I have my own understanding of how to use Redux with React." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/cover.jpg"/>
 <meta property="article:published_time" content="2019-08-12T10:00:00+09:00" />
 <meta property="article:modified_time" content="2019-08-12T10:00:00+09:00" />
 
@@ -18,7 +19,7 @@ I think I have my own understanding of how to use Redux with React." />
 <meta name="twitter:description" content="Motivation I love Redux. But that doesn&rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
 I think I have my own understanding of how to use Redux with React."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>React hooks-oriented Redux coding pattern without thunks and action creators &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,21 +172,16 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="motivation">Motivation</h3>
-
+		<h3 id="motivation">Motivation</h3>
 <p>I love Redux. But that doesn&rsquo;t mean I like all parts of Redux ecosystem.
 Some people dislike Redux because of its boilerplate code. That&rsquo;s sad.
 Boilerplate code is not from the Redux core, but from the ecosystem.
 Don&rsquo;t get me wrong. Best practices are nice and I think
 the recent work of Redux Starter Kit is great. (Claps to Mark)</p>
-
 <p>I think I have my own understanding of how to use Redux with React.
 It may not be common and probably it will never be the mainstream.
 I understand Redux is useful and tuned for larger applications.
 What I have in mind is the usage for smaller apps and for beginners.</p>
-
 <p>For smaller apps and for beginners, there seems to be several hurdles.
 The first one for me was <code>mapStateToProps</code>.
 I developed
@@ -197,7 +193,6 @@ Now, <code>useSelector</code> from the new hooks API is so nice.
 It&rsquo;s much less ugly than <code>mapStateToProps</code>.
 Note that <code>useTrackedState</code> is still easier,
 because it doesn&rsquo;t require memoization for optimization.</p>
-
 <p>Another hurdle for me is async actions.
 I generally like the middleware system of Redux and the elegance
 of the implementation of redux-thunk.
@@ -207,27 +202,19 @@ Just like people misuse selectors having heavy computation,
 people misuse thunks, or overuse them.
 redux-observable and redux-saga seem to provide better abstraction
 but they are complex systems. They would fit with larger apps.</p>
-
 <p>So, in this post, I would like to show example code as an alternative pattern.
 It doesn&rsquo;t use middleware, but React custom hooks.
 Here&rsquo;re some points in this pattern.</p>
-
 <ul>
 <li>No async libraries (Run async tasks outside of Redux)</li>
 <li>No action creators (Define action types in TypeScript)</li>
 </ul>
-
 <p>Without a word, let&rsquo;s dive into the code.</p>
-
 <p>(By the way, yet another hurdle for me is <code>combineReducers</code>,
 but it&rsquo;s out of the scope of this post.)</p>
-
 <h3 id="example">Example</h3>
-
 <p>The example to use is <a href="https://redux.js.org/advanced/async-actions">Async Actions</a> in the official Redux Advanced Tutorial.</p>
-
 <h3 id="code">Code</h3>
-
 <h4 id="folder-structure">Folder structure</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- src/
   - index.tsx
@@ -241,8 +228,8 @@ but it&rsquo;s out of the scope of this post.)</p>
   - components/
     - App.tsx
     - Picker.tsx
-    - Posts.tsx</code></pre></div>
-<h4 id="src-index-tsx">src/index.tsx</h4>
+    - Posts.tsx
+</code></pre></div><h4 id="srcindextsx">src/index.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
@@ -257,10 +244,9 @@ but it&rsquo;s out of the scope of this post.)</p>
     &lt;<span style="color:#f92672">App</span> /&gt;
   &lt;/<span style="color:#f92672">Provider</span>&gt;,
   document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>),
-);</code></pre></div>
-<p>This is the entry point. Nothing special in this file.</p>
-
-<h4 id="src-store-actions-ts">src/store/actions.ts</h4>
+);
+</code></pre></div><p>This is the entry point. Nothing special in this file.</p>
+<h4 id="srcstoreactionsts">src/store/actions.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
   <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
@@ -310,11 +296,10 @@ but it&rsquo;s out of the scope of this post.)</p>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">SelectSubredditAction</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">InvalidateSubredditAction</span>
   <span style="color:#f92672">|</span> <span style="color:#a6e22e">RequestPostsAction</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">ReceivePostsAction</span>;</code></pre></div>
-<p>This defines <code>State</code> and <code>Action</code> types.
+  <span style="color:#f92672">|</span> <span style="color:#a6e22e">ReceivePostsAction</span>;
+</code></pre></div><p>This defines <code>State</code> and <code>Action</code> types.
 No action constants and no action creators are defined.</p>
-
-<h4 id="src-store-reducers-ts">src/store/reducers.ts</h4>
+<h4 id="srcstorereducersts">src/store/reducers.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
 <span style="color:#66d9ef">import</span> {
   <span style="color:#a6e22e">SubredditPosts</span>,
@@ -388,11 +373,10 @@ No action constants and no action creators are defined.</p>
   <span style="color:#a6e22e">selectedSubreddit</span>,
 });
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">rootReducer</span>;</code></pre></div>
-<p>This is a normal reducer file with type annotations.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">rootReducer</span>;
+</code></pre></div><p>This is a normal reducer file with type annotations.
 Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
-
-<h4 id="src-hooks-useselectsubreddit-ts">src/hooks/useSelectSubreddit.ts</h4>
+<h4 id="srchooksuseselectsubredditts">src/hooks/useSelectSubreddit.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -409,14 +393,13 @@ Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">selectSubreddit</span>;
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useSelectSubreddit</span>;</code></pre></div>
-<p>This is something instead of an action creator.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useSelectSubreddit</span>;
+</code></pre></div><p>This is something instead of an action creator.
 It&rsquo;s a hook to return a callback function
 that creates and dispatches an action.
 Let&rsquo;s call it &ldquo;an action hook.&rdquo;
 This one is a sync action hook.</p>
-
-<h4 id="src-hooks-useinvalidatesubreddit-ts">src/hooks/useInvalidateSubreddit.ts</h4>
+<h4 id="srchooksuseinvalidatesubredditts">src/hooks/useInvalidateSubreddit.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -433,10 +416,9 @@ This one is a sync action hook.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">invalidateSubreddit</span>;
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;</code></pre></div>
-<p>This is another sync action hook.</p>
-
-<h4 id="src-hooks-usefetchpostsifneeded-ts">src/hooks/useFetchPostsIfNeeded.ts</h4>
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;
+</code></pre></div><p>This is another sync action hook.</p>
+<h4 id="srchooksusefetchpostsifneededts">src/hooks/useFetchPostsIfNeeded.ts</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 
@@ -502,11 +484,10 @@ This one is a sync action hook.</p>
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span>;
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>;</code></pre></div>
-<p>This one is an async action hook.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>;
+</code></pre></div><p>This one is an async action hook.
 This is the logic that would be written with thunk.
 There are a few important points in this file.</p>
-
 <ul>
 <li>Because this is not middleware, we don&rsquo;t have direct access to the state.
 It uses <code>useStore</code>, which is something we shouldn&rsquo;t misuse.
@@ -514,8 +495,7 @@ This is the biggest caveat in this entire pattern.</li>
 <li><code>extractPosts</code> is a kind of type guard to test json from the network.</li>
 <li>We don&rsquo;t implement error handing as is <a href="https://redux.js.org/advanced/async-actions#note-on-error-handling">in the original tutorial</a>.</li>
 </ul>
-
-<h4 id="src-components-app-tsx">src/components/App.tsx</h4>
+<h4 id="srccomponentsapptsx">src/components/App.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span>, <span style="color:#a6e22e">useEffect</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
@@ -590,14 +570,13 @@ This is the biggest caveat in this entire pattern.</li>
   );
 };
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;</code></pre></div>
-<p>This is a root component or a container component.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</code></pre></div><p>This is a root component or a container component.
 Unfortunately, the code looks like boilerplate.
 But, it should be mostly the same with a normal React app.
 I think the second caveat in this pattern is requiring
 the <code>useCallback</code> hook.</p>
-
-<h4 id="src-components-picker-tsx">src/components/Picker.tsx</h4>
+<h4 id="srccomponentspickertsx">src/components/Picker.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Picker</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
@@ -620,11 +599,10 @@ the <code>useCallback</code> hook.</p>
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;</code></pre></div>
-<p>This is a stateless component.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;
+</code></pre></div><p>This is a stateless component.
 Nothing is changed except for type annotations.</p>
-
-<h4 id="src-components-posts-tsx">src/components/Posts.tsx</h4>
+<h4 id="srccomponentspoststsx">src/components/Posts.tsx</h4>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Posts</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
@@ -640,26 +618,19 @@ Nothing is changed except for type annotations.</p>
   <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
 );
 
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;</code></pre></div>
-<p>This is another stateless component.
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;
+</code></pre></div><p>This is another stateless component.
 We could import <code>Post</code> from <code>actions.ts</code>.</p>
-
 <p>That&rsquo;s everything. We are all set.</p>
-
 <h3 id="demo">Demo</h3>
-
-<iframe src="https://codesandbox.io/embed/github/dai-shi/reactive-react-redux/tree/master/examples/12_async?fontsize=14" title="reactive-react-redux-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
-
+<!-- raw HTML omitted -->
 <p><a href="https://github.com/dai-shi/reactive-react-redux/tree/master/examples/12_async">Source code in the repo</a></p>
-
 <p>Notice this code is based on
 <a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
 instead of react-redux. reactive-react-redux has a compatible hooks API
 with react-redux, except for <code>useStore</code>.
 In this demo, <code>useStore</code> is implemented with another context.</p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>This coding pattern may not be new, and I&rsquo;m sure somebody else
 has already tried it out.
 However, it makes more sense with React hooks and TypeScript.

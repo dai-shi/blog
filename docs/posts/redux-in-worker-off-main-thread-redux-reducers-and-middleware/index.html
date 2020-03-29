@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Redux in Worker: Off-main-thread Redux Reducers and Middleware" />
+<meta property="og:description" content="Introduction Redux is a framework-agnostic library for global state. It&rsquo;s often used with React.
+While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&rsquo;t get the benefit with Redux.
+I&rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/cover.jpg"/>
+<meta property="article:published_time" content="2020-03-29T20:00:00+09:00" />
+<meta property="article:modified_time" content="2020-03-29T20:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/cover.jpg"/>
+<meta name="twitter:title" content="Redux in Worker: Off-main-thread Redux Reducers and Middleware"/>
+<meta name="twitter:description" content="Introduction Redux is a framework-agnostic library for global state. It&rsquo;s often used with React.
+While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&rsquo;t get the benefit with Redux.
+I&rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode."/>
+
+    <meta name="generator" content="Hugo 0.66.0" />
+    
+      <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        29 March 2020
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/cover.jpg" />
+      
+    
+		<h1>
+      Redux in Worker: Off-main-thread Redux Reducers and Middleware
+    </h1>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fredux-in-worker-off-main-thread-redux-reducers-and-middleware%2f&text=Redux%20in%20Worker%3a%20Off-main-thread%20Redux%20Reducers%20and%20Middleware by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fredux-in-worker-off-main-thread-redux-reducers-and-middleware%2f&t=Redux%20in%20Worker%3a%20Off-main-thread%20Redux%20Reducers%20and%20Middleware">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fredux-in-worker-off-main-thread-redux-reducers-and-middleware%2f&title=Redux%20in%20Worker%3a%20Off-main-thread%20Redux%20Reducers%20and%20Middleware">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fredux-in-worker-off-main-thread-redux-reducers-and-middleware%2f&title=Redux%20in%20Worker%3a%20Off-main-thread%20Redux%20Reducers%20and%20Middleware">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h3 id="introduction">Introduction</h3>
+<p>Redux is a framework-agnostic library for global state.
+It&rsquo;s often used with React.</p>
+<p>While I like the abstraction of Redux,
+React will introduce Concurrent Mode in the near future.
+If we want to get benefit of <code>useTransition</code>,
+state must be inside React to allow state branching.
+That means we can&rsquo;t get the benefit with Redux.</p>
+<p>I&rsquo;ve been developing <a href="https://react-tracked.js.org">React Tracked</a>
+for global state that allows state branching.
+It works well in Concurrent Mode.
+That leaves me a question: What is a use case that only Redux can do.</p>
+<p>The reason Redux can&rsquo;t allow state branching is that the state is
+in the external store. So, what is the benefit of having an external store.
+<a href="https://redux-toolkit.js.org">Redux Toolkit</a> can be one answer.
+I have another answer, an external store allow off main thread.</p>
+<p>React is a UI library, and it&rsquo;s intended to run in the main UI thread.
+Redux is usually UI agnostic, so we can run it in a worker thread.</p>
+<p>There has been several experiments to off load Redux from the main thread,
+and run some or all of Redux work in Web Workers.
+I&rsquo;ve developed a library for off load the <em>entire</em> Redux store.</p>
+<h3 id="redux-in-worker">redux-in-worker</h3>
+<p>The library is called redux-in-worker. Please check out the GitHub repository.</p>
+<p><a href="https://github.com/dai-shi/redux-in-worker">https://github.com/dai-shi/redux-in-worker</a></p>
+<p>Although this library is not dependent on React,
+it&rsquo;s developed with the mind to be used with React.
+That is, it will make sure to keep object referential equality,
+which allows to prevent unnecessary re-renders in React.</p>
+<p>Please check out the blog post I wrote about it.</p>
+<p><a href="https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/">Off-main-thread React Redux with Performance</a></p>
+<p>In the next sections, I will show some code to work with async actions
+with redux-in-worker.</p>
+<h3 id="redux-api-middleware">redux-api-middleware</h3>
+<p><a href="https://github.com/agraboso/redux-api-middleware">redux-api-middleware</a>
+is one of the libraries that existed from the early days.
+It receives actions and run API calls described in the actions.
+The action object is serializable, so we can send it to the worker
+without any problems.</p>
+<p>Here&rsquo;s the example code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">apiMiddleware</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-api-middleware&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
+  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+  },
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setName&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>; <span style="color:#a6e22e">payload</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> } }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span> };
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.payload.name</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+      },
+    };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">apiMiddleware</span>));
+
+<span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
+</code></pre></div><p>The above code run in a worker.</p>
+<p>The code run in the main thread is the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
+  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
+  <span style="color:#a6e22e">initialState</span>,
+  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
+);
+</code></pre></div><p>Please find the full example in the repository:</p>
+<p><a href="https://github.com/dai-shi/redux-in-worker/tree/master/examples/04_api">https://github.com/dai-shi/redux-in-worker/tree/master/examples/04_api</a></p>
+<h3 id="redux-saga">redux-saga</h3>
+<p>Another library that can be used with redux-in-worker is
+<a href="https://redux-saga.js.org">redux-saga</a>.
+It&rsquo;s a powerful library for any async functions with generators.
+Because its action object is serializable, it just works.</p>
+<p>Here&rsquo;s the example code:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">createSagaMiddleware</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-saga&#39;</span>;
+<span style="color:#66d9ef">import</span> {
+  <span style="color:#a6e22e">call</span>,
+  <span style="color:#a6e22e">put</span>,
+  <span style="color:#a6e22e">delay</span>,
+  <span style="color:#a6e22e">takeLatest</span>,
+  <span style="color:#a6e22e">takeEvery</span>,
+  <span style="color:#a6e22e">all</span>,
+} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-saga/effects&#39;</span>;
+
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sagaMiddleware</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createSagaMiddleware</span>();
+
+<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
+  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+  },
+};
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">=</span>
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> };
+
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_USER&#39;</span>; <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span> }
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">AsyncActionDecrement</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span> };
+<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">AsyncAction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncActionDecrement</span>;
+
+<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncAction</span>;
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetcher</span>(<span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">AsyncActionFetch</span>) {
+  <span style="color:#66d9ef">try</span> {
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> });
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://jsonplaceholder.typicode.com/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>));
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>());
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
+    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">name</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>;
+    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error();
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>, <span style="color:#a6e22e">name</span> });
+  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> });
+  }
+}
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementer() {</span>
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> });
+}
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetchingSaga() {</span>
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeLatest</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">AsyncActionFetch</span><span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#39;FETCH_USER&#39;</span>, <span style="color:#a6e22e">userFetcher</span>);
+}
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementingSaga() {</span>
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeEvery</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">AsyncActionDecrement</span><span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span>, <span style="color:#a6e22e">delayedDecrementer</span>);
+}
+
+<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">rootSaga() {</span>
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">all</span>([
+    <span style="color:#a6e22e">userFetchingSaga</span>(),
+    <span style="color:#a6e22e">delayedDecrementingSaga</span>(),
+  ]);
+}
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">ReducerAction</span>) <span style="color:#f92672">=&gt;</span> {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
+  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+      },
+    };
+    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+      ...<span style="color:#a6e22e">state</span>,
+      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+      },
+    };
+    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+  }
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">sagaMiddleware</span>));
+<span style="color:#a6e22e">sagaMiddleware</span>.<span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">rootSaga</span>);
+
+<span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
+</code></pre></div><p>The above code run in a worker.</p>
+<p>The code run in the main thread is the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
+  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
+  <span style="color:#a6e22e">initialState</span>,
+  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
+);
+</code></pre></div><p>This is exactly the same as the previous example.</p>
+<p>Please find the full example in the repository:</p>
+<p><a href="https://github.com/dai-shi/redux-in-worker/tree/master/examples/05_saga">https://github.com/dai-shi/redux-in-worker/tree/master/examples/05_saga</a></p>
+<h3 id="closing-notes">Closing notes</h3>
+<p>One of the biggest hurdles in this approach is
+<a href="https://github.com/reduxjs/redux-thunk">redux-thunk</a>.
+redux-thunk takes a function action which is not serializable.
+It&rsquo;s the official tool and included in Redux Toolkit too.
+This implies this approach is not going to be mainstream.</p>
+<p>But anyway,
+I wish somebody likes this approach and evaluates in some real environments.
+Please feel free to open a discussion in <a href="https://github.com/dai-shi/redux-in-worker/issues">GitHub issues</a>.</p>
+<p>By the way, I have developed another library for React to use Web Workers.</p>
+<p><a href="https://github.com/dai-shi/react-hooks-worker">https://github.com/dai-shi/react-hooks-worker</a></p>
+<p>This library lets you off-main-thread any functions.
+It&rsquo;s a small library and fairly stable. Check it out too.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

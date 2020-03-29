@@ -9,6 +9,7 @@
 This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/cover.png"/>
 <meta property="article:published_time" content="2019-12-16T22:00:00+09:00" />
 <meta property="article:modified_time" content="2019-12-16T22:00:00+09:00" />
 
@@ -18,7 +19,7 @@ This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling
 <meta name="twitter:description" content="Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
 This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,28 +172,20 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>React released Concurrent Mode in the experimental channel
 and <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">Suspense for Data Fetching</a>.
 This release is for library authors, and not for production apps yet.
 The new data fetching pattern proposed is called Render-as-You-Fetch.</p>
-
 <p>This post mainly discuss Render-as-You-Fetch for basic fetch calls,
 like calling REST APIs. But, some of discussions are not limited to REST.
 One could invoke GraphQL endpoints with simple fetch calls.
 For more complex use cases with GraphQL, it&rsquo;s worth looking into
 <a href="https://relay.dev/docs/en/experimental/a-guided-tour-of-relay#advanced-data-fetching">Relay documentation</a> too.</p>
-
 <h3 id="problems-with-useeffect-based-data-fetching">Problems with useEffect based data fetching</h3>
-
 <p>Let&rsquo;s first discuss the problems with the typical solution,
 which is to start data fetching in useEffect.</p>
-
 <h4 id="too-many-loading-indicators">Too many loading indicators</h4>
-
 <p>Typical useEffect based data fetching is like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
@@ -205,45 +198,33 @@ which is to start data fetching in useEffect.</p>
     })();
   }, []);
   <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};</code></pre></div>
-<p>If we use this pattern in various components,
+</span><span style="color:#75715e"></span>};
+</code></pre></div><p>If we use this pattern in various components,
 users end up seeing lots of loading indicators in their screen.</p>
-
 <p>We could solve this issue, by having one loading counter in a parent
 component and share it among child components.</p>
-
 <p>The Suspense component is a native solution to this issue.</p>
-
 <h4 id="fetch-calls-run-too-late">Fetch calls run too late</h4>
-
 <p>In the above example, <code>fetchData</code> runs in useEffect.
 It runs only after all components are painted on a browser.
 That may or may not be very late depending on applications.</p>
-
 <p>This is crucial when using <code>React.lazy</code>.
 Fetch calls can only invoked only after components are loaded.</p>
-
 <p>We&rsquo;d want starting a fetch call and loading a component at the same time.</p>
-
 <h4 id="fetch-calls-waterfall">Fetch calls waterfall</h4>
-
 <p>Because of the timing described above,
 there is a specific behavior called &ldquo;waterfall.&rdquo;
 If a parent component is in a loading state, a child component
 will not render and thus will not start a fetch call in useEffect.
 Only when a fetch call in the parent component is finished,
 the fetch call in the child component can start.</p>
-
 <p>Please also refer <a href="https://reactjs.org/docs/concurrent-mode-suspense.html#approach-1-fetch-on-render-not-using-suspense">the React documentation</a>
 for an example about waterfall.</p>
-
-<h4 id="troublesome-useeffect-deps-usecallback">Troublesome useEffect deps / useCallback</h4>
-
+<h4 id="troublesome-useeffect-deps--usecallback">Troublesome useEffect deps / useCallback</h4>
 <p>It&rsquo;s recommended to put props that are used in useEffect
 to deps of the useEffect second argument.
 For some reason, if you need to create a function in advance,
 that should be wrapped by useCallback.</p>
-
 <p>The typical custom hook is like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
@@ -264,69 +245,56 @@ that should be wrapped by useCallback.</p>
 </span><span style="color:#75715e"></span>  }, [<span style="color:#a6e22e">id</span>]);
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#a6e22e">fetchFunc</span>);
   <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};</code></pre></div>
-<p>This pattern is not very easy for beginners.
+</span><span style="color:#75715e"></span>};
+</code></pre></div><p>This pattern is not very easy for beginners.
 It can be said that useEffect is overused for data fetching,
 or more precisely there has been no other means until Suspense lands.</p>
-
 <h3 id="mental-model-with-react-suspense">Mental model with React Suspense</h3>
-
 <p>Render-as-You-Fetch requires a new mental model.
 Otherwise, it&rsquo;s hard to understand the library for the new pattern.
 Here&rsquo;s some random points to understand the new pattern.</p>
-
-<h4 id="don-t-useeffect">Don&rsquo;t useEffect</h4>
-
+<h4 id="dont-useeffect">Don&rsquo;t useEffect</h4>
 <p>Don&rsquo;t think remote data as an effect of props.
 Create it at the same time when elements are created.</p>
-
 <p>Pseudo code is something like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchRemoteData</span> <span style="color:#f92672">=</span> ...;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ...;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fetchRemoteData</span>();
-&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">remoteData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">remoteData</span>} /&gt;</code></pre></div>
-<h4 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h4>
-
+&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">remoteData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">remoteData</span>} /&gt;
+</code></pre></div><h4 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h4>
 <p>Pass fetching data as props along with its dependent props.</p>
-
 <p>Pseudo code is something like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">useId</span>, <span style="color:#a6e22e">userData</span> }) =&gt; {
   <span style="color:#75715e">// userData is remote data fetched with `userId`
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};</code></pre></div>
-<p>Or, keep it in state directly.</p>
+</span><span style="color:#75715e"></span>};
+</code></pre></div><p>Or, keep it in state directly.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userId</span>, <span style="color:#a6e22e">setUserId</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userData</span>, <span style="color:#a6e22e">setUserData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
   <span style="color:#75715e">// Set userId and userData at the same time. Not as dependencies.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// Typically done in callbacks.
 </span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};</code></pre></div>
-<h4 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h4>
-
+</span><span style="color:#75715e"></span>};
+</code></pre></div><h4 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h4>
 <p>Thanks to Suspense, the render code doesn&rsquo;t need to care
 if data is locally available or fetching remotely.
 You can just use it.</p>
-
 <p>Pseudo code is something like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">localData</span>, <span style="color:#a6e22e">remoteData</span> }) =&gt; (
   &lt;<span style="color:#f92672">div</span>&gt;
     &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Local</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">localData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
     &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Remote</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">remoteData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
   &lt;/<span style="color:#f92672">div</span>&gt;
-);</code></pre></div>
-<h3 id="use-cases-of-render-as-you-fetch">Use cases of Render-as-You-Fetch</h3>
-
+);
+</code></pre></div><h3 id="use-cases-of-render-as-you-fetch">Use cases of Render-as-You-Fetch</h3>
 <p>Now, let&rsquo;s think about how we use Render-as-You-Fetch pattern
 if we have a good library.</p>
-
 <p>We assume we had a library that allow to create a suspendable result,
 which can be used just like local data.
 That means, if the result is not ready it will throw a promise.</p>
-
 <h4 id="single-fetch">Single fetch</h4>
-
 <p>The simplest example is just one fetch call.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
@@ -335,9 +303,8 @@ That means, if the result is not ready it will throw a promise.</p>
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
 
 <span style="color:#75715e">// Create a React element
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;</code></pre></div>
-<h4 id="multiple-fetch">Multiple fetch</h4>
-
+</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;
+</code></pre></div><h4 id="multiple-fetch">Multiple fetch</h4>
 <p>If we need to run two fetch calls in parallel,
 we create them at the same time.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
@@ -351,15 +318,12 @@ we create them at the same time.</p>
 </span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">div</span>&gt;
   &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result1</span>} /&gt;
   &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result2</span>} /&gt;
-&lt;/<span style="color:#f92672">div</span>&gt;</code></pre></div>
-<p>It totally depends on how you put <code>&lt;Suspense&gt;</code> in the tree
+&lt;/<span style="color:#f92672">div</span>&gt;
+</code></pre></div><p>It totally depends on how you put <code>&lt;Suspense&gt;</code> in the tree
 whether the result is shown at once or one by one.</p>
-
 <p>Check out <a href="https://reactjs.org/docs/concurrent-mode-reference.html#suspensecomponent">the API documentation</a>
 to learn more about how to use Suspense and SuspenseList.</p>
-
 <h4 id="dynamic-fetch">Dynamic fetch</h4>
-
 <p>Data fetching is not always static,
 we may need to fetch data dynamically.
 For example, if a user click a button to re-run fetch,
@@ -377,13 +341,11 @@ we need a state like this.</p>
       &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onClick</span>}&gt;<span style="color:#a6e22e">Refetch</span>&lt;/<span style="color:#f92672">button</span>&gt;
     &lt;/<span style="color:#f92672">div</span>&gt;
   );
-};</code></pre></div>
-<p>This is an example of prefetching in a callback,
+};
+</code></pre></div><p>This is an example of prefetching in a callback,
 but this pattern could apply to all non-React callbacks.
 Just simply take it as feeding suspendable results into React tree.</p>
-
 <h4 id="incremental-fetch">Incremental fetch</h4>
-
 <p>If two fetch calls are dependent and we want to show
 the intermediate state to a user, we need incremental loading.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
@@ -410,71 +372,51 @@ the intermediate state to a user, we need incremental loading.</p>
   &lt;<span style="color:#f92672">Suspense</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span> <span style="color:#a6e22e">films</span>...&lt;/<span style="color:#f92672">div</span>&gt;}&gt;
     &lt;<span style="color:#f92672">Films</span> <span style="color:#a6e22e">films</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">films</span>} /&gt;
   &lt;/<span style="color:#f92672">Suspense</span>&gt;
-&lt;/<span style="color:#f92672">Suspense</span>&gt;</code></pre></div>
-<p>This shows &ldquo;Person Name&rdquo; as soon as it&rsquo;s available,
+&lt;/<span style="color:#f92672">Suspense</span>&gt;
+</code></pre></div><p>This shows &ldquo;Person Name&rdquo; as soon as it&rsquo;s available,
 and shows &ldquo;Loading films&hellip;&rdquo; until they are ready.</p>
-
 <p>It requires a trick to make this work.
 The function <code>person =&gt; person.films</code> in prefetch can suspend
 just like React render can suspend.
 Otherwise, we don&rsquo;t know when to start fetching films.</p>
-
 <h3 id="use-of-proxies">Use of proxies</h3>
-
 <p>If we want to treat remote data like local data,
 it&rsquo;s important to avoid indirection.
 <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> allows such interface.</p>
-
 <p>With Proxy, we can do like the following.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// throws a promise until it&#39;s resolved
 </span><span style="color:#75715e"></span>
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// works as expected after that
-</span></code></pre></div>
-<h3 id="notes-for-caching">Notes for caching</h3>
-
+</span></code></pre></div><h3 id="notes-for-caching">Notes for caching</h3>
 <p>It&rsquo;s important how we deal with caching.
 Our current approach is that we don&rsquo;t provide global cache.
 Caching is a hard problem.
 Instead, we simply store results like normal data.
 It&rsquo;s very intuitive and works well for simple use cases.</p>
-
 <p>For complex caching approaches with data normalization,
 check out various projects.</p>
-
 <ul>
 <li><a href="https://www.apollographql.com/docs/react/">Apollo Client</a></li>
 <li><a href="https://swr.now.sh">SWR</a></li>
 <li><a href="https://relay.dev">Relay</a></li>
 </ul>
-
 <h3 id="experimental-projects">Experimental projects</h3>
-
 <p>What we described above is not a dream,
 we have been developing some experimental libraries.
 They are ongoing projects and will not reflect
 what is described in this post in the future.</p>
-
 <h4 id="react-suspense-fetch">react-suspense-fetch</h4>
-
 <p><a href="https://github.com/dai-shi/react-suspense-fetch">https://github.com/dai-shi/react-suspense-fetch</a></p>
-
 <p>This project provides <code>prefetch</code> that is described above.
 Its implementation is actually nothing to do with React,
 but it follows the convention of throwing promises.</p>
-
 <p>Note that the API can change soon.</p>
-
 <h4 id="react-hooks-fetch">react-hooks-fetch</h4>
-
 <p><a href="https://github.com/dai-shi/react-hooks-fetch">https://github.com/dai-shi/react-hooks-fetch</a></p>
-
 <p>This project is to provide hooks for React Suspense.
 While not currently, it will be based on react-suspense-fetch.</p>
-
 <p>The API will also change soon.</p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>Render-as-You-Fetch is totally a new pattern and
 useEffect based data fetching will be obsoleted.
 It&rsquo;s uncertain if this post can give enough insights about that.

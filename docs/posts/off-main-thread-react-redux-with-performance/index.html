@@ -9,6 +9,7 @@
 A while back, Surma posted a nice blog post: React &#43; Redux &#43; Comlink = Off-main-thread" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/cover.jpg"/>
 <meta property="article:published_time" content="2019-09-16T11:00:00+09:00" />
 <meta property="article:modified_time" content="2019-09-16T11:00:00+09:00" />
 
@@ -18,7 +19,7 @@ A while back, Surma posted a nice blog post: React &#43; Redux &#43; Comlink = O
 <meta name="twitter:description" content="Introduction It is said that Redux has been overused in some use cases and React context&#43;hooks plays well in such use cases. While I agree with it, Redux should work well in some other situations. Redux should help developing larger apps with many developers. Various libraries in Redux ecosystem should accelerate development. There&rsquo;s another situation in which Redux may help, and that is Web Workers.
 A while back, Surma posted a nice blog post: React &#43; Redux &#43; Comlink = Off-main-thread"/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>Off-main-thread React Redux with Performance &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,43 +172,30 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>It is said that Redux has been overused in some use cases
 and React context+hooks plays well in such use cases.
 While I agree with it, Redux should work well in some other situations.
 Redux should help developing larger apps with many developers.
 Various libraries in Redux ecosystem should accelerate development.
 There&rsquo;s another situation in which Redux may help, and that is Web Workers.</p>
-
 <p>A while back, Surma posted a nice blog post:
 <a href="https://dassur.ma/things/react-redux-comlink/">React + Redux + Comlink = Off-main-thread</a></p>
-
 <p>Redux itself is independent from the UI thing,
 it should be easy and reasonable to run Redux in a web worker.
 The blog post shows the proof-of-concept code with <a href="https://github.com/GoogleChromeLabs/comlink">comlink</a>.</p>
-
 <p>However, this PoC code doesn&rsquo;t perform well with React.
 Let me quote a note from the blog post.</p>
-
 <blockquote>
 <p>Note: It was <a href="https://twitter.com/nejcramovs/status/1156234576093687813">pointed out to me on Twitter</a> that by moving Redux to a worker every state change will cause the creation of a new copy due to structured cloning. This can be bad as it will cause React to rerender the entire app instead of just the elements whose state properties that have changed. While I didn&rsquo;t solve this problem in <em>this</em> blog post, I did talk about a solution in my <a href="https://dassur.ma/things/is-postmessage-slow/">previous blog post</a> in the &ldquo;Patching&rdquo; section.</p>
 </blockquote>
-
 <p>I was so interested in fixing this problem that I can&rsquo;t help myself stopping developing a new library.</p>
-
 <h3 id="redux-in-worker">Redux-in-Worker</h3>
-
 <p>My library is called &ldquo;redux-in-worker.&rdquo;
 There are so many similar libraries in <a href="https://www.npmjs.com">npm</a>.
 I hope this library name makes sense.</p>
-
 <p><a href="https://github.com/dai-shi/redux-in-worker">https://github.com/dai-shi/redux-in-worker</a></p>
-
 <p>It works as a simple wrapper to a Redux store.</p>
-
 <p>In your worker file, you create and expose a store like this:</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// store.worker.js
 </span><span style="color:#75715e"></span>
@@ -218,8 +206,7 @@ I hope this library name makes sense.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
 
 <span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
-</code></pre></div>
-<p>In your app file, you wrap the worker to get a normal store.</p>
+</code></pre></div><p>In your app file, you wrap the worker to get a normal store.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// app.js
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
@@ -234,16 +221,13 @@ I hope this library name makes sense.</p>
   &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
     ...
   &lt;/<span style="color:#f92672">Provider</span>&gt;
-);</code></pre></div>
-<p>There&rsquo;s one caveat that you need to explicitly specify <code>initialState</code>.
+);
+</code></pre></div><p>There&rsquo;s one caveat that you need to explicitly specify <code>initialState</code>.
 This is because the worker acts asynchronously and we need the initialState
 before the worker becomes ready and pushes the real initialState.</p>
-
 <p>For those who are interested in the implementation,
 I encourage them to read the source code which is rather small.</p>
-
 <p>There are some notes to clarify the implementation details:</p>
-
 <ul>
 <li>I didn&rsquo;t use comlink because Redux is not RPC
 and it is basically asynchronous by nature.</li>
@@ -251,37 +235,26 @@ and it is basically asynchronous by nature.</li>
 and we don&rsquo;t need it as we can depend on Redux&rsquo;s immutability contract.</li>
 <li>Hence, there&rsquo;s no proxies involved, and the implementation is very simple.</li>
 </ul>
-
 <p>The current implementation should be performant enough
 thanks to the immutability.
 Proxy-based implementation might or might not perform better,
 but we will see it in the future if someone is interested.</p>
-
 <h3 id="benchmark">Benchmark</h3>
-
 <p>Now, that brings us to benchmarking.</p>
-
 <p>We use <a href="https://github.com/krausest/js-framework-benchmark">js-framework-benchmark</a>.
 There&rsquo;s already a benchmark &ldquo;react-redux-hooks&rdquo; and I converted it
 with redux-in-worker as &ldquo;react-redux-hooks-worker.&rdquo;</p>
-
 <p>Here&rsquo;s the result.</p>
-
-<p><img src="./screenshot1.png" alt="screenshot1" title="Benchmark result" /></p>
-
+<p><img src="./screenshot1.png" alt="screenshot1" title="Benchmark result"></p>
 <p>At a glance, there&rsquo;s little difference.
 It is very good because it means
 the overhead of diffing, postMessage, and patching
 is comparably low in this scenario.</p>
-
 <p>You may notice &ldquo;script bootup time&rdquo; increases a bit.</p>
-
 <p>Interestingly, &ldquo;creating 1,000 rows&rdquo; is faster with redux-in-worker,
 and &ldquo;creating 10,000 rows&rdquo; is slower obviously.
 (I have <a href="https://github.com/dfbaskin/redux-web-worker-example/pull/3">another experiment</a> which shows creating many items slows down.)</p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>Off-main-thread Redux is relatively easy,
 but there are some hurdles in practice when it comes to React Redux.
 The most notable one would be <code>redux-thunk</code>
@@ -293,7 +266,6 @@ Personally, I would suggest to move DOM-related state
 from Redux to React local state or context.
 But that won&rsquo;t happen overnight, and there&rsquo;re so many existing apps
 and best practices.</p>
-
 <p>Lastly, in terms of off-main-thead React Redux,
 the portion of Redux is typically smaller than React.
 There has been several experiments for off-main-thread

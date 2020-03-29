@@ -9,6 +9,7 @@
 In this field, Comlink provides a nice transparent API with Proxies. Some might have already tried it with React. I have two reasons why I don&rsquo;t use it for my library." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/cover.jpg"/>
 <meta property="article:published_time" content="2019-09-08T16:00:00+09:00" />
 <meta property="article:modified_time" content="2019-09-08T16:00:00+09:00" />
 
@@ -18,7 +19,7 @@ In this field, Comlink provides a nice transparent API with Proxies. Some might 
 <meta name="twitter:description" content="Introduction I have been developing several react hooks libraries. They provide custom hooks for certain purposes. One of them is for web workers. I started it for fun. I got some feedbacks and improved. This post shows the current implementation which aims the use in production.
 In this field, Comlink provides a nice transparent API with Proxies. Some might have already tried it with React. I have two reasons why I don&rsquo;t use it for my library."/>
 
-    <meta name="generator" content="Hugo 0.58.3" />
+    <meta name="generator" content="Hugo 0.66.0" />
     
       <title>How I Developed React Hooks for Web Workers &middot; Daishi Kato&#39;s blog</title>
     
@@ -171,45 +172,37 @@ text-align: center;
 
 
 	<article>
-		
-
-<h3 id="introduction">Introduction</h3>
-
+		<h3 id="introduction">Introduction</h3>
 <p>I have been developing several react hooks libraries.
 They provide custom hooks for certain purposes.
 One of them is for web workers.
 I started it for fun. I got some feedbacks and improved.
 This post shows the current implementation which aims the use in production.</p>
-
 <p>In this field, <a href="https://github.com/GoogleChromeLabs/comlink">Comlink</a>
 provides a nice transparent API with Proxies.
 Some might have already tried it with React.
 I have two reasons why I don&rsquo;t use it for my library.</p>
-
 <ol>
-<li><p>React hooks is reactive by nature, so no async interface is required.
+<li>
+<p>React hooks is reactive by nature, so no async interface is required.
 With Comlink, the API in the main thread is an async function.
 You need to put <code>await</code> in front of <code>Comlink.wrap</code>.
-With React, we can hide the async behavior in hooks.</p></li>
-
-<li><p>The RPC style is limited.
+With React, we can hide the async behavior in hooks.</p>
+</li>
+<li>
+<p>The RPC style is limited.
 Web Workers are often used for time consuming tasks.
-We may need to show progress of the tasks or intermediate results for better UX.</p></li>
+We may need to show progress of the tasks or intermediate results for better UX.</p>
+</li>
 </ol>
-
 <h3 id="library">Library</h3>
-
 <p>I developed a library to provide a custom hook to use workers easily.
 It has zero dependencies and the code is tiny.</p>
-
 <p><a href="https://github.com/dai-shi/react-hooks-worker">https://github.com/dai-shi/react-hooks-worker</a></p>
-
 <h3 id="basic-usage">Basic Usage</h3>
-
 <p>Here&rsquo;s a basic example for calculating fibonacci numbers.
 You need two files for worker thread and main thread.
 The library exports two functions for each files.</p>
-
 <p>The worker file looks like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// fib.worker.js
 </span><span style="color:#75715e"></span>
@@ -218,8 +211,7 @@ The library exports two functions for each files.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fib</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span> =&gt; (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>));
 
 <span style="color:#a6e22e">exposeWorker</span>(<span style="color:#a6e22e">fib</span>);
-</code></pre></div>
-<p>The react file looks like this.</p>
+</code></pre></div><p>The react file looks like this.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// App.jsx
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
@@ -237,24 +229,22 @@ The library exports two functions for each files.</p>
   &lt;<span style="color:#f92672">div</span>&gt;
     &lt;<span style="color:#f92672">CalcFib</span> <span style="color:#a6e22e">count</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">5</span>} /&gt;
   &lt;/<span style="color:#f92672">div</span>&gt;
-);</code></pre></div>
-<h3 id="async-generators">Async Generators</h3>
-
+);
+</code></pre></div><h3 id="async-generators">Async Generators</h3>
 <p>As I implied, this library provides non-RPC interface.
 We use (async) generators to return intermediate states.</p>
-
 <p>Here&rsquo;s an example to show calculation steps of fibonacci numbers.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// fib-steps.worker.js
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeWorker</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-worker&#39;</span>;
 
-<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">x</span>) {
+<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">x</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
   <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">x</span>) {
     <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">`(calculating...) </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">x1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
-    <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">r</span> =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">r</span>, <span style="color:#ae81ff">100</span>));
+    <span style="color:#a6e22e">await</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">r</span> =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">r</span>, <span style="color:#ae81ff">100</span>));
     [<span style="color:#a6e22e">x1</span>, <span style="color:#a6e22e">x2</span>] <span style="color:#f92672">=</span> [<span style="color:#a6e22e">x2</span>, <span style="color:#a6e22e">x1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">x2</span>];
     <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
   }
@@ -262,24 +252,21 @@ We use (async) generators to return intermediate states.</p>
 }
 
 <span style="color:#a6e22e">exposeWorker</span>(<span style="color:#a6e22e">fib</span>);
-</code></pre></div>
-<h3 id="the-implementation">The implementation</h3>
-
+</code></pre></div><h3 id="the-implementation">The implementation</h3>
 <p>The implementation of <code>exposeWorker</code> is surprisingly simple.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">exposeWorker</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>) =&gt; {
-  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">e</span>) =&gt; {
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">e</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>);
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">asyncIterator</span>]) {
-      <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
+      <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
     } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>]) {
       <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
     } <span style="color:#66d9ef">else</span> {
-      <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">r</span>);
+      <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">r</span>);
     }
   };
 };
-</code></pre></div>
-<p>The implementation of <code>useWorker</code> can be in various styles.
+</code></pre></div><p>The implementation of <code>useWorker</code> can be in various styles.
 Currently, it&rsquo;s implemented with useReducer.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> {
   <span style="color:#a6e22e">useEffect</span>,
@@ -326,15 +313,12 @@ Currently, it&rsquo;s implemented with useReducer.</p>
   }, [<span style="color:#a6e22e">input</span>]);
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
 };
-</code></pre></div>
-<p>An important note: If <code>createWorker</code> is referentially different from
+</code></pre></div><p>An important note: If <code>createWorker</code> is referentially different from
 the previous one, it stops the previous worker and starts a new one.
 Otherwise, it re-uses the worker instance.
 There&rsquo;s currently no way to distinguish the results by
 multiple invocations to a single worker instance.</p>
-
 <h3 id="closing-notes">Closing notes</h3>
-
 <p>If we use workers for non trivial use cases,
 we would likely be using some libraries in workers.
 This requires a bundler support.
