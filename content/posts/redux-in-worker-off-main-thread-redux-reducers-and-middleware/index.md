@@ -1,5 +1,6 @@
 ---
 title: "Redux in Worker: Off-main-thread Redux Reducers and Middleware"
+subtitle: "Examples with async middleware"
 date: 2020-03-29T20:00:00+09:00
 tags: ["react", "redux", "global-state", "worker"]
 ---
