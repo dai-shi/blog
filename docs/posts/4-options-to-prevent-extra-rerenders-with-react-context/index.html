@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="4 options to prevent extra rerenders with React context"/>
 <meta name="twitter:description" content="Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>4 options to prevent extra rerenders with React context &middot; Daishi Kato&#39;s blog</title>
     
@@ -206,10 +206,10 @@ another option with a library called <a href="https://github.com/dai-shi/react-t
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NaiveContext</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">PersonContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}&gt;
+    &lt;<span style="color:#f92672">PersonContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}&gt;
       &lt;<span style="color:#f92672">PersonFirstName</span> /&gt;
       &lt;<span style="color:#f92672">PersonFamilyName</span> /&gt;
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/PersonContext.Provider&gt;</span>
+    &lt;/<span style="color:#f92672">PersonContext.Provider</span>&gt;
   );
 };
 </code></pre></div><p><code>PersonFirstName</code> is implemented like this.</p>

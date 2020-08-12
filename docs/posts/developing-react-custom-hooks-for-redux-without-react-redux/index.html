@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Developing React custom hooks for Redux without react-redux"/>
 <meta name="twitter:description" content="Background Ever since I learned Redux, I&rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>Developing React custom hooks for Redux without react-redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -181,9 +181,9 @@ text-align: center;
 <p>We create a single context for passing a Redux store. There would be other ways like passing a Redux state or a part of the state for possible further improvements.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxStoreContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>();
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ReduxProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">store</span>, <span style="color:#a6e22e">children</span> }) =&gt; (
-  &lt;<span style="color:#f92672">ReduxStoreContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
+  &lt;<span style="color:#f92672">ReduxStoreContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
     {<span style="color:#a6e22e">children</span>}
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ReduxStoreContext.Provider&gt;</span>
+  &lt;/<span style="color:#f92672">ReduxStoreContext.Provider</span>&gt;
 );
 </code></pre></div><p>We then define two hooks: <code>useReduxDispatch</code> and <code>useReduxState</code>. The reason we have separate hooks is that not all components use both hooks at the same time, and we want to hide the implementation how we use context as we might change the implementation in the future.</p>
 <p>The implementation of <code>useReduxDispatch</code> is very easy.</p>

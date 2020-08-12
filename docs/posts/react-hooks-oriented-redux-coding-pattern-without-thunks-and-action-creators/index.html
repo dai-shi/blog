@@ -19,7 +19,7 @@ I think I have my own understanding of how to use Redux with React." />
 <meta name="twitter:description" content="Motivation I love Redux. But that doesn&rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
 I think I have my own understanding of how to use Redux with React."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>React hooks-oriented Redux coding pattern without thunks and action creators &middot; Daishi Kato&#39;s blog</title>
     
@@ -368,7 +368,7 @@ No action constants and no action creators are defined.</p>
   }
 };
 
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>({
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span>&lt;<span style="color:#f92672">State</span>&gt;({
   <span style="color:#a6e22e">postsBySubreddit</span>,
   <span style="color:#a6e22e">selectedSubreddit</span>,
 });
@@ -383,7 +383,7 @@ Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">dispatch</span>({
       <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>,
@@ -406,7 +406,7 @@ This one is a sync action hook.</p>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
     <span style="color:#a6e22e">dispatch</span>({
       <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>,
@@ -460,8 +460,8 @@ This one is a sync action hook.</p>
 };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Action</span><span style="color:#f92672">&gt;</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStore</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">State</span><span style="color:#f92672">&gt;</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStore</span>&lt;<span style="color:#f92672">State</span>&gt;();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">shouldFetchPosts</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>(), <span style="color:#a6e22e">subreddit</span>)) {
       <span style="color:#66d9ef">return</span>;
@@ -540,33 +540,33 @@ This is the biggest caveat in this entire pattern.</li>
 
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>;
   <span style="color:#66d9ef">return</span> (
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span><span style="color:#f92672">&gt;</span>
-      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Picker</span>
+    &lt;<span style="color:#f92672">div</span>&gt;
+      &lt;<span style="color:#f92672">Picker</span>
         <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedSubreddit</span>}
         <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleChange</span>}
         <span style="color:#a6e22e">options</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;reactjs&#39;</span>, <span style="color:#e6db74">&#39;frontend&#39;</span>]}
-      <span style="color:#f92672">/&gt;</span>
-      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">p</span><span style="color:#f92672">&gt;</span>
+      /&gt;
+      &lt;<span style="color:#f92672">p</span>&gt;
         {<span style="color:#a6e22e">lastUpdated</span> <span style="color:#f92672">&amp;&amp;</span> (
-          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span><span style="color:#f92672">&gt;</span>
+          &lt;<span style="color:#f92672">span</span>&gt;
             <span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">updated</span> <span style="color:#a6e22e">at</span> {<span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">lastUpdated</span>).<span style="color:#a6e22e">toLocaleTimeString</span>()}.
             {<span style="color:#e6db74">&#39; &#39;</span>}
-          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
+          &lt;/<span style="color:#f92672">span</span>&gt;
         )}
         {<span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> (
-          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRefreshClick</span>}<span style="color:#f92672">&gt;</span>
+          &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRefreshClick</span>}&gt;
             <span style="color:#a6e22e">Refresh</span>
-          <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/button&gt;</span>
+          &lt;/<span style="color:#f92672">button</span>&gt;
         )}
-      <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/p&gt;</span>
-      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Loading</span>...<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;}</span>
-      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h2</span><span style="color:#f92672">&gt;</span><span style="color:#a6e22e">Empty</span>.<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h2&gt;}</span>
+      &lt;/<span style="color:#f92672">p</span>&gt;
+      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">h2</span>&gt;}
+      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Empty</span>.&lt;/<span style="color:#f92672">h2</span>&gt;}
       {<span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> (
-        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">opacity</span>: <span style="color:#66d9ef">isFetching</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">0.5</span> : <span style="color:#66d9ef">1</span> }}<span style="color:#f92672">&gt;</span>
-          <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">Posts</span> <span style="color:#a6e22e">posts</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">posts</span>} <span style="color:#f92672">/&gt;</span>
-        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">opacity</span>: <span style="color:#66d9ef">isFetching</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">0.5</span> : <span style="color:#66d9ef">1</span> }}&gt;
+          &lt;<span style="color:#f92672">Posts</span> <span style="color:#a6e22e">posts</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">posts</span>} /&gt;
+        &lt;/<span style="color:#f92672">div</span>&gt;
       )}
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/div&gt;</span>
+    &lt;/<span style="color:#f92672">div</span>&gt;
   );
 };
 
@@ -584,19 +584,19 @@ the <code>useCallback</code> hook.</p>
   <span style="color:#a6e22e">onChange</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
   <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">string</span>[];
 }<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">onChange</span>, <span style="color:#a6e22e">options</span> }) <span style="color:#f92672">=&gt;</span> (
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">span</span><span style="color:#f92672">&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">h1</span><span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">value</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/h1&gt;</span>
-    <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">select</span>
+  &lt;<span style="color:#f92672">span</span>&gt;
+    &lt;<span style="color:#f92672">h1</span>&gt;{<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">h1</span>&gt;
+    &lt;<span style="color:#f92672">select</span>
       <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
       <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}
-    <span style="color:#f92672">&gt;</span>
+    &gt;
       {<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">option</span> <span style="color:#f92672">=&gt;</span> (
-        <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>} <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>}<span style="color:#f92672">&gt;</span>
+        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>} <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>}&gt;
           {<span style="color:#a6e22e">option</span>}
-        <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/option&gt;</span>
+        &lt;/<span style="color:#f92672">option</span>&gt;
       ))}
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/select&gt;</span>
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/span&gt;</span>
+    &lt;/<span style="color:#f92672">select</span>&gt;
+  &lt;/<span style="color:#f92672">span</span>&gt;
 );
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;
@@ -611,11 +611,11 @@ Nothing is changed except for type annotations.</p>
     <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
   }[];
 }<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">posts</span> }) <span style="color:#f92672">=&gt;</span> (
-  <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ul</span><span style="color:#f92672">&gt;</span>
+  &lt;<span style="color:#f92672">ul</span>&gt;
     {<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
-      <span style="color:#f92672">&lt;</span><span style="color:#a6e22e">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span>}<span style="color:#f92672">&gt;</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span>}<span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/li&gt;</span>
+      &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span>}&gt;{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">li</span>&gt;
     ))}
-  <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/ul&gt;</span>
+  &lt;/<span style="color:#f92672">ul</span>&gt;
 );
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;

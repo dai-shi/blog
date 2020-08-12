@@ -23,7 +23,7 @@ https://github.com/dai-shi/react-tracked
 This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.
 What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fancy features. You can simply replace Context."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>React Tracked Documentation Website with Docusaurus v2 &middot; Daishi Kato&#39;s blog</title>
     
@@ -230,7 +230,7 @@ const initialState = {
 
 const useMyState = () =&gt; useState(initialState);
 
-const MyContext = createContext&lt;ReturnType&lt;typeof useMyState&gt; | null&gt;(null);
+const MyContext = createContext&lt;<span style="color:#f92672">ReturnType</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">typeof</span> <span style="color:#a6e22e">useMyState</span>&gt; | null&gt;(null);
 
 export const useSharedState = () =&gt; {
   const value = useContext(MyContext);
@@ -239,9 +239,9 @@ export const useSharedState = () =&gt; {
 };
 
 export const SharedStateProvider: React.FC = ({ children }) =&gt; (
-  &lt;MyContext.Provider value={useMyState()}&gt;
+  &lt;<span style="color:#f92672">MyContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{useMyState()}</span>&gt;
     {children}
-  &lt;/MyContext.Provider&gt;
+  &lt;/<span style="color:#f92672">MyContext.Provider</span>&gt;
 );
 ```
 </code></pre></div><p>Just with this, the website shows something like the following.</p>

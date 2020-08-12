@@ -21,7 +21,7 @@ I&rsquo;ve been developing React Tracked for global state that allows state bran
 While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&rsquo;t get the benefit with Redux.
 I&rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware &middot; Daishi Kato&#39;s blog</title>
     
@@ -343,29 +343,29 @@ Because its action object is serializable, it just works.</p>
 
 <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetcher</span>(<span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">AsyncActionFetch</span>) {
   <span style="color:#66d9ef">try</span> {
-    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> });
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> });
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://jsonplaceholder.typicode.com/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>));
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>());
     <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
     <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">name</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>;
     <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error();
-    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>, <span style="color:#a6e22e">name</span> });
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>, <span style="color:#a6e22e">name</span> });
   } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> });
+    <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> });
   }
 }
 
 <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementer() {</span>
   <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
-  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">ReducerAction</span><span style="color:#f92672">&gt;</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> });
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> });
 }
 
 <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetchingSaga() {</span>
-  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeLatest</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">AsyncActionFetch</span><span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#39;FETCH_USER&#39;</span>, <span style="color:#a6e22e">userFetcher</span>);
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeLatest</span>&lt;<span style="color:#f92672">AsyncActionFetch</span>&gt;(<span style="color:#e6db74">&#39;FETCH_USER&#39;</span>, <span style="color:#a6e22e">userFetcher</span>);
 }
 
 <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementingSaga() {</span>
-  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeEvery</span><span style="color:#f92672">&lt;</span><span style="color:#a6e22e">AsyncActionDecrement</span><span style="color:#f92672">&gt;</span>(<span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span>, <span style="color:#a6e22e">delayedDecrementer</span>);
+  <span style="color:#a6e22e">yield</span> <span style="color:#a6e22e">takeEvery</span>&lt;<span style="color:#f92672">AsyncActionDecrement</span>&gt;(<span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span>, <span style="color:#a6e22e">delayedDecrementer</span>);
 }
 
 <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">rootSaga() {</span>

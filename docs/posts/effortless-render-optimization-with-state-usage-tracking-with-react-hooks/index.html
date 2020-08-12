@@ -23,7 +23,7 @@ However, useContext is not specifically designed for global state and there&rsqu
 This post shows some example code about the problem and the solution with state usage tracking.
 Problem Let&rsquo;s assume a person object as a state."/>
 
-    <meta name="generator" content="Hugo 0.66.0" />
+    <meta name="generator" content="Hugo 0.74.3" />
     
       <title>Effortless render optimization with state usage tracking with React hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -198,9 +198,9 @@ and the solution with state usage tracking.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">children</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
   <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">PersonContext</span><span style="color:#a6e22e">.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{[<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>]}&gt;
+    &lt;<span style="color:#f92672">PersonContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{[<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>]}&gt;
       {<span style="color:#a6e22e">children</span>}
-    <span style="color:#f92672">&lt;</span><span style="color:#960050;background-color:#1e0010">/PersonContext.Provider&gt;</span>
+    &lt;/<span style="color:#f92672">PersonContext.Provider</span>&gt;
   );
 };
 </code></pre></div><p>Finally, here&rsquo;s a component to display the first name of the person.</p>
