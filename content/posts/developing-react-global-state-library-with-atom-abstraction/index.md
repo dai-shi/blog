@@ -1,5 +1,6 @@
 ---
 title: "Developing React Global State Library With Atom Abstraction"
+subtitle: "Inspired by Recoil"
 date: 2020-08-13T08:00:00+09:00
 tags: ["react", "hooks", "global-state", "atom", "recoil", "concurrent"]
 ---
