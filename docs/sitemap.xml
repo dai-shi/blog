@@ -13,12 +13,27 @@
   </url>
   
   <url>
+    <loc>https://blog.axlight.com/tags/memoization/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/posts/</loc>
     <lastmod>2020-11-29T14:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/proxy/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/redux/</loc>
     <lastmod>2020-11-29T14:00:00+09:00</lastmod>
   </url>
   
@@ -53,18 +68,8 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2020-08-13T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/recoil/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
-    <lastmod>2020-03-29T20:00:00+09:00</lastmod>
   </url>
   
   <url>

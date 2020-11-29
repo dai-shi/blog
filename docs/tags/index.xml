@@ -12,11 +12,38 @@
     
     
     <item>
+      <title>memoization</title>
+      <link>https://blog.axlight.com/tags/memoization/</link>
+      <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/memoization/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>proxy</title>
       <link>https://blog.axlight.com/tags/proxy/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/proxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>redux</title>
+      <link>https://blog.axlight.com/tags/redux/</link>
+      <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     
@@ -57,29 +84,11 @@
     </item>
     
     <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>recoil</title>
       <link>https://blog.axlight.com/tags/recoil/</link>
       <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/recoil/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>redux</title>
-      <link>https://blog.axlight.com/tags/redux/</link>
-      <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     

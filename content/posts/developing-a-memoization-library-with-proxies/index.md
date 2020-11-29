@@ -2,7 +2,7 @@
 title: "Developing a Memoization Library With Proxies"
 subtitle: "proxy-compare and proxy-memoize"
 date: 2020-11-29T14:00:00+09:00
-tags: ["proxy"]
+tags: ["proxy", "memoization", "react", "redux"]
 ---
 
 ### Introduction
