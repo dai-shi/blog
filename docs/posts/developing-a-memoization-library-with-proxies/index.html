@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Developing a Memoization Library With Proxies" />
+<meta property="og:description" content="Introduction It&rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.
+Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/" />
+<meta property="og:image" content="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/cover.jpg"/>
+<meta property="article:published_time" content="2020-11-29T14:00:00+09:00" />
+<meta property="article:modified_time" content="2020-11-29T14:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/cover.jpg"/>
+<meta name="twitter:title" content="Developing a Memoization Library With Proxies"/>
+<meta name="twitter:description" content="Introduction It&rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.
+Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?"/>
+
+    <meta name="generator" content="Hugo 0.74.3" />
+    
+      <title>Developing a Memoization Library With Proxies &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        29 November 2020
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/cover.jpg" />
+      
+    
+		<h1>
+      Developing a Memoization Library With Proxies
+    </h1>
+    
+      <h5>proxy-compare and proxy-memoize</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-a-memoization-library-with-proxies%2f&text=Developing%20a%20Memoization%20Library%20With%20Proxies by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-a-memoization-library-with-proxies%2f&t=Developing%20a%20Memoization%20Library%20With%20Proxies">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-a-memoization-library-with-proxies%2f&title=Developing%20a%20Memoization%20Library%20With%20Proxies">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdeveloping-a-memoization-library-with-proxies%2f&title=Developing%20a%20Memoization%20Library%20With%20Proxies">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h3 id="introduction">Introduction</h3>
+<p>It&rsquo;s been a while since I started developing
+<a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
+and <a href="https://github.com/dai-shi/react-tracked">react-tracked</a>.
+These libraries provide so called
+<a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">state usage tracking</a> to optimize render in React.
+This approach, I think, is pretty novel and
+quite a lot of my effort has been put to improve its performance.</p>
+<p>Lately, I thought it would be nicer if this can be used more broadly.
+I wondered if it can be used in vanilla JS.
+What would be an API in vanilla JS?
+It would be good if it&rsquo;s easy to understand.
+My idea ended up with memoization, mainly because
+the primary goal is to be a replacement of
+<a href="https://github.com/reduxjs/reselect">reselect</a>.</p>
+<p>The new library is named <code>proxy-memoize</code>.</p>
+<h3 id="proxy-memoize">proxy-memoize</h3>
+<p>GitHub: <a href="https://github.com/dai-shi/proxy-memoize">https://github.com/dai-shi/proxy-memoize</a></p>
+<p>The <code>proxy-memoize</code> library provides a memoize function.
+It will take a function and return a memoized function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">x</span>) =&gt; ({ <span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">foo</span> });
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">memoizedFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#a6e22e">fn</span>);
+</code></pre></div><p>There&rsquo;s a big design choice in this library.
+A function to be memoized must be a function
+which takes exactly one object as an argument.
+So, functions like below are not supported.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsupportedFn1</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">number</span>) =&gt; <span style="color:#a6e22e">number</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsupportedFn2</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">obj1</span>, <span style="color:#a6e22e">obj2</span>) =&gt; [<span style="color:#a6e22e">obj1</span>.<span style="color:#a6e22e">foo</span>, <span style="color:#a6e22e">obj2</span>.<span style="color:#a6e22e">foo</span>];
+</code></pre></div><p>This will allow caching the results with <code>WeakMap</code>.
+We can cache as many results as we want and let JS garbage collect
+when they are no longer effective.</p>
+<p>Proxies are used if we don&rsquo;t find a result in the <code>WeakMap</code> cache.
+The memoized function invokes the original function
+with the argument object wrapped by proxies.
+The proxies track the usage of object properties while invoking the function.
+The tracked information is called &ldquo;affected,&rdquo; which
+is a partial tree structure of the original object.
+For simplicity, we use dot notation in this post.</p>
+<p>Let&rsquo;s look at following examples.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">d</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> } };
+
+<span style="color:#75715e">// initially affected is empty
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">a</span>) <span style="color:#75715e">// touch &#34;a&#34; property
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// affected becomes &#34;a&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">b</span>.<span style="color:#a6e22e">c</span>) <span style="color:#75715e">// touch &#34;b.c&#34; property
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// affected becomes &#34;a&#34;, &#34;b.c&#34;
+</span></code></pre></div><p>Once &ldquo;affected&rdquo; is created, it can check a new object
+if the affected properties are changed.
+Only if any of affected properties is changed,
+it will re-invoke the function.
+This will allow very fine tuned memoization.</p>
+<p>Let&rsquo;s see an example.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">obj</span>) =&gt; <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">x</span>) =&gt; <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">num</span>);
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">memoizedFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#a6e22e">fn</span>);
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoizedFn</span>({
+  <span style="color:#a6e22e">arr</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">num</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> },
+    { <span style="color:#a6e22e">num</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;world&#39;</span> },
+  ],
+})
+
+<span style="color:#75715e">// affected is &#34;arr[0].num&#34;, &#34;arr[1].num&#34; and &#34;arr.length&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoizedFn</span>({
+  <span style="color:#a6e22e">arr</span><span style="color:#f92672">:</span> [
+    { <span style="color:#a6e22e">num</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> },
+    { <span style="color:#a6e22e">num</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;proxy&#39;</span> },
+  ],
+  <span style="color:#a6e22e">extraProp</span><span style="color:#f92672">:</span> [<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>],
+})
+
+<span style="color:#75715e">// affected properties are not change, hence:
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">result1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">result2</span> <span style="color:#75715e">// is true
+</span></code></pre></div><p>The usage tracking and affected comparison is
+done by an internal library &ldquo;proxy-compare.&rdquo;</p>
+<h3 id="proxy-compare">proxy-compare</h3>
+<p>GitHub: <a href="https://github.com/dai-shi/proxy-compare">https://github.com/dai-shi/proxy-compare</a></p>
+<p>This is a library that is extracted from react-tracked
+to only provide a comparison feature with proxies.
+(Actually, react-tracked v2 will use this library as a dependency.)</p>
+<p>The library exports two main functions: <code>createDeepProxy</code> and <code>isDeepChanged</code></p>
+<p>It works like the following:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">affected</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WeakMap</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">proxy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createDeepProxy</span>(<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">affected</span>);
+<span style="color:#a6e22e">proxy</span>.<span style="color:#a6e22e">a</span> <span style="color:#75715e">// touch a property
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">isDeepChanged</span>(<span style="color:#a6e22e">state</span>, { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">22</span> }, <span style="color:#a6e22e">affected</span>) <span style="color:#75715e">// is false
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">isDeepChanged</span>(<span style="color:#a6e22e">state</span>, { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">11</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> }, <span style="color:#a6e22e">affected</span>) <span style="color:#75715e">// is true
+</span></code></pre></div><p>The <code>state</code> can be a nested object, and only when
+a property is touched, a new proxy is created.
+It&rsquo;s important to note <code>affected</code> is provided from outside,
+which will ease integrating this in React hooks.</p>
+<p>There are other points about performance improvements
+and dealing with edge cases.
+We don&rsquo;t go too much in detail in this post.</p>
+<h3 id="usage-with-react-context">Usage with React Context</h3>
+<p>As discussed in <a href="https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/">a past post</a>,
+one option is to use useMemo.
+If proxy-memoize is used with useMemo, we would be
+able to get a similar benefit like react-tracked.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>();
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">MyContext</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">render</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; <span style="color:#a6e22e">memoize</span>(({ <span style="color:#a6e22e">firstName</span>, <span style="color:#a6e22e">lastName</span> }) =&gt; (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">firstName</span>}
+      &lt;<span style="color:#f92672">input</span>
+        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">firstName</span>}
+        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+          <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+        }}
+      <span style="color:#960050;background-color:#1e0010">(</span><span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">Name</span><span style="color:#960050;background-color:#1e0010">:</span> {<span style="color:#a6e22e">lastName</span>}<span style="color:#960050;background-color:#1e0010">)</span>
+      /&gt;
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  )), [<span style="color:#a6e22e">dispatch</span>]);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">state</span>);
+};
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">children</span> }) =&gt; (
+  &lt;<span style="color:#f92672">MyContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>)}&gt;
+    {<span style="color:#a6e22e">children</span>}
+  &lt;/<span style="color:#f92672">MyContext.Provider</span>&gt;
+);
+</code></pre></div><p>The <code>Component</code> will re-render when context changes. However,
+it returns memoized react element tree unless <code>firstName</code> isn&rsquo;t changed.
+So, re-render stops there. This behavior is different from
+react-tracked, but it should be fairly optimized.</p>
+<h3 id="usage-with-react-redux">Usage with React Redux</h3>
+<p>It can be a simple replacement to reselect.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">id</span> }) =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selector</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; <span style="color:#a6e22e">memoize</span>((<span style="color:#a6e22e">state</span>) =&gt; ({
+    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">users</span>[<span style="color:#a6e22e">id</span>].<span style="color:#a6e22e">firstName</span>,
+    <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">users</span>[<span style="color:#a6e22e">id</span>].<span style="color:#a6e22e">lastName</span>,
+  })), [<span style="color:#a6e22e">id</span>]);
+  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">firstName</span>, <span style="color:#a6e22e">lastName</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">selector</span>);
+  <span style="color:#66d9ef">return</span> (
+    &lt;<span style="color:#f92672">div</span>&gt;
+      <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">firstName</span>}
+      &lt;<span style="color:#f92672">input</span>
+        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">firstName</span>}
+        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{(<span style="color:#a6e22e">event</span>) =&gt; {
+          <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">event</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span> });
+        }}
+      /&gt;
+      (<span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">lastName</span>})
+    &lt;/<span style="color:#f92672">div</span>&gt;
+  );
+};
+</code></pre></div><p>This might be too simple to show the power of proxy-memoize,
+one of interesting use cases would be the following.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">memoize</span>((<span style="color:#a6e22e">state</span>) =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">user</span>) =&gt; <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">firstName</span>))
+</code></pre></div><p>This will only be re-evaluated if the length of <code>users</code> is changed,
+or one of <code>firstName</code> is changed.
+It keeps returning a cached result even if <code>lastName</code> is changed.</p>
+<h3 id="closing-notes">Closing notes</h3>
+<p>What inspired me to develop this was the relationship between MobX and Immer.
+I&rsquo;m not familiar with their implementations at all, but
+it feels me like Immer is a subset of MobX for broader use cases.
+I wanted to create something like Immer. Immer lets you magically
+convert mutable (write) operations to immutable objects.
+proxy-memoize lets you magically create selector (read) functions
+for immutable objects.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

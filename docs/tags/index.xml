@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Aug 2020 08:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 29 Nov 2020 14:00:00 +0900</lastBuildDate>
     
 	<atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>proxy</title>
+      <link>https://blog.axlight.com/tags/proxy/</link>
+      <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>atom</title>
@@ -161,15 +170,6 @@
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/suspense/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>proxy</title>
-      <link>https://blog.axlight.com/tags/proxy/</link>
-      <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     

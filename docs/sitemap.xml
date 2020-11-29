@@ -3,17 +3,37 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://blog.axlight.com/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/proxy/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2020-11-29T14:00:00+09:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://blog.axlight.com/tags/atom/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/concurrent/</loc>
-    <lastmod>2020-08-13T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url>
   
@@ -33,22 +53,12 @@
   </url>
   
   <url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2020-08-13T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://blog.axlight.com/tags/react/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url>
   
   <url>
     <loc>https://blog.axlight.com/tags/recoil/</loc>
-    <lastmod>2020-08-13T08:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url>
   
@@ -164,11 +174,6 @@
   
   <url>
     <loc>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</loc>
-    <lastmod>2019-07-27T23:00:00+09:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://blog.axlight.com/tags/proxy/</loc>
     <lastmod>2019-07-27T23:00:00+09:00</lastmod>
   </url>
   
