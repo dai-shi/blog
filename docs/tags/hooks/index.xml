@@ -6,11 +6,7 @@
     <description>Recent content in hooks on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 13 Aug 2020 08:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 13 Aug 2020 08:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/hooks/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Developing React Global State Library With Atom Abstraction</title>
       <link>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</link>

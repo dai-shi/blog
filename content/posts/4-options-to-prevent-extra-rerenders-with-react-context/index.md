@@ -118,7 +118,7 @@ The second option is to use React.memo.
 I think this is also idiomatic.
 
 We don't change the context in the base example.
-`PersonFirstName` is re-implmented with two components.
+`PersonFirstName` is re-implemented with two components.
 
 ```jsx
 const InnerPersonFirstName = React.memo(({ firstName, dispatch }) => (

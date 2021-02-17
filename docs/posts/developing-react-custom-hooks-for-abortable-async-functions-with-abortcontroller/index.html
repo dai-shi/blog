@@ -19,7 +19,7 @@ Recap JavaScript promise is not abortable. The fetch API is based on promise, an
 <meta name="twitter:description" content="In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
 Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>Developing React custom hooks for abortable async functions with AbortController &middot; Daishi Kato&#39;s blog</title>
     
@@ -217,13 +217,13 @@ text-align: center;
     <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
     <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
     <span style="color:#a6e22e">result</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
-    <span style="color:#a6e22e">start</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">start</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">started</span>) <span style="color:#66d9ef">return</span>;
       <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
       <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
       <span style="color:#a6e22e">notifyUpdate</span>(<span style="color:#a6e22e">task</span>);
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">abortController</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">abortController</span>);
         <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">result</span> };
       } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
         <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span> };
@@ -264,14 +264,14 @@ text-align: center;
 <h3 id="the-implementation-of-useasynctaskfetch">The implementation of useAsyncTaskFetch</h3>
 <p>The <code>useAsyncTaskFetch</code> hook is a wrapper function of <code>useAsyncTask</code>. The basic implementation is the following. The full-featured one is <a href="https://github.com/dai-shi/react-hooks-async/blob/master/src/use-async-task-fetch.js">here</a> in the GitHub repository.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTaskFetch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span> =&gt; <span style="color:#a6e22e">useAsyncTask</span>(
-  <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, {
+  <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, {
       <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span>,
     });
     <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
       <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>);
     }
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
     <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">body</span>;
   },
   [<span style="color:#a6e22e">url</span>],

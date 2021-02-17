@@ -6,11 +6,7 @@
     <description>Recent content in node on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jan 2019 12:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://blog.axlight.com/tags/node/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Tue, 22 Jan 2019 12:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/node/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My first WebAssembly trial with Node.js only</title>
       <link>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</link>

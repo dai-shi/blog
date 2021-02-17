@@ -21,7 +21,7 @@ Besides stateful function components, this new feature allow us to build a custo
 https://reactjs.org/docs/hooks-intro.html
 Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &ldquo;wrapper hell&rdquo;."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching &middot; Daishi Kato&#39;s blog</title>
     
@@ -209,10 +209,10 @@ text-align: center;
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">true</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#a6e22e">async</span> () =&gt; {
+    (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
       <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">data</span>);
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
     })();
@@ -225,12 +225,12 @@ text-align: center;
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">true</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#a6e22e">async</span> () =&gt; {
+    (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>);
         <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
           <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">data</span>);
         } <span style="color:#66d9ef">else</span> {
           <span style="color:#a6e22e">setError</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>));
@@ -257,12 +257,12 @@ text-align: center;
     ...<span style="color:#a6e22e">init</span>
   } <span style="color:#f92672">=</span> <span style="color:#a6e22e">opts</span>;
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#a6e22e">async</span> () =&gt; {
+    (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">init</span>);
+        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">input</span>, <span style="color:#a6e22e">init</span>);
         <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
+          <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">readBody</span>(<span style="color:#a6e22e">response</span>);
           <span style="color:#a6e22e">setData</span>(<span style="color:#a6e22e">body</span>);
         } <span style="color:#66d9ef">else</span> {
           <span style="color:#a6e22e">setError</span>(<span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>));

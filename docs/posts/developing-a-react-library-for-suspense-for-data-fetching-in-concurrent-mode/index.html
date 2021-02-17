@@ -21,7 +21,7 @@ Check out the official docs for details.
 Check out the official docs for details.
  Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference  They are trying best to explain new mind sets with analogies. That means it&rsquo;s totally different from the usage with traditional React."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>Developing a React Library for Suspense for Data Fetching in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -202,7 +202,7 @@ but here&rsquo;s what I did now.</p>
 <h3 id="createfetcher">createFetcher</h3>
 <p>Let&rsquo;s create a &ldquo;fetcher&rdquo; that wraps a fetch function.
 This can be an arbitrary async function that returns a Promise.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
 </code></pre></div><p>This is a general GET fetcher that takes a url as an input
 and assumes a JSON response.
 Typically, we&rsquo;d want to create more specialized fetchers.</p>
@@ -218,13 +218,13 @@ with fallback data and a lazy flag.
 It will actually never suspend, but you can treat it as a &ldquo;suspendable&rdquo;
 just like the one returned by <code>prefetch</code>.</p>
 <p>Now, the TypeScript typing of createFetcher is the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">Data</span>;
   <span style="color:#a6e22e">refetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
   <span style="color:#a6e22e">lazy?</span>: <span style="color:#66d9ef">boolean</span>;
 };
 
-<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
+<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">prefetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
   <span style="color:#a6e22e">lazyFetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">fallbackData</span>: <span style="color:#66d9ef">Data</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
 };
@@ -236,9 +236,9 @@ just like the one returned by <code>prefetch</code>.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">refetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
-    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">async</span> () =&gt; {
+    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#66d9ef">try</span> {
-        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
+        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
       } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
         <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>;
       } <span style="color:#66d9ef">finally</span> {

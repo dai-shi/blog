@@ -21,7 +21,7 @@ This short article describes my first trial on wasm. What I want to try is just 
 https://webassembly.org/
 This short article describes my first trial on wasm. What I want to try is just to run example code, but I&rsquo;d start with writing the example code in wasm(wat)."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>My first WebAssembly trial with Node.js only &middot; Daishi Kato&#39;s blog</title>
     
@@ -218,7 +218,7 @@ text-align: center;
 <span style="color:#66d9ef">undefined</span>
 <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">res</span>
 <span style="color:#66d9ef">undefined</span>
-<span style="color:#f92672">&gt;</span> (<span style="color:#a6e22e">async</span> () =&gt; { <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">buf</span>); })()
+<span style="color:#f92672">&gt;</span> (<span style="color:#66d9ef">async</span> () =&gt; { <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">WebAssembly</span>.<span style="color:#a6e22e">instantiate</span>(<span style="color:#a6e22e">buf</span>); })()
 Promise
 <span style="color:#f92672">&gt;</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">fib</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">instance</span>.<span style="color:#a6e22e">exports</span>
 <span style="color:#66d9ef">undefined</span>

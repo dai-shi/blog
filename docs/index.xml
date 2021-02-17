@@ -6,11 +6,7 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Nov 2020 14:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Sun, 29 Nov 2020 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Developing a Memoization Library With Proxies</title>
       <link>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</link>

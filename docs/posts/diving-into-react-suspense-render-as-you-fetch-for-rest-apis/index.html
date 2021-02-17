@@ -19,7 +19,7 @@ This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling
 <meta name="twitter:description" content="Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
 This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs &middot; Daishi Kato&#39;s blog</title>
     
@@ -191,9 +191,9 @@ which is to start data fetching in useEffect.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#a6e22e">async</span> () =&gt; {
+    (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchData</span>());
+      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchData</span>());
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
     })();
   }, []);
@@ -230,9 +230,9 @@ that should be wrapped by useCallback.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#a6e22e">async</span> () =&gt; {
+    (<span style="color:#66d9ef">async</span> () =&gt; {
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetchFunc</span>());
+      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>());
       <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
     })();
   }, [<span style="color:#a6e22e">fetchFunc</span>]);
@@ -240,7 +240,7 @@ that should be wrapped by useCallback.</p>
 };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">id</span> }) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchFunc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">async</span> () =&gt; {
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchFunc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#66d9ef">async</span> () =&gt; {
     <span style="color:#75715e">// fetch with id
 </span><span style="color:#75715e"></span>  }, [<span style="color:#a6e22e">id</span>]);
   <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#a6e22e">fetchFunc</span>);
@@ -300,7 +300,7 @@ That means, if the result is not ready it will throw a promise.</p>
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
 
 <span style="color:#75715e">// Create a suspendable result
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
 
 <span style="color:#75715e">// Create a React element
 </span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;
@@ -311,8 +311,8 @@ we create them at the same time.</p>
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
 
 <span style="color:#75715e">// Create two suspendable results
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/2/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/2/&#39;</span>)).<span style="color:#a6e22e">json</span>());
 
 <span style="color:#75715e">// Create a React element
 </span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">div</span>&gt;
@@ -332,7 +332,7 @@ we need a state like this.</p>
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>({});
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">onClick</span> <span style="color:#f92672">=</span> () =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextId</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://swapi.co/api/people/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">nextId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)).<span style="color:#a6e22e">json</span>());
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://swapi.co/api/people/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">nextId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)).<span style="color:#a6e22e">json</span>());
     <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">nextResult</span>);
   };
   <span style="color:#66d9ef">return</span> (
@@ -359,9 +359,9 @@ the intermediate state to a user, we need incremental loading.</p>
 );
 
 <span style="color:#75715e">// Create two suspendable results
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#a6e22e">async</span> () =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1&#39;</span>)).<span style="color:#a6e22e">json</span>());
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">films</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(
-  <span style="color:#a6e22e">urls</span> =&gt; Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>())),
+  <span style="color:#a6e22e">urls</span> =&gt; Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>())),
   <span style="color:#a6e22e">person</span> =&gt; <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">films</span>,
   <span style="color:#a6e22e">person</span>,
 );

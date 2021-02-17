@@ -23,7 +23,7 @@ https://react-tracked.js.org
 This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
 Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>How to Handle Async Actions for Global State With React Hooks and Context &middot; Daishi Kato&#39;s blog</title>
     
@@ -221,10 +221,10 @@ Please check out the <a href="https://react-tracked.js.org/docs/recipes#recipes-
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useData</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">actions</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
+    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
       <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> }));
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
       <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span> }));
     },
   };
@@ -240,10 +240,10 @@ so this custom hook can be embedded in the container.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>({ <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span> });
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">actions</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
+    <span style="color:#a6e22e">fetch</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">id</span>) =&gt; {
       <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> }));
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
       <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; ({ ...<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">loading</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">data</span> }));
     },
   };
@@ -274,10 +274,10 @@ This hook returns <code>dispatch</code> which accepts a thunk function.</p>
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useValue</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useThunkReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
 <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">useValue</span>);
 </code></pre></div><p>Invoking an async action would be like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">id</span> =&gt; <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; {
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">id</span> =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; {
   <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span> });
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
   <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>, <span style="color:#a6e22e">data</span> });
 };
 
@@ -345,10 +345,10 @@ but it works with any async functions.</p>
 };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncActionHandlers</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">FETCH_DATA</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">action</span>) =&gt; {
+  <span style="color:#a6e22e">FETCH_DATA</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">getState</span>) =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">action</span>) =&gt; {
     <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_STARTED&#39;</span> });
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://reqres.in/api/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">?delay=1`</span>);
+    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
     <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_FINISHED&#39;</span>, <span style="color:#a6e22e">data</span> });
   },
 };

@@ -19,7 +19,7 @@ In this field, Comlink provides a nice transparent API with Proxies. Some might 
 <meta name="twitter:description" content="Introduction I have been developing several react hooks libraries. They provide custom hooks for certain purposes. One of them is for web workers. I started it for fun. I got some feedbacks and improved. This post shows the current implementation which aims the use in production.
 In this field, Comlink provides a nice transparent API with Proxies. Some might have already tried it with React. I have two reasons why I don&rsquo;t use it for my library."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>How I Developed React Hooks for Web Workers &middot; Daishi Kato&#39;s blog</title>
     
@@ -238,13 +238,13 @@ We use (async) generators to return intermediate states.</p>
 </span><span style="color:#75715e"></span>
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeWorker</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-worker&#39;</span>;
 
-<span style="color:#a6e22e">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">x</span>) {
+<span style="color:#66d9ef">async</span> <span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">x</span>) {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x1</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">x2</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
   <span style="color:#66d9ef">while</span> (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;</span> <span style="color:#a6e22e">x</span>) {
     <span style="color:#66d9ef">yield</span> <span style="color:#e6db74">`(calculating...) </span><span style="color:#e6db74">${</span><span style="color:#a6e22e">x1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
-    <span style="color:#a6e22e">await</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">r</span> =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">r</span>, <span style="color:#ae81ff">100</span>));
+    <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> Promise(<span style="color:#a6e22e">r</span> =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">r</span>, <span style="color:#ae81ff">100</span>));
     [<span style="color:#a6e22e">x1</span>, <span style="color:#a6e22e">x2</span>] <span style="color:#f92672">=</span> [<span style="color:#a6e22e">x2</span>, <span style="color:#a6e22e">x1</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">x2</span>];
     <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
   }
@@ -255,14 +255,14 @@ We use (async) generators to return intermediate states.</p>
 </code></pre></div><h3 id="the-implementation">The implementation</h3>
 <p>The implementation of <code>exposeWorker</code> is surprisingly simple.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">exposeWorker</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>) =&gt; {
-  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">async</span> (<span style="color:#a6e22e">e</span>) =&gt; {
+  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">e</span>) =&gt; {
     <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">r</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>);
     <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">asyncIterator</span>]) {
-      <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
+      <span style="color:#66d9ef">for</span> <span style="color:#66d9ef">await</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
     } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">Symbol</span>.<span style="color:#a6e22e">iterator</span>]) {
       <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">of</span> <span style="color:#a6e22e">r</span>) <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">i</span>);
     } <span style="color:#66d9ef">else</span> {
-      <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">await</span> <span style="color:#a6e22e">r</span>);
+      <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">r</span>);
     }
   };
 };

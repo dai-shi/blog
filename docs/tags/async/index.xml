@@ -6,11 +6,7 @@
     <description>Recent content in async on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://blog.axlight.com/tags/async/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/async/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Handle Async Actions for Global State With React Hooks and Context</title>
       <link>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</link>

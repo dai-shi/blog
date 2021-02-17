@@ -6,11 +6,7 @@
     <description>Recent content in suspense on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate>
-    
-	<atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>

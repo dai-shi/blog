@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="4 options to prevent extra rerenders with React context"/>
 <meta name="twitter:description" content="Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable."/>
 
-    <meta name="generator" content="Hugo 0.74.3" />
+    <meta name="generator" content="Hugo 0.80.0" />
     
       <title>4 options to prevent extra rerenders with React context &middot; Daishi Kato&#39;s blog</title>
     
@@ -251,7 +251,7 @@ Our example is probably so, because it&rsquo;s meant to be a single person objec
 <p>The second option is to use React.memo.
 I think this is also idiomatic.</p>
 <p>We don&rsquo;t change the context in the base example.
-<code>PersonFirstName</code> is re-implmented with two components.</p>
+<code>PersonFirstName</code> is re-implemented with two components.</p>
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">InnerPersonFirstName</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">memo</span>(({ <span style="color:#a6e22e">firstName</span>, <span style="color:#a6e22e">dispatch</span> }) =&gt; (
   &lt;<span style="color:#f92672">div</span>&gt;
     <span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span>
