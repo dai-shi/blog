@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering" />
+<meta property="og:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.
+Tearing is an undesirable behavior in which two components render with different values for same global state.
+Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/" /><meta property="og:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-06-10T21:00:00&#43;09:00" />
+<meta property="article:modified_time" content="2021-06-10T21:00:00&#43;09:00" />
+
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png"/>
+<meta name="twitter:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering"/>
+<meta name="twitter:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.
+Tearing is an undesirable behavior in which two components render with different values for same global state.
+Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update."/>
+
+    <meta name="generator" content="Hugo 0.82.0" />
+    
+      <title>Testing Global State Libraries With React 18 Alpha Concurrent Rendering &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        10 June 2021
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png" />
+      
+    
+		<h1>
+      Testing Global State Libraries With React 18 Alpha Concurrent Rendering
+    </h1>
+    
+      <h5>What are tearing and branching</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&text=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&t=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p>The React team announced <a href="https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html">The Plan for React 18</a> with various features.
+Among them, concurrent rendering is one of my interests
+because I have been developing various global state libraries
+and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.</p>
+<p>Tearing is an undesirable behavior in which
+two components render with different values for same global state.</p>
+<p>Branching is a desirable behavior in which
+a component renders with a stale value for a state in a transition update.</p>
+<p>Both are subtle behaviors and
+would not be required in most moderate apps.</p>
+<p>Nevertheless, out of curiosity, I made a small experimental tool
+to test the behavior of various libraries in concurrent rendering.</p>
+<h2 id="tool">Tool</h2>
+<p>It&rsquo;s called &ldquo;Will this React global state work in concurrent rendering?&rdquo;</p>
+<p><a href="https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-rendering">https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-rendering</a></p>
+<p>It runs a tiny counter app for each library and test behaviors.</p>
+<p>There are 6 tests.</p>
+<ul>
+<li>with useTransition
+<ul>
+<li>test 1: updated properly with transition</li>
+<li>test 2: no tearing with transition</li>
+<li>test 3: ability to interrupt render</li>
+<li>test 4: proper branching with transition</li>
+</ul>
+</li>
+<li>with intensive auto increment (EXPERIMENTAL)
+<ul>
+<li>test 5: updated properly with auto increment</li>
+<li>test 6: no tearing with auto increment</li>
+</ul>
+</li>
+</ul>
+<p>Test 5 and test 6 are something tried to distinguish
+useMutableSource behavior, but it doesn&rsquo;t work totally as expected yet.</p>
+<h2 id="results">Results</h2>
+<p><img src="./screenshot1.png" alt="screenshot1" title="Screenshot of result table"></p>
+<p>How do we read this table?</p>
+<p>Test 1 is to see if all counts are updated properly.
+Three libraries fail with this.
+I assume they are somewhat batching updates too aggressively.</p>
+<p>Test 2 is one of the goals. There are two libraries fail,
+but as you see redux with useMutableSource passes.
+I expect any library with useMutableSource would pass this.</p>
+<p>Test 3 is to see if time slicing is effective.
+Failing this means, it doesn&rsquo;t get the benefit of concurrent rendering.</p>
+<p>Test 4 is another goal. Branching would only work with
+React state and most global state libraries use module state,
+failing this test is rather expected.</p>
+<p>Test 5 and test 6 are experimental. They show some differences.
+What can be said at this moment is React state passes both tests.</p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>This was a short post to present my recent experiment with React 18 alpha.
+I thought it&rsquo;s better than a tweet to explain how I see the results.
+Please note that they are just the results as of writing and
+they may not be accurate. Tests can be wrong.
+If you are interested, please clone the repository and try it by yourself.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
