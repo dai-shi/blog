@@ -6,7 +6,18 @@
     <description>Recent content in proxy on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 Nov 2020 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Aug 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Valtio Proxy State Works (Vanilla Part)</title>
+      <link>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</link>
+      <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</guid>
+      <description>Introduction Valtio is a library for global state primarily for React. It&amp;rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&amp;rsquo;s a novel API to add immutability to mutable state.
+What is immutable state? JavaScript doesn&amp;rsquo;t support immutability as language, so it&amp;rsquo;s just a coding contract.
+const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .</description>
+    </item>
+    
     <item>
       <title>Developing a Memoization Library With Proxies</title>
       <link>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</link>

@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="How Valtio Proxy State Works (Vanilla Part)" />
+<meta property="og:description" content="Introduction Valtio is a library for global state primarily for React. It&rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&rsquo;s a novel API to add immutability to mutable state.
+What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
+const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2021-08-27T22:00:00&#43;09:00" />
+<meta property="article:modified_time" content="2021-08-27T22:00:00&#43;09:00" />
+
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg"/>
+<meta name="twitter:title" content="How Valtio Proxy State Works (Vanilla Part)"/>
+<meta name="twitter:description" content="Introduction Valtio is a library for global state primarily for React. It&rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&rsquo;s a novel API to add immutability to mutable state.
+What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
+const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ."/>
+
+    <meta name="generator" content="Hugo 0.82.0" />
+    
+      <title>How Valtio Proxy State Works (Vanilla Part) &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        27 August 2021
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg" />
+      
+    
+		<h1>
+      How Valtio Proxy State Works (Vanilla Part)
+    </h1>
+    
+      <h5>Adding immutability to mutable state</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-valtio-proxy-state-works-vanilla-part%2f&text=How%20Valtio%20Proxy%20State%20Works%20%28Vanilla%20Part%29 by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-valtio-proxy-state-works-vanilla-part%2f&t=How%20Valtio%20Proxy%20State%20Works%20%28Vanilla%20Part%29">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-valtio-proxy-state-works-vanilla-part%2f&title=How%20Valtio%20Proxy%20State%20Works%20%28Vanilla%20Part%29">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-valtio-proxy-state-works-vanilla-part%2f&title=How%20Valtio%20Proxy%20State%20Works%20%28Vanilla%20Part%29">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p><a href="http://github.com/pmndrs/valtio">Valtio</a> is a library for
+global state primarily for React.
+It&rsquo;s originally modeled to match with
+<a href="https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md">useMutableSource</a>
+API.
+However, it turns out it&rsquo;s a novel API to add
+immutability to mutable state.</p>
+<p>What is immutable state? JavaScript doesn&rsquo;t support
+immutability as language, so it&rsquo;s just a coding contract.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+
+<span style="color:#75715e">// update the state
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState1</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState1</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+
+<span style="color:#75715e">// update it again
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState3</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState2</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState2</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+</code></pre></div><p>Some people might be familiar with this pattern,
+or it can be new to some other people.
+We always create a new object without modifying the existing ones.
+This allows us to compare the state objects.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#75715e">// is false
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState3</span> <span style="color:#75715e">// is false
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// decrement count
+</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState4</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState3</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState3</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> };
+
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">immutableState4</span>); <span style="color:#75715e">// shows &#34;{ count: 1, text: &#39;hello&#39; }&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">immutableState2</span>); <span style="color:#75715e">// shows &#34;{ count: 1, text: &#39;hello&#39; }&#34;
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e">// however their references are different
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState4</span> <span style="color:#75715e">// is false
+</span></code></pre></div><p>The benefit of immutable states is you can compare the state object
+with <code>===</code> to know if anything inside can be changed.</p>
+<p>Contradictory to immutable state, mutable states are JavaScript objects
+without any contracts on updating.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+
+<span style="color:#75715e">// update the state
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mutableState</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+
+<span style="color:#75715e">// update it again
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">mutableState</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</code></pre></div><p>Unlike immutable state, we mutate state and keep the same object.
+Because it&rsquo;s how JavaScript objects are mutable by nature,
+mutable state is easier to handle.
+The problem of mutable states is the flip side of the benefit
+of immutable states.
+If you have two mutable state objects,
+you need to compare all properties to see if they have same contents.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState2</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isSame</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">mutableState1</span>).<span style="color:#a6e22e">every</span>(
+  (<span style="color:#a6e22e">key</span>) =&gt; <span style="color:#a6e22e">mutableState1</span>[<span style="color:#a6e22e">key</span>] <span style="color:#f92672">===</span> <span style="color:#a6e22e">mutableState2</span>[<span style="color:#a6e22e">key</span>]
+);
+</code></pre></div><p>This is not enough for nested objects and also the number of keys
+can be different.
+You need so-called deepEqual to compare two mutable objects.</p>
+<p>deepEqual is not very efficient for large objects.
+Immutable objects shine there because the comparison
+doesn&rsquo;t depend on the size nor the depth of objects.</p>
+<p>So, our goal is to bridge between mutable state and immutable state.
+More precisely, we want to automatically create
+immutable state from mutable state.</p>
+<h2 id="detecting-mutation">Detecting mutation</h2>
+<p>Proxy is a way to trap object operations.
+We use <code>set</code> handler to detect mutations.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
+  <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
+    <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;setting&#39;</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>);
+    <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">prop</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
+  },
+});
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// shows &#34;setting a 1&#34;
+</span></code></pre></div><p>We need to track if the object is mutated,
+so it has a version number.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
+  <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
+    <span style="color:#f92672">++</span><span style="color:#a6e22e">version</span>;
+    <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">prop</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
+  },
+});
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 1
+</span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 2
+</span></code></pre></div><p>This version number is for the object itself,
+and it doesn&rsquo;t care which property is changed.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// continued
+</span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 3
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 4
+</span></code></pre></div><p>As we can now track the mutation,
+next is to create an immutable state.</p>
+<h2 id="creating-snapshot">Creating snapshot</h2>
+<p>We call an immutable state of a mutable state, a snapshot.
+We create a new snapshot if we detect mutation,
+that is when the version number is changed.</p>
+<p>Creating a snapshot is basically copying an object.
+For simplicity, let&rsquo;s assume our object is not nested.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastVersion</span>;
+<span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastSnapshot</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
+  <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
+    <span style="color:#f92672">++</span><span style="color:#a6e22e">version</span>;
+    <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">prop</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
+  },
+});
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snapshot</span> <span style="color:#f92672">=</span> () =&gt; {
+  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">lastVersion</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">version</span>) {
+    <span style="color:#a6e22e">lastVersion</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">version</span>;
+    <span style="color:#a6e22e">lastSnapshot</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">p</span> };
+  }
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">lastSnapshot</span>;
+};
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snapshot</span>()); <span style="color:#75715e">// ---&gt; { a: 10 }
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snapshot</span>()); <span style="color:#75715e">// ---&gt; { a: 10, b: 20 }
+</span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span>;
+<span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">b</span>;
+<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snapshot</span>()); <span style="color:#75715e">// ---&gt; { a: 11, b: 21 }
+</span></code></pre></div><p><code>snapshot</code> is a function to create a snapshot object.
+It&rsquo;s important to note that the snapshot object is
+only created when <code>snapshot</code> is invoked.
+Until then, we can do as many mutations as we want,
+which only increment <code>version</code>.</p>
+<h2 id="subscribing">Subscribing</h2>
+<p>At this point, we don&rsquo;t know when mutations happen.
+It&rsquo;s often the case we want to do something if the state is changed.
+For this, we have subscriptions.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
+  <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
+    <span style="color:#f92672">++</span><span style="color:#a6e22e">version</span>;
+    <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">prop</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
+    <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">forEach</span>((<span style="color:#a6e22e">listener</span>) =&gt; <span style="color:#a6e22e">listener</span>());
+  },
+});
+<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subscribe</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">callback</span>) =&gt; {
+  <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">callback</span>);
+  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsubscribe</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">listeners</span>.<span style="color:#66d9ef">delete</span>(<span style="color:#a6e22e">callback</span>);
+  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">unsubscribe</span>;
+};
+
+<span style="color:#a6e22e">subscribe</span>(() =&gt; {
+  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;mutated!&#39;</span>);
+});
+
+<span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">10</span>; <span style="color:#75715e">// shows &#34;mutated!&#34;
+</span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span>; <span style="color:#75715e">// shows &#34;mutated!&#34;
+</span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>; <span style="color:#75715e">// shows &#34;mutated!&#34;
+</span></code></pre></div><p>Combining <code>snapshot</code> and <code>subscribe</code> allows us
+to connect mutable state to React.</p>
+<p>We will introduce how valtio works with React
+in another post.</p>
+<h2 id="handling-nested-objects">Handling nested objects</h2>
+<p>So far, our examples were with simple objects,
+whose properties are primitive values.
+In reality, we want to use nested objects,
+and it&rsquo;s the benefit of immutable state.</p>
+<p>Nested object looks something like this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
+  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
+  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">d</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">e</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> } },
+};
+</code></pre></div><p>We would also like to use arrays.</p>
+<p>Valtio supports nested objects and arrays.
+If you are interested in how it&rsquo;s implemented,
+check out the source code.</p>
+<p><a href="https://github.com/pmndrs/valtio">https://github.com/pmndrs/valtio</a></p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>In this blog post, we use simple code in examples.
+The implementation does something more
+to handle various cases. It&rsquo;s still bare minimum.</p>
+<p>The actual API is very close to the example code.
+Here&rsquo;s rough type definition in TypeScript.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">proxy</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">initialObject</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">snapshot</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">proxyObject</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;
+
+<span style="color:#66d9ef">function</span> <span style="color:#a6e22e">subscribe</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">proxyObject</span>: <span style="color:#66d9ef">T</span>, <span style="color:#a6e22e">callback</span><span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>)<span style="color:#f92672">:</span> () <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+</code></pre></div><p>In this post, we discussed about the vanilla part of valtio.
+Hope to write about the react part, some time soon.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

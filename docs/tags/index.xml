@@ -6,7 +6,25 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Jun 2021 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 27 Aug 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>global-state</title>
+      <link>https://blog.axlight.com/tags/global-state/</link>
+      <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxy</title>
+      <link>https://blog.axlight.com/tags/proxy/</link>
+      <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>concurrent</title>
       <link>https://blog.axlight.com/tags/concurrent/</link>
@@ -22,15 +40,6 @@
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/context/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>global-state</title>
-      <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
@@ -67,15 +76,6 @@
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/memoization/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>proxy</title>
-      <link>https://blog.axlight.com/tags/proxy/</link>
-      <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     
