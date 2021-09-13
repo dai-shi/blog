@@ -6,13 +6,49 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Aug 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Sep 2021 20:23:30 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>atom</title>
+      <link>https://blog.axlight.com/tags/atom/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/atom/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>typescript</title>
+      <link>https://blog.axlight.com/tags/typescript/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
     </item>
     
@@ -44,24 +80,6 @@
     </item>
     
     <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>redux</title>
       <link>https://blog.axlight.com/tags/redux/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
@@ -80,15 +98,6 @@
     </item>
     
     <item>
-      <title>atom</title>
-      <link>https://blog.axlight.com/tags/atom/</link>
-      <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/atom/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>recoil</title>
       <link>https://blog.axlight.com/tags/recoil/</link>
       <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
@@ -103,15 +112,6 @@
       <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/worker/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>typescript</title>
-      <link>https://blog.axlight.com/tags/typescript/</link>
-      <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
     </item>
     

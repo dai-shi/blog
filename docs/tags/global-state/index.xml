@@ -6,7 +6,18 @@
     <description>Recent content in global-state on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 27 Aug 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/global-state/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 13 Sep 2021 20:23:30 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/global-state/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Learning React State Manager Jotai With 7GUIS Tasks</title>
+      <link>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</guid>
+      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.
+It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
+It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
+    </item>
+    
     <item>
       <title>How Valtio Proxy State Works (Vanilla Part)</title>
       <link>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</link>
