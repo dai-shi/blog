@@ -10,8 +10,8 @@ What is immutable state? JavaScript doesn&rsquo;t support immutability as langua
 const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-08-27T22:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2021-08-27T22:00:00&#43;09:00" />
+<meta property="article:published_time" content="2021-08-27T22:00:00+09:00" />
+<meta property="article:modified_time" content="2021-08-27T22:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -21,7 +21,7 @@ const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state
 What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
 const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>How Valtio Proxy State Works (Vanilla Part) &middot; Daishi Kato&#39;s blog</title>
     
@@ -184,7 +184,7 @@ However, it turns out it&rsquo;s a novel API to add
 immutability to mutable state.</p>
 <p>What is immutable state? JavaScript doesn&rsquo;t support
 immutability as language, so it&rsquo;s just a coding contract.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
 
 <span style="color:#75715e">// update the state
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState1</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState1</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
@@ -195,7 +195,7 @@ immutability as language, so it&rsquo;s just a coding contract.</p>
 or it can be new to some other people.
 We always create a new object without modifying the existing ones.
 This allows us to compare the state objects.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#75715e">// is false
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#75715e">// is false
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">immutableState3</span> <span style="color:#75715e">// is false
 </span><span style="color:#75715e"></span>
 <span style="color:#75715e">// decrement count
@@ -210,7 +210,7 @@ This allows us to compare the state objects.</p>
 with <code>===</code> to know if anything inside can be changed.</p>
 <p>Contradictory to immutable state, mutable states are JavaScript objects
 without any contracts on updating.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
 
 <span style="color:#75715e">// update the state
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">mutableState</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
@@ -224,7 +224,7 @@ The problem of mutable states is the flip side of the benefit
 of immutable states.
 If you have two mutable state objects,
 you need to compare all properties to see if they have same contents.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">mutableState2</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isSame</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">mutableState1</span>).<span style="color:#a6e22e">every</span>(
@@ -242,7 +242,7 @@ immutable state from mutable state.</p>
 <h2 id="detecting-mutation">Detecting mutation</h2>
 <p>Proxy is a way to trap object operations.
 We use <code>set</code> handler to detect mutations.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
   <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
     <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;setting&#39;</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>);
     <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">prop</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">value</span>;
@@ -252,7 +252,7 @@ We use <code>set</code> handler to detect mutations.</p>
 <span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>; <span style="color:#75715e">// shows &#34;setting a 1&#34;
 </span></code></pre></div><p>We need to track if the object is mutated,
 so it has a version number.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
   <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
     <span style="color:#f92672">++</span><span style="color:#a6e22e">version</span>;
@@ -266,7 +266,7 @@ so it has a version number.</p>
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 2
 </span></code></pre></div><p>This version number is for the object itself,
 and it doesn&rsquo;t care which property is changed.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// continued
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// continued
 </span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">a</span>;
 <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">version</span>); <span style="color:#75715e">// ---&gt; 3
 </span><span style="color:#75715e"></span><span style="color:#a6e22e">p</span>.<span style="color:#a6e22e">b</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span>;
@@ -279,7 +279,7 @@ We create a new snapshot if we detect mutation,
 that is when the version number is changed.</p>
 <p>Creating a snapshot is basically copying an object.
 For simplicity, let&rsquo;s assume our object is not nested.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastVersion</span>;
 <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">lastSnapshot</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
@@ -312,7 +312,7 @@ which only increment <code>version</code>.</p>
 <p>At this point, we don&rsquo;t know when mutations happen.
 It&rsquo;s often the case we want to do something if the state is changed.
 For this, we have subscriptions.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">version</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy({}, {
   <span style="color:#a6e22e">set</span>(<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">prop</span>, <span style="color:#a6e22e">value</span>) {
@@ -344,7 +344,7 @@ whose properties are primitive values.
 In reality, we want to use nested objects,
 and it&rsquo;s the benefit of immutable state.</p>
 <p>Nested object looks something like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span> },
   <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">d</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">e</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> } },
 };
@@ -359,7 +359,7 @@ The implementation does something more
 to handle various cases. It&rsquo;s still bare minimum.</p>
 <p>The actual API is very close to the example code.
 Here&rsquo;s rough type definition in TypeScript.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">proxy</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">initialObject</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">function</span> <span style="color:#a6e22e">proxy</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">initialObject</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;
 
 <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">snapshot</span>&lt;<span style="color:#f92672">T</span>&gt;(<span style="color:#a6e22e">proxyObject</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span>;
 

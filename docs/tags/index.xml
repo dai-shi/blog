@@ -6,22 +6,40 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Sep 2021 20:23:30 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Dec 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>global-state</title>
+      <link>https://blog.axlight.com/tags/global-state/</link>
+      <pubDate>Sun, 26 Dec 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>proxy</title>
+      <link>https://blog.axlight.com/tags/proxy/</link>
+      <pubDate>Sun, 26 Dec 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 26 Dec 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>atom</title>
       <link>https://blog.axlight.com/tags/atom/</link>
       <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/atom/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>global-state</title>
-      <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
@@ -35,29 +53,11 @@
     </item>
     
     <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>typescript</title>
       <link>https://blog.axlight.com/tags/typescript/</link>
       <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/typescript/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>proxy</title>
-      <link>https://blog.axlight.com/tags/proxy/</link>
-      <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     

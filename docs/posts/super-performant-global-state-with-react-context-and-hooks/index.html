@@ -9,8 +9,8 @@
 This post introduces a library for global state with performance." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/" /><meta property="og:image" content="https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-06-15T23:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-06-15T23:00:00&#43;09:00" />
+<meta property="article:published_time" content="2019-06-15T23:00:00+09:00" />
+<meta property="article:modified_time" content="2019-06-15T23:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@ This post introduces a library for global state with performance." />
 <meta name="twitter:description" content="Introduction There are many libraries to provide global state in React. React itself doesn&rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&rsquo;s properly implemented. It&rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
 This post introduces a library for global state with performance."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Super performant global state with React context and hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -220,7 +220,7 @@ optimization. It doesn&rsquo;t change the semantics at all.</p>
 <p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
 <p>It&rsquo;s still new as of writing, but it&rsquo;s ready for review.</p>
 <h3 id="example">Example</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useReducer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useReducer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-tracked&#39;</span>;

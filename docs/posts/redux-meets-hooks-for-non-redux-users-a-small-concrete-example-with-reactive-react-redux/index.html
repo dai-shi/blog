@@ -8,8 +8,8 @@
 <meta property="og:description" content="Introduction If you had already used Redux and loved it, you might not understand why people try using React context and hooks to replace Redux (a.k.a no Redux hype). For those who would think Redux DevTools Extension and middleware are nice to have, Redux and context &#43; hooks are actually two options. Context &#43; hooks is just fine to share state among components, however if apps get bigger, they are likely to require Redux or other similar solutions; otherwise they end up having many contexts that can&rsquo;t be handled very easily." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/" /><meta property="og:image" content="https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-06-03T23:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-06-03T23:00:00&#43;09:00" />
+<meta property="article:published_time" content="2019-06-03T23:00:00+09:00" />
+<meta property="article:modified_time" content="2019-06-03T23:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux"/>
 <meta name="twitter:description" content="Introduction If you had already used Redux and loved it, you might not understand why people try using React context and hooks to replace Redux (a.k.a no Redux hype). For those who would think Redux DevTools Extension and middleware are nice to have, Redux and context &#43; hooks are actually two options. Context &#43; hooks is just fine to share state among components, however if apps get bigger, they are likely to require Redux or other similar solutions; otherwise they end up having many contexts that can&rsquo;t be handled very easily."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -198,7 +198,7 @@ If you are not familiar with TypeScript,
 try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
 <p>The following is the type definitions for State and Action.</p>
 <h4 id="srctypesindexts">./src/types/index.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">VisibilityFilterType</span> <span style="color:#f92672">=</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">VisibilityFilterType</span> <span style="color:#f92672">=</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_ALL&#39;</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_COMPLETED&#39;</span>
   <span style="color:#f92672">|</span> <span style="color:#e6db74">&#39;SHOW_ACTIVE&#39;</span>;
@@ -221,7 +221,7 @@ try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
 </code></pre></div><hr>
 <p>The reducers are almost identical to the original example as follows.</p>
 <h4 id="srcreducersindexts">./src/reducers/index.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">todos</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./todos&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">visibilityFilter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./visibilityFilter&#39;</span>;
@@ -231,7 +231,7 @@ try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
   <span style="color:#a6e22e">visibilityFilter</span>,
 });
 </code></pre></div><h4 id="srcreducerstodosts">./src/reducers/todos.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">Action</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">todos</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">TodoType</span>[] <span style="color:#f92672">=</span> [], <span style="color:#a6e22e">action</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Action</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">TodoType</span>[] =&gt; {
   <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
@@ -255,7 +255,7 @@ try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">todos</span>;
 </code></pre></div><h4 id="srcreducersvisibilityfilterts">./src/reducers/visibilityFilter.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">visibilityFilter</span> <span style="color:#f92672">=</span> (
   <span style="color:#a6e22e">state</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">VisibilityFilterType</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;SHOW_ALL&#39;</span>,
@@ -275,7 +275,7 @@ try ignoring <code>State</code>, <code>Action</code> and <code>*Type</code>.</p>
 I would create hooks for each actions.
 Note that we still explore better practices.</p>
 <h4 id="srcactionsindexts">./src/actions/index.ts</h4>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxDispatch</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
@@ -319,7 +319,7 @@ It could be still open for discussion about how to structure components,
 but for this example, components are just flat.</p>
 <h4 id="srccomponentsapptsx">./src/components/App.tsx</h4>
 <p>App is also identical to the original example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Footer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Footer&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">AddTodo</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./AddTodo&#39;</span>;
@@ -336,7 +336,7 @@ but for this example, components are just flat.</p>
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
 </code></pre></div><h4 id="srccomponentstodotsx">./src/components/Todo.tsx</h4>
 <p>There are small modifications but not major.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Props</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">onClick</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">e</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">MouseEvent</span>) =&gt; <span style="color:#66d9ef">void</span>;
@@ -361,7 +361,7 @@ but for this example, components are just flat.</p>
 </code></pre></div><h4 id="srccomponentsvisibletodolisttsx">./src/components/VisibleTodoList.tsx</h4>
 <p>We don&rsquo;t have <code>mapStateToProps</code> or selectors.
 <code>getVisibleTodos</code> is simply called in render.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">TodoType</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">VisibilityFilterType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../types&#39;</span>;
@@ -398,7 +398,7 @@ but for this example, components are just flat.</p>
 </code></pre></div><h4 id="srccomponentsfilterlinktsx">./src/components/FilterLink.tsx</h4>
 <p>Again, as <code>useReduxState</code> return the entire state,
 it simply uses its property to evaluate <code>active</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useReduxState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSetVisibilityFilter</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../actions&#39;</span>;
@@ -430,7 +430,7 @@ it simply uses its property to evaluate <code>active</code>.</p>
 </code></pre></div><h4 id="srccomponentsfootertsx">./src/components/Footer.tsx</h4>
 <p>Because we rely on type checking,
 it&rsquo;s OK to pass strings to filter prop to FilterLink.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">FilterLink</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./FilterLink&#39;</span>;
 
@@ -447,7 +447,7 @@ it&rsquo;s OK to pass strings to filter prop to FilterLink.</p>
 </code></pre></div><h4 id="srccomponentsaddtodotsx">./src/components/AddTodo.tsx</h4>
 <p>This is a bit modified from the original example
 to use controlled form with <code>useState</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useAddTodo</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;../actions&#39;</span>;

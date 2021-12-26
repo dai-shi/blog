@@ -11,8 +11,8 @@ This post shows some example code about the problem and the solution with state 
 Problem Let&rsquo;s assume a person object as a state." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/" /><meta property="og:image" content="https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-07-21T13:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-07-21T13:00:00&#43;09:00" />
+<meta property="article:published_time" content="2019-07-21T13:00:00+09:00" />
+<meta property="article:modified_time" content="2019-07-21T13:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -23,7 +23,7 @@ However, useContext is not specifically designed for global state and there&rsqu
 This post shows some example code about the problem and the solution with state usage tracking.
 Problem Let&rsquo;s assume a person object as a state."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Effortless render optimization with state usage tracking with React hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -188,12 +188,12 @@ to re-render components.</p>
 and the solution with state usage tracking.</p>
 <h3 id="problem">Problem</h3>
 <p>Let&rsquo;s assume a person object as a state.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Harry&#39;</span>,
   <span style="color:#a6e22e">familyName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Potter&#39;</span>,
 };
 </code></pre></div><p>We use a context and a local state.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">children</span> }) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">setPerson</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
@@ -204,7 +204,7 @@ and the solution with state usage tracking.</p>
   );
 };
 </code></pre></div><p>Finally, here&rsquo;s a component to display the first name of the person.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">PersonContext</span>);
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">firstName</span>}&lt;/<span style="color:#f92672">div</span>&gt;
@@ -220,7 +220,7 @@ might have performance issues.</p>
 <h3 id="solution-state-usage-tracking">Solution: state usage tracking</h3>
 <p>Let&rsquo;s see how state usage tracking solves this.</p>
 <p>The provider looks a bit different, but essentially the same.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">usePerson</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">usePerson</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
 <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">Provider</span>, <span style="color:#a6e22e">useTracked</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContainer</span>(<span style="color:#a6e22e">usePerson</span>);
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">PersonProvider</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">children</span> }) =&gt; (
@@ -229,7 +229,7 @@ might have performance issues.</p>
   &lt;/<span style="color:#f92672">Provider</span>&gt;
 );
 </code></pre></div><p>The <code>DisplayFirstName</code> component will be changed like this.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayFirstName</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">First</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">firstName</span>}&lt;/<span style="color:#f92672">div</span>&gt;
@@ -245,14 +245,14 @@ this component will not re-render as long as the first name is not updated.</p>
 <p>Some readers might think
 this can also be accomplished by <code>useSelector</code>-like hooks.</p>
 <p>Here&rsquo;s another example in which <code>useTracked</code> is much easier.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Harry&#39;</span>,
   <span style="color:#a6e22e">familyName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;Potter&#39;</span>,
   <span style="color:#a6e22e">showFullName</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
 };
 </code></pre></div><p>Suppose we have a state like the above,
 and let&rsquo;s create a component with a condition.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayPersonName</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DisplayPersonName</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">person</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTracked</span>();
   <span style="color:#66d9ef">return</span> (
     &lt;<span style="color:#f92672">div</span>&gt;

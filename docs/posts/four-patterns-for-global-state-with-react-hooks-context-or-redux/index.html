@@ -9,8 +9,8 @@
 Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/" /><meta property="og:image" content="https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-05-27T00:50:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-05-27T00:50:00&#43;09:00" />
+<meta property="article:published_time" content="2019-05-27T00:50:00+09:00" />
+<meta property="article:modified_time" content="2019-05-27T00:50:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@ Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most b
 <meta name="twitter:description" content="Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
 Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Four patterns for global state with React hooks: Context or Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -184,7 +184,7 @@ should still be prop passing. If the app is small enough,
 define local state in a parent component and simply pass it
 down to child components. I would tolerate two level passing,
 meaning one intermediate component.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
   <span style="color:#66d9ef">return</span> (
     &lt;&gt;
@@ -213,7 +213,7 @@ that are more deep than two level,
 it&rsquo;s time to introduce context.
 Context itself doesn&rsquo;t provide global state functionality,
 but combining local state and passing by context does the job.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
@@ -247,7 +247,7 @@ Hence, it&rsquo;s not recommended to use a context for multiple purpose.</p>
 Contexts don&rsquo;t have to be application-wide and they can be used
 for parts of component tree. Only if your contexts can be used anywhere
 in your app, defining them at the root is a good reason.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 
@@ -283,7 +283,7 @@ and some of them provide hooks API.</p>
 <p>I&rsquo;ve been developing such a library called &ldquo;react-hooks-global-state&rdquo;.</p>
 <p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
 <p>Here&rsquo;s example code how it looks like.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { 
   <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
@@ -326,7 +326,7 @@ require <code>mapStateToProps</code> or a selector.
 You can simply use global state from Redux
 and the library tracks the state usage with Proxy for optimization.</p>
 <p>Here&rsquo;s example code how it looks like.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
 <span style="color:#66d9ef">import</span> {
   <span style="color:#a6e22e">ReduxProvider</span>,
   <span style="color:#a6e22e">useReduxDispatch</span>,

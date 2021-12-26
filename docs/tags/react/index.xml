@@ -6,7 +6,18 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Sep 2021 20:23:30 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Dec 2021 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Valtio Proxy State Works (React Part)</title>
+      <link>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</link>
+      <pubDate>Sun, 26 Dec 2021 22:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</guid>
+      <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
+Let&amp;rsquo;s recap the API in vanilla part of Valtio.
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
+    </item>
+    
     <item>
       <title>Learning React State Manager Jotai With 7GUIS Tasks</title>
       <link>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</link>

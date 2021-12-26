@@ -9,8 +9,8 @@
 Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/" /><meta property="og:image" content="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/cover.jpg"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-11-29T14:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2020-11-29T14:00:00&#43;09:00" />
+<meta property="article:published_time" content="2020-11-29T14:00:00+09:00" />
+<meta property="article:modified_time" content="2020-11-29T14:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -19,7 +19,7 @@ Lately, I thought it would be nicer if this can be used more broadly. I wondered
 <meta name="twitter:description" content="Introduction It&rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.
 Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?"/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Developing a Memoization Library With Proxies &middot; Daishi Kato&#39;s blog</title>
     
@@ -192,7 +192,7 @@ the primary goal is to be a replacement of
 <p>GitHub: <a href="https://github.com/dai-shi/proxy-memoize">https://github.com/dai-shi/proxy-memoize</a></p>
 <p>The <code>proxy-memoize</code> library provides a memoize function.
 It will take a function and return a memoized function.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">x</span>) =&gt; ({ <span style="color:#a6e22e">foo</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">foo</span> });
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">memoizedFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#a6e22e">fn</span>);
@@ -200,7 +200,7 @@ It will take a function and return a memoized function.</p>
 A function to be memoized must be a function
 which takes exactly one object as an argument.
 So, functions like below are not supported.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsupportedFn1</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">number</span>) =&gt; <span style="color:#a6e22e">number</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsupportedFn1</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">number</span>) =&gt; <span style="color:#a6e22e">number</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">unsupportedFn2</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">obj1</span>, <span style="color:#a6e22e">obj2</span>) =&gt; [<span style="color:#a6e22e">obj1</span>.<span style="color:#a6e22e">foo</span>, <span style="color:#a6e22e">obj2</span>.<span style="color:#a6e22e">foo</span>];
 </code></pre></div><p>This will allow caching the results with <code>WeakMap</code>.
@@ -214,7 +214,7 @@ The tracked information is called &ldquo;affected,&rdquo; which
 is a partial tree structure of the original object.
 For simplicity, we use dot notation in this post.</p>
 <p>Let&rsquo;s look at following examples.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">d</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> } };
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span>, <span style="color:#a6e22e">d</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span> } };
 
 <span style="color:#75715e">// initially affected is empty
 </span><span style="color:#75715e"></span>
@@ -231,7 +231,7 @@ Only if any of affected properties is changed,
 it will re-invoke the function.
 This will allow very fine tuned memoization.</p>
 <p>Let&rsquo;s see an example.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">obj</span>) =&gt; <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">x</span>) =&gt; <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">num</span>);
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fn</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">obj</span>) =&gt; <span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">arr</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">x</span>) =&gt; <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">num</span>);
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">memoizedFn</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoize</span>(<span style="color:#a6e22e">fn</span>);
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">memoizedFn</span>({
@@ -262,7 +262,7 @@ to only provide a comparison feature with proxies.
 (Actually, react-tracked v2 will use this library as a dependency.)</p>
 <p>The library exports two main functions: <code>createDeepProxy</code> and <code>isDeepChanged</code></p>
 <p>It works like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> };
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> };
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">affected</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">WeakMap</span>();
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">proxy</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createDeepProxy</span>(<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">affected</span>);
 <span style="color:#a6e22e">proxy</span>.<span style="color:#a6e22e">a</span> <span style="color:#75715e">// touch a property
@@ -280,7 +280,7 @@ We don&rsquo;t go too much in detail in this post.</p>
 one option is to use useMemo.
 If proxy-memoize is used with useMemo, we would be
 able to get a similar benefit like react-tracked.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>();
 
@@ -312,7 +312,7 @@ So, re-render stops there. This behavior is different from
 react-tracked, but it should be fairly optimized.</p>
 <h3 id="usage-with-react-redux">Usage with React Redux</h3>
 <p>It can be a simple replacement to reselect.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useSelector</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">memoize</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;proxy-memoize&#39;</span>;
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">id</span> }) =&gt; {
@@ -337,7 +337,7 @@ react-tracked, but it should be fairly optimized.</p>
 };
 </code></pre></div><p>This might be too simple to show the power of proxy-memoize,
 one of interesting use cases would be the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">memoize</span>((<span style="color:#a6e22e">state</span>) =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">user</span>) =&gt; <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">firstName</span>))
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#a6e22e">memoize</span>((<span style="color:#a6e22e">state</span>) =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">users</span>.<span style="color:#a6e22e">map</span>((<span style="color:#a6e22e">user</span>) =&gt; <span style="color:#a6e22e">user</span>.<span style="color:#a6e22e">firstName</span>))
 </code></pre></div><p>This will only be re-evaluated if the length of <code>users</code> is changed,
 or one of <code>firstName</code> is changed.
 It keeps returning a cached result even if <code>lastName</code> is changed.</p>

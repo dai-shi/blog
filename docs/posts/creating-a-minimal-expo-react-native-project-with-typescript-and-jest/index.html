@@ -10,8 +10,8 @@ Install Expo CLI As described in the official doc, let&rsquo;s install the CLI t
 $ npm install -g expo-cli  Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/" /><meta property="og:image" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/cover.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-12-01T12:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2018-12-01T12:00:00&#43;09:00" />
+<meta property="article:published_time" content="2018-12-01T12:00:00+09:00" />
+<meta property="article:modified_time" content="2018-12-01T12:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -21,7 +21,7 @@ $ npm install -g expo-cli  Note: I prefer using npx and I use npx in my project,
 Install Expo CLI As described in the official doc, let&rsquo;s install the CLI tool.
 $ npm install -g expo-cli  Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Creating a Minimal Expo React Native Project with TypeScript and Jest &middot; Daishi Kato&#39;s blog</title>
     
@@ -177,18 +177,18 @@ text-align: center;
 		<p>This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.</p>
 <h3 id="install-expo-cli">Install Expo CLI</h3>
 <p>As described in <a href="https://docs.expo.io/versions/v31.0.0/introduction/installation">the official doc</a>, let&rsquo;s install the CLI tool.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -g expo-cli
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -g expo-cli
 </code></pre></div><blockquote>
 <p>Note: I prefer using <code>npx</code> and I use <code>npx</code> in my project, but <code>expo-cli</code> depends on <code>@expo/dev-tools</code> which depends on old <code>graphql</code>. It&rsquo;s just safer to do global install unless you know the issues that could arise.</p>
 </blockquote>
 <h3 id="initialize-a-project">Initialize a project</h3>
 <p>First, simply use the Expo CLI to initialize a project.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ expo init my-expo-project
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ expo init my-expo-project
 </code></pre></div><p>Select &ldquo;blank&rdquo; for a template. If it&rsquo;s finished, go into the directory.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd my-expo-project
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cd my-expo-project
 </code></pre></div><h3 id="minimize-the-project">Minimize the project</h3>
 <p>If you look at <a href="https://docs.expo.io/versions/v31.0.0/workflow/configuration">the doc about app.json</a>, the required fields are &ldquo;name&rdquo;, &ldquo;slug&rdquo;, and &ldquo;sdkVersion&rdquo;, but I found &ldquo;version&rdquo; is also mandatory. You can safely remove other fields for the start. The resulting <code>app.json</code> is the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;expo&#34;</span>: {
     <span style="color:#f92672">&#34;name&#34;</span>: <span style="color:#e6db74">&#34;my-expo-project&#34;</span>,
     <span style="color:#f92672">&#34;slug&#34;</span>: <span style="color:#e6db74">&#34;my-expo-project&#34;</span>,
@@ -197,13 +197,13 @@ text-align: center;
   }
 }
 </code></pre></div><p>Since we use TypeScript, we don&rsquo;t need babel. The following commands remove it.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rm babel.config.js
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ rm babel.config.js
 $ npm uninstall -D babel-preset-expo
 </code></pre></div><p>We also remove <code>App.js</code> (by <code>rm App.js</code>) and create <code>App.ts</code>. We want to store files in the <code>src</code> directory and <code>App.ts</code> is just an entry point for that.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./src/App&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./src/App&#39;</span>;
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
 </code></pre></div><p>Finally, create the <code>src</code> directory (by <code>mkdir src</code>) and create <code>App.tsx</code>. The simplest one would be like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Text</span>, <span style="color:#a6e22e">View</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-native&#39;</span>;
 
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> () =&gt; (
@@ -212,7 +212,7 @@ $ npm uninstall -D babel-preset-expo
   &lt;/<span style="color:#f92672">View</span>&gt;
 );
 </code></pre></div><p>One more thing. We need to create config files for TypeScript. These may vary based on requirements, but I would like to have something minimal based on the <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html">handbook</a>. The <code>tsconfig.json</code> file for this project is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;compilerOptions&#34;</span>: {
     <span style="color:#f92672">&#34;target&#34;</span>: <span style="color:#e6db74">&#34;es5&#34;</span>,
     <span style="color:#f92672">&#34;lib&#34;</span>: [<span style="color:#e6db74">&#34;es2015&#34;</span>, <span style="color:#e6db74">&#34;esnext.asynciterable&#34;</span>],
@@ -226,7 +226,7 @@ $ npm uninstall -D babel-preset-expo
   }
 }
 </code></pre></div><p>We also use <a href="https://palantir.github.io/tslint/">tslint</a> and the <code>tslint.json</code> file for this project is:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
   <span style="color:#f92672">&#34;extends&#34;</span>: [
     <span style="color:#e6db74">&#34;tslint:recommended&#34;</span>,
     <span style="color:#e6db74">&#34;tslint-config-airbnb&#34;</span>
@@ -241,10 +241,10 @@ $ npm uninstall -D babel-preset-expo
 <p>This includes some of my preferences, especially <code>no-any</code>. Feel free to change it as you want.</p>
 </blockquote>
 <p>To make it work, we need to install TypeScript dependencies.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -D typescript tslint tslint-config-airbnb @types/expo @types/react
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -D typescript tslint tslint-config-airbnb @types/expo @types/react
 </code></pre></div><h3 id="running-the-app">Running the app</h3>
 <p>By now, we can run the app by the following command.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm start
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm start
 </code></pre></div><p>This will open up Expo Dev Tools in your browser. (Type &ldquo;d&rdquo; in your console, if it doesn&rsquo;t open.)</p>
 <p><img src="./screenshot1.png" alt="screenshot1" title="Screenshot of Expo Dev Tools"></p>
 <p>Click the &ldquo;Run on emulator/simulator&rdquo; or open it in your phone with Expo App. You will see something like this.</p>
@@ -252,9 +252,9 @@ $ npm uninstall -D babel-preset-expo
 <p>This looks minimal, doesn&rsquo;t it?</p>
 <h3 id="adding-jest">Adding Jest</h3>
 <p>We then add Jest for writing tests. Let&rsquo;s install dependencies.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -D jest jest-expo ts-jest react-test-renderer @types/jest @types/react-test-renderer
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm install -D jest jest-expo ts-jest react-test-renderer @types/jest @types/react-test-renderer
 </code></pre></div><p>What is tricky is the jest configuration. So far, the following config in the &ldquo;package.json&rdquo; file seems to work.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;jest&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;jest&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;preset&#34;</span>: <span style="color:#e6db74">&#34;jest-expo&#34;</span>,
     <span style="color:#f92672">&#34;transform&#34;</span>: {
       <span style="color:#f92672">&#34;^.+\\.js$&#34;</span>: <span style="color:#e6db74">&#34;&lt;rootDir&gt;/node_modules/react-native/jest/preprocessor.js&#34;</span>,
@@ -279,7 +279,7 @@ $ npm uninstall -D babel-preset-expo
   }
 </code></pre></div><p>This doesn&rsquo;t look minimal and not very satisfying. Hope it to be improved. As for the &ldquo;globals&rdquo; part, see <a href="https://kulshekhar.github.io/ts-jest/user/config/#ts-jest-options">the doc</a> for more information.</p>
 <p>Let&rsquo;s write a snapshot test for <code>App.tsx</code>. This is the file <code>App.spec.tsx</code> in <code>src</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 <span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">renderer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-test-renderer&#39;</span>;
 
 <span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./App&#39;</span>;
@@ -293,7 +293,7 @@ $ npm uninstall -D babel-preset-expo
   });
 });
 </code></pre></div><p>We add npm scripts to ease running tests, including TypeScripts tests.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">  <span style="color:#e6db74">&#34;scripts&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
     <span style="color:#f92672">&#34;start&#34;</span>: <span style="color:#e6db74">&#34;expo start&#34;</span>,
     <span style="color:#f92672">&#34;android&#34;</span>: <span style="color:#e6db74">&#34;expo start --android&#34;</span>,
     <span style="color:#f92672">&#34;ios&#34;</span>: <span style="color:#e6db74">&#34;expo start --ios&#34;</span>,
@@ -303,9 +303,9 @@ $ npm uninstall -D babel-preset-expo
     <span style="color:#f92672">&#34;jest&#34;</span>: <span style="color:#e6db74">&#34;jest&#34;</span>
   }<span style="color:#960050;background-color:#1e0010">,</span>
 </code></pre></div><p>With this, we can run test simply by:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm test
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ npm test
 </code></pre></div><p>The result would be something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">...
  PASS  src/App.spec.tsx
   App
     ✓ snapshot test <span style="color:#f92672">(</span>445ms<span style="color:#f92672">)</span>

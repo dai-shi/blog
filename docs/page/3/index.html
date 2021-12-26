@@ -14,7 +14,7 @@
 <meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
 <meta name="twitter:description" content=""/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -112,6 +112,46 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</a>
+			<br>
+			<small>
+				7 July 2019
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.
+In general, I would avoid using global state. It would reduce the isolation of components. Multiple contexts should work fine for certain use cases.
+But, what if we really need a global state.
+Problem When a state is a non-trivial object, it&rsquo;s not likely to use all properties of the object for one component to render.
+		
+			... <a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
+			
+				<a href="https://blog.axlight.com/tags/proxy"><span class="label label-success">proxy</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -453,79 +493,38 @@ const Person = ({ person }) =&gt; ( &lt;div&gt; &lt;div className=&#34;personFir
 </div>
 
 
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/">How to create React custom hooks for data fetching with useEffect</a>
-			<br>
-			<small>
-				3 April 2019
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Background React 16.8 added a new API, Hooks. If you haven&rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.
-https://reactjs.org/docs/hooks-intro.html
-Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.
-		
-			... <a href="https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
-			
-				<a href="https://blog.axlight.com/tags/fetch"><span class="label label-success">fetch</span></a>
-			
-				<a href="https://blog.axlight.com/tags/abortable"><span class="label label-success">abortable</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
 
 <div class="text-center center-block">
 	
-<ul class="pagination">
-  <li class="page-item">
-    <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/page/2/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/">1</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/2/">2</a>
-  </li>
-  <li class="page-item active">
-    <a class="page-link" href="/page/3/">3</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/4/">4</a>
-  </li>
-  <li class="page-item">
-    <a class="page-link" href="/page/5/">5</a>
-  </li>
-  <li class="page-item">
-    <a href="/page/4/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-  </li>
-  <li class="page-item">
-    <a href="/page/5/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-  </li>
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/2/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item active">
+        <a href="#" aria-current="page" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/4/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
 </div>
 
 						</div>

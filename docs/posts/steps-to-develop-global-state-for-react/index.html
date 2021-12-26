@@ -11,8 +11,8 @@ https://github.com/dai-shi/react-hooks-global-state
 This post shows simplified versions of the code step by step." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/" /><meta property="og:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-18T23:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2020-02-18T23:00:00&#43;09:00" />
+<meta property="article:published_time" content="2020-02-18T23:00:00+09:00" />
+<meta property="article:modified_time" content="2020-02-18T23:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -23,7 +23,7 @@ The initial version of the library was published in Oct 2018. Time has passed si
 https://github.com/dai-shi/react-hooks-global-state
 This post shows simplified versions of the code step by step."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>Steps to Develop Global State for React With Hooks Without Context &middot; Daishi Kato&#39;s blog</title>
     
@@ -190,14 +190,14 @@ v1.0.0 of the library is published.</p>
 It would help understand what this library is aiming at,
 while the real code is a bit complex in TypeScript.</p>
 <h3 id="step-1-global-variable">Step 1: Global variable</h3>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
   <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span>,
 };
 </code></pre></div><p>Let&rsquo;s have a global variable like the above.
 We assume this structure throughout this post.
 One would create a React hook to read this global variable.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">globalState</span>;
 };
 </code></pre></div><p>This is not actually a React hook
@@ -206,7 +206,7 @@ because it doesn&rsquo;t depend on any React primitive hooks.</p>
 when the global variable changes.</p>
 <h3 id="step-2-re-render-on-updates">Step 2: Re-render on updates</h3>
 <p>We need to use React <code>useState</code> hook to make it reactive.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>);
@@ -223,12 +223,12 @@ when the global variable changes.</p>
 </code></pre></div><p>This allows to update React state from outside.
 If you update the global variable, you need to notify listeners.
 Let&rsquo;s create a function for updating.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">nextGlobalState</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">nextGlobalState</span>) =&gt; {
   <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">nextGlobalState</span>;
   <span style="color:#a6e22e">listeners</span>.<span style="color:#a6e22e">forEach</span>(<span style="color:#a6e22e">listener</span> =&gt; <span style="color:#a6e22e">listener</span>());
 };
 </code></pre></div><p>With this, we can change <code>useGlobalState</code> to return a tuple like <code>useState</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalState</span> <span style="color:#f92672">=</span> () =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">globalState</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     <span style="color:#75715e">// ...
@@ -239,7 +239,7 @@ Let&rsquo;s create a function for updating.</p>
 <p>Usually, the global variable is in a file scope.
 Let&rsquo;s put it in a function scope to narrow down the scope a bit
 and make it more reusable.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>();
 
@@ -279,7 +279,7 @@ get a derived value from a global state.</p>
 <p>We take a simpler approach here,
 which is to use a string key of a global state.
 In our example, it&rsquo;s like <code>count</code> and <code>text</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">initialState</span>) =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">fromEntries</span>(Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">initialState</span>).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">key</span> =&gt; [<span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()]));
 
@@ -311,7 +311,7 @@ but it&rsquo;s generally recommended for a library.</p>
 <h3 id="step-5-functional-updates">Step 5: Functional Updates</h3>
 <p>React <code>useState</code> allows <a href="https://reactjs.org/docs/hooks-reference.html#functional-updates">functional updates</a>.
 Let&rsquo;s implement this feature.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#75715e">// ...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#75715e">// ...
 </span><span style="color:#75715e"></span>
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setGlobalState</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">nextValue</span>) =&gt; {
     <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">nextValue</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;function&#39;</span>) {
@@ -326,7 +326,7 @@ Let&rsquo;s implement this feature.</p>
 </span></code></pre></div><h3 id="step-6-reducer">Step 6: Reducer</h3>
 <p>Those who are familiar with Redux may prefer reducer interface.
 React hook useReducer also has basically the same interface.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createContainer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>) =&gt; {
   <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">globalState</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">listeners</span> <span style="color:#f92672">=</span> Object.<span style="color:#a6e22e">fromEntries</span>(Object.<span style="color:#a6e22e">keys</span>(<span style="color:#a6e22e">initialState</span>).<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">key</span> =&gt; [<span style="color:#a6e22e">key</span>, <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Set</span>()]));
 
@@ -353,7 +353,7 @@ we need to use React state instead of an external variable.
 The current solution to it is to link a React state to our global state.</p>
 <p>The implementation is very tricky, but in essence we create a hook
 to create a state and link it.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalStateProvider</span> <span style="color:#f92672">=</span> () =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js">  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useGlobalStateProvider</span> <span style="color:#f92672">=</span> () =&gt; {
     <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">patchedReducer</span>, <span style="color:#a6e22e">globalState</span>);
     <span style="color:#a6e22e">useEffect</span>(() =&gt; {
       <span style="color:#a6e22e">linkedDispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">dispatch</span>;

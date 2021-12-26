@@ -12,8 +12,8 @@ Now, this very short article is just about the default value of a context. When 
  The defaultValue argument is only used when a component does not have a matching Provider above it in the tree." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/a-thought-on-react-context-default-value/" /><meta property="og:image" content="https://blog.axlight.com/posts/a-thought-on-react-context-default-value/cover.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-01-11T12:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-01-11T12:00:00&#43;09:00" />
+<meta property="article:published_time" content="2019-01-11T12:00:00+09:00" />
+<meta property="article:modified_time" content="2019-01-11T12:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -25,7 +25,7 @@ https://reactjs.org/docs/hooks-intro.html
 Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
  The defaultValue argument is only used when a component does not have a matching Provider above it in the tree."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>A thought on React Context default value &middot; Daishi Kato&#39;s blog</title>
     
@@ -189,7 +189,7 @@ text-align: center;
 <p>So, this is only used if there&rsquo;s no Provider. It&rsquo;s often the case that we require a Provider and if it doesn&rsquo;t exist, we warn developers.</p>
 <h3 id="typical-solution">Typical solution</h3>
 <p>In various code, what I see is something like the following:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyContext</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MyProvider</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">MyContext</span>.<span style="color:#a6e22e">Provider</span>;
 <span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useMyValueFoo</span> <span style="color:#f92672">=</span> () =&gt; {
@@ -202,7 +202,7 @@ text-align: center;
 </code></pre></div><p>The intention behind this code is to let developers notice if they forget to put Provider in the component tree.</p>
 <h3 id="my-proposal">My proposal</h3>
 <p>I thought what if we set this warning object in the default value. This would only work if we use an object value for a context, but here&rsquo;s the code:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createContext</span>, <span style="color:#a6e22e">useContext</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;React&#39;</span>;
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">warningObject</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">foo</span>() {
     <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;You probably forgot to put &lt;MyProvider&gt;.&#39;</span>);

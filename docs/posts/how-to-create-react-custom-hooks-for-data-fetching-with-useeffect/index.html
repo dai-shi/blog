@@ -10,8 +10,8 @@ https://reactjs.org/docs/hooks-intro.html
 Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/cover.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-04-03T12:00:00&#43;09:00" />
-<meta property="article:modified_time" content="2019-04-03T12:00:00&#43;09:00" />
+<meta property="article:published_time" content="2019-04-03T12:00:00+09:00" />
+<meta property="article:modified_time" content="2019-04-03T12:00:00+09:00" />
 
 
     <meta name="twitter:card" content="summary_large_image"/>
@@ -21,7 +21,7 @@ Hooks are a new addition in React 16.8. They let you use state and other React f
 https://reactjs.org/docs/hooks-intro.html
 Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future."/>
 
-    <meta name="generator" content="Hugo 0.82.0" />
+    <meta name="generator" content="Hugo 0.88.1" />
     
       <title>How to create React custom hooks for data fetching with useEffect &middot; Daishi Kato&#39;s blog</title>
     
@@ -183,7 +183,7 @@ This article is about how to create custom hooks for data fetching. As described
 <p>This article describes about a naive implementation of a custom hook for data fetching, its limitation, an API proposal for abortable async functions and the library implemented for the API.</p>
 <h3 id="a-naive-custom-hook">A naive custom hook</h3>
 <p>If you have a good understanding of React hooks, the implementation like below can easily be come up with.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     (<span style="color:#66d9ef">async</span> () =&gt; {
@@ -196,7 +196,7 @@ This article is about how to create custom hooks for data fetching. As described
 };
 </code></pre></div><p>Note that error handling and loading state are omitted in this code for simplicity.</p>
 <p>The data with this hook only lives in a component state, and is discarded when the component is unmounted. To avoid setting state for unmounted components, you typically introduce a flag like the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mounted</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
@@ -211,7 +211,7 @@ This article is about how to create custom hooks for data fetching. As described
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>;
 };
 </code></pre></div><p>This does work, but it doesn&rsquo;t actually stop data fetching. It would be better if we can really stop data fetching in the browser. <a href="https://developer.mozilla.org/en-US/docs/Web/API/AbortController">AbortController</a> enables it and the code becomes like the following.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">data</span>, <span style="color:#a6e22e">setData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">mounted</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span>;
@@ -234,14 +234,14 @@ This article is about how to create custom hooks for data fetching. As described
 </code></pre></div><h3 id="a-general-api-for-abortable-async-functions">A general API for abortable async functions</h3>
 <p>Let&rsquo;s generalize a bit to make any async functions abortable with AbortController. We define an API that is a function which receives an instance of AbortController in the first argument and returns a promise.</p>
 <p>With this API, the fetch is implemented something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// this is pseudo code
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// this is pseudo code
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">abortableFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, { <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span> });
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>();
   <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>;
 };
 </code></pre></div><p>Similarly, <a href="https://github.com/axios/axios">axios</a>, which has a different cancellation mechanism, can be implemented something like this:</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// this is pseudo code
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#75715e">// this is pseudo code
 </span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">abortableAxios</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">url</span>) =&gt; <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">source</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">axios</span>.<span style="color:#a6e22e">CancelToken</span>.<span style="color:#a6e22e">source</span>();
   <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">addEventListener</span>(<span style="color:#e6db74">&#39;abort&#39;</span>, () =&gt; {
@@ -255,7 +255,7 @@ This article is about how to create custom hooks for data fetching. As described
 <h3 id="the-useasynctask-hook">The useAsyncTask hook</h3>
 <p>Now, we implement the first hook. In addition to the result of an async function, we handle the pending state and the error.</p>
 <p>The initial <code>task</code> is defined as follows.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialTask</span> <span style="color:#f92672">=</span> {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialTask</span> <span style="color:#f92672">=</span> {
   <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#75715e">// if this async function is started
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,  <span style="color:#75715e">// if this async function is not finished
 </span><span style="color:#75715e"></span>  <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,    <span style="color:#75715e">// error of this async function
@@ -265,7 +265,7 @@ This article is about how to create custom hooks for data fetching. As described
 </span><span style="color:#75715e"></span>};
 </code></pre></div><p>We use the terms <code>pending</code> and <code>result</code> instead of <code>loading</code> and <code>data</code> because the <code>task</code> is not only for data fetching.</p>
 <p>The reducer used with useReducer for the <code>task</code> is defined as follows.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">action</span>) =&gt; {
   <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
     <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;init&#39;</span><span style="color:#f92672">:</span>
       <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">initialTask</span>;
@@ -297,7 +297,7 @@ This article is about how to create custom hooks for data fetching. As described
   }
 };
 </code></pre></div><p>With these above, our custom hook is implemented.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">deps</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">deps</span>) =&gt; {
   <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialTask</span>);
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
     <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">dispatchSafe</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">action</span> =&gt; <span style="color:#a6e22e">dispatch</span>(<span style="color:#a6e22e">action</span>);
@@ -330,7 +330,7 @@ This article is about how to create custom hooks for data fetching. As described
 </code></pre></div><p>In this implementation, we simply receive <code>deps</code> as a second argument and pass it to useEffect. This is a design choice to avoid the use of <a href="https://reactjs.org/docs/hooks-reference.html#usememo">useMemo</a>, which is not recommended for a semantic guarantee.</p>
 <h3 id="the-useasyncrun-hook">The useAsyncRun hook</h3>
 <p>The second hook is implemented relatively easily.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncRun</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">asyncTask</span>) =&gt; {
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncRun</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">asyncTask</span>) =&gt; {
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">asyncTask</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">start</span>;
   <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">abort</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">asyncTask</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">abort</span>;
   <span style="color:#a6e22e">useEffect</span>(() =&gt; {
@@ -344,7 +344,7 @@ This article is about how to create custom hooks for data fetching. As described
 </code></pre></div><p>This hook is not mandatory to use. You could just call the start and abort methods in the task object in event callbacks. Ref: <a href="https://github.com/dai-shi/react-hooks-async/tree/master/examples/03_startbutton">example</a>.</p>
 <h3 id="the-usefetch-hook">The useFetch hook</h3>
 <p>Based on the two hooks described above, we can implement <code>useAsyncTaskFetch</code> and <code>useFetch</code>.</p>
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">defaultInit</span> <span style="color:#f92672">=</span> {};
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">defaultInit</span> <span style="color:#f92672">=</span> {};
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">defaultReadBody</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">body</span> =&gt; <span style="color:#a6e22e">body</span>.<span style="color:#a6e22e">json</span>();
 
 <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTaskFetch</span> <span style="color:#f92672">=</span> (
