@@ -2,7 +2,7 @@
 title: "Learning React State Manager Jotai With 7GUIS Tasks"
 subtitle: "Challenge yourself with the tasks"
 date: 2021-09-13T20:23:30+09:00
-tags: ["react", "hooks", "global-state", "atom", "typescript"]
+tags: ["react", "hooks", "global-state", "atom", "typescript", "jotai"]
 ---
 
 ## Introduction

@@ -3,24 +3,33 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <loc>https://blog.axlight.com/tags/jotai/</loc>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/proxy/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2021-12-26T22:00:00+09:00</lastmod>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/valtio/</loc>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</loc>
+    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</loc>
     <lastmod>2021-12-26T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/atom/</loc>

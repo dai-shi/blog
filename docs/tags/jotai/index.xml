@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>jotai on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/jotai/</link>
+    <description>Recent content in jotai on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 30 Jan 2022 18:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/jotai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>When I Use Valtio and When I Use Jotai</title>
+      <link>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</link>
+      <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</guid>
+      <description>Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?
+For those who are not familiar with them, they are two out of many state management libraries that I developed.
+https://github.com/pmndrs/valtio
+https://github.com/pmndrs/jotai
+Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&amp;rsquo;t usually use both in a single app.</description>
+    </item>
+    
+    <item>
+      <title>Learning React State Manager Jotai With 7GUIS Tasks</title>
+      <link>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</link>
+      <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</guid>
+      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.
+It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
+It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
+    </item>
+    
+  </channel>
+</rss>

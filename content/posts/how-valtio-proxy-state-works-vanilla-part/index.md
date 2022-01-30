@@ -2,7 +2,7 @@
 title: "How Valtio Proxy State Works (Vanilla Part)"
 subtitle: "Adding immutability to mutable state"
 date: 2021-08-27T22:00:00+09:00
-tags: ["global-state", "proxy"]
+tags: ["global-state", "proxy", "valtio"]
 ---
 
 ## Introduction

@@ -117,6 +117,39 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/">Compose React hooks like composing React components</a>
+			<br>
+			<small>
+				18 April 2019
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&rsquo;s jump in the code.
+React components Let&rsquo;s use a minimalistic example. Here&rsquo;s a component.
+const Person = ({ person }) =&gt; ( &lt;div&gt; &lt;div className=&#34;personFirstName&#34;&gt; &lt;span&gt;First Name:&lt;span&gt; &lt;span&gt;{person.firstName}&lt;/span&gt; &lt;/div&gt; &lt;div className=&#34;personLastName&#34;&gt; &lt;span&gt;Last Name:&lt;span&gt; &lt;span&gt;{person.lastName}&lt;/span&gt; &lt;/div&gt; &lt;/div&gt; ); Well, this component is a little bit big, so let&rsquo;s split it into functions and compose them.
+		
+			... <a href="https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/">How to create React custom hooks for data fetching with useEffect</a>
 			<br>
 			<small>
@@ -440,43 +473,6 @@ Background When developing a GraphQL server with Apollo Server, GraphQL Playgrou
 </div>
 
 
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/">Introduction to abortable async functions for React with hooks</a>
-			<br>
-			<small>
-				11 December 2018
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		There is a follow-up article which describes the implementation details of the library. Please visit here.
- TL;DR Just visit the example in codesandbox and try it.
-Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.
-		
-			... <a href="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
-			
-				<a href="https://blog.axlight.com/tags/abortable"><span class="label label-success">abortable</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
 
 <div class="text-center center-block">
 	
@@ -486,9 +482,6 @@ Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of
       </li>
       <li class="page-item">
         <a href="/page/3/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
-      </li>
-      <li class="page-item">
-        <a href="/" aria-label="Page 1" class="page-link" role="button">1</a>
       </li>
       <li class="page-item">
         <a href="/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
@@ -503,10 +496,13 @@ Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of
         <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
       </li>
       <li class="page-item">
+        <a href="/page/6/" aria-label="Page 6" class="page-link" role="button">6</a>
+      </li>
+      <li class="page-item">
         <a href="/page/5/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
       </li>
       <li class="page-item">
-        <a href="/page/5/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+        <a href="/page/6/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
       </li>
     </ul>
 </div>

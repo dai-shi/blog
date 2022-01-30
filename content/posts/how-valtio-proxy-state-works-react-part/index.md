@@ -2,7 +2,7 @@
 title: "How Valtio Proxy State Works (React Part)"
 subtitle: "useSyncExternalStore and proxy-compare"
 date: 2021-12-26T22:00:00+09:00
-tags: ["react", "global-state", "proxy"]
+tags: ["react", "global-state", "proxy", "valtio"]
 ---
 
 ## Introduction
