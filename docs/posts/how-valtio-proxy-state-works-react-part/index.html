@@ -326,6 +326,7 @@ The library takes care of everything else.</p>
 <p>To be fair, there are some limitations due to how proxies work.
 For example, proxies can&rsquo;t detect mutations on <code>Map</code>.
 Another example is that proxies can&rsquo;t detect a use of <code>Object.keys</code>.</p>
+<p>(Feb 3rd 2022 edit: <code>Object.keys</code> actually works fine and the above statement is wrong. Also, <code>valtio/utils</code> now has <code>proxyMap</code> to emulate the <code>Map</code> behavior and detect mutations.)</p>
 <h2 id="closing-note">Closing note</h2>
 <p>Hopefully, we explained the overall concept of Valtio
 with <a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/">the previous article</a> and this one.

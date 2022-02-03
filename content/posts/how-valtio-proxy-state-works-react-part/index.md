@@ -207,6 +207,8 @@ To be fair, there are some limitations due to how proxies work.
 For example, proxies can't detect mutations on `Map`.
 Another example is that proxies can't detect a use of `Object.keys`.
 
+(Feb 3rd 2022 edit: `Object.keys` actually works fine and the above statement is wrong. Also, `valtio/utils` now has `proxyMap` to emulate the `Map` behavior and detect mutations.)
+
 ## Closing note
 
 Hopefully, we explained the overall concept of Valtio
