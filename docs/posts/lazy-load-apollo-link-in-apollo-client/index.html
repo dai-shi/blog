@@ -8,7 +8,7 @@
 <meta property="og:description" content="Introduction This is a short post about my small library.
 Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
 Typically, you would initialize apollo client like this.
-import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link." />
+import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;;  const cache = new InMemoryCache(); const link = new HttpLink({ uri });  const client = new ApolloClient({  cache: cache,  link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/" /><meta property="og:image" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/cover.png"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-01-10T23:00:00+09:00" />
@@ -21,9 +21,9 @@ import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } f
 <meta name="twitter:description" content="Introduction This is a short post about my small library.
 Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
 Typically, you would initialize apollo client like this.
-import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link."/>
+import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;;  const cache = new InMemoryCache(); const link = new HttpLink({ uri });  const client = new ApolloClient({  cache: cache,  link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Lazy Load Apollo Link in Apollo Client &middot; Daishi Kato&#39;s blog</title>
     
@@ -107,6 +107,8 @@ import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } f
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -183,44 +185,44 @@ is a library for GraphQL.
 <a href="https://github.com/apollographql/apollo-link">Apollo Link</a>
 is an interface to extend Apollo Client.</p>
 <p>Typically, you would initialize apollo client like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ApolloClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-client&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">InMemoryCache</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-cache-inmemory&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpLink</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-http&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">InMemoryCache</span>();
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HttpLink</span>({ <span style="color:#a6e22e">uri</span> });
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloClient</span>({
-  <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">cache</span>,
-  <span style="color:#a6e22e">link</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">link</span>,
-});
-</code></pre></div><p>I want to define the link in another file and lazy load it,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ApolloClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-client&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">InMemoryCache</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-cache-inmemory&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpLink</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-http&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">InMemoryCache</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HttpLink</span>({ <span style="color:#a6e22e">uri</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloClient</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">cache</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">link</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">link</span>,
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>I want to define the link in another file and lazy load it,
 because it is not an HttpLink but a complicated large link.</p>
 <h2 id="how-to-use">How to use</h2>
 <p>We use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import">dynamic imports</a> for this.</p>
 <p>Let&rsquo;s assmume we have <code>link.js</code> file that exports an apollo link.
 It&rsquo;d be nice to dynamic import it.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">lazy</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-lazy&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">lazy</span>(() =&gt; <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;./link&#39;</span>));
-</code></pre></div><p><code>import()</code> returns a promise, but there&rsquo;s no <code>await</code>.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">lazy</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-lazy&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">lazy</span>(() =&gt; <span style="color:#66d9ef">import</span>(<span style="color:#e6db74">&#39;./link&#39;</span>));
+</span></span></code></pre></div><p><code>import()</code> returns a promise, but there&rsquo;s no <code>await</code>.
 How is this possible?</p>
 <h2 id="how-to-implement">How to implement</h2>
 <p>Interestingly, Apollo Link is asynchronous by nature.
 However, it&rsquo;s not promise based. It has observable interface.</p>
 <p>So, all you need is to covert a promise into an observable.</p>
 <p>Here&rsquo;s the code.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ApolloLink</span>, <span style="color:#a6e22e">fromPromise</span>, <span style="color:#a6e22e">toPromise</span>, <span style="color:#a6e22e">Observable</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link&#39;</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lazy</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">factory</span>) =&gt; <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloLink</span>(
-  (<span style="color:#a6e22e">operation</span>, <span style="color:#a6e22e">forward</span>) =&gt; <span style="color:#a6e22e">fromPromise</span>(
-    <span style="color:#a6e22e">factory</span>().<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">resolved</span>) =&gt; {
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resolved</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">ApolloLink</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">resolved</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">resolved</span>.<span style="color:#66d9ef">default</span>;
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">toPromise</span>(<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">operation</span>, <span style="color:#a6e22e">forward</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">Observable</span>.<span style="color:#66d9ef">of</span>());
-    }),
-  ),
-);
-</code></pre></div><p>Luckily, apollo-client exports <code>fromPromise</code> and <code>toPromise</code>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ApolloLink</span>, <span style="color:#a6e22e">fromPromise</span>, <span style="color:#a6e22e">toPromise</span>, <span style="color:#a6e22e">Observable</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">lazy</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">factory</span>) =&gt; <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloLink</span>(
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">operation</span>, <span style="color:#a6e22e">forward</span>) =&gt; <span style="color:#a6e22e">fromPromise</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">factory</span>().<span style="color:#a6e22e">then</span>((<span style="color:#a6e22e">resolved</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">resolved</span> <span style="color:#66d9ef">instanceof</span> <span style="color:#a6e22e">ApolloLink</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">resolved</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">resolved</span>.<span style="color:#66d9ef">default</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">toPromise</span>(<span style="color:#a6e22e">link</span>.<span style="color:#a6e22e">request</span>(<span style="color:#a6e22e">operation</span>, <span style="color:#a6e22e">forward</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">Observable</span>.<span style="color:#66d9ef">of</span>());
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>  ),
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Luckily, apollo-client exports <code>fromPromise</code> and <code>toPromise</code>
 utility functions. Hence, it can be implemented so easily.</p>
 <p>A little trick here is to support both ApolloLink promises and default exports.</p>
 <h2 id="demo">Demo</h2>
@@ -235,13 +237,13 @@ utility functions. Hence, it can be implemented so easily.</p>
 was actually enough.
 Because it also supports direct promises, we can use it for any
 async initialization like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">lazy</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-lazy&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">lazy</span>(<span style="color:#66d9ef">async</span> () =&gt; {
-  <span style="color:#75715e">// await ...
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloLink</span>(...);
-});
-</code></pre></div><p>I hope this may help other developers who try lazy loading of apollo links.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">lazy</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-lazy&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">lazy</span>(<span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// await ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloLink</span>(...);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>I hope this may help other developers who try lazy loading of apollo links.</p>
 
 	</article>
 </main>
@@ -249,7 +251,7 @@ async initialization like the following.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -28,7 +28,7 @@ Now, from the library perspective, their implementations are very different. How
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</guid>
       <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
 Let&amp;rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 });  // You can mutate it ++state.count;  // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
     </item>
     
     <item>
@@ -50,7 +50,7 @@ It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</guid>
       <description>Introduction Valtio is a library for global state primarily for React. It&amp;rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&amp;rsquo;s a novel API to add immutability to mutable state.
 What is immutable state? JavaScript doesn&amp;rsquo;t support immutability as language, so it&amp;rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .</description>
+const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; };  // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 };  // update it again const immutableState3 = { .</description>
     </item>
     
     <item>
@@ -117,7 +117,7 @@ This post shows simplified versions of the code step by step.</description>
       <description>Introduction This is a short post about my small library.
 Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
 Typically, you would initialize apollo client like this.
-import { ApolloClient } from &amp;#39;apollo-client&amp;#39;; import { InMemoryCache } from &amp;#39;apollo-cache-inmemory&amp;#39;; import { HttpLink } from &amp;#39;apollo-link-http&amp;#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.</description>
+import { ApolloClient } from &amp;#39;apollo-client&amp;#39;; import { InMemoryCache } from &amp;#39;apollo-cache-inmemory&amp;#39;; import { HttpLink } from &amp;#39;apollo-link-http&amp;#39;;  const cache = new InMemoryCache(); const link = new HttpLink({ uri });  const client = new ApolloClient({  cache: cache,  link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.</description>
     </item>
     
     <item>
@@ -346,7 +346,7 @@ This library provides two basic hooks: useReduxState and useReduxDispatch. This 
       <guid>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</guid>
       <description>This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&amp;rsquo;s jump in the code.
 React components Let&amp;rsquo;s use a minimalistic example. Here&amp;rsquo;s a component.
-const Person = ({ person }) =&amp;gt; ( &amp;lt;div&amp;gt; &amp;lt;div className=&amp;#34;personFirstName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;First Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.firstName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div className=&amp;#34;personLastName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;Last Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.lastName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; ); Well, this component is a little bit big, so let&amp;rsquo;s split it into functions and compose them.</description>
+const Person = ({ person }) =&amp;gt; (  &amp;lt;div&amp;gt;  &amp;lt;div className=&amp;#34;personFirstName&amp;#34;&amp;gt;  &amp;lt;span&amp;gt;First Name:&amp;lt;span&amp;gt;  &amp;lt;span&amp;gt;{person.firstName}&amp;lt;/span&amp;gt;  &amp;lt;/div&amp;gt;  &amp;lt;div className=&amp;#34;personLastName&amp;#34;&amp;gt;  &amp;lt;span&amp;gt;Last Name:&amp;lt;span&amp;gt;  &amp;lt;span&amp;gt;{person.lastName}&amp;lt;/span&amp;gt;  &amp;lt;/div&amp;gt;  &amp;lt;/div&amp;gt; ); Well, this component is a little bit big, so let&amp;rsquo;s split it into functions and compose them.</description>
     </item>
     
     <item>

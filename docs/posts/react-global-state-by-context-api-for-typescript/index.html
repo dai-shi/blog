@@ -25,7 +25,7 @@ https://www.npmjs.com/package/react-context-global-state
 Example code in TypeScript Let me breifly show how the code looks like in TypeScript.
 In a file named state.ts, we define a global state and export function components."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>React global state by Context API for TypeScript &middot; Daishi Kato&#39;s blog</title>
     
@@ -109,6 +109,8 @@ In a file named state.ts, we define a global state and export function component
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -184,69 +186,69 @@ text-align: center;
 <h3 id="example-code-in-typescript">Example code in TypeScript</h3>
 <p>Let me breifly show how the code looks like in TypeScript.</p>
 <p>In a file named state.ts, we define a global state and export function components. The <code>State</code> type is also exported.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">counter1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-  },
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">StateProvider</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
-</code></pre></div><p>In App.tsx, we provide the state using Context.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateProvider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
-
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Counter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Counter&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">StateProvider</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-  &lt;/<span style="color:#f92672">StateProvider</span>&gt;
-);
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
-</code></pre></div><p>In Counter.tsx, we consume the part of the state by specifying the name.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateConsumerType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1StateConsumer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">StateConsumer</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">StateConsumerType</span>&lt;<span style="color:#f92672">State</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">counter1</span><span style="color:#960050;background-color:#1e0010">&#39;</span>&gt;;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Counter1StateConsumer</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter1&#34;</span>&gt;
-    {(<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">update</span>) =&gt; (
-      &lt;<span style="color:#f92672">div</span>&gt;
-        &lt;<span style="color:#f92672">span</span>&gt;
-          <span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span>
-          {<span style="color:#a6e22e">value</span>}
-        &lt;/<span style="color:#f92672">span</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
-      &lt;/<span style="color:#f92672">div</span>&gt;
-    )}
-  &lt;/<span style="color:#f92672">Counter1StateConsumer</span>&gt;
-);
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
-</code></pre></div><p>Notice how <code>Counter1StateConsumer</code> is defined above. I&rsquo;m not quite sure if this is the best way in TypeScript. Probably, it&rsquo;s ideal if it could just be constrained by the <code>name=&quot;counter1&quot;</code> prop.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">counter1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#a6e22e">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">StateProvider</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
+</span></span></code></pre></div><p>In App.tsx, we provide the state using Context.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateProvider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Counter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Counter&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">StateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">StateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</span></span></code></pre></div><p>In Counter.tsx, we consume the part of the state by specifying the name.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">StateConsumerType</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1StateConsumer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">StateConsumer</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">StateConsumerType</span>&lt;<span style="color:#f92672">State</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#960050;background-color:#1e0010">&#39;</span><span style="color:#a6e22e">counter1</span><span style="color:#960050;background-color:#1e0010">&#39;</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Counter1StateConsumer</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {(<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">update</span>) =&gt; (
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>          {<span style="color:#a6e22e">value</span>}
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    )}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Counter1StateConsumer</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
+</span></span></code></pre></div><p>Notice how <code>Counter1StateConsumer</code> is defined above. I&rsquo;m not quite sure if this is the best way in TypeScript. Probably, it&rsquo;s ideal if it could just be constrained by the <code>name=&quot;counter1&quot;</code> prop.</p>
 <p>The full example code is available in the repository.</p>
 <p><a href="https://github.com/dai-shi/react-context-global-state">https://github.com/dai-shi/react-context-global-state</a></p>
 <p>And, you can run it like the following and open http://localhost:8080 in your browser to see it working.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git glone https://github.com/dai-shi/react-context-global-state.git
-npm install
-npm run examples:typescript
-</code></pre></div><h3 id="some-thoughts">Some thoughts</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git glone https://github.com/dai-shi/react-context-global-state.git
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span>npm run examples:typescript
+</span></span></code></pre></div><h3 id="some-thoughts">Some thoughts</h3>
 <p>While global state is convenient, it&rsquo;s better not to overuse it. It&rsquo;s essentially a global variable, which in general should be avoided. In React, we should first consider using local state and passing it in the component tree. Global state is certainly useful if two components far apart in the tree need to share a value. In such a case, the Context API may fit well. This library is meant for rather small applications in which using Redux or alike requires too much effort.</p>
 
 	</article>
@@ -255,7 +257,7 @@ npm run examples:typescript
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

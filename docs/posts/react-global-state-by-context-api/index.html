@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="React global state by Context API"/>
 <meta name="twitter:description" content="I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state. So far, I wasn&rsquo;t able to find something I really liked, hence I made a new one."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>React global state by Context API &middot; Daishi Kato&#39;s blog</title>
     
@@ -101,6 +101,8 @@
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -173,42 +175,42 @@ text-align: center;
 		<p>I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state. So far, I wasn&rsquo;t able to find something I really liked, hence I made a new one.</p>
 <h3 id="the-example-code">The example code</h3>
 <p>The following code is a working example. Hope it shows the idea well.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">counter1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-};
-<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">StateProvider</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">StateConsumer</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter1&#34;</span>&gt;
-    {(<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">update</span>) =&gt; (
-      &lt;<span style="color:#f92672">div</span>&gt;
-        &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
-      &lt;/<span style="color:#f92672">div</span>&gt;
-    )}
-  &lt;/<span style="color:#f92672">StateConsumer</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">StateProvider</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-  &lt;/<span style="color:#f92672">StateProvider</span>&gt;
-);
-
-<span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
-</code></pre></div><h3 id="technical-notes">Technical notes</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-context-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">counter1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">StateProvider</span>, <span style="color:#a6e22e">StateConsumer</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">StateConsumer</span> <span style="color:#a6e22e">name</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;counter1&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    {(<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">update</span>) =&gt; (
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">update</span>(<span style="color:#a6e22e">v</span> =&gt; <span style="color:#a6e22e">v</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>)}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    )}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">StateConsumer</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">StateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">StateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
+</span></span></code></pre></div><h3 id="technical-notes">Technical notes</h3>
 <p>The <code>initialState</code> is an object. For each properties of the object, a context is created. <code>StateProvider</code> wraps all the context providers and <code>StateConsumer</code> requires a <code>name</code> prop to specify which context consumer to use.</p>
 <h3 id="the-library-package">The library package</h3>
 <p>There is a package to support the above example. You can install it:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">npm install react-context-global-state
-</code></pre></div><p>You can also check out the source code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>npm install react-context-global-state
+</span></span></code></pre></div><p>You can also check out the source code:</p>
 <p><a href="https://github.com/dai-shi/react-context-global-state">https://github.com/dai-shi/react-context-global-state</a></p>
 <h3 id="summary">Summary</h3>
 <p>In this short post, I introduced a way to use global state with React Context API. A library package is developed and example code works with it. Hope anyone interested would try it out, and drop me a note. Thanks.</p>
@@ -219,7 +221,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

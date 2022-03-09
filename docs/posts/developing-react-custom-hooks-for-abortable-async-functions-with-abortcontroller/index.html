@@ -19,7 +19,7 @@ Recap JavaScript promise is not abortable. The fetch API is based on promise, an
 <meta name="twitter:description" content="In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
 Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Developing React custom hooks for abortable async functions with AbortController &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ Recap JavaScript promise is not abortable. The fetch API is based on promise, an
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -180,65 +182,65 @@ text-align: center;
 <h3 id="the-implementation-of-useasynctask">The implementation of useAsyncTask</h3>
 <p>The <code>useAsyncTask</code> hook is to create an async task that can be started by <code>useAsyncRun</code> which we describe later in this article. To create an async task, you need to pass a function that receives an AbortController instance and returns an abortable promise. As a concrete example, we describe how to implement a custom hook for fetch later.</p>
 <p>The main part of the code is the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">inputs</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>({});
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; <span style="color:#a6e22e">createTask</span>(<span style="color:#a6e22e">func</span>, (<span style="color:#a6e22e">t</span>) =&gt; {
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">taskId</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">taskId</span>) {
-      <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>;
-      <span style="color:#a6e22e">forceUpdate</span>();
-    }
-  }), <span style="color:#a6e22e">inputs</span>);
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">taskId</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">newTask</span>.<span style="color:#a6e22e">taskId</span>) {
-    <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newTask</span>;
-  }
-  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cleanup</span> <span style="color:#f92672">=</span> () =&gt; { <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; };
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cleanup</span>;
-  }, []);
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>;
-};
-</code></pre></div><p>Three notes to read this code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">inputs</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>({});
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">newTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; <span style="color:#a6e22e">createTask</span>(<span style="color:#a6e22e">func</span>, (<span style="color:#a6e22e">t</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">taskId</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">taskId</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">t</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">forceUpdate</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }), <span style="color:#a6e22e">inputs</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>.<span style="color:#a6e22e">taskId</span> <span style="color:#f92672">!==</span> <span style="color:#a6e22e">newTask</span>.<span style="color:#a6e22e">taskId</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">newTask</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cleanup</span> <span style="color:#f92672">=</span> () =&gt; { <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>; };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cleanup</span>;
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">current</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Three notes to read this code:</p>
 <ul>
 <li>the <code>task</code> object is defined by <code>useRef</code>, and re-rendering is controlled by <code>forceUpdate</code>.</li>
 <li><code>createTask</code> is the core part which takes a callback function in the second argument, and use <code>useMemo</code> to call it only <code>inputs</code> are changed.</li>
 <li><code>useEffect</code> is to clean up the <code>task</code> object in order not to try rendering after unmounted.</li>
 </ul>
 <p>The <code>useForceUpdate</code> hook is a general hook by the following impelementation.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forcedReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">forcedReducer</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
-</code></pre></div><p>The code of <code>createTask</code> is a bit long.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">notifyUpdate</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">taskId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">`async_task_id_</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">idCounter</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> {
-    <span style="color:#a6e22e">taskId</span>,
-    <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
-    <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
-    <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
-    <span style="color:#a6e22e">result</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
-    <span style="color:#a6e22e">start</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> () =&gt; {
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">started</span>) <span style="color:#66d9ef">return</span>;
-      <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
-      <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
-      <span style="color:#a6e22e">notifyUpdate</span>(<span style="color:#a6e22e">task</span>);
-      <span style="color:#66d9ef">try</span> {
-        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">abortController</span>);
-        <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">result</span> };
-      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-        <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span> };
-      }
-      <span style="color:#a6e22e">notifyUpdate</span>(<span style="color:#a6e22e">task</span>);
-    },
-    <span style="color:#a6e22e">abort</span><span style="color:#f92672">:</span> () =&gt; {
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">abortController</span>) {
-        <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">abort</span>();
-      }
-    },
-  };
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">task</span>;
-};
-</code></pre></div><ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forcedReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">forcedReducer</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
+</span></span></code></pre></div><p>The code of <code>createTask</code> is a bit long.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createTask</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">notifyUpdate</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">taskId</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">Symbol</span>(<span style="color:#e6db74">`async_task_id_</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">idCounter</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">taskId</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">result</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">start</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">task</span>.<span style="color:#a6e22e">started</span>) <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">abortController</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">AbortController</span>();
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">started</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">notifyUpdate</span>(<span style="color:#a6e22e">task</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">func</span>(<span style="color:#a6e22e">abortController</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">result</span> };
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">task</span>, <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">false</span>, <span style="color:#a6e22e">error</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">e</span> };
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">notifyUpdate</span>(<span style="color:#a6e22e">task</span>);
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">abort</span><span style="color:#f92672">:</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">abortController</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">abort</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">task</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><ul>
 <li>the <code>task</code> object has <code>taskId</code> and four properties: <code>started</code>, <code>pending</code>, <code>error</code> and <code>result</code>.</li>
 <li>in addition to them, the <code>task</code> object contains <code>start()</code> and <code>abort()</code> functions to control the execution.</li>
 <li>when <code>start()</code> is called, it calls <code>notifyChange()</code> back according to asynchronous state changes.</li>
@@ -247,36 +249,36 @@ text-align: center;
 <h3 id="the-implementation-of-useasyncrun">The implementation of useAsyncRun</h3>
 <p>The <code>useAsyncTask</code> hook is just to create an async task and make it ready to be started. The <code>useAsyncRun</code> hook is the one to actually start the async task. The reason we split the logic into two hooks is for allowing to combine multiple async tasks. The <code>useAsyncCombineSeq</code> hook is the one for combining, but we don&rsquo;t go further in this article.</p>
 <p>This code is rather simple.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncRun</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">asyncTask</span>) =&gt; {
-  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">asyncTask</span>) {
-      <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">start</span>();
-    }
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cleanup</span> <span style="color:#f92672">=</span> () =&gt; {
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">asyncTask</span>) {
-        <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">abort</span>();
-      }
-    };
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cleanup</span>;
-  }, [<span style="color:#a6e22e">asyncTask</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">taskId</span>]);
-};
-</code></pre></div><p>It simply calls <code>start()</code> and <code>abort()</code>. Notice the input array passed to the second argument of <code>useEffect</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncRun</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">asyncTask</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">asyncTask</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">start</span>();
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cleanup</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">asyncTask</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">abort</span>();
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">cleanup</span>;
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">asyncTask</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">asyncTask</span>.<span style="color:#a6e22e">taskId</span>]);
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>It simply calls <code>start()</code> and <code>abort()</code>. Notice the input array passed to the second argument of <code>useEffect</code>.</p>
 <h3 id="the-implementation-of-useasynctaskfetch">The implementation of useAsyncTaskFetch</h3>
 <p>The <code>useAsyncTaskFetch</code> hook is a wrapper function of <code>useAsyncTask</code>. The basic implementation is the following. The full-featured one is <a href="https://github.com/dai-shi/react-hooks-async/blob/master/src/use-async-task-fetch.js">here</a> in the GitHub repository.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTaskFetch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span> =&gt; <span style="color:#a6e22e">useAsyncTask</span>(
-  <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, {
-      <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span>,
-    });
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
-      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>);
-    }
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">body</span>;
-  },
-  [<span style="color:#a6e22e">url</span>],
-);
-</code></pre></div><p>Notice the AbortController signal is passed to <code>fetch</code>. This is because the Fetch API supports AbortController. For others, you need to implement handling it. For example, please check out how <code>useAsyncTaskAxios</code> is implemented <a href="https://github.com/dai-shi/react-hooks-async/blob/master/src/use-async-task-axios.js">here</a>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useAsyncTaskFetch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">url</span> =&gt; <span style="color:#a6e22e">useAsyncTask</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">abortController</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>, {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">abortController</span>.<span style="color:#a6e22e">signal</span>,
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">ok</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">statusText</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">body</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">body</span>;
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">url</span>],
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Notice the AbortController signal is passed to <code>fetch</code>. This is because the Fetch API supports AbortController. For others, you need to implement handling it. For example, please check out how <code>useAsyncTaskAxios</code> is implemented <a href="https://github.com/dai-shi/react-hooks-async/blob/master/src/use-async-task-axios.js">here</a>.</p>
 <h3 id="summary">Summary</h3>
 <p>This article showed how <code>useAsyncTask</code> and other hooks are implemented. I hope they are straightforward with the convention of the use of AbortController. I&rsquo;m looking for other use cases than <code>fetch</code> and would be happy for any feedback.</p>
 
@@ -286,7 +288,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

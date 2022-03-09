@@ -19,7 +19,7 @@ This time, my experiment is to combine React Hooks and Web Workers. I know it&rs
 <meta name="twitter:description" content="Introduction React Hooks is something I&rsquo;ve been working on lately. What&rsquo;s wonderful is creating custom hooks. If you encapsulate logic nicely in a hook, it can be shared among components and used intuitively. You can find my custom hooks in my GitHub repos, some of which are very experimental.
 This time, my experiment is to combine React Hooks and Web Workers. I know it&rsquo;s not too difficult, but let me explain a bit in this short article."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Playing with React Hooks and Web Workers &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ This time, my experiment is to combine React Hooks and Web Workers. I know it&rs
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -180,33 +182,33 @@ text-align: center;
 <p><a href="https://github.com/dai-shi/react-hooks-worker">https://github.com/dai-shi/react-hooks-worker</a></p>
 <h3 id="how-to-use-it">How to use it</h3>
 <p>You first need a worker script. It&rsquo;s somewhat a different way of writing, compared to scripts for browsers. Basically, it receives a message and sends a message. Messages are typically serializable. Note that message passing does not have to be a request/response style.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fib</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span> =&gt; (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>));
-
-<span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>;
-  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">count</span>));
-};
-</code></pre></div><p>The above code is to receive a number, calculate a fibonacci number and send it back. Notice this &ldquo;fib&rdquo; is a slow version of the algorithm.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fib</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">i</span> =&gt; (<span style="color:#a6e22e">i</span> <span style="color:#f92672">&lt;=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>) <span style="color:#f92672">+</span> <span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">i</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">2</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">onmessage</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">self</span>.<span style="color:#a6e22e">postMessage</span>(<span style="color:#a6e22e">fib</span>(<span style="color:#a6e22e">count</span>));
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>The above code is to receive a number, calculate a fibonacci number and send it back. Notice this &ldquo;fib&rdquo; is a slow version of the algorithm.</p>
 <p>Now, we want to call this function from React components.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useWorker</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-worker&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CalcFib</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">count</span> }) =&gt; {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">error</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useWorker</span>(<span style="color:#e6db74">&#39;./slow_fib.js&#39;</span>, <span style="color:#a6e22e">count</span>);
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;Error<span style="color:#f92672">:</span>{<span style="color:#a6e22e">error</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Result</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">result</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">CalcFib</span> <span style="color:#a6e22e">count</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">5</span>} /&gt;
-  &lt;/<span style="color:#f92672">div</span>&gt;
-);
-
-<span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
-</code></pre></div><p>This is everything. The count is just <code>5</code> in this code, but you can change it and pass it to <code>CalcFib</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">ReactDOM</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useWorker</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-worker&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">CalcFib</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">count</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">error</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useWorker</span>(<span style="color:#e6db74">&#39;./slow_fib.js&#39;</span>, <span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;Error<span style="color:#f92672">:</span>{<span style="color:#a6e22e">error</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Result</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">result</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">CalcFib</span> <span style="color:#a6e22e">count</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">5</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
+</span></span></code></pre></div><p>This is everything. The count is just <code>5</code> in this code, but you can change it and pass it to <code>CalcFib</code>.</p>
 <h3 id="comparison">Comparison</h3>
 <p>I want to compare how a web worker works with the normal JS main thread, and made a small example to run the same code. The below is a screencast.</p>
 <p><img src="./screenshot1.gif" alt="screenshot1"></p>
@@ -223,7 +225,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

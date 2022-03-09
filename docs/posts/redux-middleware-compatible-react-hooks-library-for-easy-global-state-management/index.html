@@ -23,7 +23,7 @@ https://github.com/dai-shi/react-hooks-global-state
 Please also check out my previous posts [1] [2].
 Support for Redux middleware Originally, the library was extending useState for global state. Later, reducer is supported."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Redux middleware compatible React Hooks library for easy global state management &middot; Daishi Kato&#39;s blog</title>
     
@@ -107,6 +107,8 @@ Support for Redux middleware Originally, the library was extending useState for 
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -185,76 +187,76 @@ text-align: center;
 <h3 id="support-for-redux-middleware">Support for Redux middleware</h3>
 <p>Originally, the library was extending useState for global state. Later, reducer is supported. Now, middleware support is added. The following is the code snippet from the working example to illustrate how it can be used.</p>
 <p>At first, we import <code>createStore</code> from our library and two helpers from Redux.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">applyMiddleware</span>, <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
-</code></pre></div><p>We then define the initial state. Note, the initial state is mandatory in our library, whereas it&rsquo;s optional in Redux.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-  },
-};
-</code></pre></div><p>We define two reducers for each state items ( <code>counter</code> and <code>person</code> ).</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counterReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>.<span style="color:#a6e22e">counter</span>, <span style="color:#a6e22e">action</span>) =&gt; {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">personReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>.<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">action</span>) =&gt; {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">firstName</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setLastName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">lastName</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setAge&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">age</span>,
-    };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-</code></pre></div><p>Then, combine them with <code>combineReducers</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span>({
-  <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">counterReducer</span>,
-  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">personReducer</span>,
-});
-</code></pre></div><p>We define logging middleware which is from the Redux documentation.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">logger</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">getState</span> }) =&gt; <span style="color:#a6e22e">next</span> =&gt; (<span style="color:#a6e22e">action</span>) =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;will dispatch&#39;</span>, <span style="color:#a6e22e">action</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">returnValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">action</span>);
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;state after dispatch&#39;</span>, <span style="color:#a6e22e">getState</span>());
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">returnValue</span>;
-};
-</code></pre></div><p>We create a store based on what we defined above, and export the resulting functions.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(
-  <span style="color:#a6e22e">reducer</span>,
-  <span style="color:#a6e22e">initialState</span>,
-  <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">logger</span>),
-);
-</code></pre></div><p>For example, the counter component is implemented like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">value</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;counter&#39;</span>);
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
-      &lt;<span style="color:#f92672">button</span>
-        <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>
-        <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> })}
-      &gt;
-        <span style="color:#a6e22e">Increment</span>
-      &lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><h3 id="the-full-example-code-in-typescript">The full example code in TypeScript</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">applyMiddleware</span>, <span style="color:#a6e22e">combineReducers</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+</span></span></code></pre></div><p>We then define the initial state. Note, the initial state is mandatory in our library, whereas it&rsquo;s optional in Redux.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>We define two reducers for each state items ( <code>counter</code> and <code>person</code> ).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">counterReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>.<span style="color:#a6e22e">counter</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">personReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>.<span style="color:#a6e22e">person</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">firstName</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setLastName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">lastName</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setAge&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">age</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Then, combine them with <code>combineReducers</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">counterReducer</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">personReducer</span>,
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>We define logging middleware which is from the Redux documentation.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">logger</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">getState</span> }) =&gt; <span style="color:#a6e22e">next</span> =&gt; (<span style="color:#a6e22e">action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;will dispatch&#39;</span>, <span style="color:#a6e22e">action</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">returnValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">next</span>(<span style="color:#a6e22e">action</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;state after dispatch&#39;</span>, <span style="color:#a6e22e">getState</span>());
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">returnValue</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>We create a store based on what we defined above, and export the resulting functions.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">reducer</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">initialState</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">logger</span>),
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>For example, the counter component is implemented like the following.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">value</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;counter&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{() =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> })}
+</span></span><span style="display:flex;"><span>      &gt;
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Increment</span>
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="the-full-example-code-in-typescript">The full example code in TypeScript</h3>
 <p>You can see the full example code in the <a href="https://github.com/dai-shi/react-hooks-global-state/tree/master/examples/07_middleware">repository</a>. It is written in TypeScript, but JavaScript developers could read it by just ignoring type definisions (<code>type Foo = ...;</code>) and type annotations (<code>: Foo</code> just after variables).</p>
 <h3 id="its-working-but-more-experiments-are-needed">It&rsquo;s working but more experiments are needed</h3>
 <p>As far as I tried, the logger middleware works as expected. I haven&rsquo;t tried other middleware yet. Especially, async libraries should be tried. If anybody is interested in trying some other middleware, I&rsquo;d be happy to help.</p>
@@ -273,7 +275,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)"/>
 <meta name="twitter:description" content="Motivation Everyone is excited about the new React Hooks API. So am I. Having been thinking how to manage global state, the Hooks API seems promising. By the way, I like Redux a lot, but I don&rsquo;t like react-redux a.k.a connect very much. It is too complicated for beginners to use it properly. For example, reselect / memoization is a hard concept to explain. My recommendation is to structure a global state so that mapStateToProps only needs to select a part of the state without any logic."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript) &middot; Daishi Kato&#39;s blog</title>
     
@@ -101,6 +101,8 @@
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -176,115 +178,115 @@ text-align: center;
 <p>With that in mind, I&rsquo;ve been developing a library for managing global state.</p>
 <p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
 <p>The global state in this library is an object which consists of items. For example:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
-  <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">23</span>,
-  <span style="color:#a6e22e">hobbies</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;reading&#39;</span>, <span style="color:#e6db74">&#39;videogaming&#39;</span>],
-  <span style="color:#a6e22e">scores</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">stageA</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">stageB</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>, <span style="color:#a6e22e">stageC</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
-};
-</code></pre></div><p>This state consists of 4 items (name, age, hobbies and scores). Each item has a value, which can be not only a primitive value but also an array or an object. You can connect to each item to get notified when a value is updated, but not a deep value in the object tree.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;foo&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">23</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">hobbies</span><span style="color:#f92672">:</span> [<span style="color:#e6db74">&#39;reading&#39;</span>, <span style="color:#e6db74">&#39;videogaming&#39;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">scores</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">stageA</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">3</span>, <span style="color:#a6e22e">stageB</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">7</span>, <span style="color:#a6e22e">stageC</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">2</span> },
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This state consists of 4 items (name, age, hobbies and scores). Each item has a value, which can be not only a primitive value but also an array or an object. You can connect to each item to get notified when a value is updated, but not a deep value in the object tree.</p>
 <p>This library recently supports a reducer for updating states. So, you might expect it as a replacement for Redux for React. Maybe, maybe not. You will see it by yourselves.</p>
 <h3 id="example-code">Example code</h3>
 <p>You define a global state and export some methods like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
-
-<span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
-  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setLastName&#39;</span>, <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setAge&#39;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span> };
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(
-  (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Action</span>) =&gt; {
-    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
-      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
-      };
-      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
-      };
-      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-          <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">firstName</span>,
-        },
-      };
-      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setLastName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-          <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">lastName</span>,
-        },
-      };
-      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setAge&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-          <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">age</span>,
-        },
-      };
-      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-    }
-  },
-  {
-    <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-    <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
-      <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-      <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-    },
-  },
-);
-</code></pre></div><p>Don&rsquo;t be bothered by the <code>Action</code> type if you are not familiar with TypeScript. The first argument of <code>createGlobalState</code> is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use <code>combineReducers</code> if you like. Notice the result of <code>createGlobalState</code> is exported.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span>, <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setLastName&#39;</span>, <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setAge&#39;</span>, <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">number</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(
+</span></span><span style="display:flex;"><span>  (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">Action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">counter</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setFirstName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">firstName</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setLastName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">lastName</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setAge&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">age</span>,
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">counter</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">age</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">firstName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">lastName</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Don&rsquo;t be bothered by the <code>Action</code> type if you are not familiar with TypeScript. The first argument of <code>createGlobalState</code> is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use <code>combineReducers</code> if you like. Notice the result of <code>createGlobalState</code> is exported.</p>
 <p>You need to wrap your top-level component with <code>GlobalStateProvider</code> to attach a context that holds a global state.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">GlobalStateProvider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
-
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Counter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Counter&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Person&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">GlobalStateProvider</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-    &lt;<span style="color:#f92672">Counter</span> /&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Person</span>&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">Person</span> /&gt;
-    &lt;<span style="color:#f92672">Person</span> /&gt;
-  &lt;/<span style="color:#f92672">GlobalStateProvider</span>&gt;
-);
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
-</code></pre></div><p>The following is how to use the counter in a component.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increment</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decrement</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> });
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">value</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;counter&#39;</span>);
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">increment</span>}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">decrement</span>}&gt;<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
-</code></pre></div><p>This should be easy enough. The <code>dispatch</code> and <code>useGlobalState</code> is imported from the previous file. Two callbacks are defined and use <code>dispatch</code>. You might be wondering why we have <code>dispatch</code> somewhat globally. It certainly reduces the code isolation, but this allows defining actions outside of components. Please correct me if I misunderstand something. We could also provide <code>dispatch</code> in another context and something like <code>useDispatch</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">GlobalStateProvider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Counter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Counter&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./Person&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">GlobalStateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;<span style="color:#a6e22e">Person</span>&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Person</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Person</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">GlobalStateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</span></span></code></pre></div><p>The following is how to use the counter in a component.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">increment</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">decrement</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">value</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;counter&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">Count</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">increment</span>}&gt;<span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">decrement</span>}&gt;<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Counter</span>;
+</span></span></code></pre></div><p>This should be easy enough. The <code>dispatch</code> and <code>useGlobalState</code> is imported from the previous file. Two callbacks are defined and use <code>dispatch</code>. You might be wondering why we have <code>dispatch</code> somewhat globally. It certainly reduces the code isolation, but this allows defining actions outside of components. Please correct me if I misunderstand something. We could also provide <code>dispatch</code> in another context and something like <code>useDispatch</code>.</p>
 <p>The rest of the code including the Person component can be found in the repository: <a href="https://github.com/dai-shi/react-hooks-global-state/tree/master/examples/06_reducer">https://github.com/dai-shi/react-hooks-global-state/tree/master/examples/06_reducer</a></p>
 <p>You can run the example by:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">git clone https://github.com/dai-shi/react-hooks-global-state.git
-npm install
-npm run examples:reducer
-</code></pre></div><p>Then, open http://localhost:8080 in the browser.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>git clone https://github.com/dai-shi/react-hooks-global-state.git
+</span></span><span style="display:flex;"><span>npm install
+</span></span><span style="display:flex;"><span>npm run examples:reducer
+</span></span></code></pre></div><p>Then, open http://localhost:8080 in the browser.</p>
 <h3 id="important-notes">Important Notes</h3>
 <p>React Hooks API is not yet released and this library is still an experiment at this point. Feedbacks are welcomed to improve the library. I wonder many people are trying the similar thing and I want to get ideas if possible.</p>
 <h3 id="changelog">Changelog</h3>
@@ -300,7 +302,7 @@ npm run examples:reducer
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

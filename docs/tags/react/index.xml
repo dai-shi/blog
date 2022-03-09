@@ -28,7 +28,7 @@ Now, from the library perspective, their implementations are very different. How
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</guid>
       <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
 Let&amp;rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 });  // You can mutate it ++state.count;  // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
     </item>
     
     <item>
@@ -323,7 +323,7 @@ This library provides two basic hooks: useReduxState and useReduxDispatch. This 
       <guid>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</guid>
       <description>This short article shows code examples how hooks are analogous to components in terms of composition. Without a word, let&amp;rsquo;s jump in the code.
 React components Let&amp;rsquo;s use a minimalistic example. Here&amp;rsquo;s a component.
-const Person = ({ person }) =&amp;gt; ( &amp;lt;div&amp;gt; &amp;lt;div className=&amp;#34;personFirstName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;First Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.firstName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;div className=&amp;#34;personLastName&amp;#34;&amp;gt; &amp;lt;span&amp;gt;Last Name:&amp;lt;span&amp;gt; &amp;lt;span&amp;gt;{person.lastName}&amp;lt;/span&amp;gt; &amp;lt;/div&amp;gt; &amp;lt;/div&amp;gt; ); Well, this component is a little bit big, so let&amp;rsquo;s split it into functions and compose them.</description>
+const Person = ({ person }) =&amp;gt; (  &amp;lt;div&amp;gt;  &amp;lt;div className=&amp;#34;personFirstName&amp;#34;&amp;gt;  &amp;lt;span&amp;gt;First Name:&amp;lt;span&amp;gt;  &amp;lt;span&amp;gt;{person.firstName}&amp;lt;/span&amp;gt;  &amp;lt;/div&amp;gt;  &amp;lt;div className=&amp;#34;personLastName&amp;#34;&amp;gt;  &amp;lt;span&amp;gt;Last Name:&amp;lt;span&amp;gt;  &amp;lt;span&amp;gt;{person.lastName}&amp;lt;/span&amp;gt;  &amp;lt;/div&amp;gt;  &amp;lt;/div&amp;gt; ); Well, this component is a little bit big, so let&amp;rsquo;s split it into functions and compose them.</description>
     </item>
     
     <item>

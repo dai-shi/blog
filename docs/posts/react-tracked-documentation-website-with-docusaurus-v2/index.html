@@ -23,7 +23,7 @@ https://github.com/dai-shi/react-tracked
 This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.
 What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fancy features. You can simply replace Context."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>React Tracked Documentation Website with Docusaurus v2 &middot; Daishi Kato&#39;s blog</title>
     
@@ -107,6 +107,8 @@ What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fa
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -220,31 +222,31 @@ The JavaScript snippet could be generated from the TypeScript snippet.
 So, I developed a small plugin (theme) to do that on the fly.</p>
 <p>The result is pretty neat.
 Here&rsquo;s a code snippet in markdown.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-markdown" data-lang="markdown">```typescript ts2js
-import React, { createContext, useState, useContext } from &#39;react&#39;;
-
-const initialState = {
-  count: 0,
-  text: &#39;hello&#39;,
-};
-
-const useMyState = () =&gt; useState(initialState);
-
-const MyContext = createContext&lt;<span style="color:#f92672">ReturnType</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">typeof</span> <span style="color:#a6e22e">useMyState</span>&gt; | null&gt;(null);
-
-export const useSharedState = () =&gt; {
-  const value = useContext(MyContext);
-  if (value === null) throw new Error(&#39;Please add SharedStateProvider&#39;);
-  return value;
-};
-
-export const SharedStateProvider: React.FC = ({ children }) =&gt; (
-  &lt;<span style="color:#f92672">MyContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{useMyState()}</span>&gt;
-    {children}
-  &lt;/<span style="color:#f92672">MyContext.Provider</span>&gt;
-);
-```
-</code></pre></div><p>Just with this, the website shows something like the following.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-markdown" data-lang="markdown"><span style="display:flex;"><span>```typescript ts2js
+</span></span><span style="display:flex;"><span>import React, { createContext, useState, useContext } from &#39;react&#39;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>const initialState = {
+</span></span><span style="display:flex;"><span>  count: 0,
+</span></span><span style="display:flex;"><span>  text: &#39;hello&#39;,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>const useMyState = () =&gt; useState(initialState);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>const MyContext = createContext&lt;<span style="color:#f92672">ReturnType</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">typeof</span> <span style="color:#a6e22e">useMyState</span>&gt; | null&gt;(null);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export const useSharedState = () =&gt; {
+</span></span><span style="display:flex;"><span>  const value = useContext(MyContext);
+</span></span><span style="display:flex;"><span>  if (value === null) throw new Error(&#39;Please add SharedStateProvider&#39;);
+</span></span><span style="display:flex;"><span>  return value;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>export const SharedStateProvider: React.FC = ({ children }) =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">MyContext.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span><span style="color:#e6db74">{useMyState()}</span>&gt;
+</span></span><span style="display:flex;"><span>    {children}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">MyContext.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>```
+</span></span></code></pre></div><p>Just with this, the website shows something like the following.</p>
 <p><img src="./ts2js-scn.png" alt="Screenshot"></p>
 <p>If you click the &ldquo;TypeScript&rdquo; tab, the TypeScript snippet will be shown.</p>
 <p>A small hint implementing this is that because &ldquo;tsc&rdquo; doesn&rsquo;t preserve spaces,
@@ -276,7 +278,7 @@ Would someone help on it?</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

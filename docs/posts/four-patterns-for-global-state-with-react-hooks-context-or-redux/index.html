@@ -19,7 +19,7 @@ Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most b
 <meta name="twitter:description" content="Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
 Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Four patterns for global state with React hooks: Context or Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ Pattern 1: Prop passing Some might think it wouldn&rsquo;t scale, but the most b
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -184,62 +186,62 @@ should still be prop passing. If the app is small enough,
 define local state in a parent component and simply pass it
 down to child components. I would tolerate two level passing,
 meaning one intermediate component.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
-  <span style="color:#66d9ef">return</span> (
-    &lt;&gt;
-      &lt;<span style="color:#f92672">Child1</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
-      &lt;<span style="color:#f92672">Child2</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
-    &lt;/&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
-  ...
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child2</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
-  &lt;&gt;
-    &lt;<span style="color:#f92672">GrandChild</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
-  &lt;/&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
-  ...
-);
-</code></pre></div><h3 id="pattern-2-context">Pattern 2: Context</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Child1</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Child2</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child2</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">GrandChild</span> <span style="color:#a6e22e">stateA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">stateA</span>} <span style="color:#a6e22e">dispatchA</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">dispatchA</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h3 id="pattern-2-context">Pattern 2: Context</h3>
 <p>If an app needs to share state among components
 that are more deep than two level,
 it&rsquo;s time to introduce context.
 Context itself doesn&rsquo;t provide global state functionality,
 but combining local state and passing by context does the job.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ContextA.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
-      &lt;<span style="color:#f92672">Child1</span> /&gt;
-    &lt;/<span style="color:#f92672">ContextA.Provider</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">GrandChild1</span> /&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild1</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">GrandGrandChild1</span> /&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandGrandChild1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
-  <span style="color:#66d9ef">return</span> (
-    ...
-  );
-};
-</code></pre></div><p>Note that all components with <code>useContext(ContextA)</code> will re-render
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ContextA.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Child1</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ContextA.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child1</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">GrandChild1</span> /&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandChild1</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">GrandGrandChild1</span> /&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GrandGrandChild1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Note that all components with <code>useContext(ContextA)</code> will re-render
 if <code>stateA</code> is changed, even if it&rsquo;s only a tiny part of the state.
 Hence, it&rsquo;s not recommended to use a context for multiple purpose.</p>
 <h3 id="pattern-3-multiple-contexts">Pattern 3: Multiple contexts</h3>
@@ -247,35 +249,35 @@ Hence, it&rsquo;s not recommended to use a context for multiple purpose.</p>
 Contexts don&rsquo;t have to be application-wide and they can be used
 for parts of component tree. Only if your contexts can be used anywhere
 in your app, defining them at the root is a good reason.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerB</span>, <span style="color:#a6e22e">initialStateB</span>);
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerC</span>, <span style="color:#a6e22e">initialStateC</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>], [<span style="color:#a6e22e">stateB</span>]);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>], [<span style="color:#a6e22e">stateC</span>]);
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ContextA.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
-      &lt;<span style="color:#f92672">ContextB.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueB</span>}&gt;
-        &lt;<span style="color:#f92672">ContextC.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueC</span>}&gt;
-          ...
-        &lt;/<span style="color:#f92672">ContextC.Provider</span>&gt;
-      &lt;/<span style="color:#f92672">ContextB.Provider</span>&gt;
-    &lt;/<span style="color:#f92672">ContextA.Provider</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
-  <span style="color:#66d9ef">return</span> (
-    ...
-  );
-};
-</code></pre></div><p>This is going to be a bit of mess, if we have more contexts.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ContextC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createContext</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerA</span>, <span style="color:#a6e22e">initialStateA</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerB</span>, <span style="color:#a6e22e">initialStateB</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducerC</span>, <span style="color:#a6e22e">initialStateC</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueA</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>], [<span style="color:#a6e22e">stateA</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueB</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateB</span>, <span style="color:#a6e22e">dispatchB</span>], [<span style="color:#a6e22e">stateB</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">valueC</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">stateC</span>, <span style="color:#a6e22e">dispatchC</span>], [<span style="color:#a6e22e">stateC</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ContextA.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueA</span>}&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">ContextB.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueB</span>}&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">ContextC.Provider</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">valueC</span>}&gt;
+</span></span><span style="display:flex;"><span>          ...
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">ContextC.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">ContextB.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ContextA.Provider</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">stateA</span>, <span style="color:#a6e22e">dispatchA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useContext</span>(<span style="color:#a6e22e">ContextA</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This is going to be a bit of mess, if we have more contexts.
 It&rsquo;s time to introduce some libraries.
 There are several libraries to support multiple contexts
 and some of them provide hooks API.</p>
@@ -283,28 +285,28 @@ and some of them provide hooks API.</p>
 <p>I&rsquo;ve been developing such a library called &ldquo;react-hooks-global-state&rdquo;.</p>
 <p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
 <p>Here&rsquo;s example code how it looks like.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { 
-  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
-  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
-  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
-};
-<span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">GlobalStateProvider</span>&gt;
-    ...
-  &lt;/<span style="color:#f92672">GlobalStateProvider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">valueA</span>, <span style="color:#a6e22e">updateA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;a&#39;</span>);
-  <span style="color:#66d9ef">return</span> (
-    ...
-  );
-};
-</code></pre></div><p>There is at least a caveat in this library.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createGlobalState</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-hooks-global-state&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { 
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">GlobalStateProvider</span>, <span style="color:#a6e22e">useGlobalState</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">createGlobalState</span>(<span style="color:#a6e22e">initialState</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">GlobalStateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">GlobalStateProvider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">valueA</span>, <span style="color:#a6e22e">updateA</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;a&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>There is at least a caveat in this library.
 It uses an undocumented feature called <code>observedBits</code> and not only
 it&rsquo;s unstable, but with its limitation, this library is only performant
 if the number of sub-states (like <code>a</code>, <code>b</code>, <code>c</code>) is equal or smaller than 31.</p>
@@ -326,39 +328,39 @@ require <code>mapStateToProps</code> or a selector.
 You can simply use global state from Redux
 and the library tracks the state usage with Proxy for optimization.</p>
 <p>Here&rsquo;s example code how it looks like.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
-<span style="color:#66d9ef">import</span> {
-  <span style="color:#a6e22e">ReduxProvider</span>,
-  <span style="color:#a6e22e">useReduxDispatch</span>,
-  <span style="color:#a6e22e">useReduxState</span>,
-} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
-  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
-  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
-  ...
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
-    ...
-  &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">a</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
-  <span style="color:#66d9ef">return</span> (
-    ...
-  );
-};
-</code></pre></div><h3 id="final-thoughts">Final thoughts</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">ReduxProvider</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useReduxDispatch</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useReduxState</span>,
+</span></span><span style="display:flex;"><span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;reactive-react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">a</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">b</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">c</span><span style="color:#f92672">:</span> ...,
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  ...
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ReduxProvider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ReduxProvider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">a</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxState</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReduxDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    ...
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h3 id="final-thoughts">Final thoughts</h3>
 <p>For moderate to large apps, it is likely that a single event
 changes several parts of the state and hence the UI.
 So, the use of Redux (or any kind of app state management)
@@ -374,7 +376,7 @@ could make more sense for moderate apps.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

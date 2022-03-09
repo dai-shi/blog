@@ -21,7 +21,7 @@ Check out the official docs for details.
 Check out the official docs for details.
  Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference  They are trying best to explain new mind sets with analogies. That means it&rsquo;s totally different from the usage with traditional React."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Developing a React Library for Suspense for Data Fetching in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ Check out the official docs for details.
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -202,8 +204,8 @@ but here&rsquo;s what I did now.</p>
 <h3 id="createfetcher">createFetcher</h3>
 <p>Let&rsquo;s create a &ldquo;fetcher&rdquo; that wraps a fetch function.
 This can be an arbitrary async function that returns a Promise.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
-</code></pre></div><p>This is a general GET fetcher that takes a url as an input
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetcher</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createFetcher</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>());
+</span></span></code></pre></div><p>This is a general GET fetcher that takes a url as an input
 and assumes a JSON response.
 Typically, we&rsquo;d want to create more specialized fetchers.</p>
 <p>A fetcher provides two methods: <code>prefetch</code> and <code>lazyFetch</code>.</p>
@@ -218,69 +220,69 @@ with fallback data and a lazy flag.
 It will actually never suspend, but you can treat it as a &ldquo;suspendable&rdquo;
 just like the one returned by <code>prefetch</code>.</p>
 <p>Now, the TypeScript typing of createFetcher is the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">Data</span>;
-  <span style="color:#a6e22e">refetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
-  <span style="color:#a6e22e">lazy?</span>: <span style="color:#66d9ef">boolean</span>;
-};
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">prefetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
-  <span style="color:#a6e22e">lazyFetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">fallbackData</span>: <span style="color:#66d9ef">Data</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span><span style="color:#f92672">:</span> &lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;(
-  <span style="color:#a6e22e">fetchFunc</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">Data</span>&gt;,
-) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
-</code></pre></div><p>The implementation of this is a bit long.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">refetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
-    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">async</span> () =&gt; {
-      <span style="color:#66d9ef">try</span> {
-        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
-      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>;
-      } <span style="color:#66d9ef">finally</span> {
-        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">pending</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
-      }
-    })();
-    <span style="color:#66d9ef">return</span> {
-      <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span>;
-        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span>;
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>;
-      },
-      <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">refetch</span>() {
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">refetch</span>;
-      },
-    };
-  };
-  <span style="color:#66d9ef">return</span> {
-    <span style="color:#a6e22e">prefetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">input</span> =&gt; <span style="color:#a6e22e">refetch</span>(<span style="color:#a6e22e">input</span>),
-    <span style="color:#a6e22e">lazyFetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">fallbackData</span>) =&gt; {
-      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchOnce</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
-        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">suspendable</span>) {
-          <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">refetch</span>(<span style="color:#a6e22e">input</span>);
-        }
-        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span>;
-      };
-      <span style="color:#66d9ef">return</span> {
-        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
-          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fallbackData</span>;
-        },
-        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">refetch</span>() {
-          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">refetch</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fetchOnce</span>;
-        },
-        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">lazy</span>() {
-          <span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">suspendable</span>;
-        },
-      };
-    },
-  };
-};
-</code></pre></div><p>The use of <code>prefetch</code> is almost always preferred.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span>: <span style="color:#66d9ef">Data</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">refetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lazy?</span>: <span style="color:#66d9ef">boolean</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt; <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">prefetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lazyFetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">fallbackData</span>: <span style="color:#66d9ef">Data</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Suspendable</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span><span style="color:#f92672">:</span> &lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fetchFunc</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">input</span>: <span style="color:#66d9ef">Input</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Promise</span>&lt;<span style="color:#f92672">Data</span>&gt;,
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">Fetcher</span>&lt;<span style="color:#f92672">Data</span><span style="color:#960050;background-color:#1e0010">,</span> <span style="color:#a6e22e">Input</span>&gt;;
+</span></span></code></pre></div><p>The implementation of this is a bit long.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">createFetcher</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">refetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">pending</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">true</span> };
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span> <span style="color:#f92672">=</span> (<span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>(<span style="color:#a6e22e">input</span>);
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">e</span>;
+</span></span><span style="display:flex;"><span>      } <span style="color:#66d9ef">finally</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">pending</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    })();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">promise</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">throw</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">error</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">refetch</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">refetch</span>;
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">prefetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">input</span> =&gt; <span style="color:#a6e22e">refetch</span>(<span style="color:#a6e22e">input</span>),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lazyFetch</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">fallbackData</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchOnce</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">input</span>) =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">suspendable</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">refetch</span>(<span style="color:#a6e22e">input</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span>;
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">data</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fallbackData</span>;
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">refetch</span>() {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">suspendable</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">refetch</span> <span style="color:#f92672">:</span> <span style="color:#a6e22e">fetchOnce</span>;
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">lazy</span>() {
+</span></span><span style="display:flex;"><span>          <span style="color:#66d9ef">return</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">suspendable</span>;
+</span></span><span style="display:flex;"><span>        },
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>The use of <code>prefetch</code> is almost always preferred.
 The <code>lazyFetch</code> is only provided as a workaround
 for the &ldquo;Fetch-on-Render&rdquo; pattern.</p>
 <p>Once you get a &ldquo;suspendable,&rdquo;
@@ -296,21 +298,21 @@ but it would be nice to have handy hooks to use &ldquo;suspendable&quot;s.</p>
 <p>The simplest one is <code>useSuspendable</code>.
 It simply stores a single &ldquo;suspendable&rdquo; in a local state.</p>
 <p>The implementation of <code>useSuspendable</code> is the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSuspendable</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">suspendable</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">suspendable</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">origFetch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">refetch</span>;
-  <span style="color:#66d9ef">return</span> {
-    <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>;
-    },
-    <span style="color:#a6e22e">refetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">nextInput</span>) =&gt; {
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">origFetch</span>(<span style="color:#a6e22e">nextInput</span>);
-      <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">nextResult</span>);
-    }, [<span style="color:#a6e22e">origFetch</span>]),
-    <span style="color:#a6e22e">lazy</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">lazy</span>,
-  };
-};
-</code></pre></div><p>The result returned by the useSuspendable hook is
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSuspendable</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">suspendable</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">suspendable</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">origFetch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">suspendable</span>.<span style="color:#a6e22e">refetch</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">get</span> <span style="color:#a6e22e">data</span>() {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">refetch</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">nextInput</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">origFetch</span>(<span style="color:#a6e22e">nextInput</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">nextResult</span>);
+</span></span><span style="display:flex;"><span>    }, [<span style="color:#a6e22e">origFetch</span>]),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lazy</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">lazy</span>,
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>The result returned by the useSuspendable hook is
 almost like a normal &ldquo;suspendable&rdquo; but with a slight difference.
 If you invoke <code>refetch</code>, instead of returning a new &ldquo;suspendable,&rdquo;
 it will replace the state value with the new &ldquo;suspendable.&rdquo;</p>
@@ -334,7 +336,7 @@ with Suspense for Data Fetching and give some feedbacks.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

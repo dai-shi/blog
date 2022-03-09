@@ -21,7 +21,7 @@ I&rsquo;ve been developing React Tracked for global state that allows state bran
 While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&rsquo;t get the benefit with Redux.
 I&rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ I&rsquo;ve been developing React Tracked for global state that allows state bran
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -213,88 +215,88 @@ It receives actions and run API calls described in the actions.
 The action object is serializable, so we can send it to the worker
 without any problems.</p>
 <p>Here&rsquo;s the example code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">apiMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-api-middleware&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
-  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-  },
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setName&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>; <span style="color:#a6e22e">payload</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> } }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span> };
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.payload.name</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-      },
-    };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">apiMiddleware</span>));
-
-<span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
-</code></pre></div><p>The above code run in a worker.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">apiMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-api-middleware&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;decrement&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setName&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span>; <span style="color:#a6e22e">payload</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> } }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;increment&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;decrement&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setName&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.payload.name</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;FAILURE&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">apiMiddleware</span>));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
+</span></span></code></pre></div><p>The above code run in a worker.</p>
 <p>The code run in the main thread is the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
-  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
-  <span style="color:#a6e22e">initialState</span>,
-  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
-);
-</code></pre></div><p>Please find the full example in the repository:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">initialState</span>,
+</span></span><span style="display:flex;"><span>  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Please find the full example in the repository:</p>
 <p><a href="https://github.com/dai-shi/redux-in-worker/tree/master/examples/04_api">https://github.com/dai-shi/redux-in-worker/tree/master/examples/04_api</a></p>
 <h3 id="redux-saga">redux-saga</h3>
 <p>Another library that can be used with redux-in-worker is
@@ -302,139 +304,139 @@ without any problems.</p>
 It&rsquo;s a powerful library for any async functions with generators.
 Because its action object is serializable, it just works.</p>
 <p>Here&rsquo;s the example code:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">createSagaMiddleware</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-saga&#39;</span>;
-<span style="color:#66d9ef">import</span> {
-  <span style="color:#a6e22e">call</span>,
-  <span style="color:#a6e22e">put</span>,
-  <span style="color:#a6e22e">delay</span>,
-  <span style="color:#a6e22e">takeLatest</span>,
-  <span style="color:#a6e22e">takeEvery</span>,
-  <span style="color:#a6e22e">all</span>,
-} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-saga/effects&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sagaMiddleware</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createSagaMiddleware</span>();
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
-  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
-    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-  },
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">=</span>
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
-  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> };
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">=</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_USER&#39;</span>; <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span> }
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncActionDecrement</span> <span style="color:#f92672">=</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span> };
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncAction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncActionDecrement</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncAction</span>;
-
-<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetcher</span>(<span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">AsyncActionFetch</span>) {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> });
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://jsonplaceholder.typicode.com/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>));
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>());
-    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
-    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">name</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>;
-    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error();
-    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>, <span style="color:#a6e22e">name</span> });
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> });
-  }
-}
-
-<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementer() {</span>
-  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
-  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> });
-}
-
-<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetchingSaga() {</span>
-  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeLatest</span>&lt;<span style="color:#f92672">AsyncActionFetch</span>&gt;(<span style="color:#e6db74">&#39;FETCH_USER&#39;</span>, <span style="color:#a6e22e">userFetcher</span>);
-}
-
-<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementingSaga() {</span>
-  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeEvery</span>&lt;<span style="color:#f92672">AsyncActionDecrement</span>&gt;(<span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span>, <span style="color:#a6e22e">delayedDecrementer</span>);
-}
-
-<span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">rootSaga() {</span>
-  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">all</span>([
-    <span style="color:#a6e22e">userFetchingSaga</span>(),
-    <span style="color:#a6e22e">delayedDecrementingSaga</span>(),
-  ]);
-}
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">ReducerAction</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-      },
-    };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
-      ...<span style="color:#a6e22e">state</span>,
-      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
-        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
-        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
-        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
-      },
-    };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">sagaMiddleware</span>));
-<span style="color:#a6e22e">sagaMiddleware</span>.<span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">rootSaga</span>);
-
-<span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
-</code></pre></div><p>The above code run in a worker.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">createStore</span>, <span style="color:#a6e22e">applyMiddleware</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">createSagaMiddleware</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-saga&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">call</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">put</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">delay</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">takeLatest</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">takeEvery</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">all</span>,
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-saga/effects&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">exposeStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">sagaMiddleware</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createSagaMiddleware</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">0</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">initialState</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>; <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> }
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">=</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;FETCH_USER&#39;</span>; <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">number</span> }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncActionDecrement</span> <span style="color:#f92672">=</span> { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">AsyncAction</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">AsyncActionFetch</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncActionDecrement</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">ReducerAction</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">AsyncAction</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetcher</span>(<span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">AsyncActionFetch</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span> });
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://jsonplaceholder.typicode.com/users/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">call</span>(() <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">name</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">name</span> <span style="color:#f92672">!==</span> <span style="color:#e6db74">&#39;string&#39;</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span>, <span style="color:#a6e22e">name</span> });
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span> });
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementer() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">delay</span>(<span style="color:#ae81ff">500</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">put</span>&lt;<span style="color:#f92672">ReducerAction</span>&gt;({ <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span> });
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">userFetchingSaga() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeLatest</span>&lt;<span style="color:#f92672">AsyncActionFetch</span>&gt;(<span style="color:#e6db74">&#39;FETCH_USER&#39;</span>, <span style="color:#a6e22e">userFetcher</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">delayedDecrementingSaga() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">takeEvery</span>&lt;<span style="color:#f92672">AsyncActionDecrement</span>&gt;(<span style="color:#e6db74">&#39;DELAYED_DECREMENT&#39;</span>, <span style="color:#a6e22e">delayedDecrementer</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">function</span><span style="color:#f92672">*</span> <span style="color:#a6e22e">rootSaga() {</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">yield</span> <span style="color:#a6e22e">all</span>([
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">userFetchingSaga</span>(),
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">delayedDecrementingSaga</span>(),
+</span></span><span style="display:flex;"><span>  ]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">initialState</span>, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">ReducerAction</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>({ <span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span> });
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INCREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;DECREMENT&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">count</span>: <span style="color:#66d9ef">state.count</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>,
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SET_NAME&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;START_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SUCCESS_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">action.name</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;ERROR_FETCH_USER&#39;</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>      ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">person</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">name</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;ERROR&#39;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">loading</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>      },
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">applyMiddleware</span>(<span style="color:#a6e22e">sagaMiddleware</span>));
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">sagaMiddleware</span>.<span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">rootSaga</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">exposeStore</span>(<span style="color:#a6e22e">store</span>);
+</span></span></code></pre></div><p>The above code run in a worker.</p>
 <p>The code run in the main thread is the following:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ts" data-lang="ts"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
-  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
-  <span style="color:#a6e22e">initialState</span>,
-  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
-);
-</code></pre></div><p>This is exactly the same as the previous example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">wrapStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux-in-worker&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">initialState</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./store.worker&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">wrapStore</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">Worker</span>(<span style="color:#e6db74">&#39;./store.worker&#39;</span>, { <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;module&#39;</span> }),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">initialState</span>,
+</span></span><span style="display:flex;"><span>  window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span> <span style="color:#f92672">&amp;&amp;</span> window.<span style="color:#a6e22e">__REDUX_DEVTOOLS_EXTENSION__</span>(),
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>This is exactly the same as the previous example.</p>
 <p>Please find the full example in the repository:</p>
 <p><a href="https://github.com/dai-shi/redux-in-worker/tree/master/examples/05_saga">https://github.com/dai-shi/redux-in-worker/tree/master/examples/05_saga</a></p>
 <h3 id="closing-notes">Closing notes</h3>
@@ -457,7 +459,7 @@ It&rsquo;s a small library and fairly stable. Check it out too.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

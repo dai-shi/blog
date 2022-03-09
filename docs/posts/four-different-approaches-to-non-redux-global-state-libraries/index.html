@@ -21,7 +21,7 @@ Technically, there are several implementations how to store state and notify cha
 Technically, there are several implementations how to store state and notify changes. We don&rsquo;t go in detail in this post, but just note two axes.
  whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Four different approaches to non-Redux global state libraries &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ Technically, there are several implementations how to store state and notify cha
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -199,85 +201,85 @@ As a simple example, we assume an app that has the followings.</p>
 <p>Note that it is implementation agnostic at the provider end.
 So, <code>&lt;Provider&gt;</code> doesn&rsquo;t necessarily imply React context.</p>
 <h3 id="approach-1-multiple-contexts">Approach 1: Multiple contexts</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Counter1Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}&gt;
-    &lt;<span style="color:#f92672">Counter2Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}&gt;
-      &lt;<span style="color:#f92672">Counter1</span> /&gt;
-      &lt;<span style="color:#f92672">Counter2</span> /&gt;
-    &lt;/<span style="color:#f92672">Counter2Provider</span>&gt;
-  &lt;/<span style="color:#f92672">Counter1Provider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count1</span>, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
-  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
-    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count2</span>, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
-    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>This approach is probably the most idiomatic.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Counter1Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter2Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{<span style="color:#ae81ff">0</span>}&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Counter1</span> /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Counter2</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">Counter2Provider</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Counter1Provider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count1</span>, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">dispatch1</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter1</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count2</span>, <span style="color:#a6e22e">dispatch2</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCounter2</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch1</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch2</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;increment&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This approach is probably the most idiomatic.
 One could easily implement this approach with React context and useContext.</p>
 <p>The libraries with this approach:
 <a href="https://github.com/diegohaz/constate">constate</a> and
 <a href="https://github.com/jamiebuilds/unstated-next">unstated-next</a></p>
 <h3 id="approach-2-select-by-property-names-or-paths">Approach 2: Select by property names (or paths)</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
-    &lt;<span style="color:#f92672">Counter1</span> /&gt;
-    &lt;<span style="color:#f92672">Counter2</span> /&gt;
-  &lt;/<span style="color:#f92672">Provider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count1&#39;</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count2&#39;</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>This approach is to put more values in a single store.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Provider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count1&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useGlobalState</span>(<span style="color:#e6db74">&#39;count2&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This approach is to put more values in a single store.
 A single store allows to dispatch one action to change multiple values.
 You specify a property name to get a corresponding value.
 It&rsquo;s simple to specify by a name, but somewhat limited in a complex case.</p>
@@ -285,41 +287,41 @@ It&rsquo;s simple to specify by a name, but somewhat limited in a complex case.<
 <a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a> and
 <a href="https://github.com/storeon/storeon">shareon</a></p>
 <h3 id="approach-3-select-by-selector-functions">Approach 3: Select by selector functions</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
-    &lt;<span style="color:#f92672">Counter1</span> /&gt;
-    &lt;<span style="color:#f92672">Counter2</span> /&gt;
-  &lt;/<span style="color:#f92672">Provider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>); <span style="color:#75715e">// changed
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>); <span style="color:#75715e">// changed
-</span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>Only two lines are changed from the previous code.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Provider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>); <span style="color:#75715e">// changed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>); <span style="color:#75715e">// changed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Only two lines are changed from the previous code.
 Selector functions are more flexible than property names.
 So flexible that it may be misused like doing expensive computations.
 Most importantly, performance optimization often requires
@@ -328,41 +330,41 @@ to keep object referential equality.</p>
 <a href="https://github.com/react-spring/zustand">zustand</a> and
 <a href="https://github.com/atlassian/react-sweet-state">react-sweet-state</a></p>
 <h3 id="approach-4-state-usage-tracking">Approach 4: State usage tracking</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
-    &lt;<span style="color:#f92672">Counter1</span> /&gt;
-    &lt;<span style="color:#f92672">Counter2</span> /&gt;
-  &lt;/<span style="color:#f92672">Provider</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>Notice the <code>state</code> part is changed from the previous code.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">initialState</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> }}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter1</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Counter2</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Provider</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter1</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count1</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Counter2</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useTrackedState</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">incrementBoth</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;incrementBoth&#39;</span> });
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Count2</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">incrementBoth</span>}&gt;<span style="color:#a6e22e">Increment</span> <span style="color:#a6e22e">both</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Notice the <code>state</code> part is changed from the previous code.
 The <code>dispatch</code> part is not changed.
 This approach eliminates selector functions, and it&rsquo;s hardly misused.
 One big concern is performance optimization.
@@ -384,7 +386,7 @@ the last approach, &ldquo;state usage tracking.&rdquo; I hope you get it.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

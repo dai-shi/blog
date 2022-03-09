@@ -7,7 +7,7 @@
     <meta property="og:title" content="How Valtio Proxy State Works (React Part)" />
 <meta property="og:description" content="Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
 Let&rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it &#43;&#43;state.count; // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 }  // Mutate it again state." />
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 });  // You can mutate it &#43;&#43;state.count;  // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 }  // Mutate it again state." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/cover.jpg"/><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-12-26T22:00:00+09:00" />
@@ -19,9 +19,9 @@ Let&rsquo;s recap the API in vanilla part of Valtio.
 <meta name="twitter:title" content="How Valtio Proxy State Works (React Part)"/>
 <meta name="twitter:description" content="Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
 Let&rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it &#43;&#43;state.count; // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 }  // Mutate it again state."/>
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 });  // You can mutate it &#43;&#43;state.count;  // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 }  // Mutate it again state."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>How Valtio Proxy State Works (React Part) &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ Let&rsquo;s recap the API in vanilla part of Valtio.
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -180,53 +182,53 @@ we explained how <a href="http://github.com/pmndrs/valtio">Valtio</a>
 proxy state works.
 It tracks mutations of state and create immutable snapshot.</p>
 <p>Let&rsquo;s recap the API in vanilla part of Valtio.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Create a new proxy state to detect mutations
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> });
-
-<span style="color:#75715e">// You can mutate it
-</span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>;
-
-<span style="color:#75715e">// Create a snapshot
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// Mutate it again
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>;
-
-<span style="color:#75715e">// Create a snapshot again
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 10 }
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// The previous snapshot is not changed
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snap1</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
-</span><span style="color:#75715e"></span>
-<span style="color:#75715e">// You can subscribe to it
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">state</span>, () =&gt; {
-  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;State changed to&#39;</span>, <span style="color:#a6e22e">state</span>);
-});
-
-<span style="color:#75715e">// Then, mutate it again
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello&#39;</span>; <span style="color:#75715e">// ---&gt; &#34;State changed to { count: 10, text: &#39;hello&#39; }&#34;
-</span></code></pre></div><p>Now, let&rsquo;s see how we can use the state in React.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Create a new proxy state to detect mutations
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// You can mutate it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a snapshot
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Mutate it again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a snapshot again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 10 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The previous snapshot is not changed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snap1</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// You can subscribe to it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">state</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;State changed to&#39;</span>, <span style="color:#a6e22e">state</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Then, mutate it again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello&#39;</span>; <span style="color:#75715e">// ---&gt; &#34;State changed to { count: 10, text: &#39;hello&#39; }&#34;
+</span></span></span></code></pre></div><p>Now, let&rsquo;s see how we can use the state in React.</p>
 <h2 id="introducing-usesyncexternalstore">Introducing useSyncExternalStore</h2>
 <p>React 18 provides a new hook called <code>useSyncExternalStore</code>.
 It&rsquo;s designed to safely use an external store in React.
 Our proxy object in Valtio is exactly an external store.</p>
 <p>As we have <code>snapshot</code> function to create immutable state,
 it should be pretty straightforward.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// Create a state
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stateFoo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> });
-
-<span style="color:#75715e">// Define subscribe function for stateFoo
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subscribeFoo</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">callback</span>) =&gt; <span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">stateFoo</span>, <span style="color:#a6e22e">callback</span>);
-
-<span style="color:#75715e">// Define snapshot function for stateFoo
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snapshotFoo</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">stateFoo</span>);
-
-<span style="color:#75715e">// Our hook to use stateFoo
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useStateFoo</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useSyncExternalStore</span>(
-  <span style="color:#a6e22e">subscribeFoo</span>,
-  <span style="color:#a6e22e">snapshotFoo</span>
-);
-</code></pre></div><p>How simple! We could build a custom hook to handle any proxy state.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Create a state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">stateFoo</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Define subscribe function for stateFoo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">subscribeFoo</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">callback</span>) =&gt; <span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">stateFoo</span>, <span style="color:#a6e22e">callback</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Define snapshot function for stateFoo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snapshotFoo</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">stateFoo</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Our hook to use stateFoo
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useStateFoo</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useSyncExternalStore</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subscribeFoo</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">snapshotFoo</span>
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>How simple! We could build a custom hook to handle any proxy state.
 We just need not to forget to use <code>useCallback</code>.</p>
 <p>But, Valtio has a more advanced feature,
 automatic render optimization.</p>
@@ -235,11 +237,11 @@ automatic render optimization.</p>
 which produce the results that makes no difference to users.
 In the case of <code>stateFoo</code>, suppose we have a component that shows
 the <code>text</code> value in <code>stateFoo</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">text</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStateFoo</span>();
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
-};
-</code></pre></div><p>If we change the <code>count</code> value in <code>stateFoo</code>, like <code>++stateFoo.count</code>,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">text</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStateFoo</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>If we change the <code>count</code> value in <code>stateFoo</code>, like <code>++stateFoo.count</code>,
 this <code>TextComponent</code> actually re-renders,
 but produces the same result because it doesn&rsquo;t use
 the <code>count</code> value, and the <code>text</code> value isn&rsquo;t changed.
@@ -249,11 +251,11 @@ and one way to solve it is to manually tell the hook
 which properties we will be using.</p>
 <p>For example, if we assume the hook accepts a list of strings,
 we would be able to tell the properties like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">text</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStateFoo</span>([<span style="color:#e6db74">&#39;text&#39;</span>]);
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
-};
-</code></pre></div><p>Automatic render optimization is to do this automatically.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">text</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStateFoo</span>([<span style="color:#e6db74">&#39;text&#39;</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Automatic render optimization is to do this automatically.
 Is this possible?
 It&rsquo;s possible with utilizing proxies.
 Proxies allow us to detect state property access.
@@ -267,33 +269,33 @@ is a library to enable automatic render optimization.</p>
 <p>What we would like to know is, in the previous example,
 the <code>text</code> value is used in <code>TextComponent</code>.</p>
 <p>Let&rsquo;s see how it can be done with proxies.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// An array to store accessed properties
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">accessedProperties</span> <span style="color:#f92672">=</span> [];
-
-<span style="color:#75715e">// Wrap stateFoo with Proxy
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">stateFoo</span>, {
-  <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">property</span>) =&gt; {
-    <span style="color:#a6e22e">accessedProperties</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">property</span>);
-    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">property</span>];
-  },
-});
-
-<span style="color:#75715e">// Use it
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">text</span>);
-
-<span style="color:#75715e">// We know what are accessed.
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">accessedProperties</span>); <span style="color:#75715e">// ---&gt; [&#39;text&#39;]
-</span></code></pre></div><p>That&rsquo;s the basic idea.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// An array to store accessed properties
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">accessedProperties</span> <span style="color:#f92672">=</span> [];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Wrap stateFoo with Proxy
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> Proxy(<span style="color:#a6e22e">stateFoo</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">get</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">property</span>) =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">accessedProperties</span>.<span style="color:#a6e22e">push</span>(<span style="color:#a6e22e">property</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">target</span>[<span style="color:#a6e22e">property</span>];
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Use it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">text</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// We know what are accessed.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">accessedProperties</span>); <span style="color:#75715e">// ---&gt; [&#39;text&#39;]
+</span></span></span></code></pre></div><p>That&rsquo;s the basic idea.
 To extend it, we want to support accessing nested objects.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-js" data-lang="js"><span style="color:#75715e">// More complex state
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">nested</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> }, <span style="color:#a6e22e">others</span><span style="color:#f92672">:</span> [] };
-
-<span style="color:#75715e">// Use a nested property
-</span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">nested</span>.<span style="color:#a6e22e">count</span>);
-
-<span style="color:#75715e">// As a result, `nested.count` is detected as used.
-</span><span style="color:#75715e">// `nested.text` and `others` are known to be unused.
-</span></code></pre></div><p>This is quite a bit of task, but proxy-compare handles such cases.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// More complex state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">obj</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">nested</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> }, <span style="color:#a6e22e">others</span><span style="color:#f92672">:</span> [] };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Use a nested property
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">obj</span>.<span style="color:#a6e22e">nested</span>.<span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// As a result, `nested.count` is detected as used.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// `nested.text` and `others` are known to be unused.
+</span></span></span></code></pre></div><p>This is quite a bit of task, but proxy-compare handles such cases.
 And, it&rsquo;s done in a pretty efficient way.
 If you are curious, check out the source code of proxy-compare.</p>
 <p>Valtio provides a hook based on proxy-compare
@@ -303,15 +305,15 @@ to enable automatic render optimization.</p>
 It returns an immutable snapshot, but it&rsquo;s wrapped with
 proxies for render optimization.</p>
 <p>It can be used like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">proxy</span>, <span style="color:#a6e22e">useSnapshot</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;valtio&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">nested</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> }, <span style="color:#a6e22e">others</span><span style="color:#f92672">:</span> [] });
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSnapshot</span>(<span style="color:#a6e22e">state</span>);
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">snap</span>.<span style="color:#a6e22e">nested</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
-};
-</code></pre></div><p>This component only re-renders when the <code>text</code> value is changed.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">proxy</span>, <span style="color:#a6e22e">useSnapshot</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;valtio&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">nested</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> }, <span style="color:#a6e22e">others</span><span style="color:#f92672">:</span> [] });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">TextComponent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSnapshot</span>(<span style="color:#a6e22e">state</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">snap</span>.<span style="color:#a6e22e">nested</span>.<span style="color:#a6e22e">text</span>}&lt;/<span style="color:#f92672">span</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This component only re-renders when the <code>text</code> value is changed.
 Even if <code>count</code> or <code>others</code> changes, it won&rsquo;t re-render.</p>
 <p>The implementation of <code>useSnapshot</code> is a little bit tricky,
 and we don&rsquo;t dive in deep.
@@ -342,7 +344,7 @@ and we encourage people with some interests to have a read.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

@@ -19,7 +19,7 @@
 <meta name="twitter:description" content="Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
  React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>How to properly use the React useRef hook in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -182,52 +184,52 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
 <p>This short article focuses on <code>useRef</code>, one of React Hooks. The useRef hook is pretty powerful and often can be abused. In general, developers should avoid using <code>useRef</code> if they could use <code>useState</code> instead.</p>
 <p>This article shows example code that uses <code>useRef</code> improperly and how to fix it. The example is a simple counter just to illustrate the issue. It&rsquo;s not product code, and you can actually implement the same example with <code>useState</code>.</p>
 <h3 id="the-bad-code">The bad code</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BadCounter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#ae81ff">0</span>);
-  <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-};
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">BadCounter</span>;
-</code></pre></div><p>It works as expected in a traditional React where the render phase and the commit phase is one-to-one. However, if it invokes the render function multiple time without committing, the count increases unexpectedly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">BadCounter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">BadCounter</span>;
+</span></span></code></pre></div><p>It works as expected in a traditional React where the render phase and the commit phase is one-to-one. However, if it invokes the render function multiple time without committing, the count increases unexpectedly.</p>
 <h3 id="the-good-code">The good code</h3>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useEffect</span>, <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GoodCounter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#ae81ff">0</span>);
-  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">currentCount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span>;
-  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentCount</span>;
-  });
-  <span style="color:#a6e22e">currentCount</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">currentCount</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-};
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">GoodCounter</span>;
-</code></pre></div><p>This code uses <code>useEffect</code>, whose first argument function is only invoked in the commit phase. The <code>currentCount</code> is a local variable within the render function scope, and it will only change the ref <code>count</code> in the commit phase. The ref is essentially a global variable outside the function scope, hence modifying it is a side effect.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, { <span style="color:#a6e22e">useEffect</span>, <span style="color:#a6e22e">useRef</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GoodCounter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useRef</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">let</span> <span style="color:#a6e22e">currentCount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span>.<span style="color:#a6e22e">current</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">currentCount</span>;
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">currentCount</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">count</span><span style="color:#f92672">:</span>{<span style="color:#a6e22e">currentCount</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">GoodCounter</span>;
+</span></span></code></pre></div><p>This code uses <code>useEffect</code>, whose first argument function is only invoked in the commit phase. The <code>currentCount</code> is a local variable within the render function scope, and it will only change the ref <code>count</code> in the commit phase. The ref is essentially a global variable outside the function scope, hence modifying it is a side effect.</p>
 <h3 id="the-demo">The demo</h3>
 <p>To run the two code examples above, here&rsquo;s the App component.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, {
-  <span style="color:#a6e22e">useReducer</span>,
-  <span style="color:#a6e22e">unstable_ConcurrentMode</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">ConcurrentMode</span>
-} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">BadCounter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./BadCounter&#34;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">GoodCounter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./GoodCounter&#34;</span>;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ConcurrentMode</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;
-        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">forceUpdate</span>}&gt;<span style="color:#a6e22e">Update</span>&lt;/<span style="color:#f92672">button</span>&gt;
-        &lt;<span style="color:#f92672">h3</span>&gt;<span style="color:#a6e22e">Bad</span> <span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h3</span>&gt;
-        &lt;<span style="color:#f92672">BadCounter</span> /&gt;
-        &lt;<span style="color:#f92672">h3</span>&gt;<span style="color:#a6e22e">Good</span> <span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h3</span>&gt;
-        &lt;<span style="color:#f92672">GoodCounter</span> /&gt;
-      &lt;/<span style="color:#f92672">div</span>&gt;
-    &lt;/<span style="color:#f92672">ConcurrentMode</span>&gt;
-  );
-};
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
-</code></pre></div><p>(In fact, we don&rsquo;t need <code>ConcurrentMode</code>, but just <code>StrictMode</code> is enough.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">React</span>, {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useReducer</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">unstable_ConcurrentMode</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">ConcurrentMode</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">BadCounter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./BadCounter&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">GoodCounter</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#34;./GoodCounter&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useForceUpdate</span> <span style="color:#f92672">=</span> () =&gt; <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#f92672">!</span><span style="color:#a6e22e">state</span>, <span style="color:#66d9ef">false</span>)[<span style="color:#ae81ff">1</span>];
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">forceUpdate</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useForceUpdate</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ConcurrentMode</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">forceUpdate</span>}&gt;<span style="color:#a6e22e">Update</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;<span style="color:#a6e22e">Bad</span> <span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">BadCounter</span> /&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">h3</span>&gt;<span style="color:#a6e22e">Good</span> <span style="color:#a6e22e">Counter</span>&lt;/<span style="color:#f92672">h3</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">GoodCounter</span> /&gt;
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ConcurrentMode</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</span></span></code></pre></div><p>(In fact, we don&rsquo;t need <code>ConcurrentMode</code>, but just <code>StrictMode</code> is enough.)</p>
 <p>Please checkout the following codesandbox to see the actual behavior.</p>
 <!-- raw HTML omitted -->
 <h3 id="final-notes">Final notes</h3>
@@ -240,7 +242,7 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

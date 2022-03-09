@@ -19,7 +19,7 @@ This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling
 <meta name="twitter:description" content="Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
 This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -187,19 +189,19 @@ For more complex use cases with GraphQL, it&rsquo;s worth looking into
 which is to start data fetching in useEffect.</p>
 <h4 id="too-many-loading-indicators">Too many loading indicators</h4>
 <p>Typical useEffect based data fetching is like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
-  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#66d9ef">async</span> () =&gt; {
-      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchData</span>());
-      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
-    })();
-  }, []);
-  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};
-</code></pre></div><p>If we use this pattern in various components,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchData</span>());
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    })();
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>If we use this pattern in various components,
 users end up seeing lots of loading indicators in their screen.</p>
 <p>We could solve this issue, by having one loading counter in a parent
 component and share it among child components.</p>
@@ -226,27 +228,27 @@ to deps of the useEffect second argument.
 For some reason, if you need to create a function in advance,
 that should be wrapped by useCallback.</p>
 <p>The typical custom hook is like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
-  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
-    (<span style="color:#66d9ef">async</span> () =&gt; {
-      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
-      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>());
-      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
-    })();
-  }, [<span style="color:#a6e22e">fetchFunc</span>]);
-  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> };
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">id</span> }) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchFunc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#66d9ef">async</span> () =&gt; {
-    <span style="color:#75715e">// fetch with id
-</span><span style="color:#75715e"></span>  }, [<span style="color:#a6e22e">id</span>]);
-  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#a6e22e">fetchFunc</span>);
-  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};
-</code></pre></div><p>This pattern is not very easy for beginners.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetch</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">fetchFunc</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">setLoading</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; {
+</span></span><span style="display:flex;"><span>    (<span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">true</span>);
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setResult</span>(<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetchFunc</span>());
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">setLoading</span>(<span style="color:#66d9ef">false</span>);
+</span></span><span style="display:flex;"><span>    })();
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">fetchFunc</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> };
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">id</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchFunc</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#66d9ef">async</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// fetch with id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  }, [<span style="color:#a6e22e">id</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">loading</span>, <span style="color:#a6e22e">result</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetch</span>(<span style="color:#a6e22e">fetchFunc</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>This pattern is not very easy for beginners.
 It can be said that useEffect is overused for data fetching,
 or more precisely there has been no other means until Suspense lands.</p>
 <h3 id="mental-model-with-react-suspense">Mental model with React Suspense</h3>
@@ -257,38 +259,38 @@ Here&rsquo;s some random points to understand the new pattern.</p>
 <p>Don&rsquo;t think remote data as an effect of props.
 Create it at the same time when elements are created.</p>
 <p>Pseudo code is something like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchRemoteData</span> <span style="color:#f92672">=</span> ...;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ...;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fetchRemoteData</span>();
-&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">remoteData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">remoteData</span>} /&gt;
-</code></pre></div><h4 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchRemoteData</span> <span style="color:#f92672">=</span> ...;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ...;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">remoteData</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">fetchRemoteData</span>();
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">remoteData</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">remoteData</span>} /&gt;
+</span></span></code></pre></div><h4 id="pass-remote-data-as-props-or-store-in-state">Pass remote data as props or store in state</h4>
 <p>Pass fetching data as props along with its dependent props.</p>
 <p>Pseudo code is something like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">useId</span>, <span style="color:#a6e22e">userData</span> }) =&gt; {
-  <span style="color:#75715e">// userData is remote data fetched with `userId`
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};
-</code></pre></div><p>Or, keep it in state directly.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userId</span>, <span style="color:#a6e22e">setUserId</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userData</span>, <span style="color:#a6e22e">setUserData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
-  <span style="color:#75715e">// Set userId and userData at the same time. Not as dependencies.
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// Typically done in callbacks.
-</span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
-</span><span style="color:#75715e"></span>};
-</code></pre></div><h4 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">useId</span>, <span style="color:#a6e22e">userData</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// userData is remote data fetched with `userId`
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>Or, keep it in state directly.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userId</span>, <span style="color:#a6e22e">setUserId</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">userData</span>, <span style="color:#a6e22e">setUserData</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// Set userId and userData at the same time. Not as dependencies.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// Typically done in callbacks.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><h4 id="treat-remote-data-just-like-local-data">Treat remote data just like local data</h4>
 <p>Thanks to Suspense, the render code doesn&rsquo;t need to care
 if data is locally available or fetching remotely.
 You can just use it.</p>
 <p>Pseudo code is something like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">localData</span>, <span style="color:#a6e22e">remoteData</span> }) =&gt; (
-  &lt;<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Local</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">localData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Remote</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">remoteData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-  &lt;/<span style="color:#f92672">div</span>&gt;
-);
-</code></pre></div><h3 id="use-cases-of-render-as-you-fetch">Use cases of Render-as-You-Fetch</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">localData</span>, <span style="color:#a6e22e">remoteData</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Local</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">localData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Remote</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">remoteData</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h3 id="use-cases-of-render-as-you-fetch">Use cases of Render-as-You-Fetch</h3>
 <p>Now, let&rsquo;s think about how we use Render-as-You-Fetch pattern
 if we have a good library.</p>
 <p>We assume we had a library that allow to create a suspendable result,
@@ -296,30 +298,30 @@ which can be used just like local data.
 That means, if the result is not ready it will throw a promise.</p>
 <h4 id="single-fetch">Single fetch</h4>
 <p>The simplest example is just one fetch call.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-
-<span style="color:#75715e">// Create a suspendable result
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
-
-<span style="color:#75715e">// Create a React element
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;
-</code></pre></div><h4 id="multiple-fetch">Multiple fetch</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">// Define component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a suspendable result
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a React element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result</span>} /&gt;
+</span></span></code></pre></div><h4 id="multiple-fetch">Multiple fetch</h4>
 <p>If we need to run two fetch calls in parallel,
 we create them at the same time.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-
-<span style="color:#75715e">// Create two suspendable results
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/2/&#39;</span>)).<span style="color:#a6e22e">json</span>());
-
-<span style="color:#75715e">// Create a React element
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">div</span>&gt;
-  &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result1</span>} /&gt;
-  &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result2</span>} /&gt;
-&lt;/<span style="color:#f92672">div</span>&gt;
-</code></pre></div><p>It totally depends on how you put <code>&lt;Suspense&gt;</code> in the tree
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">// Define component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">result</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create two suspendable results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">result2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/2/&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a React element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result1</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Component</span> <span style="color:#a6e22e">result</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">result2</span>} /&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span></code></pre></div><p>It totally depends on how you put <code>&lt;Suspense&gt;</code> in the tree
 whether the result is shown at once or one by one.</p>
 <p>Check out <a href="https://reactjs.org/docs/concurrent-mode-reference.html#suspensecomponent">the API documentation</a>
 to learn more about how to use Suspense and SuspenseList.</p>
@@ -328,52 +330,52 @@ to learn more about how to use Suspense and SuspenseList.</p>
 we may need to fetch data dynamically.
 For example, if a user click a button to re-run fetch,
 we need a state like this.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>({});
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">onClick</span> <span style="color:#f92672">=</span> () =&gt; {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextId</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://swapi.co/api/people/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">nextId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)).<span style="color:#a6e22e">json</span>());
-    <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">nextResult</span>);
-  };
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onClick</span>}&gt;<span style="color:#a6e22e">Refetch</span>&lt;/<span style="color:#f92672">button</span>&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>This is an example of prefetching in a callback,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">result</span>, <span style="color:#a6e22e">setResult</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>({});
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">onClick</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextId</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span> <span style="color:#f92672">+</span> Math.<span style="color:#a6e22e">floor</span>(Math.<span style="color:#a6e22e">random</span>() <span style="color:#f92672">*</span> <span style="color:#ae81ff">10</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nextResult</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://swapi.co/api/people/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">nextId</span><span style="color:#e6db74">}</span><span style="color:#e6db74">/`</span>)).<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setResult</span>(<span style="color:#a6e22e">nextResult</span>);
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">onClick</span>}&gt;<span style="color:#a6e22e">Refetch</span>&lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>This is an example of prefetching in a callback,
 but this pattern could apply to all non-React callbacks.
 Just simply take it as feeding suspendable results into React tree.</p>
 <h4 id="incremental-fetch">Incremental fetch</h4>
 <p>If two fetch calls are dependent and we want to show
 the intermediate state to a user, we need incremental loading.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#75715e">// Define component
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">person</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Films</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">films</span> }) =&gt; (
-  &lt;<span style="color:#f92672">ul</span>&gt;
-    {<span style="color:#a6e22e">films</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">film</span> =&gt; (
-      &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">film</span>.<span style="color:#a6e22e">url</span>}&gt;<span style="color:#a6e22e">Film</span> <span style="color:#a6e22e">Title</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">film</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">li</span>&gt;
-    ))}
-  &lt;/<span style="color:#f92672">ul</span>&gt;
-);
-
-<span style="color:#75715e">// Create two suspendable results
-</span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1&#39;</span>)).<span style="color:#a6e22e">json</span>());
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">films</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(
-  <span style="color:#a6e22e">urls</span> =&gt; Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>())),
-  <span style="color:#a6e22e">person</span> =&gt; <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">films</span>,
-  <span style="color:#a6e22e">person</span>,
-);
-
-<span style="color:#75715e">// Create a React element
-</span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Suspence</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">div</span>&gt;}&gt;
-  &lt;<span style="color:#f92672">Person</span> <span style="color:#a6e22e">person</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">person</span>} /&gt;
-  &lt;<span style="color:#f92672">Suspense</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span> <span style="color:#a6e22e">films</span>...&lt;/<span style="color:#f92672">div</span>&gt;}&gt;
-    &lt;<span style="color:#f92672">Films</span> <span style="color:#a6e22e">films</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">films</span>} /&gt;
-  &lt;/<span style="color:#f92672">Suspense</span>&gt;
-&lt;/<span style="color:#f92672">Suspense</span>&gt;
-</code></pre></div><p>This shows &ldquo;Person Name&rdquo; as soon as it&rsquo;s available,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#75715e">// Define component
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Person</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">person</span> }) =&gt; &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Person</span> <span style="color:#a6e22e">Name</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Films</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">films</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">films</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">film</span> =&gt; (
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">film</span>.<span style="color:#a6e22e">url</span>}&gt;<span style="color:#a6e22e">Film</span> <span style="color:#a6e22e">Title</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">film</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>    ))}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create two suspendable results
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">person</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(<span style="color:#66d9ef">async</span> () =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">&#39;https://swapi.co/api/people/1&#39;</span>)).<span style="color:#a6e22e">json</span>());
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">films</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">prefetch</span>(
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">urls</span> =&gt; Promise.<span style="color:#a6e22e">all</span>(<span style="color:#a6e22e">urls</span>.<span style="color:#a6e22e">map</span>(<span style="color:#66d9ef">async</span> <span style="color:#a6e22e">url</span> =&gt; (<span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#a6e22e">url</span>)).<span style="color:#a6e22e">json</span>())),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span> =&gt; <span style="color:#a6e22e">person</span>.<span style="color:#a6e22e">films</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">person</span>,
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a React element
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>&lt;<span style="color:#f92672">Suspence</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">div</span>&gt;}&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Person</span> <span style="color:#a6e22e">person</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">person</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Suspense</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span>{&lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Loading</span> <span style="color:#a6e22e">films</span>...&lt;/<span style="color:#f92672">div</span>&gt;}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Films</span> <span style="color:#a6e22e">films</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">films</span>} /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Suspense</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#f92672">Suspense</span>&gt;
+</span></span></code></pre></div><p>This shows &ldquo;Person Name&rdquo; as soon as it&rsquo;s available,
 and shows &ldquo;Loading films&hellip;&rdquo; until they are ready.</p>
 <p>It requires a trick to make this work.
 The function <code>person =&gt; person.films</code> in prefetch can suspend
@@ -384,10 +386,10 @@ Otherwise, we don&rsquo;t know when to start fetching films.</p>
 it&rsquo;s important to avoid indirection.
 <a href="https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Proxy">Proxy</a> allows such interface.</p>
 <p>With Proxy, we can do like the following.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// throws a promise until it&#39;s resolved
-</span><span style="color:#75715e"></span>
-<span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// works as expected after that
-</span></code></pre></div><h3 id="notes-for-caching">Notes for caching</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// throws a promise until it&#39;s resolved
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">name</span>); <span style="color:#75715e">// works as expected after that
+</span></span></span></code></pre></div><h3 id="notes-for-caching">Notes for caching</h3>
 <p>It&rsquo;s important how we deal with caching.
 Our current approach is that we don&rsquo;t provide global cache.
 Caching is a hard problem.
@@ -429,7 +431,7 @@ and come up with various ideas and use cases.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

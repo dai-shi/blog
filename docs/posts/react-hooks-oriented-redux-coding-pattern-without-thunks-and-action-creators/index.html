@@ -19,7 +19,7 @@ I think I have my own understanding of how to use Redux with React." />
 <meta name="twitter:description" content="Motivation I love Redux. But that doesn&rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
 I think I have my own understanding of how to use Redux with React."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>React hooks-oriented Redux coding pattern without thunks and action creators &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ I think I have my own understanding of how to use Redux with React."/>
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -216,276 +218,276 @@ but it&rsquo;s out of the scope of this post.)</p>
 <p>The example to use is <a href="https://redux.js.org/advanced/async-actions">Async Actions</a> in the official Redux Advanced Tutorial.</p>
 <h3 id="code">Code</h3>
 <h4 id="folder-structure">Folder structure</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">- <span style="color:#ae81ff">src/</span>
-  - <span style="color:#ae81ff">index.tsx</span>
-  - <span style="color:#ae81ff">store/</span>
-    - <span style="color:#ae81ff">actions.ts</span>
-    - <span style="color:#ae81ff">reducers.ts</span>
-  - <span style="color:#ae81ff">hooks/</span>
-    - <span style="color:#ae81ff">useSelectSubreddit.ts</span>
-    - <span style="color:#ae81ff">useInvalidateSubreddit.ts</span>
-    - <span style="color:#ae81ff">useFetchPostsIfNeeded.ts</span>
-  - <span style="color:#ae81ff">components/</span>
-    - <span style="color:#ae81ff">App.tsx</span>
-    - <span style="color:#ae81ff">Picker.tsx</span>
-    - <span style="color:#ae81ff">Posts.tsx</span>
-</code></pre></div><h4 id="srcindextsx">src/index.tsx</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./store/reducers&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/App&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">rootReducer</span>);
-
-<span style="color:#a6e22e">render</span>(
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
-    &lt;<span style="color:#f92672">App</span> /&gt;
-  &lt;/<span style="color:#f92672">Provider</span>&gt;,
-  document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>),
-);
-</code></pre></div><p>This is the entry point. Nothing special in this file.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#ae81ff">src/</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">index.tsx</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">store/</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">actions.ts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">reducers.ts</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">hooks/</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">useSelectSubreddit.ts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">useInvalidateSubreddit.ts</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">useFetchPostsIfNeeded.ts</span>
+</span></span><span style="display:flex;"><span>  - <span style="color:#ae81ff">components/</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">App.tsx</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">Picker.tsx</span>
+</span></span><span style="display:flex;"><span>    - <span style="color:#ae81ff">Posts.tsx</span>
+</span></span></code></pre></div><h4 id="srcindextsx">src/index.tsx</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">render</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-dom&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Provider</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./store/reducers&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">App</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;./components/App&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">createStore</span>(<span style="color:#a6e22e">rootReducer</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">render</span>(
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">App</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Provider</span>&gt;,
+</span></span><span style="display:flex;"><span>  document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>),
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>This is the entry point. Nothing special in this file.</p>
 <h4 id="srcstoreactionsts">src/store/actions.ts</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
-  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">boolean</span>;
-  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">boolean</span>;
-  <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">Post</span>[];
-  <span style="color:#a6e22e">lastUpdated?</span>: <span style="color:#66d9ef">number</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=</span> {
-  [<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">selectedSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>;
-  <span style="color:#a6e22e">postsBySubreddit</span>: <span style="color:#66d9ef">PostsBySubreddit</span>;
-};
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SelectSubredditAction</span> <span style="color:#f92672">=</span> {
-  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>;
-  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
-};
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">InvalidateSubredditAction</span> <span style="color:#f92672">=</span> {
-  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>;
-  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
-};
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RequestPostsAction</span> <span style="color:#f92672">=</span> {
-  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>;
-  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
-};
-
-<span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReceivePostsAction</span> <span style="color:#f92672">=</span> {
-  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>;
-  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
-  <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[];
-  <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">number</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">SelectSubredditAction</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">InvalidateSubredditAction</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">RequestPostsAction</span>
-  <span style="color:#f92672">|</span> <span style="color:#a6e22e">ReceivePostsAction</span>;
-</code></pre></div><p>This defines <code>State</code> and <code>Action</code> types.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">boolean</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">boolean</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">Post</span>[];
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">lastUpdated?</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  [<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">selectedSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">postsBySubreddit</span>: <span style="color:#66d9ef">PostsBySubreddit</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SelectSubredditAction</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">InvalidateSubredditAction</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">RequestPostsAction</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">ReceivePostsAction</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[];
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">number</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Action</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">SelectSubredditAction</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">InvalidateSubredditAction</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">RequestPostsAction</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">|</span> <span style="color:#a6e22e">ReceivePostsAction</span>;
+</span></span></code></pre></div><p>This defines <code>State</code> and <code>Action</code> types.
 No action constants and no action creators are defined.</p>
 <h4 id="srcstorereducersts">src/store/reducers.ts</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
-<span style="color:#66d9ef">import</span> {
-  <span style="color:#a6e22e">SubredditPosts</span>,
-  <span style="color:#a6e22e">SelectedSubreddit</span>,
-  <span style="color:#a6e22e">PostsBySubreddit</span>,
-  <span style="color:#a6e22e">State</span>,
-  <span style="color:#a6e22e">Action</span>,
-} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./actions&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> (
-  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;reactjs&#39;</span>,
-  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
-)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>;
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SubredditPosts</span> <span style="color:#f92672">=</span> {
-  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
-  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
-  <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
-}, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">true</span>,
-      };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
-        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
-      };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
-        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
-        <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">action.posts</span>,
-        <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">action.receivedAt</span>,
-      };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> (
-  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">PostsBySubreddit</span> <span style="color:#f92672">=</span> {},
-  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
-)<span style="color:#f92672">:</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> {
-        ...<span style="color:#a6e22e">state</span>,
-        [<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">posts</span>(<span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>], <span style="color:#a6e22e">action</span>),
-      };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span>&lt;<span style="color:#f92672">State</span>&gt;({
-  <span style="color:#a6e22e">postsBySubreddit</span>,
-  <span style="color:#a6e22e">selectedSubreddit</span>,
-});
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">rootReducer</span>;
-</code></pre></div><p>This is a normal reducer file with type annotations.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">combineReducers</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;redux&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">SubredditPosts</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">SelectedSubreddit</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">PostsBySubreddit</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">State</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">Action</span>,
+</span></span><span style="display:flex;"><span>} <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./actions&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SelectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;reactjs&#39;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+</span></span><span style="display:flex;"><span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SelectedSubreddit</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">SubredditPosts</span> <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>}, <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">SubredditPosts</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">didInvalidate</span>: <span style="color:#66d9ef">false</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">action.posts</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">action.receivedAt</span>,
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">PostsBySubreddit</span> <span style="color:#f92672">=</span> {},
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">action</span>: <span style="color:#66d9ef">Action</span>,
+</span></span><span style="display:flex;"><span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">PostsBySubreddit</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#66d9ef">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> {
+</span></span><span style="display:flex;"><span>        ...<span style="color:#a6e22e">state</span>,
+</span></span><span style="display:flex;"><span>        [<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>]<span style="color:#f92672">:</span> <span style="color:#a6e22e">posts</span>(<span style="color:#a6e22e">state</span>[<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">subreddit</span>], <span style="color:#a6e22e">action</span>),
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">rootReducer</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">combineReducers</span>&lt;<span style="color:#f92672">State</span>&gt;({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">postsBySubreddit</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">selectedSubreddit</span>,
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">rootReducer</span>;
+</span></span></code></pre></div><p>This is a normal reducer file with type annotations.
 Note that we don&rsquo;t use any explicit and implicit <code>any</code>.</p>
 <h4 id="srchooksuseselectsubredditts">src/hooks/useSelectSubreddit.ts</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">dispatch</span>({
-      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>,
-      <span style="color:#a6e22e">subreddit</span>,
-    });
-  }, [<span style="color:#a6e22e">dispatch</span>]);
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">selectSubreddit</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useSelectSubreddit</span>;
-</code></pre></div><p>This is something instead of an action creator.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;SELECT_SUBREDDIT&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">subreddit</span>,
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">dispatch</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">selectSubreddit</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useSelectSubreddit</span>;
+</span></span></code></pre></div><p>This is something instead of an action creator.
 It&rsquo;s a hook to return a callback function
 that creates and dispatches an action.
 Let&rsquo;s call it &ldquo;an action hook.&rdquo;
 This one is a sync action hook.</p>
 <h4 id="srchooksuseinvalidatesubredditts">src/hooks/useInvalidateSubreddit.ts</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">dispatch</span>({
-      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>,
-      <span style="color:#a6e22e">subreddit</span>,
-    });
-  }, [<span style="color:#a6e22e">dispatch</span>]);
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">invalidateSubreddit</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;
-</code></pre></div><p>This is another sync action hook.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;INVALIDATE_SUBREDDIT&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">subreddit</span>,
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">dispatch</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">invalidateSubreddit</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>;
+</span></span></code></pre></div><p>This is another sync action hook.</p>
 <h4 id="srchooksusefetchpostsifneededts">src/hooks/useFetchPostsIfNeeded.ts</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-typescript" data-lang="typescript"><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">Post</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">shouldFetchPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>, <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">subreddit</span>];
-  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
-  }
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">isFetching</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
-  }
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">didInvalidate</span>;
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">extractPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span>: <span style="color:#66d9ef">unknown</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Post</span>[] <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">try</span> {
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span> <span style="color:#66d9ef">as</span> {
-      <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-        <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> {
-          <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
-            <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
-            <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
-          };
-        }[];
-      };
-    }).<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">child</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">data</span>);
-    <span style="color:#75715e">// type check
-</span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">every</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
-      <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>
-    ))) {
-      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>;
-    }
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
-  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
-    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStore</span>&lt;<span style="color:#f92672">State</span>&gt;();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">shouldFetchPosts</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>(), <span style="color:#a6e22e">subreddit</span>)) {
-      <span style="color:#66d9ef">return</span>;
-    }
-    <span style="color:#a6e22e">dispatch</span>({
-      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>,
-      <span style="color:#a6e22e">subreddit</span>,
-    });
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://www.reddit.com/r/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">subreddit</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.json`</span>);
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
-    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">extractPosts</span>(<span style="color:#a6e22e">json</span>);
-    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unexpected json format&#39;</span>);
-    <span style="color:#a6e22e">dispatch</span>({
-      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>,
-      <span style="color:#a6e22e">subreddit</span>,
-      <span style="color:#a6e22e">posts</span>,
-      <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">Date.now</span>(),
-    });
-  }, [<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">store</span>]);
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span>;
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>;
-</code></pre></div><p>This one is an async action hook.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-typescript" data-lang="typescript"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useDispatch</span>, <span style="color:#a6e22e">useStore</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Action</span>, <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">Post</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">shouldFetchPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>, <span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">subreddit</span>];
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">isFetching</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">didInvalidate</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">extractPosts</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span>: <span style="color:#66d9ef">unknown</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">Post</span>[] <span style="color:#f92672">|</span> <span style="color:#66d9ef">null</span> <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span>: <span style="color:#66d9ef">Post</span>[] <span style="color:#f92672">=</span> (<span style="color:#a6e22e">json</span> <span style="color:#66d9ef">as</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">children</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#a6e22e">data</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>          };
+</span></span><span style="display:flex;"><span>        }[];
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    }).<span style="color:#a6e22e">data</span>.<span style="color:#a6e22e">children</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">child</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">child</span>.<span style="color:#a6e22e">data</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// type check
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">every</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#66d9ef">typeof</span> <span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span> <span style="color:#f92672">===</span> <span style="color:#e6db74">&#39;string&#39;</span>
+</span></span><span style="display:flex;"><span>    ))) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">posts</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  } <span style="color:#66d9ef">catch</span> (<span style="color:#a6e22e">e</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useDispatch</span>&lt;<span style="color:#f92672">Action</span>&gt;();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useStore</span>&lt;<span style="color:#f92672">State</span>&gt;();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">subreddit</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">shouldFetchPosts</span>(<span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getState</span>(), <span style="color:#a6e22e">subreddit</span>)) {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;REQUEST_POSTS&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">subreddit</span>,
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">response</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://www.reddit.com/r/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">subreddit</span><span style="color:#e6db74">}</span><span style="color:#e6db74">.json`</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">json</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">response</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">posts</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">extractPosts</span>(<span style="color:#a6e22e">json</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">posts</span>) <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unexpected json format&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;RECEIVE_POSTS&#39;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">subreddit</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">posts</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">receivedAt</span>: <span style="color:#66d9ef">Date.now</span>(),
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">dispatch</span>, <span style="color:#a6e22e">store</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span>;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>;
+</span></span></code></pre></div><p>This one is an async action hook.
 This is the logic that would be written with thunk.
 There are a few important points in this file.</p>
 <ul>
@@ -496,130 +498,130 @@ This is the biggest caveat in this entire pattern.</li>
 <li>We don&rsquo;t implement error handing as is <a href="https://redux.js.org/advanced/async-actions#note-on-error-handling">in the original tutorial</a>.</li>
 </ul>
 <h4 id="srccomponentsapptsx">src/components/App.tsx</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span>, <span style="color:#a6e22e">useEffect</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
-
-<span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">SelectedSubreddit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useSelectSubreddit&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useFetchPostsIfNeeded&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useInvalidateSubreddit&#39;</span>;
-
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Picker</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Picker&#39;</span>;
-<span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Posts</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Posts&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span>: <span style="color:#66d9ef">React.FC</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">selectedSubreddit</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>);
-  <span style="color:#66d9ef">const</span> {
-    <span style="color:#a6e22e">isFetching</span>,
-    <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">posts</span>,
-    <span style="color:#a6e22e">lastUpdated</span>,
-  } <span style="color:#f92672">=</span> <span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">selectedSubreddit</span>] <span style="color:#f92672">||</span> {
-    <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
-    <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
-    <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">undefined</span>,
-  };
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>();
-  <span style="color:#a6e22e">useEffect</span>(() <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
-  }, [<span style="color:#a6e22e">fetchPostsIfNeeded</span>, <span style="color:#a6e22e">selectedSubreddit</span>]);
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelectSubreddit</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">nextSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">selectSubreddit</span>(<span style="color:#a6e22e">nextSubreddit</span>);
-  }, [<span style="color:#a6e22e">selectSubreddit</span>]);
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>();
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleRefreshClick</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>: <span style="color:#66d9ef">React.MouseEvent</span>) <span style="color:#f92672">=&gt;</span> {
-    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
-    <span style="color:#a6e22e">invalidateSubreddit</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
-    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
-  };
-
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>;
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      &lt;<span style="color:#f92672">Picker</span>
-        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedSubreddit</span>}
-        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleChange</span>}
-        <span style="color:#a6e22e">options</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;reactjs&#39;</span>, <span style="color:#e6db74">&#39;frontend&#39;</span>]}
-      /&gt;
-      &lt;<span style="color:#f92672">p</span>&gt;
-        {<span style="color:#a6e22e">lastUpdated</span> <span style="color:#f92672">&amp;&amp;</span> (
-          &lt;<span style="color:#f92672">span</span>&gt;
-            <span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">updated</span> <span style="color:#a6e22e">at</span> {<span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">lastUpdated</span>).<span style="color:#a6e22e">toLocaleTimeString</span>()}.
-            {<span style="color:#e6db74">&#39; &#39;</span>}
-          &lt;/<span style="color:#f92672">span</span>&gt;
-        )}
-        {<span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> (
-          &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRefreshClick</span>}&gt;
-            <span style="color:#a6e22e">Refresh</span>
-          &lt;/<span style="color:#f92672">button</span>&gt;
-        )}
-      &lt;/<span style="color:#f92672">p</span>&gt;
-      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">h2</span>&gt;}
-      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Empty</span>.&lt;/<span style="color:#f92672">h2</span>&gt;}
-      {<span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> (
-        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">opacity</span>: <span style="color:#66d9ef">isFetching</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">0.5</span> : <span style="color:#66d9ef">1</span> }}&gt;
-          &lt;<span style="color:#f92672">Posts</span> <span style="color:#a6e22e">posts</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">posts</span>} /&gt;
-        &lt;/<span style="color:#f92672">div</span>&gt;
-      )}
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
-</code></pre></div><p>This is a root component or a container component.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useCallback</span>, <span style="color:#a6e22e">useEffect</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useSelector</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react-redux&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">State</span>, <span style="color:#a6e22e">SelectedSubreddit</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../store/actions&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useSelectSubreddit</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useSelectSubreddit&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useFetchPostsIfNeeded&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">useInvalidateSubreddit</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;../hooks/useInvalidateSubreddit&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Picker</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Picker&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#a6e22e">Posts</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;./Posts&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span>: <span style="color:#66d9ef">React.FC</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectedSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">selectedSubreddit</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postsBySubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">State</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">postsBySubreddit</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">isFetching</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">items</span>: <span style="color:#66d9ef">posts</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lastUpdated</span>,
+</span></span><span style="display:flex;"><span>  } <span style="color:#f92672">=</span> <span style="color:#a6e22e">postsBySubreddit</span>[<span style="color:#a6e22e">selectedSubreddit</span>] <span style="color:#f92672">||</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">isFetching</span>: <span style="color:#66d9ef">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">items</span><span style="color:#f92672">:</span> [],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">lastUpdated</span>: <span style="color:#66d9ef">undefined</span>,
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchPostsIfNeeded</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useFetchPostsIfNeeded</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">fetchPostsIfNeeded</span>, <span style="color:#a6e22e">selectedSubreddit</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">selectSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelectSubreddit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleChange</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>((<span style="color:#a6e22e">nextSubreddit</span>: <span style="color:#66d9ef">SelectedSubreddit</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">selectSubreddit</span>(<span style="color:#a6e22e">nextSubreddit</span>);
+</span></span><span style="display:flex;"><span>  }, [<span style="color:#a6e22e">selectSubreddit</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">invalidateSubreddit</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useInvalidateSubreddit</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">handleRefreshClick</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">e</span>: <span style="color:#66d9ef">React.MouseEvent</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">preventDefault</span>();
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">invalidateSubreddit</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fetchPostsIfNeeded</span>(<span style="color:#a6e22e">selectedSubreddit</span>);
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">length</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Picker</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">selectedSubreddit</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleChange</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">options</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;reactjs&#39;</span>, <span style="color:#e6db74">&#39;frontend&#39;</span>]}
+</span></span><span style="display:flex;"><span>      /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>        {<span style="color:#a6e22e">lastUpdated</span> <span style="color:#f92672">&amp;&amp;</span> (
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Last</span> <span style="color:#a6e22e">updated</span> <span style="color:#a6e22e">at</span> {<span style="color:#66d9ef">new</span> Date(<span style="color:#a6e22e">lastUpdated</span>).<span style="color:#a6e22e">toLocaleTimeString</span>()}.
+</span></span><span style="display:flex;"><span>            {<span style="color:#e6db74">&#39; &#39;</span>}
+</span></span><span style="display:flex;"><span>          &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>        )}
+</span></span><span style="display:flex;"><span>        {<span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> (
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">button</span> <span style="color:#a6e22e">type</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;button&#34;</span> <span style="color:#a6e22e">onClick</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">handleRefreshClick</span>}&gt;
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">Refresh</span>
+</span></span><span style="display:flex;"><span>          &lt;/<span style="color:#f92672">button</span>&gt;
+</span></span><span style="display:flex;"><span>        )}
+</span></span><span style="display:flex;"><span>      &lt;/<span style="color:#f92672">p</span>&gt;
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Loading</span>...&lt;/<span style="color:#f92672">h2</span>&gt;}
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#f92672">!</span><span style="color:#a6e22e">isFetching</span> <span style="color:#f92672">&amp;&amp;</span> &lt;<span style="color:#f92672">h2</span>&gt;<span style="color:#a6e22e">Empty</span>.&lt;/<span style="color:#f92672">h2</span>&gt;}
+</span></span><span style="display:flex;"><span>      {<span style="color:#f92672">!</span><span style="color:#a6e22e">isEmpty</span> <span style="color:#f92672">&amp;&amp;</span> (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">div</span> <span style="color:#a6e22e">style</span><span style="color:#f92672">=</span>{{ <span style="color:#a6e22e">opacity</span>: <span style="color:#66d9ef">isFetching</span> <span style="color:#f92672">?</span> <span style="color:#a6e22e">0.5</span> : <span style="color:#66d9ef">1</span> }}&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">Posts</span> <span style="color:#a6e22e">posts</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">posts</span>} /&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      )}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</span></span></code></pre></div><p>This is a root component or a container component.
 Unfortunately, the code looks like boilerplate.
 But, it should be mostly the same with a normal React app.
 I think the second caveat in this pattern is requiring
 the <code>useCallback</code> hook.</p>
 <h4 id="srccomponentspickertsx">src/components/Picker.tsx</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Picker</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
-  <span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>;
-  <span style="color:#a6e22e">onChange</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
-  <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">string</span>[];
-}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">onChange</span>, <span style="color:#a6e22e">options</span> }) <span style="color:#f92672">=&gt;</span> (
-  &lt;<span style="color:#f92672">span</span>&gt;
-    &lt;<span style="color:#f92672">h1</span>&gt;{<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">h1</span>&gt;
-    &lt;<span style="color:#f92672">select</span>
-      <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
-      <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}
-    &gt;
-      {<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">option</span> <span style="color:#f92672">=&gt;</span> (
-        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>} <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>}&gt;
-          {<span style="color:#a6e22e">option</span>}
-        &lt;/<span style="color:#f92672">option</span>&gt;
-      ))}
-    &lt;/<span style="color:#f92672">select</span>&gt;
-  &lt;/<span style="color:#f92672">span</span>&gt;
-);
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;
-</code></pre></div><p>This is a stateless component.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Picker</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">onChange</span><span style="color:#f92672">:</span> (<span style="color:#a6e22e">value</span>: <span style="color:#66d9ef">string</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">options</span>: <span style="color:#66d9ef">string</span>[];
+</span></span><span style="display:flex;"><span>}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">onChange</span>, <span style="color:#a6e22e">options</span> }) <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">h1</span>&gt;{<span style="color:#a6e22e">value</span>}&lt;/<span style="color:#f92672">h1</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">select</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">onChange</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">value</span>}
+</span></span><span style="display:flex;"><span>    &gt;
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">options</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">option</span> <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">option</span> <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>} <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">option</span>}&gt;
+</span></span><span style="display:flex;"><span>          {<span style="color:#a6e22e">option</span>}
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">option</span>&gt;
+</span></span><span style="display:flex;"><span>      ))}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">select</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Picker</span>;
+</span></span></code></pre></div><p>This is a stateless component.
 Nothing is changed except for type annotations.</p>
 <h4 id="srccomponentspoststsx">src/components/Posts.tsx</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-tsx" data-lang="tsx"><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Posts</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
-  <span style="color:#a6e22e">posts</span><span style="color:#f92672">:</span> {
-    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
-    <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
-  }[];
-}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">posts</span> }) <span style="color:#f92672">=&gt;</span> (
-  &lt;<span style="color:#f92672">ul</span>&gt;
-    {<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
-      &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span>}&gt;{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">li</span>&gt;
-    ))}
-  &lt;/<span style="color:#f92672">ul</span>&gt;
-);
-
-<span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;
-</code></pre></div><p>This is another stateless component.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#66d9ef">as</span> <span style="color:#a6e22e">React</span> <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Posts</span>: <span style="color:#66d9ef">React.FC</span><span style="color:#f92672">&lt;</span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">posts</span><span style="color:#f92672">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">id</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">title</span>: <span style="color:#66d9ef">string</span>;
+</span></span><span style="display:flex;"><span>  }[];
+</span></span><span style="display:flex;"><span>}<span style="color:#f92672">&gt;</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">posts</span> }) <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">posts</span>.<span style="color:#a6e22e">map</span>(<span style="color:#a6e22e">post</span> <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">id</span>}&gt;{<span style="color:#a6e22e">post</span>.<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>    ))}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">Posts</span>;
+</span></span></code></pre></div><p>This is another stateless component.
 We could import <code>Post</code> from <code>actions.ts</code>.</p>
 <p>That&rsquo;s everything. We are all set.</p>
 <h3 id="demo">Demo</h3>
@@ -645,7 +647,7 @@ This pattern should ease the transition to React Suspense.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

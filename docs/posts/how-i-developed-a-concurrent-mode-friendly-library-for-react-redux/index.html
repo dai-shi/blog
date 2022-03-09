@@ -19,7 +19,7 @@ React concurrent mode has not come yet, and all discussions are based on the cur
 <meta name="twitter:description" content="Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&rsquo;s discuss why it&rsquo;s important and what&rsquo;s the technique behind it.
 React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>How I developed a Concurrent Mode friendly library for React Redux &middot; Daishi Kato&#39;s blog</title>
     
@@ -103,6 +103,8 @@ React concurrent mode has not come yet, and all discussions are based on the cur
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -189,28 +191,28 @@ In concurrent mode,
 React can pause render in the middle of component tree
 and throw away the partially rendered result.</p>
 <p>Let&rsquo;s take simple example code.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentA</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">div</span>&gt;
-    <span style="color:#a6e22e">Hello</span>
-    &lt;<span style="color:#f92672">ChildA</span> /&gt;
-  &lt;/<span style="color:#f92672">div</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ChildA</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentB</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">div</span>&gt;
-    <span style="color:#a6e22e">Hello</span>
-    {<span style="color:#a6e22e">renderChildB</span>()}
-  &lt;/<span style="color:#f92672">div</span>&gt;
-)
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">renderChildB</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
-);
-</code></pre></div><p>Two components <code>ParentA</code> and <code>ParentB</code> would produce the same result.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentA</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Hello</span>
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ChildA</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ChildA</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">ParentB</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Hello</span>
+</span></span><span style="display:flex;"><span>    {<span style="color:#a6e22e">renderChildB</span>()}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">renderChildB</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">span</span>&gt;<span style="color:#a6e22e">World</span>&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><p>Two components <code>ParentA</code> and <code>ParentB</code> would produce the same result.
 There&rsquo;s probably no difference in sync mode (= no concurrent mode).
 But, in concurrent mode, React can pause ChildA to render
 after ParentA rendered.
@@ -240,24 +242,24 @@ This would allow us to get benefits all the time.</p>
 <h3 id="problem">Problem</h3>
 <p>Now let&rsquo;s discuss a problem in react-redux v7.1.0.
 The following is example code using <code>useSelector</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
-    &lt;<span style="color:#f92672">Parent</span> /&gt;
-  &lt;/<span style="color:#f92672">Provider</span>&gt;
-  );
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">div</span>&gt;
-    &lt;<span style="color:#f92672">Child</span> /&gt;
-    &lt;<span style="color:#f92672">Child</span> /&gt;
-  &lt;/<span style="color:#f92672">div</span>&gt;
-);
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>);
-  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">span</span>&gt;
-};
-</code></pre></div><p>Even with this small example, there&rsquo;s a problem in concurrent mode.
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Provider</span> <span style="color:#a6e22e">store</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">store</span>}&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Parent</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Provider</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Parent</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Child</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">Child</span> /&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Child</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSelector</span>(<span style="color:#a6e22e">state</span> =&gt; <span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">span</span>&gt;{<span style="color:#a6e22e">count</span>}&lt;/<span style="color:#f92672">span</span>&gt;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Even with this small example, there&rsquo;s a problem in concurrent mode.
 More precisely, it may or may not be a problem depending on
 the requirement of an app.</p>
 <p>The problem is that the first <code>Child</code> and the second <code>Child</code>
@@ -365,7 +367,7 @@ So, feedback is welcome too.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

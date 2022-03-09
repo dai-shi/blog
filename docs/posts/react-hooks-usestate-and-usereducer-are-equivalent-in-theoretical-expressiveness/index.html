@@ -21,7 +21,7 @@ In the React hooks docs, it&rsquo;s noted like this:
 In the React hooks docs, it&rsquo;s noted like this:
  useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>React hooks useState and useReducer are equivalent in theoretical expressiveness &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ In the React hooks docs, it&rsquo;s noted like this:
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -195,65 +197,65 @@ Let&rsquo;s look at an example. We implement a simple counter example
 with two hooks. For both cases, hooks return action callbacks,
 which is important to hide implementation details in this comparison.</p>
 <h4 id="usereducer">useReducer</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
-  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setCount1&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>; <span style="color:#75715e">// to bail out
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span> };
-    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setCount2&#39;</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>; <span style="color:#75715e">// to bail out
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span> };
-    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
-      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unknown action type&#39;</span>);
-  }
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setCount1&#39;</span>, <span style="color:#a6e22e">value</span> });
-  }, []);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
-    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setCount2&#39;</span>, <span style="color:#a6e22e">value</span> });
-  }, []);
-  <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
-};
-</code></pre></div><h4 id="usestate">useState</h4>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounter</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
-    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prevState</span> =&gt; {
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">count1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prevState</span>; <span style="color:#75715e">// to bail out
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span> };
-    });
-  }, []);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
-    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prevState</span> =&gt; {
-      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">count2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prevState</span>; <span style="color:#75715e">// to bail out
-</span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span> };
-    });
-  }, []);
-  <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
-};
-</code></pre></div><p>Which do you feel comfortable with?</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">reducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">action</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">switch</span> (<span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">type</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setCount1&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>; <span style="color:#75715e">// to bail out
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span> };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#39;setCount2&#39;</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">state</span>; <span style="color:#75715e">// to bail out
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">action</span>.<span style="color:#a6e22e">value</span> };
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">default</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">throw</span> <span style="color:#66d9ef">new</span> Error(<span style="color:#e6db74">&#39;unknown action type&#39;</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>(<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialState</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setCount1&#39;</span>, <span style="color:#a6e22e">value</span> });
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">dispatch</span>({ <span style="color:#a6e22e">type</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;setCount2&#39;</span>, <span style="color:#a6e22e">value</span> });
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h4 id="usestate">useState</h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">initialState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useCounter</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#a6e22e">initialState</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prevState</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">count1</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prevState</span>; <span style="color:#75715e">// to bail out
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count1</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span> };
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setCount2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(<span style="color:#a6e22e">value</span> =&gt; {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prevState</span> =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">prevState</span>.<span style="color:#a6e22e">count2</span> <span style="color:#f92672">===</span> <span style="color:#a6e22e">value</span>) <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">prevState</span>; <span style="color:#75715e">// to bail out
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>      <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">count2</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">value</span> };
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>  }, []);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> { ...<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setCount1</span>, <span style="color:#a6e22e">setCount2</span> };
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Which do you feel comfortable with?</p>
 <h3 id="bonus">Bonus</h3>
 <p>If useState is as powerful as useReducer, useReducer
 should be able to be implemented with useState in userland.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialArg</span>, <span style="color:#a6e22e">init</span>) =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(
-    <span style="color:#a6e22e">init</span> <span style="color:#f92672">?</span> () =&gt; <span style="color:#a6e22e">init</span>(<span style="color:#a6e22e">initialArg</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">initialArg</span>,
-  );
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(
-    <span style="color:#a6e22e">action</span> =&gt; <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; <span style="color:#a6e22e">reducer</span>(<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">action</span>)),
-    [<span style="color:#a6e22e">reducer</span>],
-  );
-  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>], [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>]);
-};
-</code></pre></div><p>(Note: This doesn&rsquo;t support the <a href="https://overreacted.io/a-complete-guide-to-useeffect/#why-usereducer-is-the-cheat-mode-of-hooks">cheat mode</a>.)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">useReducer</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">reducer</span>, <span style="color:#a6e22e">initialArg</span>, <span style="color:#a6e22e">init</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">setState</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">init</span> <span style="color:#f92672">?</span> () =&gt; <span style="color:#a6e22e">init</span>(<span style="color:#a6e22e">initialArg</span>) <span style="color:#f92672">:</span> <span style="color:#a6e22e">initialArg</span>,
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">dispatch</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useCallback</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">action</span> =&gt; <span style="color:#a6e22e">setState</span>(<span style="color:#a6e22e">prev</span> =&gt; <span style="color:#a6e22e">reducer</span>(<span style="color:#a6e22e">prev</span>, <span style="color:#a6e22e">action</span>)),
+</span></span><span style="display:flex;"><span>    [<span style="color:#a6e22e">reducer</span>],
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">useMemo</span>(() =&gt; [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>], [<span style="color:#a6e22e">state</span>, <span style="color:#a6e22e">dispatch</span>]);
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>(Note: This doesn&rsquo;t support the <a href="https://overreacted.io/a-complete-guide-to-useeffect/#why-usereducer-is-the-cheat-mode-of-hooks">cheat mode</a>.)</p>
 <h3 id="final-notes">Final notes</h3>
 <p>Most of my libraries are written with useReducer,
 but I might change my mind a bit, and consider using
@@ -268,7 +270,7 @@ useState when it&rsquo;s more appropriate.</p>
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

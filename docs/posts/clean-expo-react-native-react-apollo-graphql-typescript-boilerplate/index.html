@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate"/>
 <meta name="twitter:description" content="Motivation Have you heard of React Native, GraphQL and TypeScript? I&rsquo;m looking for a easy and nice tech stack to develop mobile apps. These three may fit nicely for developing mobile apps for beginners up to intermediates. More precisely, Expo is chosen for building React Native development environment, and React Apollo is for GraphQL. These libraries comes with type annotations, which allow us to code in TypeScript. By &ldquo;Clean&rdquo; I mean not only the boilerplate is minimalistic, but also we don&rsquo;t allow &ldquo;any&rdquo; types."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Clean Expo (React Native) &#43; React Apollo (GraphQL) &#43; TypeScript boilerplate &middot; Daishi Kato&#39;s blog</title>
     
@@ -101,6 +101,8 @@
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -187,19 +189,19 @@ text-align: center;
 <p><a href="https://github.com/dai-shi/typescript-expo-apollo-boilerplate">https://github.com/dai-shi/typescript-expo-apollo-boilerplate</a></p>
 <h3 id="snippets">Snippets</h3>
 <p>Please checkout the code in the repository, but here&rsquo;s a piece of the code just for a reference.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewPost</span> <span style="color:#f92672">=</span> () =&gt; (
-  &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ADD_POST</span>} <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;queryPosts&#39;</span>]}&gt;
-    {(<span style="color:#a6e22e">addPost</span>) =&gt; {
-      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; {
-        <span style="color:#a6e22e">addPost</span>({ <span style="color:#a6e22e">variables</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span> } });
-      };
-      <span style="color:#66d9ef">return</span> (
-        &lt;<span style="color:#f92672">MyTextInput</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">add</span>} /&gt;
-      );
-    }}
-  &lt;/<span style="color:#f92672">Mutation</span>&gt;
-);
-</code></pre></div><h3 id="notes">Notes</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">NewPost</span> <span style="color:#f92672">=</span> () =&gt; (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Mutation</span> <span style="color:#a6e22e">mutation</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">ADD_POST</span>} <span style="color:#a6e22e">refetchQueries</span><span style="color:#f92672">=</span>{[<span style="color:#e6db74">&#39;queryPosts&#39;</span>]}&gt;
+</span></span><span style="display:flex;"><span>    {(<span style="color:#a6e22e">addPost</span>) =&gt; {
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">add</span> <span style="color:#f92672">=</span> (<span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">string</span>) =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">addPost</span>({ <span style="color:#a6e22e">variables</span><span style="color:#f92672">:</span> { <span style="color:#a6e22e">text</span> } });
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>      <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">MyTextInput</span> <span style="color:#a6e22e">onSubmit</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">add</span>} /&gt;
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>    }}
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Mutation</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre></div><h3 id="notes">Notes</h3>
 <p>The code will probably be improved. For example, the tslint config might not be enough. Also, I usually prefer SFCs to classes, and I found that recompose helps for it because it has type annotations.</p>
 
 	</article>
@@ -208,7 +210,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     

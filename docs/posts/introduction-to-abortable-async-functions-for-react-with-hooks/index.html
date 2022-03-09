@@ -21,7 +21,7 @@ Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of
  TL;DR Just visit the example in codesandbox and try it.
 Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework."/>
 
-    <meta name="generator" content="Hugo 0.88.1" />
+    <meta name="generator" content="Hugo 0.93.1" />
     
       <title>Introduction to abortable async functions for React with hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -105,6 +105,8 @@ Background You can&rsquo;t cancel promises in JavaScript and that&rsquo;s one of
         
 			
 		</div>
+    <div style="margin-bottom: 1em"></div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
 	</div>
 </div>
 
@@ -187,65 +189,65 @@ text-align: center;
 <p>In this article, we take a use case to illustrate how it can be implemented in hooks. We don&rsquo;t go deep in the library implementation, rather focus on the usage of it to understand how it is acceptable. The use case is so-called &ldquo;typeahead search&rdquo; where you have a textbox in which you can type, and as you type a search query, the search result is shown on the fly. There are three difficulties in this use case; a) we have to deal with async side effect in hooks, b) we need to abort a previous incomplete search which is no longer valid, and c) we want a delay before starting a search to reduce the number of network requests.</p>
 <h3 id="hooks-to-handle-async-functions">Hooks to handle async functions</h3>
 <p>Now, let&rsquo;s look into hooks to handle abortable async functions. The first is a hook to create an async task.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTask</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">inputs</span>);
-</code></pre></div><p><code>func</code> is a function with an argument which is AbortController. This function returns a promise, but the function is responsible to cancel the promise by AbortController. It&rsquo;s just a rule of this hook. No magic. <code>inputs</code> is an array of inputs just like the second argument of <code>useEffect</code>. This controls when to create an async task. This is surely tricky, but let&rsquo;s assume developers are already used to using the second argument of <code>useEffect</code>. The <code>task</code> returned by this hook contains information about the state of the task and you can destructure it easily: <code>const { pending, error, result } = task;</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTask</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">inputs</span>);
+</span></span></code></pre></div><p><code>func</code> is a function with an argument which is AbortController. This function returns a promise, but the function is responsible to cancel the promise by AbortController. It&rsquo;s just a rule of this hook. No magic. <code>inputs</code> is an array of inputs just like the second argument of <code>useEffect</code>. This controls when to create an async task. This is surely tricky, but let&rsquo;s assume developers are already used to using the second argument of <code>useEffect</code>. The <code>task</code> returned by this hook contains information about the state of the task and you can destructure it easily: <code>const { pending, error, result } = task;</code></p>
 <hr>
 <p>The second hook is to run an async task created by the first hook above.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#a6e22e">useAsyncRun</span>(<span style="color:#a6e22e">task</span>);
-</code></pre></div><p>This starts an async task just once. However, that doesn&rsquo;t mean only one async task will run. As described above, we can control creating async tasks by <code>inputs</code>, hence eventually it runs several async tasks. The important part of <code>useAsyncRun</code> is that it automatically aborts a previous task if it&rsquo;s not yet finished. You can pass a falsy value to the argument of <code>useAsyncRun</code> by which you can control when to start an async task.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">useAsyncRun</span>(<span style="color:#a6e22e">task</span>);
+</span></span></code></pre></div><p>This starts an async task just once. However, that doesn&rsquo;t mean only one async task will run. As described above, we can control creating async tasks by <code>inputs</code>, hence eventually it runs several async tasks. The important part of <code>useAsyncRun</code> is that it automatically aborts a previous task if it&rsquo;s not yet finished. You can pass a falsy value to the argument of <code>useAsyncRun</code> by which you can control when to start an async task.</p>
 <hr>
 <p>The core hooks are just the above two, but we want another hook for our use case. The third hook is to combine several async tasks sequentially.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">combinedTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncCombineSeq</span>(<span style="color:#a6e22e">task1</span>, <span style="color:#a6e22e">task2</span>);
-</code></pre></div><p>The <code>combinedTask</code> returned by this hook contains the information about the state of the combined task, but for <code>result</code>, it should be easier and type-safe to read it from each tasks instead.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">combinedTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncCombineSeq</span>(<span style="color:#a6e22e">task1</span>, <span style="color:#a6e22e">task2</span>);
+</span></span></code></pre></div><p>The <code>combinedTask</code> returned by this hook contains the information about the state of the combined task, but for <code>result</code>, it should be easier and type-safe to read it from each tasks instead.</p>
 <hr>
 <p>While <code>useAsyncTask</code> is sufficient to create an async task, it&rsquo;s not trivial to write a <code>func</code> with the rule that it needs to handle AbortController. Hence, we provide two helper hooks that wrap <code>useAsyncTask</code>.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskTimeout</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>);
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskFetch</span>(<span style="color:#a6e22e">url</span>);
-</code></pre></div><p><code>useAsyncTaskTimeout</code> is just to wait a certain amount of time and then run <code>func</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskTimeout</span>(<span style="color:#a6e22e">func</span>, <span style="color:#a6e22e">delay</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">task2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskFetch</span>(<span style="color:#a6e22e">url</span>);
+</span></span></code></pre></div><p><code>useAsyncTaskTimeout</code> is just to wait a certain amount of time and then run <code>func</code>.</p>
 <p><code>useAsyncTaskFetch</code> is to fetch JSON data from <code>url</code>. You can also use &ldquo;POST&rdquo; method and fetch non-JSON data with options.</p>
 <h3 id="the-use-case-example">The use case example</h3>
 <p>It&rsquo;s time to code and run the use case. We use GitHub repository search. In this use case example, as you type a query string, it will show the search result.</p>
 <p><img src="./screenshot1.gif" alt="screenshot1" title="Screencast of the example"></p>
 <p>Here is the code to realize this example. For the concrete code in TypeScript, visit the <a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead">example</a> in codesandbox or the <a href="https://github.com/dai-shi/react-hooks-async">repository</a> in GitHub.</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-jsx" data-lang="jsx"><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GitHubSearch</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">query</span> }) =&gt; {
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span>
-    <span style="color:#e6db74">`https://api.github.com/search/repositories?q=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">query</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeoutTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskTimeout</span>(
-    <span style="color:#a6e22e">useCallback</span>(() =&gt; <span style="color:#66d9ef">true</span>, [<span style="color:#a6e22e">query</span>]),
-    <span style="color:#ae81ff">500</span>,
-  );
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskFetch</span>(<span style="color:#a6e22e">url</span>);
-  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">combinedTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncCombineSeq</span>(<span style="color:#a6e22e">timeoutTask</span>, <span style="color:#a6e22e">fetchTask</span>);
-  <span style="color:#a6e22e">useAsyncRun</span>(<span style="color:#a6e22e">query</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">combinedTask</span>);
-  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">query</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">timeoutTask</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Waiting</span>...&lt;/<span style="color:#f92672">div</span>&gt;;
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">error</span>} /&gt;;
-  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Loading</span> <span style="color:#a6e22e">abort</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">abort</span>} /&gt;;
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">ul</span>&gt;
-      {<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">items</span>.<span style="color:#a6e22e">map</span>(({ <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">html_url</span> }) =&gt; (
-        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">id</span>}&gt;
-          &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">html_url</span>}&gt;{<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">a</span>&gt;
-        &lt;/<span style="color:#f92672">li</span>&gt;
-      ))}
-    &lt;/<span style="color:#f92672">ul</span>&gt;
-  );
-};
-
-<span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
-  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">setQuery</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#39;&#39;</span>);
-  <span style="color:#66d9ef">return</span> (
-    &lt;<span style="color:#f92672">div</span>&gt;
-      <span style="color:#a6e22e">Query</span><span style="color:#f92672">:</span>
-      &lt;<span style="color:#f92672">input</span>
-        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">query</span>}
-        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> =&gt; <span style="color:#a6e22e">setQuery</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
-      /&gt;
-      &lt;<span style="color:#f92672">GitHubSearch</span> <span style="color:#a6e22e">query</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">query</span>} /&gt;
-    &lt;/<span style="color:#f92672">div</span>&gt;
-  );
-};
-</code></pre></div><p>Some notes for the code:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">GitHubSearch</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">query</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">url</span> <span style="color:#f92672">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">`https://api.github.com/search/repositories?q=</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">query</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">timeoutTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskTimeout</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">useCallback</span>(() =&gt; <span style="color:#66d9ef">true</span>, [<span style="color:#a6e22e">query</span>]),
+</span></span><span style="display:flex;"><span>    <span style="color:#ae81ff">500</span>,
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">fetchTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncTaskFetch</span>(<span style="color:#a6e22e">url</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">combinedTask</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAsyncCombineSeq</span>(<span style="color:#a6e22e">timeoutTask</span>, <span style="color:#a6e22e">fetchTask</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useAsyncRun</span>(<span style="color:#a6e22e">query</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">combinedTask</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#f92672">!</span><span style="color:#a6e22e">query</span>) <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">null</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">timeoutTask</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Waiting</span>...&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">error</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Err</span> <span style="color:#a6e22e">error</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">error</span>} /&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">if</span> (<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">pending</span>) <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">Loading</span> <span style="color:#a6e22e">abort</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">abort</span>} /&gt;;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>      {<span style="color:#a6e22e">fetchTask</span>.<span style="color:#a6e22e">result</span>.<span style="color:#a6e22e">items</span>.<span style="color:#a6e22e">map</span>(({ <span style="color:#a6e22e">id</span>, <span style="color:#a6e22e">name</span>, <span style="color:#a6e22e">html_url</span> }) =&gt; (
+</span></span><span style="display:flex;"><span>        &lt;<span style="color:#f92672">li</span> <span style="color:#a6e22e">key</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">id</span>}&gt;
+</span></span><span style="display:flex;"><span>          &lt;<span style="color:#f92672">a</span> <span style="color:#a6e22e">target</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;_blank&#34;</span> <span style="color:#a6e22e">href</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">html_url</span>}&gt;{<span style="color:#a6e22e">name</span>}&lt;/<span style="color:#f92672">a</span>&gt;
+</span></span><span style="display:flex;"><span>        &lt;/<span style="color:#f92672">li</span>&gt;
+</span></span><span style="display:flex;"><span>      ))}
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">ul</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">query</span>, <span style="color:#a6e22e">setQuery</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#e6db74">&#39;&#39;</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      <span style="color:#a6e22e">Query</span><span style="color:#f92672">:</span>
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">input</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">value</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">query</span>}
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">onChange</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">e</span> =&gt; <span style="color:#a6e22e">setQuery</span>(<span style="color:#a6e22e">e</span>.<span style="color:#a6e22e">target</span>.<span style="color:#a6e22e">value</span>)}
+</span></span><span style="display:flex;"><span>      /&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">GitHubSearch</span> <span style="color:#a6e22e">query</span><span style="color:#f92672">=</span>{<span style="color:#a6e22e">query</span>} /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Some notes for the code:</p>
 <ol>
 <li>The first argument of <code>useAsyncTaskTimeout</code> is one of the trickiest one. Because the hook uses input identity to create an async task, you need to memoize it to control it. We use <code>useCallback</code> in this case. Note that the return value of the first argument function is not important here.</li>
 <li>We use <code>query &amp;&amp;</code> in the first argument of <code>useAsyncRun</code>. This is to prevent running an async task when <code>query === ''</code>, and we don&rsquo;t render anything by <code>if (!query) return null;</code>.</li>
@@ -267,7 +269,7 @@ text-align: center;
 
   <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
