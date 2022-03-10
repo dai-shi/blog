@@ -12,6 +12,15 @@ main article p > img {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
+#menu-content > h1 {
+  font-size: 28px;
+}
+#profile-pic {
+  width: 40%;
+}
+#links {
+  margin-bottom: 15px;
+}
 
 #carbonads * {
   margin: initial;
