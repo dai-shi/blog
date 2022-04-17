@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="How Jotai Specifies Package Entry Points" />
+<meta property="og:description" content="Introduction If someone has already looked into package.json in the jotai library, they may find &quot;exports&quot; field.
+https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
+ &#34;exports&#34;: {  &#34;./package.json&#34;: &#34;./package.json&#34;,  &#34;.&#34;: {  &#34;types&#34;: &#34;./index.d.ts&#34;,  &#34;module&#34;: &#34;./esm/index.js&#34;,  &#34;import&#34;: &#34;./esm/index.mjs&#34;,  &#34;default&#34;: &#34;./index.js&#34;  },  &#34;./utils&#34;: {  &#34;types&#34;: &#34;./utils.d.ts&#34;,  &#34;module&#34;: &#34;./esm/utils.js&#34;,  &#34;import&#34;: &#34;./esm/utils.mjs&#34;,  &#34;default&#34;: &#34;./utils.js&#34;  }, In the Node.js docs, it is described as Package entry points. Node.js v12." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-04-17T17:00:00+09:00" />
+<meta property="article:modified_time" content="2022-04-17T17:00:00+09:00" />
+
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/cover.jpg"/>
+<meta name="twitter:title" content="How Jotai Specifies Package Entry Points"/>
+<meta name="twitter:description" content="Introduction If someone has already looked into package.json in the jotai library, they may find &quot;exports&quot; field.
+https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
+ &#34;exports&#34;: {  &#34;./package.json&#34;: &#34;./package.json&#34;,  &#34;.&#34;: {  &#34;types&#34;: &#34;./index.d.ts&#34;,  &#34;module&#34;: &#34;./esm/index.js&#34;,  &#34;import&#34;: &#34;./esm/index.mjs&#34;,  &#34;default&#34;: &#34;./index.js&#34;  },  &#34;./utils&#34;: {  &#34;types&#34;: &#34;./utils.d.ts&#34;,  &#34;module&#34;: &#34;./esm/utils.js&#34;,  &#34;import&#34;: &#34;./esm/utils.mjs&#34;,  &#34;default&#34;: &#34;./utils.js&#34;  }, In the Node.js docs, it is described as Package entry points. Node.js v12."/>
+
+    <meta name="generator" content="Hugo 0.93.1" />
+    
+      <title>How Jotai Specifies Package Entry Points &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        17 April 2022
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/cover.jpg" />
+      
+    
+		<h1>
+      How Jotai Specifies Package Entry Points
+    </h1>
+    
+      <h5>Support CJS and ESM as much as possible</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-jotai-specifies-package-entry-points%2f&text=How%20Jotai%20Specifies%20Package%20Entry%20Points by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-jotai-specifies-package-entry-points%2f&t=How%20Jotai%20Specifies%20Package%20Entry%20Points">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-jotai-specifies-package-entry-points%2f&title=How%20Jotai%20Specifies%20Package%20Entry%20Points">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-jotai-specifies-package-entry-points%2f&title=How%20Jotai%20Specifies%20Package%20Entry%20Points">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p>If someone has already looked into <code>package.json</code> in the jotai library,
+they may find <code>&quot;exports&quot;</code> field.</p>
+<p><a href="https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31">https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./index.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./utils.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>In the Node.js docs, it is described as
+<a href="https://nodejs.org/api/packages.html#package-entry-points">Package entry points</a>.
+Node.js v12.7.0 <a href="https://nodejs.org/en/blog/release/v12.7.0/">started implementing it.</a>
+Nowadays, it&rsquo;s used also by bundlers like webpack and vite.</p>
+<p>We use package entry points for separating modules.
+For example, <code>jotai</code> is a core module exporting core functions.
+<code>jotai/utils</code> is a separate module which exports additional functions
+based on core functions.
+(By the way, another option is to publish two packages instead.
+But, we prefer multiple entry points in a single package.)</p>
+<p>This article describes about how the entry point work.
+It&rsquo;s based on our observation and might not be 100% accurate.</p>
+<h2 id="fallback-structure">Fallback structure</h2>
+<p>First of all, for tools that don&rsquo;t understand <code>&quot;exports&quot;</code>,
+we place CJS files traditionally.</p>
+<pre tabindex="0"><code>./index.js
+./utils.js
+</code></pre><p>This will support file based resolution.</p>
+<ul>
+<li><code>require('jotai')</code> points to <code>./index.js</code></li>
+<li><code>require('jotai/utils')</code> points to <code>./utils.js</code></li>
+</ul>
+<p>Old Node.js works with this and maybe old bundlers do too.</p>
+<h2 id="exports-with-default">&ldquo;exports&rdquo; with default</h2>
+<p>With &ldquo;exports&rdquo;, we can export subpath entry points along with main entry point.
+We want to support both CJS and ESM,
+and <a href="https://nodejs.org/api/packages.html#conditional-exports">conditional exports</a> should do.
+Conditional exports accepts <code>&quot;default&quot;</code> as last element for fallback.
+We use CJS for fallback because that&rsquo;s the default if <code>&quot;type&quot;</code> in package.json is omitted.</p>
+<p>This will bring to the following config at minimum:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>We have other subpaths than &ldquo;utils&rdquo;.
+For example, adding &ldquo;devtools&rdquo; becomes like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./devtools&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./devtools.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>Note that if <a href="https://nodejs.org/api/packages.html#subpath-patterns">subpath patterns</a> is supported, we can do this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./*&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./*.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>But subpash patterns are only supported since Node.js v12.20.0.</p>
+<h2 id="entry-point-for-packagejson">Entry point for package.json</h2>
+<p>If some tools are very strict with <code>&quot;exports&quot;</code> and
+if we don&rsquo;t have an entry for package.json, they complain.</p>
+<p>Hence, we add such an entry:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span></code></pre></div><h2 id="esm-for-nodejs">ESM for Node.js</h2>
+<p><code>&quot;import&quot;</code> condition is for <code>import</code> statement and <code>import()</code> expression.
+This is a little bit tricky,
+but we ended up using <code>.mjs</code> extension for this entry.
+This indicates ESM to Node.js regardless of <code>&quot;type&quot;</code> field in package.json.</p>
+<p>As a result, it looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>We chose <code>./esm</code> subfolder to place ESM files for some reasons.
+But it turns out that it is no longer important
+because currently our fallback is CJS.</p>
+<h2 id="module-for-non-nodejs-bundlers">&ldquo;module&rdquo; for non-Node.js bundlers</h2>
+<p>Some bundlers don&rsquo;t like the <code>.mjs</code> extension
+probably because it&rsquo;s not widely used yet.</p>
+<p>As far as I know, webpack v5 and vite support
+unofficial &ldquo;module&rdquo; condition.</p>
+<p>So, we can specify it with <code>.js</code> extension.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>Currently, <code>./esm/index.js</code> and <code>./esm/index.mjs</code> have same content.
+If for some reason they couldn&rsquo;t be the same, we would be able to change them.</p>
+<h2 id="how-to-deal-with-typescript">How to deal with TypeScript</h2>
+<p>As far as I understand, tsc looks for the same file name with <code>.d.ts</code> extension.
+We place type definition files along with JS files.</p>
+<pre tabindex="0"><code>./index.js
+./index.d.ts
+./utils.js
+./index.d.ts
+./esm/index.js
+./esm/index.mjs
+./esm/index.d.ts
+./esm/utils.js
+./esm/utils.mjs
+./esm/utils.d.ts
+</code></pre><p>TypeScript will support <code>&quot;types&quot;</code> condition in <a href="https://devblogs.microsoft.com/typescript/announcing-typescript-4-7-beta/#package-json-exports-imports-and-self-referencing">4.7</a>.</p>
+<p>Having those would be nice:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./index.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./utils.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>We have already added them before knowing TypeScript 4.7 would support it.</p>
+<p>Technically, we will be able to delete <code>./esm/*.d.ts</code> files with TypeScript 4.7.
+We will keep them for older TypeScript versions for the mean time.</p>
+<h2 id="dual-package-hazard">Dual package hazard</h2>
+<p><a href="https://nodejs.org/api/packages.html#dual-package-hazard">Dual package hazard</a>
+is a big problem when supporting both ESM and CJS.
+Jotai uses some module level variables, so it can suffer from this problem.</p>
+<p>So far, we believe the probability of this case is fairly low,
+and it&rsquo;s easy to notice if it exists.
+We leave this problem unsolved and wait for more feedback.</p>
+<h2 id="closing-note">Closing note</h2>
+<p>We described some parts of our <code>&quot;exports&quot;</code> entry points
+in an unorganized way.
+I hoped to have more useful info about how we came there,
+but it turns out that it&rsquo;s not very straightforward.
+For example, some of old decisions were made with our misunderstanding,
+and they are no longer important.
+So, this article is just a note about <em>how we think</em> at this point.
+It&rsquo;s likely that it may not be valid or best in the near future.</p>
+<p>Mixing CJS and ESM is really hard, and we hope ecosystem migrates
+soon and finds a good pattern meanwhile.</p>
+<p>If you want to learn the concrete example,
+visit unpkg or something to see the package content:
+<a href="https://unpkg.com/browse/jotai@1.6.4/">https://unpkg.com/browse/jotai@1.6.4/</a></p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

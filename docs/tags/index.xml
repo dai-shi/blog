@@ -6,7 +6,34 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Jan 2022 18:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Apr 2022 17:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>jotai</title>
+      <link>https://blog.axlight.com/tags/jotai/</link>
+      <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/jotai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>node</title>
+      <link>https://blog.axlight.com/tags/node/</link>
+      <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/node/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
@@ -17,29 +44,11 @@
     </item>
     
     <item>
-      <title>jotai</title>
-      <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/jotai/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>proxy</title>
       <link>https://blog.axlight.com/tags/proxy/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/proxy/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     
@@ -220,15 +229,6 @@
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/abortable/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>node</title>
-      <link>https://blog.axlight.com/tags/node/</link>
-      <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/node/</guid>
       <description></description>
     </item>
     
