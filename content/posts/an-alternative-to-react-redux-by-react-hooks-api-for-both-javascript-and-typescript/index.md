@@ -90,7 +90,7 @@ export const { GlobalStateProvider, dispatch, useGlobalState } = createStore(
 );
 ```
 
-Don't be bothered by the `Action` type if you are not familiar with TypeScript. The first argument of `createGlobalState` is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use `combineReducers` if you like. Notice the result of `createGlobalState` is exported.
+Don't be bothered by the `Action` type if you are not familiar with TypeScript. The first argument of `createStore` is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use `combineReducers` if you like. Notice the result of `createStore` is exported.
 
 You need to wrap your top-level component with `GlobalStateProvider` to attach a context that holds a global state.
 
