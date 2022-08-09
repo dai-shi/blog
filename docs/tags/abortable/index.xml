@@ -35,7 +35,7 @@ Recap JavaScript promise is not abortable. The fetch API is based on promise, an
       
       <guid>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</guid>
       <description>There is a follow-up article which describes the implementation details of the library. Please visit here.
- TL;DR Just visit the example in codesandbox and try it.
+TL;DR Just visit the example in codesandbox and try it.
 Background You can&amp;rsquo;t cancel promises in JavaScript and that&amp;rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.</description>
     </item>
     

@@ -16,7 +16,7 @@
       <description>Introduction This is a short post about my small library.
 Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
 Typically, you would initialize apollo client like this.
-import { ApolloClient } from &amp;#39;apollo-client&amp;#39;; import { InMemoryCache } from &amp;#39;apollo-cache-inmemory&amp;#39;; import { HttpLink } from &amp;#39;apollo-link-http&amp;#39;;  const cache = new InMemoryCache(); const link = new HttpLink({ uri });  const client = new ApolloClient({  cache: cache,  link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.</description>
+import { ApolloClient } from &amp;#39;apollo-client&amp;#39;; import { InMemoryCache } from &amp;#39;apollo-cache-inmemory&amp;#39;; import { HttpLink } from &amp;#39;apollo-link-http&amp;#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.</description>
     </item>
     
     <item>
@@ -37,7 +37,7 @@ Background When developing a GraphQL server with Apollo Server, GraphQL Playgrou
       <guid>https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/</guid>
       <description>This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
 Install Expo CLI As described in the official doc, let&amp;rsquo;s install the CLI tool.
-$ npm install -g expo-cli  Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql.</description>
+$ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql.</description>
     </item>
     
     <item>

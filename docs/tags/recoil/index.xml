@@ -14,7 +14,7 @@
       
       <guid>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</guid>
       <description>Introduction I have been developing various global state libraries for React. For example:
- react-tracked react-hooks-global-state  My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
+react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
 Since Recoil is announced, I&amp;rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.</description>
     </item>
     

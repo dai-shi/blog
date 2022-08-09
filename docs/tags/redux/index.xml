@@ -113,7 +113,7 @@ Problem When a state is a non-trivial object, it&amp;rsquo;s not likely to use a
       <guid>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
       <description>Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
 Technically, there are several implementations how to store state and notify changes. We don&amp;rsquo;t go in detail in this post, but just note two axes.
- whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end.</description>
+whether context based or external store whether subscriptions based or context propagation In this post, we focus on API design of hooks at the consumer end.</description>
     </item>
     
     <item>
@@ -188,7 +188,7 @@ This library provides two basic hooks: useReduxState and useReduxDispatch. This 
       
       <guid>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
       <description>There is a follow-up article which describes the implementation details of this library. Please visit here.
- Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
+Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
 In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners.</description>
     </item>
     

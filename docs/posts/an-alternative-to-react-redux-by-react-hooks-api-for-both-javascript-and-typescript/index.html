@@ -17,7 +17,7 @@
 <meta name="twitter:title" content="An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)"/>
 <meta name="twitter:description" content="Motivation Everyone is excited about the new React Hooks API. So am I. Having been thinking how to manage global state, the Hooks API seems promising. By the way, I like Redux a lot, but I don&rsquo;t like react-redux a.k.a connect very much. It is too complicated for beginners to use it properly. For example, reselect / memoization is a hard concept to explain. My recommendation is to structure a global state so that mapStateToProps only needs to select a part of the state without any logic."/>
 
-    <meta name="generator" content="Hugo 0.93.1" />
+    <meta name="generator" content="Hugo 0.101.0" />
     
       <title>An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript) &middot; Daishi Kato&#39;s blog</title>
     
@@ -240,7 +240,7 @@ text-align: center;
 </span></span><span style="display:flex;"><span>    },
 </span></span><span style="display:flex;"><span>  },
 </span></span><span style="display:flex;"><span>);
-</span></span></code></pre></div><p>Don&rsquo;t be bothered by the <code>Action</code> type if you are not familiar with TypeScript. The first argument of <code>createGlobalState</code> is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use <code>combineReducers</code> if you like. Notice the result of <code>createGlobalState</code> is exported.</p>
+</span></span></code></pre></div><p>Don&rsquo;t be bothered by the <code>Action</code> type if you are not familiar with TypeScript. The first argument of <code>createStore</code> is a reducer, which should look familiar if you have ever used Redux. A required initial global state is passed to the second argument. You could use <code>combineReducers</code> if you like. Notice the result of <code>createStore</code> is exported.</p>
 <p>You need to wrap your top-level component with <code>GlobalStateProvider</code> to attach a context that holds a global state.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> <span style="color:#f92672">*</span> <span style="color:#a6e22e">as</span> <span style="color:#a6e22e">React</span> <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;react&#39;</span>;
 </span></span><span style="display:flex;"><span>

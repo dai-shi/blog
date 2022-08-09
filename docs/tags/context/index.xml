@@ -83,7 +83,7 @@ The example we show is the one from Redux: Todo List</description>
       <guid>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
       <description>Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
 Technically, there are several implementations how to store state and notify changes. We don&amp;rsquo;t go in detail in this post, but just note two axes.
- whether context based or external store whether subscriptions based or context propagation  In this post, we focus on API design of hooks at the consumer end.</description>
+whether context based or external store whether subscriptions based or context propagation In this post, we focus on API design of hooks at the consumer end.</description>
     </item>
     
     <item>
@@ -128,7 +128,7 @@ Pattern 1: Prop passing Some might think it wouldn&amp;rsquo;t scale, but the mo
 https://reactjs.org/docs/context.html
 https://reactjs.org/docs/hooks-intro.html
 Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
- The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
+The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
     </item>
     
     <item>

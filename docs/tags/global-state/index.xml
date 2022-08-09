@@ -28,7 +28,7 @@ Now, from the library perspective, their implementations are very different. How
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</guid>
       <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
 Let&amp;rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 });  // You can mutate it ++state.count;  // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 }  // Mutate it again state.</description>
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 } // Mutate it again state.</description>
     </item>
     
     <item>
@@ -50,7 +50,7 @@ It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</guid>
       <description>Introduction Valtio is a library for global state primarily for React. It&amp;rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&amp;rsquo;s a novel API to add immutability to mutable state.
 What is immutable state? JavaScript doesn&amp;rsquo;t support immutability as language, so it&amp;rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; };  // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 };  // update it again const immutableState3 = { .</description>
+const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .</description>
     </item>
     
     <item>
@@ -71,7 +71,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
       
       <guid>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</guid>
       <description>Introduction I have been developing various global state libraries for React. For example:
- react-tracked react-hooks-global-state  My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
+react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
 Since Recoil is announced, I&amp;rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.</description>
     </item>
     
@@ -242,7 +242,7 @@ Pattern 1: Prop passing Some might think it wouldn&amp;rsquo;t scale, but the mo
       
       <guid>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
       <description>There is a follow-up article which describes the implementation details of this library. Please visit here.
- Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
+Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
 In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners.</description>
     </item>
     
