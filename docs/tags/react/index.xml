@@ -6,7 +6,20 @@
     <description>Recent content in react on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 17 Apr 2022 17:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 06 Dec 2022 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why We Need Jotai v2 API</title>
+      <link>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</link>
+      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</guid>
+      <description>Introduction Jotai is a library for React state management.
+The API (let&amp;rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
+What does it mean? First, atom read function is evaluated in the render phase in React.
+For example, consider a simple derived atom.
+const countAtom = atom(0); const doubleAtom = atom((get) =&amp;gt; get(countAtom) * 2); In the example, (get) =&amp;gt; get(countAtom) * 2 is the read function.</description>
+    </item>
+    
     <item>
       <title>How Jotai Specifies Package Entry Points</title>
       <link>https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/</link>

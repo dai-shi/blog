@@ -2,29 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.axlight.com/tags/atom/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2022-04-17T17:00:00+09:00</lastmod>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/jotai/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</loc>
+    <lastmod>2022-12-06T14:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/</loc>
     <lastmod>2022-04-17T17:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/jotai/</loc>
-    <lastmod>2022-04-17T17:00:00+09:00</lastmod>
-  </url><url>
     <loc>https://blog.axlight.com/tags/node/</loc>
     <lastmod>2022-04-17T17:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2022-04-17T17:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2022-04-17T17:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2022-04-17T17:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/proxy/</loc>
     <lastmod>2022-01-30T18:00:00+09:00</lastmod>
@@ -37,12 +46,6 @@
   </url><url>
     <loc>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</loc>
     <lastmod>2021-12-26T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/atom/</loc>
-    <lastmod>2021-09-13T20:23:30+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2021-09-13T20:23:30+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</loc>
     <lastmod>2021-09-13T20:23:30+09:00</lastmod>

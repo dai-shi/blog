@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Why We Need Jotai v2 API" />
+<meta property="og:description" content="Introduction Jotai is a library for React state management.
+The API (let&rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
+What does it mean? First, atom read function is evaluated in the render phase in React.
+For example, consider a simple derived atom.
+const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/" /><meta property="og:image" content="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-12-06T14:00:00+09:00" />
+<meta property="article:modified_time" content="2022-12-06T14:00:00+09:00" />
+
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/cover.jpg"/>
+<meta name="twitter:title" content="Why We Need Jotai v2 API"/>
+<meta name="twitter:description" content="Introduction Jotai is a library for React state management.
+The API (let&rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
+What does it mean? First, atom read function is evaluated in the render phase in React.
+For example, consider a simple derived atom.
+const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function."/>
+
+    <meta name="generator" content="Hugo 0.105.0">
+    
+      <title>Why We Need Jotai v2 API &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        6 December 2022
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/cover.jpg" />
+      
+    
+		<h1>
+      Why We Need Jotai v2 API
+    </h1>
+    
+      <h5>It will be incompatible with Recoil</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-we-need-jotai-v2-api%2f&text=Why%20We%20Need%20Jotai%20v2%20API by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-we-need-jotai-v2-api%2f&t=Why%20We%20Need%20Jotai%20v2%20API">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-we-need-jotai-v2-api%2f&title=Why%20We%20Need%20Jotai%20v2%20API">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-we-need-jotai-v2-api%2f&title=Why%20We%20Need%20Jotai%20v2%20API">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p><a href="https://github.com/pmndrs/jotai">Jotai</a>
+is a library for React state management.</p>
+<p>The API (let&rsquo;s call it v1 API) is designed to
+a) be friendly with Concurrent React, and
+b) be compatible with Recoil as much as possible.</p>
+<p>What does it mean?
+First, atom read function is evaluated in the render phase in React.</p>
+<p>For example, consider a simple derived atom.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">doubleAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);
+</span></span></code></pre></div><p>In the example, <code>(get) =&gt; get(countAtom) * 2</code> is the read function.
+When <code>countAtom</code> is updated, the library doesn&rsquo;t
+invoke the read function of <code>doubleAtom</code> immediately.
+Instead, it triggers the component that uses <code>doubleAtom</code> to re-render.
+The component re-renders eventually, and
+it&rsquo;s when the read function of <code>doubleAtom</code> is invoked.
+The benefit of this behavior might be hypothetical,
+but React allows to schedule re-renders, which means
+it can skip invoking read functions in concurrent rendering.</p>
+<p>Another behavior in v1 API is that
+async atoms can suspend and replay.</p>
+<p>For example, let&rsquo;s see an example.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">get</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEven</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>) <span style="color:#f92672">%</span> <span style="color:#ae81ff">2</span> <span style="color:#f92672">===</span> <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">someAsyncFunction</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isEven</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derivedAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEven</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">asyncAtom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isEven</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;even&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;odd&#34;</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>It might be a little complex. The first atom is a primitive atom,
+the second atom is an async atom that depends on the first atom,
+and the third atom is a &ldquo;sync&rdquo; atom that depends on the
+second atom which is &ldquo;async&rdquo;.</p>
+<p>When <code>countAtom</code> is changed and the read function of <code>derivedAtom</code> is
+invoked, then the read function of <code>asyncAtom</code> is evaluated and,
+it suspends because it returns a promise.
+When the promise is resolved, <code>asyncAtom</code> has a resolved value,
+and the Jotai library re-evaluates the read function of <code>derivedAtom</code>.</p>
+<p>The read function of <code>derivedAtom</code> may return the same value when <code>countAtom</code>
+value is increased by say two.
+In such a case, the rendering bails out and it doesn&rsquo;t make changes to DOM.</p>
+<p>That is basically how v1 API is designed.
+It&rsquo;s been a while since the initial release,
+and it turns out that v1 API has some limitations.</p>
+<h2 id="two-major-problems">Two major problems</h2>
+<p>Evaluating the read function is intentional as described,
+but the behavior is a little difficult to understand.</p>
+<p>Consider the following example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derivedAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">isEven</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">isEven</span> <span style="color:#f92672">?</span> <span style="color:#e6db74">&#34;even&#34;</span> <span style="color:#f92672">:</span> <span style="color:#e6db74">&#34;odd&#34;</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>When the <code>countAtom</code> value is increased by two,
+the read function of <code>derivedAtom</code> is re-evaluated,
+but it returns the same value as before.
+In React 17, it can&rsquo;t be observed because of early bail out in <code>useReducer</code>.</p>
+<p>In React 18, the <code>useReducer</code> behavior is changed and it does&rsquo;t early bail out.
+It&rsquo;s a good thing for the Jotai library, because we want to
+delay the evaluation of read functions.
+However, this behavior is very confusing to many developers,
+because people often use <code>console.log</code> to debug rendering behaviors.</p>
+<p>See also an example in <a href="https://twitter.com/dai_shi/status/1534170089981100032">this tweet</a>.</p>
+<p>We call this behavior &ldquo;extra re-renders without commits&rdquo;,
+and it&rsquo;s an expected behavior as a design.
+If this behavior can cause heavy computation, we can use <code>useMemo</code> to avoid it.
+However, it&rsquo;s confusing anyways.</p>
+<p>Another issue is with store API.
+We have an internal store API in v1 API,
+and we try to expose it for more use cases with <code>unstable_createStore</code>.
+Its difficulty is with async atoms.
+We can&rsquo;t expose &ldquo;suspend and replay&rdquo; behavior,
+because it&rsquo;s not very understandable.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">unstable_createStore</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#66d9ef">async</span> (<span style="color:#a6e22e">get</span>) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">await</span> <span style="color:#66d9ef">new</span> Promise((<span style="color:#a6e22e">r</span>) =&gt; <span style="color:#a6e22e">setTimeout</span>(<span style="color:#a6e22e">r</span>, <span style="color:#ae81ff">1000</span>));
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">asyncAtom</span>); <span style="color:#75715e">// returns `undefined` while asyncAtom is pending.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">store</span>.<span style="color:#a6e22e">getAsync</span>(<span style="color:#a6e22e">countAtom</span>); <span style="color:#75715e">// returns a promise even though countAtom is not async.
+</span></span></span></code></pre></div><p>It&rsquo;s hypothetically impossible to provide a better API,
+because we can&rsquo;t distinguish if an atom will suspend or not.
+(A sync atom that depends on an async atom may suspend.)</p>
+<p>Meanwhile, the React team opens a new RFC with a new hook named <code>use</code>.</p>
+<h2 id="the-use-rfc">The <code>use</code> RFC</h2>
+<p>The RFC is here: <a href="https://github.com/reactjs/rfcs/pull/229">https://github.com/reactjs/rfcs/pull/229</a></p>
+<p>As of writing, that RFC is not yet finalized,
+but it&rsquo;s enough to make us re-think the Jotai API.
+The new <code>use</code> hook can resolve a promise with the suspend-and-replay behavior,
+just like we could throw a promise previously.
+However, it doesn&rsquo;t allow to use <code>use</code> anywhere.
+You can only use <code>use</code> in other hooks.
+It means that the suspend-and-replay behavior that&rsquo;s
+done in Jotai library can&rsquo;t be replaced with <code>use</code>.</p>
+<p>Furthermore, the RFC states we should prefer async/await if possible,
+and the <code>use</code> hook is an unavoidable solution for now.</p>
+<p>This made us to consider new Async API.</p>
+<h2 id="new-async-api">New Async API</h2>
+<p>We already distinguish sync atoms and async atoms.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">syncAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(() =&gt; <span style="color:#ae81ff">0</span>); <span style="color:#75715e">// Atom&lt;number&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">asyncAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#66d9ef">async</span> () =&gt; <span style="color:#ae81ff">0</span>); <span style="color:#75715e">// Atom&lt;Promise&lt;number&gt;&gt;
+</span></span></span></code></pre></div><p>However, when we use <code>get</code> function to get atom values,
+it returns same values.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">syncAtom</span>)); <span style="color:#75715e">// Atom&lt;number&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">asyncAtom</span>)); <span style="color:#75715e">// Atom&lt;number&gt;
+</span></span></span></code></pre></div><p>This is possible because it suspends and replays with async atoms.
+It means the <code>derived2</code> can suspend because it depends on
+an async atom even though the signature of <code>derive2</code> is a sync atom.</p>
+<p>The new API avoids such behavior and just expose promises.
+It doesn&rsquo;t do anything special to handle promises.
+The <code>get</code> function returns a value even if it&rsquo;s a promise,
+instead of resolving the promise.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// New API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived1new</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">syncAtom</span>)); <span style="color:#75715e">// Atom&lt;number&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived2new</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">asyncAtom</span>)); <span style="color:#75715e">// Atom&lt;Promise&lt;number&gt;&gt;
+</span></span></span></code></pre></div><p>With the new API, it&rsquo;s explicit what atoms will suspend from their types.
+Only atoms with promise values can suspend.</p>
+<p>What&rsquo;s the downside of the new API?
+We can no longer read async atom values in sync, obviously.</p>
+<p>To use async atom values in sync, <code>loadable</code> util may help to certain extent.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// New API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived3new</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">loadable</span>(<span style="color:#a6e22e">asyncAtom</span>))); <span style="color:#75715e">// Atom&lt;Loadable&lt;number&gt;&gt;&gt;
+</span></span></span></code></pre></div><p>We also consider adding a new util called <code>unwrap</code> (tentative name).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// New API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">derived4new</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">unwrap</span>(<span style="color:#a6e22e">asyncAtom</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>))); <span style="color:#75715e">// Atom&lt;number&gt;&gt;
+</span></span></span></code></pre></div><p>Note that <code>-1</code> is a default value which is used while <code>asyncAtom</code> doesn&rsquo;t have a value initially.</p>
+<p>We will release the new Async API in v2.
+While the v1 API is heavily inspired by Recoil,
+the v2 API is not inspired by Recoil,
+and is incompatible with Recoil API.
+(The sync atom behavior is probably compatible.)</p>
+<p>We will learn how the v2 API goes.
+There might be some difficulties.
+Having that said, it seems promising at the moment,
+because the async behavior is rather straightforward
+without &ldquo;suspend and replay&rdquo;.
+It makes it possible to expose the store API,
+which is a long awaited feature for some Jotai users.</p>
+<p>The biggest problem is that the new Async API is breaking change.
+Most importantly, the syntax isn&rsquo;t changed, and only behavior is changed.
+Hopefully, most Jotai users would use TypeScript, and in such case,
+it&rsquo;s a little easier to notice the change because TypeScript
+complier complains the invalid usage.</p>
+<h2 id="migration-strategy">Migration strategy</h2>
+<p>It would have been easier if the change were in syntax,
+and we could have both new one and old one and deprecate the old one.</p>
+<p>The thing is it&rsquo;s only breaking for async atoms.
+We assume quite a few users use Jotai only with sync atoms,
+and there&rsquo;s nothing breaking with sync atoms.</p>
+<p>We need a major version up for the new API,
+thus it&rsquo;s going to be v2 API.</p>
+<p>To mitigate migrating to the new API,
+we will provide it in different entry points.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// New API
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">atom</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;jotai/vanilla&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">useAtom</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;jotai/react&#39;</span>;
+</span></span></code></pre></div><p>This allows us to pre-release the new API in v1.</p>
+<p>There&rsquo;s another reason why we provide it in different entry points.
+It would allow using Jotai in non-React environments.
+For example, there&rsquo;s a project to run Jotai apps without React.
+See <a href="https://github.com/jotai-labs/jotai-jsx/pull/5">a PR of the project</a>.</p>
+<p>We considered if we should deprecate v1 API before jumping to v2,
+but it would just be a trouble for sync atom users.
+Some feedbacks suggested to directly jumping to v2.</p>
+<p>So, our plan is to pre-release the new API in v1,
+and later release v2 to have only the new API.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// In v2
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">import</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">atom</span>, <span style="color:#75715e">// same as import { atom } from &#39;jotai/vanilla&#39;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">useAtom</span>, <span style="color:#75715e">// same as import { useAtom } from &#39;jotai/react&#39;;
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>} <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;jotai&#39;</span>;
+</span></span></code></pre></div><p>That way allows for sync atom users to simply update to v2
+without any problems.</p>
+<p>It also allows async atom users to try the new API in v1 and migrate to it,
+and the migrated code will work in v2 too.</p>
+<h2 id="closing-note">Closing note</h2>
+<p>We already tried the new API with various integration libraries as follows:</p>
+<ul>
+<li><a href="https://github.com/jotai-labs/jotai-location/pull/1">https://github.com/jotai-labs/jotai-location/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-form/pull/12">https://github.com/jotai-labs/jotai-form/pull/12</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-tanstack-query/pull/18">https://github.com/jotai-labs/jotai-tanstack-query/pull/18</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-urql/pull/5">https://github.com/jotai-labs/jotai-urql/pull/5</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-relay/pull/3">https://github.com/jotai-labs/jotai-relay/pull/3</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-optics/pull/4">https://github.com/jotai-labs/jotai-optics/pull/4</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-immer/pull/1">https://github.com/jotai-labs/jotai-immer/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-trpc/pull/8">https://github.com/jotai-labs/jotai-trpc/pull/8</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-xstate/pull/1">https://github.com/jotai-labs/jotai-xstate/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-redux/pull/1">https://github.com/jotai-labs/jotai-redux/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-zustand/pull/2">https://github.com/jotai-labs/jotai-zustand/pull/2</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-valtio/pull/1">https://github.com/jotai-labs/jotai-valtio/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-jsx/pull/5">https://github.com/jotai-labs/jotai-jsx/pull/5</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-game/pull/1">https://github.com/jotai-labs/jotai-game/pull/1</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-suspense/pull/2">https://github.com/jotai-labs/jotai-suspense/pull/2</a></li>
+<li><a href="https://github.com/jotai-labs/jotai-cache/pull/1">https://github.com/jotai-labs/jotai-cache/pull/1</a></li>
+<li><a href="https://github.com/dai-shi/use-atom/pull/33">https://github.com/dai-shi/use-atom/pull/33</a></li>
+</ul>
+<p>We encourage all Jotai users, whether they use async atoms or sync only,
+to try the new Async API (a.k.a. v2 API) pre-released since
+<a href="https://github.com/pmndrs/jotai/releases/tag/v1.11.0">jotai v1.11.0</a>.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
