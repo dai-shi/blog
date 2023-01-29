@@ -247,7 +247,7 @@ This allows us to pre-release the new API in v1.
 There's another reason why we provide it in different entry points.
 It would allow using Jotai in non-React environments.
 For example, there's a project to run Jotai apps without React.
-See [a PR of the project](https://github.com/jotai-labs/jotai-jsx/pull/5).
+See [a PR of the project](https://github.com/jotaijs/jotai-jsx/pull/5).
 
 We considered if we should deprecate v1 API before jumping to v2,
 but it would just be a trouble for sync atom users.
@@ -274,22 +274,22 @@ and the migrated code will work in v2 too.
 
 We already tried the new API with various integration libraries as follows:
 
-- https://github.com/jotai-labs/jotai-location/pull/1
-- https://github.com/jotai-labs/jotai-form/pull/12
-- https://github.com/jotai-labs/jotai-tanstack-query/pull/18
-- https://github.com/jotai-labs/jotai-urql/pull/5
-- https://github.com/jotai-labs/jotai-relay/pull/3
-- https://github.com/jotai-labs/jotai-optics/pull/4
-- https://github.com/jotai-labs/jotai-immer/pull/1
-- https://github.com/jotai-labs/jotai-trpc/pull/8
-- https://github.com/jotai-labs/jotai-xstate/pull/1
-- https://github.com/jotai-labs/jotai-redux/pull/1
-- https://github.com/jotai-labs/jotai-zustand/pull/2
-- https://github.com/jotai-labs/jotai-valtio/pull/1
-- https://github.com/jotai-labs/jotai-jsx/pull/5
-- https://github.com/jotai-labs/jotai-game/pull/1
-- https://github.com/jotai-labs/jotai-suspense/pull/2
-- https://github.com/jotai-labs/jotai-cache/pull/1
+- https://github.com/jotaijs/jotai-location/pull/1
+- https://github.com/jotaijs/jotai-form/pull/12
+- https://github.com/jotaijs/jotai-tanstack-query/pull/18
+- https://github.com/jotaijs/jotai-urql/pull/5
+- https://github.com/jotaijs/jotai-relay/pull/3
+- https://github.com/jotaijs/jotai-optics/pull/4
+- https://github.com/jotaijs/jotai-immer/pull/1
+- https://github.com/jotaijs/jotai-trpc/pull/8
+- https://github.com/jotaijs/jotai-xstate/pull/1
+- https://github.com/jotaijs/jotai-redux/pull/1
+- https://github.com/jotaijs/jotai-zustand/pull/2
+- https://github.com/jotaijs/jotai-valtio/pull/1
+- https://github.com/jotaijs/jotai-jsx/pull/5
+- https://github.com/jotaijs/jotai-game/pull/1
+- https://github.com/jotaijs/jotai-suspense/pull/2
+- https://github.com/jotaijs/jotai-cache/pull/1
 - https://github.com/dai-shi/use-atom/pull/33
 
 We encourage all Jotai users, whether they use async atoms or sync only,
