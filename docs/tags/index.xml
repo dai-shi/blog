@@ -6,20 +6,29 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 06 Dec 2022 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Jan 2023 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>atom</title>
       <link>https://blog.axlight.com/tags/atom/</link>
-      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/atom/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>fetch</title>
+      <link>https://blog.axlight.com/tags/fetch/</link>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/fetch/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
@@ -28,7 +37,7 @@
     <item>
       <title>hooks</title>
       <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
@@ -37,7 +46,7 @@
     <item>
       <title>jotai</title>
       <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/jotai/</guid>
       <description></description>
@@ -46,7 +55,7 @@
     <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
@@ -184,15 +193,6 @@
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/async/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>fetch</title>
-      <link>https://blog.axlight.com/tags/fetch/</link>
-      <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/fetch/</guid>
       <description></description>
     </item>
     

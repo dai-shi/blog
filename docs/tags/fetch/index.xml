@@ -6,7 +6,17 @@
     <description>Recent content in fetch on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/fetch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Jan 2023 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/fetch/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>You Might Not Need React Query for Jotai</title>
+      <link>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</link>
+      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</guid>
+      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
+In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
+    </item>
+    
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>
