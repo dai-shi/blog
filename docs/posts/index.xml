@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Jan 2023 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 26 Feb 2023 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Demystifying Create React Signals Internals</title>
+      <link>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</link>
+      <pubDate>Sun, 26 Feb 2023 23:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</guid>
+      <description>Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&amp;rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
+We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks.</description>
+    </item>
+    
     <item>
       <title>You Might Not Need React Query for Jotai</title>
       <link>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</link>

@@ -9,12 +9,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.axlight.com/" />
 
-
     <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
 <meta name="twitter:description" content=""/>
 
-    <meta name="generator" content="Hugo 0.105.0">
+    <meta name="generator" content="Hugo 0.110.0">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -113,6 +112,40 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">Demystifying Create React Signals Internals</a>
+			<br>
+			<small>
+				26 February 2023
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
+We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks.
+		
+			... <a href="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/signals"><span class="label label-success">signals</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -455,47 +488,6 @@ Lately, I thought it would be nicer if this can be used more broadly. I wondered
 				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
 			
 				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/">Developing React Global State Library With Atom Abstraction</a>
-			<br>
-			<small>
-				13 August 2020
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction I have been developing various global state libraries for React. For example:
-react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
-Since Recoil is announced, I&rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.
-		
-			... <a href="https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
-			
-				<a href="https://blog.axlight.com/tags/recoil"><span class="label label-success">recoil</span></a>
-			
-				<a href="https://blog.axlight.com/tags/concurrent"><span class="label label-success">concurrent</span></a>
 			
 		</small>
 		

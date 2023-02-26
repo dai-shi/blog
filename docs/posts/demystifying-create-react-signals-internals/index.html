@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Demystifying Create React Signals Internals" />
+<meta property="og:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
+We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/" /><meta property="og:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-02-26T23:00:00+09:00" />
+<meta property="article:modified_time" content="2023-02-26T23:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg"/>
+<meta name="twitter:title" content="Demystifying Create React Signals Internals"/>
+<meta name="twitter:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
+We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks."/>
+
+    <meta name="generator" content="Hugo 0.110.0">
+    
+      <title>Demystifying Create React Signals Internals &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        26 February 2023
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg" />
+      
+    
+		<h1>
+      Demystifying Create React Signals Internals
+    </h1>
+    
+      <h5>How jotai-signal, valtio-signal and zustand-signal work</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&text=Demystifying%20Create%20React%20Signals%20Internals by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&t=Demystifying%20Create%20React%20Signals%20Internals">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p>When I first saw SolidJS and Preact Signals,
+I thought they are interesting but they are different from React.
+What made me motivated is <a href="https://www.npmjs.com/package/@preact/signals-react">@preact/signals-react</a>.
+I didn&rsquo;t like the original implementation using REACT INTERNALS,
+and that drove me to create something.</p>
+<p>We already had Jotai. Jotai atoms are like signals,
+representing reactive sources,
+and allowing to form a dependency graph or a data flow.
+The missing piece was signal-like syntax without hooks.</p>
+<p>The initial version of <a href="https://github.com/jotaijs/jotai-signal">jotai-signal</a>
+library was developed as a proof of concept.
+It provided a custom JSX transfomer to hide hooks behind the scene.
+It was using <code>experimentl_use</code> to read React context.</p>
+<p>I also developed <a href="https://github.com/jotaijs/jotai-uncontrolled">jotai-uncontrolled</a> to bypass diffing,
+which is another aspect of signals.
+While <code>jotai-signal</code> was a syntax sugar, <code>jotai-uncontrolled</code>
+has a performance benefit.</p>
+<p>Meanwhile, the next version of <code>jotai-signal</code> uses Jotai v2 API,
+and avoids <code>experimental_use</code> by exposing Store interface.
+This allows us to consider using it more seriously.
+Furthermore, when discussing internally, I got an idea to combine
+<code>jotai-signal</code> and <code>jotai-uncontrolled</code>.
+We can bypass diffing automatically in some cases.</p>
+<p>Along with it, I developed <code>valtio-signal</code> and <code>zustand-signal</code>
+by almost copying code from <code>jotai-signal</code>.
+This made me think it would be possible to create
+an abstract layer, and <code>create-react-signals</code> was born.</p>
+<p>This post will explain how <code>create-react-signals</code> work internally.</p>
+<h2 id="what-are-signals">What are signals?</h2>
+<p>In the context of <code>create-react-signals</code>,
+a signal is kind of a store that has three functions:</p>
+<ul>
+<li><code>subscribe</code>: a function to add a callback which will be invoked when a signal value changes.</li>
+<li><code>getValue</code>: a function to return the signal value.</li>
+<li><code>setValue</code>: a function to update the signal value.</li>
+</ul>
+<p>Using a signal with a custom hook should be pretty easy.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">value</span>, <span style="color:#a6e22e">setValue</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useSignal</span>(<span style="color:#a6e22e">signal</span>);
+</span></span></code></pre></div><p>You can just subscribe in the hooks and return the current value.
+Implementation should be trivial with <code>useSyncExternalStore</code>.</p>
+<p>But, we want to just use the signal
+so that it automatically subscribes and updates value.</p>
+<p>It could be done with a compiler at build time,
+but our approach is a runtime transformation.</p>
+<h2 id="how-does-it-transform-code">How does it transform code?</h2>
+<p>Let&rsquo;s assume we have a simple signal.
+Suppose <code>countSignal</code> contains a number.</p>
+<p>Our component would look like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">countSignal</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>React doesn&rsquo;t understand this, because <code>countSignal</code> is a special object
+that can&rsquo;t be rendered.</p>
+<p>We transform the code into something like the following.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">SignalsRerenderer</span> <span style="color:#f92672">=</span> ({ <span style="color:#a6e22e">signal</span>, <span style="color:#a6e22e">render</span> }) =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [, <span style="color:#a6e22e">rerender</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useReducer</span>((<span style="color:#a6e22e">c</span>) =&gt; <span style="color:#a6e22e">c</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>), <span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">useEffect</span>(() =&gt; <span style="color:#a6e22e">signal</span>.<span style="color:#a6e22e">subscribe</span>(), [<span style="color:#a6e22e">signal</span>]);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">render</span>();
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">SignalsRerenderer</span>({
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">signal</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">countSignal</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">render</span><span style="color:#f92672">:</span> () =&gt; (
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">countSignal</span>.<span style="color:#a6e22e">getValue</span>()}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>    ),
+</span></span><span style="display:flex;"><span>  });
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p><code>.subscribe</code>. and <code>.getValue</code> methods are pseudo code,
+as a signal doesn&rsquo;t explicitly have such methods.
+There are other simplifications, like only handling one signal
+and omitting memoization code.</p>
+<p>To implement the transformation,
+<code>create-react-signals</code> creates a custom <code>createElement</code> from
+original <code>React.createElement</code>.</p>
+<p>Overriding the original <code>React.createElement</code> might be
+one solution, but it seems too hacky.</p>
+<h2 id="why-custom-jsx-transfomer">Why custom JSX transfomer?</h2>
+<p>Forunately, we can customize JSX transfomer.
+The recent bundler supports <code>@jsxImportSource</code>.</p>
+<ul>
+<li><a href="https://babeljs.io/docs/babel-preset-react#importsource">https://babeljs.io/docs/babel-preset-react#importsource</a></li>
+<li><a href="https://www.typescriptlang.org/tsconfig#jsxImportSource">https://www.typescriptlang.org/tsconfig#jsxImportSource</a></li>
+</ul>
+<p>You can also specify a pragma in your source code.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">/** @jsxImportSource jotai-signal */</span>
+</span></span></code></pre></div><p>This technique is used in some projects, for example,
+<a href="https://emotion.sh/docs/css-prop">Emotion</a>.</p>
+<p>One of the biggest questions in this approach is
+that specifying the custom transformer can be seen unusual.
+(Well, it&rsquo;s a hack after all, so it&rsquo;s not usual.)</p>
+<h2 id="how-can-signals-create-signals">How can signals create signals?</h2>
+<p>What if a signal value is an object?
+Suppose <code>personSignal</code> has a value <code>{ firstName: 'first', lastName: 'last' }</code>.</p>
+<p>Using an object signal in JSX like the following doesn&rsquo;t work.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">personSignal</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>As an object can&rsquo;t be rendered, we need to do something like the following.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-jsx" data-lang="jsx"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> (
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;{<span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>}&lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><p>Now, to make that work, <code>personSignal.firstName</code> shouldn&rsquo;t be a string.
+It has to be another signal. Otherwise, we can&rsquo;t subscribe to it.</p>
+<p>How do we solve it?
+Our current solution is Proxies.
+When there&rsquo;s a property access to a signal,
+it will create a new signal.
+This is done recursively.</p>
+<p>If <code>personSignal.firstName</code> is used in JSX,
+it will skip updating when only <code>lastName</code> changes.</p>
+<p>(Note that object signals are currently not supported in <code>jotai-signal</code>.)</p>
+<h2 id="how-does-it-skip-diffing">How does it skip diffing?</h2>
+<p>As noted previously, <code>jotai-uncontrolled</code> allows skipping diffing.
+It works like <a href="https://reactjs.org/docs/uncontrolled-components.html">uncontrolled components</a>.
+The technique is using <code>ref</code> and manipulating DOM directly.</p>
+<p>This post doesn&rsquo;t go too much in details
+about the implementation of uncontrolled components.</p>
+<p>There&rsquo;s fallback mechanism if uncontrolled components don&rsquo;t work.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">jotai-signal v0.7.0 is released! <a href="https://t.co/aonMlSdAtj">https://t.co/aonMlSdAtj</a><br><br>This is the first library I developed, inspired by preactjs/signals-react. This version has a new capability, which is to use `callback ref` to manipulate DOM directly if possible. <a href="https://t.co/BrfcmZ8laV">pic.twitter.com/BrfcmZ8laV</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1616639032418799619?ref_src=twsrc%5Etfw">January 21, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>This approach is still considered experimental
+and might have a pitfall.</p>
+<h2 id="what-are-difficulties">What are difficulties?</h2>
+<p>One of unsolved issues is
+how to get signal values outside JSX.
+Our signal has <code>getValue</code> function, so we have to call it.</p>
+<p>There are some options:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// callable signal
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">countSignal</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// string property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">countSignal</span>.<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// symbol property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">countSignal</span>[<span style="color:#a6e22e">VALUE_SYMBOL</span>];
+</span></span></code></pre></div><p>So, how is it difficult?
+Consider the <code>personSignal</code> case.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// callable signal
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// string property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>.<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// symbol property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>[<span style="color:#a6e22e">VALUE_SYMBOL</span>];
+</span></span></code></pre></div><p>At first, the callable signal style looked the best,
+but it can&rsquo;t be typed in TypeScript.</p>
+<p>The string property looks the most familiar,
+but it can cause naming conflict.</p>
+<p>The symbol property has no drawbacks, but not very handy.</p>
+<p>The same problem applies to <code>setValue</code>.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// callable signal
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>(<span style="color:#e6db74">&#39;newValue&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// string property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>.<span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;newValue&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// symbol property access
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">value</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">personSignal</span>.<span style="color:#a6e22e">firstName</span>[<span style="color:#a6e22e">VALUE_SYMBOL</span>] <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;newValue&#39;</span>;
+</span></span></code></pre></div><p>We could change our mind and use a property to return a signal.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countValue</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">countContainer</span>.<span style="color:#a6e22e">value</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countSignal</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">countContainer</span>.<span style="color:#a6e22e">signal</span>;
+</span></span></code></pre></div><p>In summary, it&rsquo;s still an open problem.</p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>In addition to <code>jotai-signal</code>, <code>valtio-signal</code> and <code>zustand-signal</code>,
+we can technically create <code>redux-signal</code>.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">In addition to jotai/valtio/zustand-signal, redux-signal is technically possible. But, I feel like I&#39;ve already done too much. 😂 <a href="https://t.co/87tUeKVlw6">https://t.co/87tUeKVlw6</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1629482966895448064?ref_src=twsrc%5Etfw">February 25, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>I think signals in React are still a open research field.</p>
+<p>If React will provide a new primitive such as <code>use(Observable)</code>,
+we could explore this approach further.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I hope such a primitive to be `use(AsyncIterable)`. <a href="https://t.co/F9hn0JHKrI">https://t.co/F9hn0JHKrI</a> <a href="https://t.co/uLx2YaJqf8">https://t.co/uLx2YaJqf8</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1628951555658620930?ref_src=twsrc%5Etfw">February 24, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>Until then, let&rsquo;s play with userland solutions.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
