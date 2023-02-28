@@ -229,7 +229,7 @@ const createContainer = (reducer, initialState) => {
 };
 ```
 
-### Step 6: Concurrent Mode
+### Step 7: Concurrent Mode
 
 In order to get benefits from Concurrent Mode,
 we need to use React state instead of an external variable.
