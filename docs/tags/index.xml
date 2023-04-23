@@ -6,20 +6,47 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Feb 2023 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>atom</title>
+      <link>https://blog.axlight.com/tags/atom/</link>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/atom/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Sun, 26 Feb 2023 23:00:00 +0900</pubDate>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>jotai</title>
+      <link>https://blog.axlight.com/tags/jotai/</link>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/jotai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Sun, 26 Feb 2023 23:00:00 +0900</pubDate>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
@@ -28,18 +55,9 @@
     <item>
       <title>signals</title>
       <link>https://blog.axlight.com/tags/signals/</link>
-      <pubDate>Sun, 26 Feb 2023 23:00:00 +0900</pubDate>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/signals/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>atom</title>
-      <link>https://blog.axlight.com/tags/atom/</link>
-      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/atom/</guid>
       <description></description>
     </item>
     
@@ -49,24 +67,6 @@
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/fetch/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jotai</title>
-      <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/jotai/</guid>
       <description></description>
     </item>
     

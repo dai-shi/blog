@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Why You Don&#39;t Need Signals in React" />
+<meta property="og:description" content="Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
+Signals are actually an older concept, and it&rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/" /><meta property="og:image" content="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-04-23T21:00:00+09:00" />
+<meta property="article:modified_time" content="2023-04-23T21:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/cover.jpg"/>
+<meta name="twitter:title" content="Why You Don&#39;t Need Signals in React"/>
+<meta name="twitter:description" content="Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
+Signals are actually an older concept, and it&rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:"/>
+
+    <meta name="generator" content="Hugo 0.110.0">
+    
+      <title>Why You Don&#39;t Need Signals in React &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        23 April 2023
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/cover.jpg" />
+      
+    
+		<h1>
+      Why You Don&#39;t Need Signals in React
+    </h1>
+    
+      <h5>Because we have Jotai</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-you-dont-need-signals-in-react%2f&text=Why%20You%20Don%27t%20Need%20Signals%20in%20React by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-you-dont-need-signals-in-react%2f&t=Why%20You%20Don%27t%20Need%20Signals%20in%20React">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-you-dont-need-signals-in-react%2f&title=Why%20You%20Don%27t%20Need%20Signals%20in%20React">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-you-dont-need-signals-in-react%2f&title=Why%20You%20Don%27t%20Need%20Signals%20in%20React">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h3 id="introduction">Introduction</h3>
+<p>In the world of web frontend development, signals have become a popular topic.
+At their core, signals are used to represent changes in state over time.
+Some developers have discussed the potential of using signals
+in conjunction with React.</p>
+<p>Signals are actually an older concept, and it&rsquo;s uncertain
+how they are understood by modern web developers.
+Initially, I was confused about the characteristics of signals,
+but I later realized that they can be boiled down to two main aspects:</p>
+<ul>
+<li>a) Reactive primitives</li>
+<li>b) Bypassing diffing</li>
+</ul>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">What I&#39;m confused is people see signals with two aspects: a) reactive primitives, and b) bypassing diffing.<br><br>Jotai atoms and useAtom hook work well enough for a). The same should apply to observable family in general.<br><br>b) is not the goal of React in the first place. <a href="https://t.co/gTKoPfUUmx">https://t.co/gTKoPfUUmx</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1628926485200523264?ref_src=twsrc%5Etfw">February 24, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>In this blog post, we&rsquo;ll explore these two aspects
+and their relevance in the context of React.
+Note that we&rsquo;ll only be discussing these two aspects of signals
+and won&rsquo;t consider other potential uses
+which might be more important for someone.</p>
+<h3 id="reactive-primitives">Reactive primitives</h3>
+<p>Reactivity is a key feature of React.
+Components are re-rendered when state changes.
+With <code>useState</code>, you can create reactive primitives by defining state
+that triggers re-rendering on updates.
+This makes your components reactive.
+Additionally, you can define derived state in render functions.</p>
+<p>Here&rsquo;s an example usage of <code>useState</code>:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useState</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">doubleCount</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">count</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>; <span style="color:#75715e">// derived state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>However, it&rsquo;s important to note that <code>useState</code> only creates local state.
+This can make it difficult to share state between components,
+and you may need to use prop drilling or context propagation to accomplish this.</p>
+<p>To simplify the process of defining and using global state,
+third-party libraries like <a href="https://jotai.org">Jotai</a> can be useful.
+With Jotai, you can easily share state between components
+without relying on prop drilling or context propagation.</p>
+<p>To define global state with Jotai, you can use atoms.
+These atoms represent definitions of pieces of state
+that you can use in your components.
+For example, here&rsquo;s how you can define a primitive atom:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span></code></pre></div><p>You can also define derived atoms that depend on other atoms, like this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">doubleCountAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);
+</span></span></code></pre></div><p>While the syntax of atoms may look a bit different from typical signal syntax,
+the mental model is quite similar.
+We define primitives and compose them for complex state.
+You can define as many atoms as you need to represent a data graph,
+making it easy to manage complex state in your application.</p>
+<p>The following shows how to use Jotai atoms in your components:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Component</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAtom</span>(<span style="color:#a6e22e">countAtom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">doubleCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAtom</span>(<span style="color:#a6e22e">doubleCountAtom</span>); <span style="color:#75715e">// derived state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>Unlike <code>useState</code>, <code>useAtom</code> is not local state and
+you can use it in another component to share the atom state:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">AnotherComponent</span> <span style="color:#f92672">=</span> () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> [<span style="color:#a6e22e">count</span>, <span style="color:#a6e22e">setCount</span>] <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAtom</span>(<span style="color:#a6e22e">countAtom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>};
+</span></span></code></pre></div><p>You may have noticed that Jotai atoms work similarly to signals
+when it comes to reactive primitives.
+However, Jotai offers additional benefits through React hooks like <code>useAtom</code>,
+which follow React conventions.
+These hooks allow you to share state between components
+without the need for prop drilling or context propagation,
+simplifying your code and making it easier to reason about.
+Moreover, Jotai has <code>Provider</code> to isolate state for subtrees,
+which is not possible with truly global signals.</p>
+<h3 id="bypassing-diffing">Bypassing diffing</h3>
+<p>Another key feature of React is updating of the DOM
+achieved through a process called &ldquo;diffing.&rdquo;
+By comparing the previous and current representations of your UI,
+React determines what has changed and updates only those parts of the DOM,
+resulting in better performance and a more responsive UI.</p>
+<p>However, diffing does come at a cost,
+and there may be cases where bypassing diffing can be more efficient.
+For example, if you&rsquo;re updating only one part of the UI
+and are certain that everything else is unchanged,
+updating the UI directly without diffing may be more efficient.</p>
+<p>To demonstrate that it&rsquo;s technically possible to bypass diffing,
+we have an experimental library called
+<a href="https://github.com/jotaijs/jotai-signal">jotai-signal</a>.
+We also have a blog post discussing its internals:
+<a href="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">Demystifying Create React Signals Internals</a></p>
+<p>However, bypassing diffing goes against React&rsquo;s core principles
+of declarative programming.
+While it may be tempting to bypass diffing for performance reasons,
+doing so risks introducing inconsistencies in your UI and
+making your application harder to reason about.</p>
+<p>Before deciding to bypass diffing, it&rsquo;s important to thoroughly
+assess the performance benefits and weigh them against the potential risks.
+It&rsquo;s also worth considering whether there are other ways to
+optimize your application&rsquo;s performance.</p>
+<p>In general, it&rsquo;s recommended to follow React&rsquo;s best practices
+and use diffing appropriately
+to ensure that your UI remains consistent and predictable.</p>
+<h3 id="summary">Summary</h3>
+<p>In conclusion, while signals are an interesting concept in web development,
+Jotai offers a simpler and more intuitive way to manage state
+in React applications.
+With Jotai, you can easily create and use global state through atoms,
+eliminating the need for prop drilling or context propagation.
+Atoms are conceptually very similar to signals in terms of
+reactive primitives.</p>
+<p>While it&rsquo;s technically possible to
+bypass React&rsquo;s diffing algorithm in a sense,
+doing so goes against the principles of declarative programming
+and can introduce inconsistencies in your UI.
+It&rsquo;s important to thoroughly assess the potential benefits
+and risks before making the decision to bypass diffing.</p>
+<p>By following React&rsquo;s best practices and leveraging the power of Jotai,
+you can create maintainable and performant React applications.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

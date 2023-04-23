@@ -2,37 +2,40 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.axlight.com/tags/atom/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/jotai/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/signals/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</loc>
+    <lastmod>2023-04-23T21:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</loc>
     <lastmod>2023-02-26T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/signals/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2023-02-26T23:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/atom/</loc>
-    <lastmod>2023-01-31T14:00:00+09:00</lastmod>
-  </url><url>
     <loc>https://blog.axlight.com/tags/fetch/</loc>
-    <lastmod>2023-01-31T14:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
-    <lastmod>2023-01-31T14:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/jotai/</loc>
     <lastmod>2023-01-31T14:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</loc>

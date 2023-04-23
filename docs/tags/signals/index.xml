@@ -6,7 +6,17 @@
     <description>Recent content in signals on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 26 Feb 2023 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/signals/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/signals/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why You Don&#39;t Need Signals in React</title>
+      <link>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</link>
+      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</guid>
+      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
+Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
+    </item>
+    
     <item>
       <title>Demystifying Create React Signals Internals</title>
       <link>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</link>
