@@ -6,7 +6,22 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Apr 2023 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 19 Jul 2023 15:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Zustand Typescript Implementation Is So Ugly</title>
+      <link>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</link>
+      <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</guid>
+      <description>Introduction Note: This post focuses on Zustand library&amp;rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand&amp;rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+Here&amp;#39;s the Zustand code in JS in a tweet.
+I think I did this before, but this is slightly a new version.
+Not in 140 chars, but in an image. 😅
+Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
+&amp;mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated.</description>
+    </item>
+    
     <item>
       <title>Why You Don&#39;t Need Signals in React</title>
       <link>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</link>

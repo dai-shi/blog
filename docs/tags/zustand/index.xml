@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>zustand on Daishi Kato&#39;s blog</title>
+    <link>https://blog.axlight.com/tags/zustand/</link>
+    <description>Recent content in zustand on Daishi Kato&#39;s blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 19 Jul 2023 15:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/zustand/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why Zustand Typescript Implementation Is So Ugly</title>
+      <link>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</link>
+      <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</guid>
+      <description>Introduction Note: This post focuses on Zustand library&amp;rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand&amp;rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+Here&amp;#39;s the Zustand code in JS in a tweet.
+I think I did this before, but this is slightly a new version.
+Not in 140 chars, but in an image. 😅
+Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
+&amp;mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated.</description>
+    </item>
+    
+  </channel>
+</rss>

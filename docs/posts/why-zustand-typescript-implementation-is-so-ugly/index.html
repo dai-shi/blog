@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Why Zustand Typescript Implementation Is So Ugly" />
+<meta property="og:description" content="Introduction Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+Here&#39;s the Zustand code in JS in a tweet.
+I think I did this before, but this is slightly a new version.
+Not in 140 chars, but in an image. 😅
+Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
+&mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/" /><meta property="og:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-07-19T15:00:00+09:00" />
+<meta property="article:modified_time" content="2023-07-19T15:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg"/>
+<meta name="twitter:title" content="Why Zustand Typescript Implementation Is So Ugly"/>
+<meta name="twitter:description" content="Introduction Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+Here&#39;s the Zustand code in JS in a tweet.
+I think I did this before, but this is slightly a new version.
+Not in 140 chars, but in an image. 😅
+Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
+&mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated."/>
+
+    <meta name="generator" content="Hugo 0.114.0">
+    
+      <title>Why Zustand Typescript Implementation Is So Ugly &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        19 July 2023
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg" />
+      
+    
+		<h1>
+      Why Zustand Typescript Implementation Is So Ugly
+    </h1>
+    
+      <h5>BTW, JavaScript implementation is so clean</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-zustand-typescript-implementation-is-so-ugly%2f&text=Why%20Zustand%20Typescript%20Implementation%20Is%20So%20Ugly by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-zustand-typescript-implementation-is-so-ugly%2f&t=Why%20Zustand%20Typescript%20Implementation%20Is%20So%20Ugly">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-zustand-typescript-implementation-is-so-ugly%2f&title=Why%20Zustand%20Typescript%20Implementation%20Is%20So%20Ugly">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-zustand-typescript-implementation-is-so-ugly%2f&title=Why%20Zustand%20Typescript%20Implementation%20Is%20So%20Ugly">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h3 id="introduction">Introduction</h3>
+<p>Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript.
+It does not affect the user code, which should be kept clean.</p>
+<p>Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s the Zustand code in JS in a tweet.<br>I think I did this before, but this is slightly a new version.<br>Not in 140 chars, but in an image. 😅<br><br>Source: <a href="https://t.co/SEBiC7bObe">https://t.co/SEBiC7bObe</a> <a href="https://t.co/kLcHnMN5je">pic.twitter.com/kLcHnMN5je</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1583082766081531905?ref_src=twsrc%5Etfw">October 20, 2022</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<p>However, its TypeScript implementation is quite complicated.
+There are several reasons, one of which we explore in this post.</p>
+<h3 id="setstateinternal-type">SetStateInternal type</h3>
+<p>Let&rsquo;s take a closer look at the <code>SetStateInternal</code> type.</p>
+<p>(Keep in mind that it&rsquo;s intended for internal use, as we recommend using <code>StoreApi['setState']</code> for public APIs.)</p>
+<p><a href="https://github.com/pmndrs/zustand/blob/f11cc7f37ad0a53f49370c0e4e659690a1c1a721/src/vanilla.ts#L1-L6">https://github.com/pmndrs/zustand/blob/f11cc7f37ad0a53f49370c0e4e659690a1c1a721/src/vanilla.ts#L1-L6</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SetStateInternal</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">_</span>(
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">partial</span>: <span style="color:#66d9ef">T</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">Partial</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">|</span> { <span style="color:#a6e22e">_</span>(<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">T</span>)<span style="color:#f92672">:</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">Partial</span>&lt;<span style="color:#f92672">T</span>&gt; }[<span style="color:#e6db74">&#39;_&#39;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">replace?</span>: <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
+</span></span><span style="display:flex;"><span>  )<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>
+</span></span><span style="display:flex;"><span>}[<span style="color:#e6db74">&#39;_&#39;</span>]
+</span></span></code></pre></div><p>What are those simily characters <code>['_']</code>?</p>
+<p>It&rsquo;s a TypeScript hack, and the actual character used (in this case, <code>_</code>)
+is not significant; any word would work.
+We don&rsquo;t go into TypeScript technical details,
+but let&rsquo;s see what happens if we don&rsquo;t use such a hack.</p>
+<p>What we would imagine is the following type as a simpler alternative.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">SetStateInternal2</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> (
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">partial</span>: <span style="color:#66d9ef">T</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">Partial</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">|</span> ((<span style="color:#a6e22e">state</span>: <span style="color:#66d9ef">T</span>) <span style="color:#f92672">=&gt;</span> <span style="color:#a6e22e">T</span> <span style="color:#f92672">|</span> <span style="color:#a6e22e">Partial</span>&lt;<span style="color:#f92672">T</span>&gt;),
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">replace?</span>: <span style="color:#66d9ef">boolean</span> <span style="color:#f92672">|</span> <span style="color:#66d9ef">undefined</span>
+</span></span><span style="display:flex;"><span>) <span style="color:#f92672">=&gt;</span> <span style="color:#66d9ef">void</span>
+</span></span></code></pre></div><p>This doesn&rsquo;t work for certain cases.
+Let&rsquo;s explore how it fails with contrived examples.</p>
+<p>The first one is the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">State</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span>; <span style="color:#a6e22e">age</span>: <span style="color:#66d9ef">number</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run</span>&lt;<span style="color:#f92672">Fn</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">SetStateInternal</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">unknown</span>&gt;<span style="color:#f92672">&gt;</span>(<span style="color:#a6e22e">fn</span>: <span style="color:#66d9ef">Fn</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">function</span> <span style="color:#a6e22e">run2</span>&lt;<span style="color:#f92672">Fn</span> <span style="color:#a6e22e">extends</span> <span style="color:#a6e22e">SetStateInternal2</span><span style="color:#960050;background-color:#1e0010">&lt;</span><span style="color:#a6e22e">unknown</span>&gt;<span style="color:#f92672">&gt;</span>(<span style="color:#a6e22e">fn</span>: <span style="color:#66d9ef">Fn</span>)<span style="color:#f92672">:</span> <span style="color:#66d9ef">void</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState</span>: <span style="color:#66d9ef">SetStateInternal</span>&lt;<span style="color:#f92672">State</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">setState2</span>: <span style="color:#66d9ef">SetStateInternal2</span>&lt;<span style="color:#f92672">State</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">run</span>(<span style="color:#a6e22e">setState</span>);
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">run2</span>(<span style="color:#a6e22e">setState2</span>);
+</span></span></code></pre></div><p><code>run2</code> causes a type error.</p>
+<p>The second one is the following:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-ts" data-lang="ts"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">NameOnlyState</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">name</span>: <span style="color:#66d9ef">string</span> };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StoreApi</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { <span style="color:#a6e22e">setState</span>: <span style="color:#66d9ef">SetStateInternal</span>&lt;<span style="color:#f92672">T</span>&gt; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">StoreApi2</span>&lt;<span style="color:#f92672">T</span>&gt; <span style="color:#f92672">=</span> { <span style="color:#a6e22e">setState</span>: <span style="color:#66d9ef">SetStateInternal2</span>&lt;<span style="color:#f92672">T</span>&gt; };
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store</span>: <span style="color:#66d9ef">StoreApi</span>&lt;<span style="color:#f92672">State</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">declare</span> <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">store2</span>: <span style="color:#66d9ef">StoreApi2</span>&lt;<span style="color:#f92672">State</span>&gt;;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nameOnlyStore</span>: <span style="color:#66d9ef">StoreApi</span>&lt;<span style="color:#f92672">NameOnlyState</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">store</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">nameOnlyStore2</span>: <span style="color:#66d9ef">StoreApi2</span>&lt;<span style="color:#f92672">NameOnlyState</span>&gt; <span style="color:#f92672">=</span> <span style="color:#a6e22e">store2</span>;
+</span></span></code></pre></div><p>Assigning to <code>nameOnlyStore2</code> fails.</p>
+<p>You can find the full reproduction in the TypeScript playground: <a href="https://tsplay.dev/NBVO4N">https://tsplay.dev/NBVO4N</a></p>
+<p>As a library consumer, you don&rsquo;t need to know why this happens or how to resolve it.
+It&rsquo;s something TypeScript magicians should take care of.</p>
+<h3 id="closing-notes">Closing notes</h3>
+<p>This post has highlighted one of the reasons
+behind the complexity of Zustand&rsquo;s TypeScript implementation.
+There are other reasons, which could be addressed in a future post.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>
