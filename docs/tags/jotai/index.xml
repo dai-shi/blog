@@ -14,7 +14,6 @@
       
       <guid>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</guid>
       <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.
-In its simplest form, it works well with Suspense.
 In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
 https://codesandbox.io/s/vjfpcd
 import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>

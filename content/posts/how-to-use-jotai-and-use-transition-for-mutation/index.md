@@ -11,8 +11,6 @@ tags: ["react", "global-state", "jotai", "suspense"]
 is a powerful library designed for seamless integration with React Suspense.
 Unlike Zustand, Jotai's primary focus is React Suspense from the beginning.
 
-In its simplest form, it works well with Suspense.
-
 In its simplest form, Jotai effortlessly works with Suspense,
 and gives superior developer experience and user experience with async data.
 
