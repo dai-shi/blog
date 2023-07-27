@@ -6,7 +6,20 @@
     <description>Recent content in suspense on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 16 Dec 2019 22:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jul 2023 01:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to Use Jotai and useTransition for Mutation</title>
+      <link>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</link>
+      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</guid>
+      <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.
+In its simplest form, it works well with Suspense.
+In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
+https://codesandbox.io/s/vjfpcd
+import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>
+    </item>
+    
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>

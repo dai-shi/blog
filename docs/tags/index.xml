@@ -6,22 +6,40 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Jul 2023 15:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Jul 2023 01:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
+      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>jotai</title>
+      <link>https://blog.axlight.com/tags/jotai/</link>
+      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/jotai/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
+      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>suspense</title>
+      <link>https://blog.axlight.com/tags/suspense/</link>
+      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/suspense/</guid>
       <description></description>
     </item>
     
@@ -58,15 +76,6 @@
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/hooks/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>jotai</title>
-      <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/jotai/</guid>
       <description></description>
     </item>
     
@@ -211,15 +220,6 @@
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/async/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>suspense</title>
-      <link>https://blog.axlight.com/tags/suspense/</link>
-      <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/suspense/</guid>
       <description></description>
     </item>
     
