@@ -6,7 +6,17 @@
     <description>Recent content in typescript on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Jul 2023 15:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Why useSyncExternalStore Is Not Used in Jotai</title>
+      <link>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</link>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</guid>
+      <description>Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
+As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&amp;rsquo;s a repo to evaluate some details.</description>
+    </item>
+    
     <item>
       <title>Why Zustand Typescript Implementation Is So Ugly</title>
       <link>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</link>

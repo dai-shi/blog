@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:title" content="Why useSyncExternalStore Is Not Used in Jotai" />
+<meta property="og:description" content="Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
+As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&rsquo;s a repo to evaluate some details." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/" /><meta property="og:image" content="https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2023-10-28T11:00:00+09:00" />
+<meta property="article:modified_time" content="2023-10-28T11:00:00+09:00" />
+
+    <meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/cover.jpg"/>
+<meta name="twitter:title" content="Why useSyncExternalStore Is Not Used in Jotai"/>
+<meta name="twitter:description" content="Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
+As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&rsquo;s a repo to evaluate some details."/>
+
+    <meta name="generator" content="Hugo 0.119.0">
+    
+      <title>Why useSyncExternalStore Is Not Used in Jotai &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        28 October 2023
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/cover.jpg" />
+      
+    
+		<h1>
+      Why useSyncExternalStore Is Not Used in Jotai
+    </h1>
+    
+      <h5>How about Zustand and Valtio</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-use-sync-external-store-is-not-used-in-jotai%2f&text=Why%20useSyncExternalStore%20Is%20Not%20Used%20in%20Jotai by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-use-sync-external-store-is-not-used-in-jotai%2f&t=Why%20useSyncExternalStore%20Is%20Not%20Used%20in%20Jotai">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-use-sync-external-store-is-not-used-in-jotai%2f&title=Why%20useSyncExternalStore%20Is%20Not%20Used%20in%20Jotai">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhy-use-sync-external-store-is-not-used-in-jotai%2f&title=Why%20useSyncExternalStore%20Is%20Not%20Used%20in%20Jotai">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p><a href="https://github.com/pmndrs/jotai">Jotai</a> is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.</p>
+<p>As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&rsquo;s a repo to evaluate some details.</p>
+<p><a href="https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-rendering">https://github.com/dai-shi/will-this-react-global-state-work-in-concurrent-rendering</a></p>
+<p>But, in this post, we focus on two things; tearing and time slicing.</p>
+<p>React 18 introduces <code>useSyncExternalStore</code> hook. This is a solution for external stores to avoid tearing. Jotai is technically an external store and suffers from tearing. However, useSyncExternalStore isn&rsquo;t a silver bullet. It&rsquo;s not named as <code>useExternalStore</code>. As I understand, the &ldquo;Sync&rdquo; part basically means it&rsquo;s incompatible with &ldquo;time slicing&rdquo; and it&rsquo;s also refered as &ldquo;de-opt&rdquo;.</p>
+<p>We knew it while introducing the useSyncExternalStore hook. In my talk at React Conf 2021, there&rsquo;s a mention that &ldquo;useState is sometimes desirable (more than useSyncExternalStore)&rdquo;. It refers to the time slicing, but it&rsquo;s not very clear unfortunately. The purpose of the talk is to introduce the new hook, and didn&rsquo;t spend time on the benefit of <code>useState</code>.</p>
+<p><img src="./reactconf2021talk.png" alt="reactconf2021talk" title="React Conf 2021 Talk"></p>
+<p><a href="https://youtu.be/oPfSC5bQPR8?si=j334UcLLC7y4keip&amp;t=1095">Check out the talk</a> if you are interested.</p>
+<p>This subtle difference is why Jotai uses useState (useReducer).</p>
+<h2 id="whats-the-actual-issue">What&rsquo;s the actual issue</h2>
+<p>The difference between 1) a userland solution with useState (useReducer) &amp; useEffect, and 2) useSyncExternalStore, is temporary tearing. With the userland solution, it can tear for a short period of time, and then it will be consistent afterwards.</p>
+<p>Someone posted a reproduction in the Jotai GitHub Discussions.</p>
+<p><a href="https://github.com/pmndrs/jotai/discussions/2137">https://github.com/pmndrs/jotai/discussions/2137</a></p>
+<p>You can check it out: <a href="https://codesandbox.io/s/2pfr7t">https://codesandbox.io/s/2pfr7t</a></p>
+<h2 id="whats-more-important-than-temporary-tearing">What&rsquo;s more important than temporary tearing</h2>
+<p>As noted, Jotai supports Suspense and Concurrent rendering, specifically the use of <code>useTransition</code>. Moreover, the API is designed to be used with <code>useTransition</code>, like it doesn&rsquo;t have a pending state.</p>
+<p>Zustand, which uses <code>useSyncExternalStore</code>, has a behavioral issue with <code>useTransition</code>.</p>
+<p>Check out the demo:
+<a href="https://codesandbox.io/s/9ss9r6">https://codesandbox.io/s/9ss9r6</a></p>
+<p>The expected behavior is to show &ldquo;Pending&hellip;&rdquo;, but it doesn&rsquo;t, and instead show the Suspense fallback.</p>
+<p>Zustand is explicitly designed as an external store, so this is somewhat acceptable.</p>
+<p>On the other hand, Jotai is modeled after <code>useState</code> and we expect <code>useTransition</code> to behave likewise. This is more important than temporary tearing.</p>
+<p>Ideally, if React provides a building-block function to allow creating a custom useState-like hook (that requires state versioning), Jotai can do it better. It&rsquo;s very unlikely that it will happen. So, it&rsquo;s a trade-off.</p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>When I started developing Jotai, not many people cared about Suspense and Concurrent rendering. It&rsquo;s nice to see recently people are interested in it and discuss on it.</p>
+<p>This applies to Zustand and I developed another library that with useState (useReducer) instead of useSyncExternalStore.</p>
+<p><a href="https://github.com/dai-shi/use-zustand">https://github.com/dai-shi/use-zustand</a></p>
+<p>There&rsquo;s also Valtio version.</p>
+<p><a href="https://github.com/dai-shi/use-valtio">https://github.com/dai-shi/use-valtio</a></p>
+<p>By the way, you may have noticed that I refered to it as &ldquo;useState (useReducer)&rdquo;. I actually use <code>useReducer</code> instead of <code>useState</code>. There&rsquo;s another reason but it&rsquo;s out of the scope of this post. For someone interested, you will see, if you implement it with <code>useState</code>, some of Jotai tests fail.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script type="application/javascript">
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

@@ -6,20 +6,29 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Jul 2023 01:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     
     <item>
+      <title>hooks</title>
+      <link>https://blog.axlight.com/tags/hooks/</link>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
+      
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>jotai</title>
       <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/jotai/</guid>
       <description></description>
@@ -28,7 +37,7 @@
     <item>
       <title>react</title>
       <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
@@ -37,7 +46,7 @@
     <item>
       <title>suspense</title>
       <link>https://blog.axlight.com/tags/suspense/</link>
-      <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/suspense/</guid>
       <description></description>
@@ -46,7 +55,7 @@
     <item>
       <title>typescript</title>
       <link>https://blog.axlight.com/tags/typescript/</link>
-      <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
+      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
@@ -67,15 +76,6 @@
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       
       <guid>https://blog.axlight.com/tags/atom/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>hooks</title>
-      <link>https://blog.axlight.com/tags/hooks/</link>
-      <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
     </item>
     
