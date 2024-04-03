@@ -6,17 +6,14 @@
     <description>Recent content in wasm on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Jan 2019 12:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/wasm/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Jan 2019 12:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/wasm/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>My first WebAssembly trial with Node.js only</title>
       <link>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</link>
       <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</guid>
-      <description>Introduction One of the technologies we should keep eyes on in the web world is WebAssembly or wasm. As I am new to it, I won&amp;rsquo;t describe much of its fundamentals. Please visit the official web site to learn from scratch.
-https://webassembly.org/
-This short article describes my first trial on wasm. What I want to try is just to run example code, but I&amp;rsquo;d start with writing the example code in wasm(wat).</description>
+      <description>Introduction One of the technologies we should keep eyes on in the web world is WebAssembly or wasm. As I am new to it, I won&amp;rsquo;t describe much of its fundamentals. Please visit the official web site to learn from scratch.&#xA;https://webassembly.org/&#xA;This short article describes my first trial on wasm. What I want to try is just to run example code, but I&amp;rsquo;d start with writing the example code in wasm(wat).</description>
     </item>
-    
   </channel>
 </rss>

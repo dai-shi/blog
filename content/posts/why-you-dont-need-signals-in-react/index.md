@@ -20,7 +20,7 @@ but I later realized that they can be boiled down to two main aspects:
 - a) Reactive primitives
 - b) Bypassing diffing
 
-{{< tweet 1628926485200523264 >}}
+{{< tweet user="dai_shi" id="1628926485200523264" >}}
 
 In this blog post, we'll explore these two aspects
 and their relevance in the context of React.

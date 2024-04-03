@@ -6,49 +6,35 @@
     <description>Recent content in suspense on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/suspense/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Why useSyncExternalStore Is Not Used in Jotai</title>
       <link>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</guid>
-      <description>Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
-As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&amp;rsquo;s a repo to evaluate some details.</description>
+      <description>Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.&#xA;As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&amp;rsquo;s a repo to evaluate some details.</description>
     </item>
-    
     <item>
       <title>How to Use Jotai and useTransition for Mutation</title>
       <link>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</link>
       <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</guid>
-      <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.
-In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
-https://codesandbox.io/s/vjfpcd
-import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>
+      <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.&#xA;In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.&#xA;https://codesandbox.io/s/vjfpcd&#xA;import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>
     </item>
-    
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</guid>
-      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
-This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
+      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.&#xA;This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
     </item>
-    
     <item>
       <title>Developing a React Library for Suspense for Data Fetching in Concurrent Mode</title>
       <link>https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</link>
       <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</guid>
-      <description>Introduction We have been waiting for &amp;ldquo;Suspense for Data Fetching&amp;rdquo; for a long time. It is now provided as an experimental feature in the experimental channel.
-Check out the official docs for details.
-Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference They are trying best to explain new mind sets with analogies. That means it&amp;rsquo;s totally different from the usage with traditional React.</description>
+      <description>Introduction We have been waiting for &amp;ldquo;Suspense for Data Fetching&amp;rdquo; for a long time. It is now provided as an experimental feature in the experimental channel.&#xA;Check out the official docs for details.&#xA;Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference They are trying best to explain new mind sets with analogies. That means it&amp;rsquo;s totally different from the usage with traditional React.</description>
     </item>
-    
   </channel>
 </rss>

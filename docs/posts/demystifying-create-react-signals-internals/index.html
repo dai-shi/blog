@@ -8,17 +8,17 @@
 <meta property="og:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
 We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/" /><meta property="og:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/" /><meta property="og:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2023-02-26T23:00:00+09:00" />
 <meta property="article:modified_time" content="2023-02-26T23:00:00+09:00" />
 
-    <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg"/>
-<meta name="twitter:title" content="Demystifying Create React Signals Internals"/>
+
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg" /><meta name="twitter:title" content="Demystifying Create React Signals Internals"/>
 <meta name="twitter:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
 We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks."/>
 
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="generator" content="Hugo 0.121.2">
     
       <title>Demystifying Create React Signals Internals &middot; Daishi Kato&#39;s blog</title>
     
@@ -301,6 +301,7 @@ about the implementation of uncontrolled components.</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">jotai-signal v0.7.0 is released! <a href="https://t.co/aonMlSdAtj">https://t.co/aonMlSdAtj</a><br><br>This is the first library I developed, inspired by preactjs/signals-react. This version has a new capability, which is to use `callback ref` to manipulate DOM directly if possible. <a href="https://t.co/BrfcmZ8laV">pic.twitter.com/BrfcmZ8laV</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1616639032418799619?ref_src=twsrc%5Etfw">January 21, 2023</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+
 <p>This approach is still considered experimental
 and might have a pitfall.</p>
 <h2 id="what-are-difficulties">What are difficulties?</h2>
@@ -350,11 +351,13 @@ we can technically create <code>redux-signal</code>.</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">In addition to jotai/valtio/zustand-signal, redux-signal is technically possible. But, I feel like I&#39;ve already done too much. 😂 <a href="https://t.co/87tUeKVlw6">https://t.co/87tUeKVlw6</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1629482966895448064?ref_src=twsrc%5Etfw">February 25, 2023</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
+
 <p>I think signals in React are still a open research field.</p>
 <p>If React will provide a new primitive such as <code>use(Observable)</code>,
 we could explore this approach further.</p>
 <blockquote class="twitter-tweet"><p lang="en" dir="ltr">I hope such a primitive to be `use(AsyncIterable)`. <a href="https://t.co/F9hn0JHKrI">https://t.co/F9hn0JHKrI</a> <a href="https://t.co/uLx2YaJqf8">https://t.co/uLx2YaJqf8</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1628951555658620930?ref_src=twsrc%5Etfw">February 24, 2023</a></blockquote>
 <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 <p>Until then, let&rsquo;s play with userland solutions.</p>
 
@@ -363,7 +366,7 @@ we could explore this approach further.</p>
 
 
   <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     

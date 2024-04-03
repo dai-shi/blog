@@ -10,19 +10,19 @@ Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Ap
 Typically, you would initialize apollo client like this.
 import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/" /><meta property="og:image" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/cover.png"/><meta property="article:section" content="posts" />
+<meta property="og:url" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/" /><meta property="og:image" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/cover.png" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2020-01-10T23:00:00+09:00" />
 <meta property="article:modified_time" content="2020-01-10T23:00:00+09:00" />
 
-    <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/cover.png"/>
-<meta name="twitter:title" content="Lazy Load Apollo Link in Apollo Client"/>
+
+    <meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:image" content="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/cover.png" /><meta name="twitter:title" content="Lazy Load Apollo Link in Apollo Client"/>
 <meta name="twitter:description" content="Introduction This is a short post about my small library.
 Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
 Typically, you would initialize apollo client like this.
 import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link."/>
 
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="generator" content="Hugo 0.121.2">
     
       <title>Lazy Load Apollo Link in Apollo Client &middot; Daishi Kato&#39;s blog</title>
     
@@ -248,7 +248,7 @@ async initialization like the following.</p>
 
 
   <div id="disqus_thread"></div>
-<script type="application/javascript">
+<script>
     window.disqus_config = function () {
     
     

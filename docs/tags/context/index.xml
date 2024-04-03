@@ -6,152 +6,98 @@
     <description>Recent content in context on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 10 Jun 2021 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/context/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 10 Jun 2021 21:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/context/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing Global State Libraries With React 18 Alpha Concurrent Rendering</title>
       <link>https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</guid>
-      <description>Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &amp;ldquo;tearing&amp;rdquo; and &amp;ldquo;branching&amp;rdquo;.
-Tearing is an undesirable behavior in which two components render with different values for same global state.
-Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update.</description>
+      <description>Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &amp;ldquo;tearing&amp;rdquo; and &amp;ldquo;branching&amp;rdquo;.&#xA;Tearing is an undesirable behavior in which two components render with different values for same global state.&#xA;Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update.</description>
     </item>
-    
     <item>
       <title>How to Handle Async Actions for Global State With React Hooks and Context</title>
       <link>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</link>
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</guid>
-      <description>Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
-https://react-tracked.js.org
-This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
-Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.</description>
+      <description>Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.&#xA;https://react-tracked.js.org&#xA;This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.&#xA;Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.</description>
     </item>
-    
     <item>
       <title>React Tracked Documentation Website with Docusaurus v2</title>
       <link>https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/</link>
       <pubDate>Tue, 15 Oct 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/</guid>
-      <description>Introduction I have been developing a React Hooks library called React Tracked. This is the library I put much effort lately as well as my other libraries.
-https://github.com/dai-shi/react-tracked
-This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.
-What&amp;rsquo;s notable in this library is that it doesn&amp;rsquo;t provide any new fancy features. You can simply replace Context.</description>
+      <description>Introduction I have been developing a React Hooks library called React Tracked. This is the library I put much effort lately as well as my other libraries.&#xA;https://github.com/dai-shi/react-tracked&#xA;This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.&#xA;What&amp;rsquo;s notable in this library is that it doesn&amp;rsquo;t provide any new fancy features. You can simply replace Context.</description>
     </item>
-    
     <item>
       <title>4 options to prevent extra rerenders with React context</title>
       <link>https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/</link>
       <pubDate>Wed, 21 Aug 2019 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/</guid>
       <description>Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable.</description>
     </item>
-    
     <item>
       <title>Effortless render optimization with state usage tracking with React hooks</title>
       <link>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</link>
       <pubDate>Sun, 21 Jul 2019 13:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
-      <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.
-However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
-This post shows some example code about the problem and the solution with state usage tracking.
-Problem Let&amp;rsquo;s assume a person object as a state.</description>
+      <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.&#xA;However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.&#xA;This post shows some example code about the problem and the solution with state usage tracking.&#xA;Problem Let&amp;rsquo;s assume a person object as a state.</description>
     </item>
-    
     <item>
       <title>How to use react-tracked: React hooks-oriented Todo List example</title>
       <link>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</link>
       <pubDate>Mon, 08 Jul 2019 01:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</guid>
-      <description>Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
-We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
-https://github.com/dai-shi/react-tracked
-The example we show is the one from Redux: Todo List</description>
+      <description>Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.&#xA;We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.&#xA;https://github.com/dai-shi/react-tracked&#xA;The example we show is the one from Redux: Todo List</description>
     </item>
-    
     <item>
       <title>Four different approaches to non-Redux global state libraries</title>
       <link>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</link>
       <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
-      <description>Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.
-Technically, there are several implementations how to store state and notify changes. We don&amp;rsquo;t go in detail in this post, but just note two axes.
-whether context based or external store whether subscriptions based or context propagation In this post, we focus on API design of hooks at the consumer end.</description>
+      <description>Introduction Since React hooks landed, there has been many libraries proposed for global state. Some of them are simple wrappers around context. Whereas, some of them are full featured state management systems.&#xA;Technically, there are several implementations how to store state and notify changes. We don&amp;rsquo;t go in detail in this post, but just note two axes.&#xA;whether context based or external store whether subscriptions based or context propagation In this post, we focus on API design of hooks at the consumer end.</description>
     </item>
-    
     <item>
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
       <link>https://blog.axlight.com/posts/benchmark-react-tracked/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/benchmark-react-tracked/</guid>
-      <description>Introduction React-Redux provides hooks API with nice abstraction. Especially, useSelector is probaly less misused than mapStateToProps.
-react-tracked is a library for global state without Redux. This library provides almost compatible hooks API to React-Redux. It&amp;rsquo;s developed with performance in mind, and it should be as performant as React-Redux, even though it utilizes only React context. See the GitHub repo for more information.
-https://github.com/dai-shi/react-tracked
-This post shows benchmark results to convince that it actually is performant in one scenario.</description>
+      <description>Introduction React-Redux provides hooks API with nice abstraction. Especially, useSelector is probaly less misused than mapStateToProps.&#xA;react-tracked is a library for global state without Redux. This library provides almost compatible hooks API to React-Redux. It&amp;rsquo;s developed with performance in mind, and it should be as performant as React-Redux, even though it utilizes only React context. See the GitHub repo for more information.&#xA;https://github.com/dai-shi/react-tracked&#xA;This post shows benchmark results to convince that it actually is performant in one scenario.</description>
     </item>
-    
     <item>
       <title>Super performant global state with React context and hooks</title>
       <link>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</link>
       <pubDate>Sat, 15 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</guid>
-      <description>Introduction There are many libraries to provide global state in React. React itself doesn&amp;rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&amp;rsquo;s properly implemented. It&amp;rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
-This post introduces a library for global state with performance.</description>
+      <description>Introduction There are many libraries to provide global state in React. React itself doesn&amp;rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&amp;rsquo;s properly implemented. It&amp;rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).&#xA;This post introduces a library for global state with performance.</description>
     </item>
-    
     <item>
       <title>Four patterns for global state with React hooks: Context or Redux</title>
       <link>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</link>
       <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</guid>
-      <description>Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.
-Pattern 1: Prop passing Some might think it wouldn&amp;rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components.</description>
+      <description>Introduction Global state or shared state is one of the biggest issues when you start developing a React app. Should we use Redux? Do hooks provide a Redux-like solution? I would like to show four patterns toward using Redux. This is my personal opinion and mainly for new apps.&#xA;Pattern 1: Prop passing Some might think it wouldn&amp;rsquo;t scale, but the most basic pattern should still be prop passing. If the app is small enough, define local state in a parent component and simply pass it down to child components.</description>
     </item>
-    
     <item>
       <title>A thought on React Context default value</title>
       <link>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</link>
       <pubDate>Fri, 11 Jan 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</guid>
-      <description>Introduction It&amp;rsquo;s been about a year since React Context API is out. This is powerful and it&amp;rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.
-https://reactjs.org/docs/context.html
-https://reactjs.org/docs/hooks-intro.html
-Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
-The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
+      <description>Introduction It&amp;rsquo;s been about a year since React Context API is out. This is powerful and it&amp;rsquo;s even more powerful with upcoming React Hooks API, namely useContext. Please check out official documents to learn them in detail.&#xA;https://reactjs.org/docs/context.html&#xA;https://reactjs.org/docs/hooks-intro.html&#xA;Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.&#xA;The defaultValue argument is only used when a component does not have a matching Provider above it in the tree.</description>
     </item>
-    
     <item>
       <title>React global state by Context API for TypeScript</title>
       <link>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</link>
       <pubDate>Thu, 08 Nov 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</guid>
-      <description>Note: this post has nothing to do with React Hooks API.
-In my previous post, I introduced a library called react-context-global-state. After a while, I have better knowlege of TypeScript (yes, I&amp;rsquo;m a beginner!), and come up with fairly good type definitions. I just released a new version.
-https://www.npmjs.com/package/react-context-global-state
-Example code in TypeScript Let me breifly show how the code looks like in TypeScript.
-In a file named state.ts, we define a global state and export function components.</description>
+      <description>Note: this post has nothing to do with React Hooks API.&#xA;In my previous post, I introduced a library called react-context-global-state. After a while, I have better knowlege of TypeScript (yes, I&amp;rsquo;m a beginner!), and come up with fairly good type definitions. I just released a new version.&#xA;https://www.npmjs.com/package/react-context-global-state&#xA;Example code in TypeScript Let me breifly show how the code looks like in TypeScript.&#xA;In a file named state.ts, we define a global state and export function components.</description>
     </item>
-    
     <item>
       <title>React global state by Context API</title>
       <link>https://blog.axlight.com/posts/react-global-state-by-context-api/</link>
       <pubDate>Fri, 05 Oct 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-global-state-by-context-api/</guid>
       <description>I had been trying to find a way to use React without using class. Redux is one solution to achieve this. Although I love the idea of writing everthing in pure functions, Redux is sometimes not suitable for small apps. React v16.3 introduced new Context API officially. Since then, several ideas were proposed to use it for managing global state. So far, I wasn&amp;rsquo;t able to find something I really liked, hence I made a new one.</description>
     </item>
-    
   </channel>
 </rss>

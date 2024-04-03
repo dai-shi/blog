@@ -6,149 +6,98 @@
     <description>Recent content in proxy on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 30 Jan 2022 18:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 30 Jan 2022 18:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>When I Use Valtio and When I Use Jotai</title>
       <link>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</guid>
-      <description>Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?
-For those who are not familiar with them, they are two out of many state management libraries that I developed.
-https://github.com/pmndrs/valtio
-https://github.com/pmndrs/jotai
-Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&amp;rsquo;t usually use both in a single app.</description>
+      <description>Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?&#xA;For those who are not familiar with them, they are two out of many state management libraries that I developed.&#xA;https://github.com/pmndrs/valtio&#xA;https://github.com/pmndrs/jotai&#xA;Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&amp;rsquo;t usually use both in a single app.</description>
     </item>
-    
     <item>
       <title>How Valtio Proxy State Works (React Part)</title>
       <link>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</link>
       <pubDate>Sun, 26 Dec 2021 22:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</guid>
-      <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
-Let&amp;rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 } // Mutate it again state.</description>
+      <description>Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.&#xA;Let&amp;rsquo;s recap the API in vanilla part of Valtio.&#xA;// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&amp;gt; { count: 1 } // Mutate it again state.</description>
     </item>
-    
     <item>
       <title>How Valtio Proxy State Works (Vanilla Part)</title>
       <link>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</link>
       <pubDate>Fri, 27 Aug 2021 22:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</guid>
-      <description>Introduction Valtio is a library for global state primarily for React. It&amp;rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&amp;rsquo;s a novel API to add immutability to mutable state.
-What is immutable state? JavaScript doesn&amp;rsquo;t support immutability as language, so it&amp;rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .</description>
+      <description>Introduction Valtio is a library for global state primarily for React. It&amp;rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&amp;rsquo;s a novel API to add immutability to mutable state.&#xA;What is immutable state? JavaScript doesn&amp;rsquo;t support immutability as language, so it&amp;rsquo;s just a coding contract.&#xA;const immutableState1 = { count: 0, text: &amp;#39;hello&amp;#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .</description>
     </item>
-    
     <item>
       <title>Developing a Memoization Library With Proxies</title>
       <link>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</guid>
-      <description>Introduction It&amp;rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.
-Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?</description>
+      <description>Introduction It&amp;rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.&#xA;Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?</description>
     </item>
-    
     <item>
       <title>How I developed a Concurrent Mode friendly library for React Redux</title>
       <link>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</link>
       <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</guid>
-      <description>Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&amp;rsquo;s discuss why it&amp;rsquo;s important and what&amp;rsquo;s the technique behind it.
-React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change.</description>
+      <description>Introduction I have been developing several React hooks libraries for months. In this post, I will explain why and how I developed a React Redux binding library with React hooks. The library is implemented to be concurrent mode friendly. Let&amp;rsquo;s discuss why it&amp;rsquo;s important and what&amp;rsquo;s the technique behind it.&#xA;React concurrent mode has not come yet, and all discussions are based on the current unstable behavior. Please note that when concurrent mode is released and best practice is researched, things may change.</description>
     </item>
-    
     <item>
       <title>Effortless render optimization with state usage tracking with React hooks</title>
       <link>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</link>
       <pubDate>Sun, 21 Jul 2019 13:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
-      <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.
-However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.
-This post shows some example code about the problem and the solution with state usage tracking.
-Problem Let&amp;rsquo;s assume a person object as a state.</description>
+      <description>Introduction React useContext is very handy to avoid prop drilling. It can be used to define global state or shared state that multiple components in the tree can access.&#xA;However, useContext is not specifically designed for global state and there&amp;rsquo;s a caveat. Any change to context value propagates all useContext to re-render components.&#xA;This post shows some example code about the problem and the solution with state usage tracking.&#xA;Problem Let&amp;rsquo;s assume a person object as a state.</description>
     </item>
-    
     <item>
       <title>What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</title>
       <link>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</link>
       <pubDate>Sun, 07 Jul 2019 17:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</guid>
-      <description>Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.
-In general, I would avoid using global state. It would reduce the isolation of components. Multiple contexts should work fine for certain use cases.
-But, what if we really need a global state.
-Problem When a state is a non-trivial object, it&amp;rsquo;s not likely to use all properties of the object for one component to render.</description>
+      <description>Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.&#xA;In general, I would avoid using global state. It would reduce the isolation of components. Multiple contexts should work fine for certain use cases.&#xA;But, what if we really need a global state.&#xA;Problem When a state is a non-trivial object, it&amp;rsquo;s not likely to use all properties of the object for one component to render.</description>
     </item>
-    
     <item>
       <title>Super performant global state with React context and hooks</title>
       <link>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</link>
       <pubDate>Sat, 15 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</guid>
-      <description>Introduction There are many libraries to provide global state in React. React itself doesn&amp;rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&amp;rsquo;s properly implemented. It&amp;rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).
-This post introduces a library for global state with performance.</description>
+      <description>Introduction There are many libraries to provide global state in React. React itself doesn&amp;rsquo;t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it&amp;rsquo;s properly implemented. It&amp;rsquo;s likely that performance drops down compared to using non-global state (incl. multiple contexts).&#xA;This post introduces a library for global state with performance.</description>
     </item>
-    
     <item>
       <title>Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux</title>
       <link>https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</link>
       <pubDate>Mon, 03 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</guid>
       <description>Introduction If you had already used Redux and loved it, you might not understand why people try using React context and hooks to replace Redux (a.k.a no Redux hype). For those who would think Redux DevTools Extension and middleware are nice to have, Redux and context + hooks are actually two options. Context + hooks is just fine to share state among components, however if apps get bigger, they are likely to require Redux or other similar solutions; otherwise they end up having many contexts that can&amp;rsquo;t be handled very easily.</description>
     </item>
-    
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
       <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
       <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
-      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.
-https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4
-On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.
-https://github.com/dai-shi/reactive-react-redux
-It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
+      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.&#xA;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&#xA;On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.&#xA;https://github.com/dai-shi/reactive-react-redux&#xA;It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
     </item>
-    
     <item>
       <title>New React Redux coding style with hooks without selectors</title>
       <link>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</link>
       <pubDate>Sat, 20 Apr 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</guid>
-      <description>Introduction React Redux is one of popular web tech stacks. As I found React hooks so promising, I have been developing a hooks-based library for React Redux called &amp;ldquo;reactive-react-redux.&amp;rdquo;
-https://github.com/dai-shi/reactive-react-redux
-Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&amp;rsquo;t need to care about optimization, but just focus on composition of logic.
-This library provides two basic hooks: useReduxState and useReduxDispatch. This article shows example code how to use them.</description>
+      <description>Introduction React Redux is one of popular web tech stacks. As I found React hooks so promising, I have been developing a hooks-based library for React Redux called &amp;ldquo;reactive-react-redux.&amp;rdquo;&#xA;https://github.com/dai-shi/reactive-react-redux&#xA;Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&amp;rsquo;t need to care about optimization, but just focus on composition of logic.&#xA;This library provides two basic hooks: useReduxState and useReduxDispatch. This article shows example code how to use them.</description>
     </item>
-    
     <item>
       <title>Developing React custom hooks for Redux without react-redux</title>
       <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</link>
       <pubDate>Fri, 14 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</guid>
       <description>Background Ever since I learned Redux, I&amp;rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward.</description>
     </item>
-    
     <item>
       <title>A deadly simple React bindings library for Redux with Hooks API</title>
       <link>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</link>
       <pubDate>Fri, 16 Nov 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
-      <description>There is a follow-up article which describes the implementation details of this library. Please visit here.
-Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.
-In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners.</description>
+      <description>There is a follow-up article which describes the implementation details of this library. Please visit here.&#xA;Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings react-redux that allows to connect Redux state to any React components.&#xA;In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners.</description>
     </item>
-    
   </channel>
 </rss>

@@ -6,91 +6,63 @@
     <description>Recent content in async on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/async/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Dec 2019 23:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/async/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How to Handle Async Actions for Global State With React Hooks and Context</title>
       <link>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</link>
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</guid>
-      <description>Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
-https://react-tracked.js.org
-This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
-Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.</description>
+      <description>Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.&#xA;https://react-tracked.js.org&#xA;This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.&#xA;Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.</description>
     </item>
-    
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</guid>
-      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
-This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
+      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.&#xA;This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
     </item>
-    
     <item>
       <title>React hooks-oriented Redux coding pattern without thunks and action creators</title>
       <link>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</link>
       <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</guid>
-      <description>Motivation I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&amp;rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)
-I think I have my own understanding of how to use Redux with React.</description>
+      <description>Motivation I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux ecosystem. Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad. Boilerplate code is not from the Redux core, but from the ecosystem. Don&amp;rsquo;t get me wrong. Best practices are nice and I think the recent work of Redux Starter Kit is great. (Claps to Mark)&#xA;I think I have my own understanding of how to use Redux with React.</description>
     </item>
-    
     <item>
       <title>How to create React custom hooks for data fetching with useEffect</title>
       <link>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</link>
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</guid>
-      <description>Background React 16.8 added a new API, Hooks. If you haven&amp;rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.
-https://reactjs.org/docs/hooks-intro.html
-Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.</description>
+      <description>Background React 16.8 added a new API, Hooks. If you haven&amp;rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.&#xA;https://reactjs.org/docs/hooks-intro.html&#xA;Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.</description>
     </item>
-    
     <item>
       <title>useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind</title>
       <link>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</link>
       <pubDate>Mon, 04 Feb 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</guid>
-      <description>Introduction While I don&amp;rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &amp;ldquo;useFetch&amp;rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
-I&amp;rsquo;ve started developing &amp;ldquo;useFetch&amp;rdquo; as a tutorial to build a custom hook.</description>
+      <description>Introduction While I don&amp;rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &amp;ldquo;useFetch&amp;rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.&#xA;I&amp;rsquo;ve started developing &amp;ldquo;useFetch&amp;rdquo; as a tutorial to build a custom hook.</description>
     </item>
-    
     <item>
       <title>Developing React custom hooks for abortable async functions with AbortController</title>
       <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</link>
       <pubDate>Mon, 31 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</guid>
-      <description>In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
-Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&amp;rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.</description>
+      <description>In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.&#xA;Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can&amp;rsquo;t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.</description>
     </item>
-    
     <item>
       <title>Introduction to abortable async functions for React with hooks</title>
       <link>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</link>
       <pubDate>Tue, 11 Dec 2018 10:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</guid>
-      <description>There is a follow-up article which describes the implementation details of the library. Please visit here.
-TL;DR Just visit the example in codesandbox and try it.
-Background You can&amp;rsquo;t cancel promises in JavaScript and that&amp;rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.</description>
+      <description>There is a follow-up article which describes the implementation details of the library. Please visit here.&#xA;TL;DR Just visit the example in codesandbox and try it.&#xA;Background You can&amp;rsquo;t cancel promises in JavaScript and that&amp;rsquo;s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework.</description>
     </item>
-    
     <item>
       <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching</title>
       <link>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</link>
       <pubDate>Thu, 29 Nov 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</guid>
-      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.
-https://reactjs.org/docs/hooks-intro.html
-Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
+      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.&#xA;https://reactjs.org/docs/hooks-intro.html&#xA;Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
     </item>
-    
   </channel>
 </rss>

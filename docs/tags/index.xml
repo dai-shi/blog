@@ -6,303 +6,238 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Apr 2024 23:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>global-state</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
+      <pubDate>Wed, 03 Apr 2024 23:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
-    
+    <item>
+      <title>jotai</title>
+      <link>https://blog.axlight.com/tags/jotai/</link>
+      <pubDate>Wed, 03 Apr 2024 23:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/jotai/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>react</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Wed, 03 Apr 2024 23:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
     <item>
       <title>hooks</title>
       <link>https://blog.axlight.com/tags/hooks/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
     </item>
-    
-    <item>
-      <title>jotai</title>
-      <link>https://blog.axlight.com/tags/jotai/</link>
-      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/jotai/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>react</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    
     <item>
       <title>suspense</title>
       <link>https://blog.axlight.com/tags/suspense/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/suspense/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>typescript</title>
       <link>https://blog.axlight.com/tags/typescript/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>zustand</title>
       <link>https://blog.axlight.com/tags/zustand/</link>
       <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/zustand/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>atom</title>
       <link>https://blog.axlight.com/tags/atom/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/atom/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>signals</title>
       <link>https://blog.axlight.com/tags/signals/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/signals/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>fetch</title>
       <link>https://blog.axlight.com/tags/fetch/</link>
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/fetch/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>node</title>
       <link>https://blog.axlight.com/tags/node/</link>
       <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/node/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>proxy</title>
       <link>https://blog.axlight.com/tags/proxy/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>valtio</title>
       <link>https://blog.axlight.com/tags/valtio/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/valtio/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>concurrent</title>
       <link>https://blog.axlight.com/tags/concurrent/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/concurrent/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>context</title>
       <link>https://blog.axlight.com/tags/context/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/context/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>redux</title>
       <link>https://blog.axlight.com/tags/redux/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>memoization</title>
       <link>https://blog.axlight.com/tags/memoization/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/memoization/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>recoil</title>
       <link>https://blog.axlight.com/tags/recoil/</link>
       <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/recoil/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>worker</title>
       <link>https://blog.axlight.com/tags/worker/</link>
       <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/worker/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>apollo</title>
       <link>https://blog.axlight.com/tags/apollo/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/apollo/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>apollo-link</title>
       <link>https://blog.axlight.com/tags/apollo-link/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/apollo-link/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>graphql</title>
       <link>https://blog.axlight.com/tags/graphql/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/graphql/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>lazy-loading</title>
       <link>https://blog.axlight.com/tags/lazy-loading/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/lazy-loading/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>async</title>
       <link>https://blog.axlight.com/tags/async/</link>
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/async/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>usereducer</title>
       <link>https://blog.axlight.com/tags/usereducer/</link>
       <pubDate>Mon, 01 Jul 2019 08:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/usereducer/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>benchmark</title>
       <link>https://blog.axlight.com/tags/benchmark/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/benchmark/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>abortable</title>
       <link>https://blog.axlight.com/tags/abortable/</link>
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/abortable/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>wasm</title>
       <link>https://blog.axlight.com/tags/wasm/</link>
       <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/wasm/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>express</title>
       <link>https://blog.axlight.com/tags/express/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/express/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>playground</title>
       <link>https://blog.axlight.com/tags/playground/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/playground/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>expo</title>
       <link>https://blog.axlight.com/tags/expo/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/expo/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>jest</title>
       <link>https://blog.axlight.com/tags/jest/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/jest/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>react-native</title>
       <link>https://blog.axlight.com/tags/react-native/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/tags/react-native/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

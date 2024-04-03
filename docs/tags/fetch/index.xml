@@ -6,69 +6,49 @@
     <description>Recent content in fetch on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 31 Jan 2023 14:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/fetch/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 31 Jan 2023 14:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/fetch/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>You Might Not Need React Query for Jotai</title>
       <link>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</link>
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</guid>
-      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
-In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
+      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.&#xA;In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
     </item>
-    
     <item>
       <title>Diving Into React Suspense Render-as-You-Fetch for REST APIs</title>
       <link>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</link>
       <pubDate>Mon, 16 Dec 2019 22:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</guid>
-      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
-This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
+      <description>Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.&#xA;This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&amp;rsquo;s worth looking into Relay documentation too.</description>
     </item>
-    
     <item>
       <title>Developing a React Library for Suspense for Data Fetching in Concurrent Mode</title>
       <link>https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</link>
       <pubDate>Sun, 03 Nov 2019 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</guid>
-      <description>Introduction We have been waiting for &amp;ldquo;Suspense for Data Fetching&amp;rdquo; for a long time. It is now provided as an experimental feature in the experimental channel.
-Check out the official docs for details.
-Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference They are trying best to explain new mind sets with analogies. That means it&amp;rsquo;s totally different from the usage with traditional React.</description>
+      <description>Introduction We have been waiting for &amp;ldquo;Suspense for Data Fetching&amp;rdquo; for a long time. It is now provided as an experimental feature in the experimental channel.&#xA;Check out the official docs for details.&#xA;Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference They are trying best to explain new mind sets with analogies. That means it&amp;rsquo;s totally different from the usage with traditional React.</description>
     </item>
-    
     <item>
       <title>How to create React custom hooks for data fetching with useEffect</title>
       <link>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</link>
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</guid>
-      <description>Background React 16.8 added a new API, Hooks. If you haven&amp;rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.
-https://reactjs.org/docs/hooks-intro.html
-Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.</description>
+      <description>Background React 16.8 added a new API, Hooks. If you haven&amp;rsquo;t learned hooks yet, go to the official site and read the entire document before continuing this article.&#xA;https://reactjs.org/docs/hooks-intro.html&#xA;Hooks are a new addition in React 16.8. They let you use state and other React features without writing a class. This… reactjs.org This article is about how to create custom hooks for data fetching. As described in the roadmap, React is planning to release react-cache and Suspense for data fetching in the near future.</description>
     </item>
-    
     <item>
       <title>useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind</title>
       <link>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</link>
       <pubDate>Mon, 04 Feb 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</guid>
-      <description>Introduction While I don&amp;rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &amp;ldquo;useFetch&amp;rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
-I&amp;rsquo;ve started developing &amp;ldquo;useFetch&amp;rdquo; as a tutorial to build a custom hook.</description>
+      <description>Introduction While I don&amp;rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &amp;ldquo;useFetch&amp;rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.&#xA;I&amp;rsquo;ve started developing &amp;ldquo;useFetch&amp;rdquo; as a tutorial to build a custom hook.</description>
     </item>
-    
     <item>
       <title>React Hooks Tutorial on Developing a Custom Hook for Data Fetching</title>
       <link>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</link>
       <pubDate>Thu, 29 Nov 2018 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</guid>
-      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.
-https://reactjs.org/docs/hooks-intro.html
-Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
+      <description>Introduction React Hooks are a new feature coming in React 16.7. It allows us to write stateful function components that were impossible before without class components. The official docs are must-read, so check them out if you haven&amp;rsquo;t.&#xA;https://reactjs.org/docs/hooks-intro.html&#xA;Besides stateful function components, this new feature allow us to build a custom hook to share logic between components. This has been possible with High-order Components (HoCs), and although there&amp;rsquo;s technically no difference what hooks can achieve, hooks simplify it a lot and reduce so called &amp;ldquo;wrapper hell&amp;rdquo;.</description>
     </item>
-    
   </channel>
 </rss>

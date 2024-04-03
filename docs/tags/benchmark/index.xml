@@ -6,31 +6,21 @@
     <description>Recent content in benchmark on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 16 Jun 2019 23:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 16 Jun 2019 23:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
       <link>https://blog.axlight.com/posts/benchmark-react-tracked/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/benchmark-react-tracked/</guid>
-      <description>Introduction React-Redux provides hooks API with nice abstraction. Especially, useSelector is probaly less misused than mapStateToProps.
-react-tracked is a library for global state without Redux. This library provides almost compatible hooks API to React-Redux. It&amp;rsquo;s developed with performance in mind, and it should be as performant as React-Redux, even though it utilizes only React context. See the GitHub repo for more information.
-https://github.com/dai-shi/react-tracked
-This post shows benchmark results to convince that it actually is performant in one scenario.</description>
+      <description>Introduction React-Redux provides hooks API with nice abstraction. Especially, useSelector is probaly less misused than mapStateToProps.&#xA;react-tracked is a library for global state without Redux. This library provides almost compatible hooks API to React-Redux. It&amp;rsquo;s developed with performance in mind, and it should be as performant as React-Redux, even though it utilizes only React context. See the GitHub repo for more information.&#xA;https://github.com/dai-shi/react-tracked&#xA;This post shows benchmark results to convince that it actually is performant in one scenario.</description>
     </item>
-    
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
       <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
       <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
-      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.
-https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4
-On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.
-https://github.com/dai-shi/reactive-react-redux
-It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
+      <description>Introduction Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.&#xA;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&#xA;On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.&#xA;https://github.com/dai-shi/reactive-react-redux&#xA;It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.</description>
     </item>
-    
   </channel>
 </rss>

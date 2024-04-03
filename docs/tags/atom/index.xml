@@ -6,61 +6,42 @@
     <description>Recent content in atom on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Apr 2023 21:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/atom/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 23 Apr 2023 21:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/atom/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Why You Don&#39;t Need Signals in React</title>
       <link>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</guid>
-      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
-Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
+      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.&#xA;Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
     </item>
-    
     <item>
       <title>You Might Not Need React Query for Jotai</title>
       <link>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</link>
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</guid>
-      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
-In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
+      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.&#xA;In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
     </item>
-    
     <item>
       <title>Why We Need Jotai v2 API</title>
       <link>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</link>
       <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</guid>
-      <description>Introduction Jotai is a library for React state management.
-The API (let&amp;rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
-What does it mean? First, atom read function is evaluated in the render phase in React.
-For example, consider a simple derived atom.
-const countAtom = atom(0); const doubleAtom = atom((get) =&amp;gt; get(countAtom) * 2); In the example, (get) =&amp;gt; get(countAtom) * 2 is the read function.</description>
+      <description>Introduction Jotai is a library for React state management.&#xA;The API (let&amp;rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.&#xA;What does it mean? First, atom read function is evaluated in the render phase in React.&#xA;For example, consider a simple derived atom.&#xA;const countAtom = atom(0); const doubleAtom = atom((get) =&amp;gt; get(countAtom) * 2); In the example, (get) =&amp;gt; get(countAtom) * 2 is the read function.</description>
     </item>
-    
     <item>
       <title>Learning React State Manager Jotai With 7GUIS Tasks</title>
       <link>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</link>
       <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</guid>
-      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.
-It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
-It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
+      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.&#xA;It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.&#xA;It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
     </item>
-    
     <item>
       <title>Developing React Global State Library With Atom Abstraction</title>
       <link>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</link>
       <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</guid>
-      <description>Introduction I have been developing various global state libraries for React. For example:
-react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
-Since Recoil is announced, I&amp;rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.</description>
+      <description>Introduction I have been developing various global state libraries for React. For example:&#xA;react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.&#xA;Since Recoil is announced, I&amp;rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.</description>
     </item>
-    
   </channel>
 </rss>

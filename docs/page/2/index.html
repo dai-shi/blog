@@ -9,11 +9,11 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.axlight.com/" />
 
-    <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
+
+    <meta name="twitter:card" content="summary"/><meta name="twitter:title" content="Daishi Kato&#39;s blog"/>
 <meta name="twitter:description" content=""/>
 
-    <meta name="generator" content="Hugo 0.119.0">
+    <meta name="generator" content="Hugo 0.121.2">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -112,6 +112,43 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/">How Valtio Proxy State Works (React Part)</a>
+			<br>
+			<small>
+				26 December 2021
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
+Let&rsquo;s recap the API in vanilla part of Valtio.
+// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 } // Mutate it again state.
+		
+			... <a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/proxy"><span class="label label-success">proxy</span></a>
+			
+				<a href="https://blog.axlight.com/tags/valtio"><span class="label label-success">valtio</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -456,44 +493,6 @@ Because of that, the usage of React Tracked is very straightforward. It is just 
 				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
 			
 				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/">Diving Into React Suspense Render-as-You-Fetch for REST APIs</a>
-			<br>
-			<small>
-				16 December 2019
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
-This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too.
-		
-			... <a href="https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/async"><span class="label label-success">async</span></a>
-			
-				<a href="https://blog.axlight.com/tags/fetch"><span class="label label-success">fetch</span></a>
-			
-				<a href="https://blog.axlight.com/tags/suspense"><span class="label label-success">suspense</span></a>
-			
-				<a href="https://blog.axlight.com/tags/concurrent"><span class="label label-success">concurrent</span></a>
 			
 		</small>
 		

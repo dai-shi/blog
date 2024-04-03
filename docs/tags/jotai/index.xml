@@ -6,96 +6,70 @@
     <description>Recent content in jotai on Daishi Kato&#39;s blog</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate><atom:link href="https://blog.axlight.com/tags/jotai/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 03 Apr 2024 23:00:00 +0900</lastBuildDate>
+    <atom:link href="https://blog.axlight.com/tags/jotai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Jotai Tips</title>
+      <link>https://blog.axlight.com/posts/jotai-tips/</link>
+      <pubDate>Wed, 03 Apr 2024 23:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/jotai-tips/</guid>
+      <description>Introduction I&amp;rsquo;ve been sharing tips about Jotai on Twitter, calling them &amp;ldquo;Jotai tips.&amp;rdquo; As tweets tend to get lost over time, I thought it would be good to have all these tips in one place.&#xA;So, here we go.&#xA;Tip 1: Primitive-like atoms Jotai tips: Primitive-like atoms&#xA;You can derive a primitive atom that behaves exactly the same, and you can add some side effects. pic.twitter.com/7r6tmRGNJ0&#xA;&amp;mdash; Daishi Kato (@dai_shi) August 23, 2023 Tip 2: Early return Jotai tips: early return</description>
+    </item>
     <item>
       <title>Why useSyncExternalStore Is Not Used in Jotai</title>
       <link>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</guid>
-      <description>Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
-As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&amp;rsquo;s a repo to evaluate some details.</description>
+      <description>Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.&#xA;As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&amp;rsquo;s a repo to evaluate some details.</description>
     </item>
-    
     <item>
       <title>How to Use Jotai and useTransition for Mutation</title>
       <link>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</link>
       <pubDate>Fri, 28 Jul 2023 01:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</guid>
-      <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.
-In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
-https://codesandbox.io/s/vjfpcd
-import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>
+      <description>Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&amp;rsquo;s primary focus is React Suspense from the beginning.&#xA;In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.&#xA;https://codesandbox.io/s/vjfpcd&#xA;import { Suspense } from &amp;#34;react&amp;#34;; import { atom, useAtomValue, useSetAtom } from &amp;#34;jotai&amp;#34;; const id = 1; const postAtom = atom(async (get) =&amp;gt; { const res = await fetch(`https://jsonplaceholder.</description>
     </item>
-    
     <item>
       <title>Why You Don&#39;t Need Signals in React</title>
       <link>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</guid>
-      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
-Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
+      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.&#xA;Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
     </item>
-    
     <item>
       <title>You Might Not Need React Query for Jotai</title>
       <link>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</link>
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</guid>
-      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
-In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
+      <description>Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.&#xA;In the early days, I wanted to have data fetching solution, but didn&amp;rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&amp;rsquo;s an integration with React Query v3.</description>
     </item>
-    
     <item>
       <title>Why We Need Jotai v2 API</title>
       <link>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</link>
       <pubDate>Tue, 06 Dec 2022 14:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</guid>
-      <description>Introduction Jotai is a library for React state management.
-The API (let&amp;rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
-What does it mean? First, atom read function is evaluated in the render phase in React.
-For example, consider a simple derived atom.
-const countAtom = atom(0); const doubleAtom = atom((get) =&amp;gt; get(countAtom) * 2); In the example, (get) =&amp;gt; get(countAtom) * 2 is the read function.</description>
+      <description>Introduction Jotai is a library for React state management.&#xA;The API (let&amp;rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.&#xA;What does it mean? First, atom read function is evaluated in the render phase in React.&#xA;For example, consider a simple derived atom.&#xA;const countAtom = atom(0); const doubleAtom = atom((get) =&amp;gt; get(countAtom) * 2); In the example, (get) =&amp;gt; get(countAtom) * 2 is the read function.</description>
     </item>
-    
     <item>
       <title>How Jotai Specifies Package Entry Points</title>
       <link>https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/</link>
       <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/</guid>
-      <description>Introduction If someone has already looked into package.json in the jotai library, they may find &amp;quot;exports&amp;quot; field.
-https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
-&amp;#34;exports&amp;#34;: { &amp;#34;./package.json&amp;#34;: &amp;#34;./package.json&amp;#34;, &amp;#34;.&amp;#34;: { &amp;#34;types&amp;#34;: &amp;#34;./index.d.ts&amp;#34;, &amp;#34;module&amp;#34;: &amp;#34;./esm/index.js&amp;#34;, &amp;#34;import&amp;#34;: &amp;#34;./esm/index.mjs&amp;#34;, &amp;#34;default&amp;#34;: &amp;#34;./index.js&amp;#34; }, &amp;#34;./utils&amp;#34;: { &amp;#34;types&amp;#34;: &amp;#34;./utils.d.ts&amp;#34;, &amp;#34;module&amp;#34;: &amp;#34;./esm/utils.js&amp;#34;, &amp;#34;import&amp;#34;: &amp;#34;./esm/utils.mjs&amp;#34;, &amp;#34;default&amp;#34;: &amp;#34;./utils.js&amp;#34; }, In the Node.js docs, it is described as Package entry points. Node.js v12.7.0 started implementing it. Nowadays, it&amp;rsquo;s used also by bundlers like webpack and vite.</description>
+      <description>Introduction If someone has already looked into package.json in the jotai library, they may find &amp;quot;exports&amp;quot; field.&#xA;https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31&#xA;&amp;#34;exports&amp;#34;: { &amp;#34;./package.json&amp;#34;: &amp;#34;./package.json&amp;#34;, &amp;#34;.&amp;#34;: { &amp;#34;types&amp;#34;: &amp;#34;./index.d.ts&amp;#34;, &amp;#34;module&amp;#34;: &amp;#34;./esm/index.js&amp;#34;, &amp;#34;import&amp;#34;: &amp;#34;./esm/index.mjs&amp;#34;, &amp;#34;default&amp;#34;: &amp;#34;./index.js&amp;#34; }, &amp;#34;./utils&amp;#34;: { &amp;#34;types&amp;#34;: &amp;#34;./utils.d.ts&amp;#34;, &amp;#34;module&amp;#34;: &amp;#34;./esm/utils.js&amp;#34;, &amp;#34;import&amp;#34;: &amp;#34;./esm/utils.mjs&amp;#34;, &amp;#34;default&amp;#34;: &amp;#34;./utils.js&amp;#34; }, In the Node.js docs, it is described as Package entry points. Node.js v12.7.0 started implementing it. Nowadays, it&amp;rsquo;s used also by bundlers like webpack and vite.</description>
     </item>
-    
     <item>
       <title>When I Use Valtio and When I Use Jotai</title>
       <link>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</guid>
-      <description>Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?
-For those who are not familiar with them, they are two out of many state management libraries that I developed.
-https://github.com/pmndrs/valtio
-https://github.com/pmndrs/jotai
-Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&amp;rsquo;t usually use both in a single app.</description>
+      <description>Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?&#xA;For those who are not familiar with them, they are two out of many state management libraries that I developed.&#xA;https://github.com/pmndrs/valtio&#xA;https://github.com/pmndrs/jotai&#xA;Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&amp;rsquo;t usually use both in a single app.</description>
     </item>
-    
     <item>
       <title>Learning React State Manager Jotai With 7GUIS Tasks</title>
       <link>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</link>
       <pubDate>Mon, 13 Sep 2021 20:23:30 +0900</pubDate>
-      
       <guid>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</guid>
-      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.
-It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
-It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
+      <description>Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.&#xA;It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.&#xA;It&amp;rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.</description>
     </item>
-    
   </channel>
 </rss>
