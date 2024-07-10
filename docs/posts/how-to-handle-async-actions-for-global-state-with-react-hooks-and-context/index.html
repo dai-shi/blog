@@ -4,25 +4,35 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="How to Handle Async Actions for Global State With React Hooks and Context" />
-<meta property="og:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+    <meta property="og:url" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="How to Handle Async Actions for Global State With React Hooks and Context">
+  <meta property="og:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
 https://react-tracked.js.org
 This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
-Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-12-20T23:00:00+09:00" />
-<meta property="article:modified_time" content="2019-12-20T23:00:00+09:00" />
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-12-20T23:00:00+09:00">
+    <meta property="article:modified_time" content="2019-12-20T23:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Context">
+    <meta property="article:tag" content="Hooks">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Async">
+    <meta property="og:image" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png">
 
-
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png" /><meta name="twitter:title" content="How to Handle Async Actions for Global State With React Hooks and Context"/>
-<meta name="twitter:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/cover.png">
+  <meta name="twitter:title" content="How to Handle Async Actions for Global State With React Hooks and Context">
+  <meta name="twitter:description" content="Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
 https://react-tracked.js.org
 This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
-Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext."/>
+Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.">
 
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>How to Handle Async Actions for Global State With React Hooks and Context &middot; Daishi Kato&#39;s blog</title>
     
@@ -34,7 +44,6 @@ Because of that, the usage of React Tracked is very straightforward. It is just 
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

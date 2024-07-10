@@ -4,31 +4,40 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="Why Zustand Typescript Implementation Is So Ugly" />
-<meta property="og:description" content="Introduction Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
-Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+    <meta property="og:url" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Why Zustand Typescript Implementation Is So Ugly">
+  <meta property="og:description" content="Introduction Note: This post focuses on Zustand library’s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand’s JavaScript implementation is very small, as seen in the following tweet.
 Here&#39;s the Zustand code in JS in a tweet.
 I think I did this before, but this is slightly a new version.
 Not in 140 chars, but in an image. 😅
 Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
-&mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/" /><meta property="og:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2023-07-19T15:00:00+09:00" />
-<meta property="article:modified_time" content="2023-07-19T15:00:00+09:00" />
+— Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-07-19T15:00:00+09:00">
+    <meta property="article:modified_time" content="2023-07-19T15:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Typescript">
+    <meta property="article:tag" content="Zustand">
+    <meta property="og:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg">
 
-
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg" /><meta name="twitter:title" content="Why Zustand Typescript Implementation Is So Ugly"/>
-<meta name="twitter:description" content="Introduction Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
-Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/cover.jpg">
+  <meta name="twitter:title" content="Why Zustand Typescript Implementation Is So Ugly">
+  <meta name="twitter:description" content="Introduction Note: This post focuses on Zustand library’s implementation in TypeScript. It does not affect the user code, which should be kept clean.
+Zustand’s JavaScript implementation is very small, as seen in the following tweet.
 Here&#39;s the Zustand code in JS in a tweet.
 I think I did this before, but this is slightly a new version.
 Not in 140 chars, but in an image. 😅
 Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
-&mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated."/>
+— Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated.">
 
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>Why Zustand Typescript Implementation Is So Ugly &middot; Daishi Kato&#39;s blog</title>
     
@@ -40,7 +49,6 @@ Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

@@ -4,23 +4,34 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering" />
-<meta property="og:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.
+    <meta property="og:url" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering">
+  <meta property="og:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called “tearing” and “branching”.
 Tearing is an undesirable behavior in which two components render with different values for same global state.
-Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/" /><meta property="og:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-06-10T21:00:00+09:00" />
-<meta property="article:modified_time" content="2021-06-10T21:00:00+09:00" />
+Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-06-10T21:00:00+09:00">
+    <meta property="article:modified_time" content="2021-06-10T21:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Hooks">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Redux">
+    <meta property="article:tag" content="Context">
+    <meta property="article:tag" content="Concurrent">
+    <meta property="og:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
 
-
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png" /><meta name="twitter:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering"/>
-<meta name="twitter:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
+  <meta name="twitter:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering">
+  <meta name="twitter:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called “tearing” and “branching”.
 Tearing is an undesirable behavior in which two components render with different values for same global state.
-Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update."/>
+Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update.">
 
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>Testing Global State Libraries With React 18 Alpha Concurrent Rendering &middot; Daishi Kato&#39;s blog</title>
     
@@ -32,7 +43,6 @@ Branching is a desirable behavior in which a component renders with a stale valu
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

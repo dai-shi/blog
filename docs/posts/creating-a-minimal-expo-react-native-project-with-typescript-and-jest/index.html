@@ -4,23 +4,34 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="Creating a Minimal Expo React Native Project with TypeScript and Jest" />
-<meta property="og:description" content="This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
-Install Expo CLI As described in the official doc, let&rsquo;s install the CLI tool.
-$ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/" /><meta property="og:image" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/cover.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2018-12-01T12:00:00+09:00" />
-<meta property="article:modified_time" content="2018-12-01T12:00:00+09:00" />
+    <meta property="og:url" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Creating a Minimal Expo React Native Project with TypeScript and Jest">
+  <meta property="og:description" content="This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
+Install Expo CLI As described in the official doc, let’s install the CLI tool.
+$ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-12-01T12:00:00+09:00">
+    <meta property="article:modified_time" content="2018-12-01T12:00:00+09:00">
+    <meta property="article:tag" content="Expo">
+    <meta property="article:tag" content="React-Native">
+    <meta property="article:tag" content="Apollo">
+    <meta property="article:tag" content="Graphql">
+    <meta property="article:tag" content="Typescript">
+    <meta property="article:tag" content="Jest">
+    <meta property="og:image" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/cover.png">
 
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/cover.png">
+  <meta name="twitter:title" content="Creating a Minimal Expo React Native Project with TypeScript and Jest">
+  <meta name="twitter:description" content="This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
+Install Expo CLI As described in the official doc, let’s install the CLI tool.
+$ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql.">
 
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/cover.png" /><meta name="twitter:title" content="Creating a Minimal Expo React Native Project with TypeScript and Jest"/>
-<meta name="twitter:description" content="This article shows the steps to create a minimal Expo project. The project uses TypeScript and Jest. Note that this procedure is based on Expo SDK31 and may be invalid in the future.
-Install Expo CLI As described in the official doc, let&rsquo;s install the CLI tool.
-$ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, but expo-cli depends on @expo/dev-tools which depends on old graphql."/>
-
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>Creating a Minimal Expo React Native Project with TypeScript and Jest &middot; Daishi Kato&#39;s blog</title>
     
@@ -32,7 +43,6 @@ $ npm install -g expo-cli Note: I prefer using npx and I use npx in my project, 
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

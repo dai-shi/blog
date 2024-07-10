@@ -4,25 +4,35 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="Steps to Develop Global State for React With Hooks Without Context" />
-<meta property="og:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
+    <meta property="og:url" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Steps to Develop Global State for React With Hooks Without Context">
+  <meta property="og:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It’s naively called “react-hooks-global-state” which turns out to be too long to read.
 The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
 https://github.com/dai-shi/react-hooks-global-state
-This post shows simplified versions of the code step by step." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/" /><meta property="og:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-02-18T23:00:00+09:00" />
-<meta property="article:modified_time" content="2020-02-18T23:00:00+09:00" />
+This post shows simplified versions of the code step by step.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-02-18T23:00:00+09:00">
+    <meta property="article:modified_time" content="2020-02-18T23:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Hooks">
+    <meta property="article:tag" content="Typescript">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Redux">
+    <meta property="og:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png">
 
-
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png" /><meta name="twitter:title" content="Steps to Develop Global State for React With Hooks Without Context"/>
-<meta name="twitter:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png">
+  <meta name="twitter:title" content="Steps to Develop Global State for React With Hooks Without Context">
+  <meta name="twitter:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It’s naively called “react-hooks-global-state” which turns out to be too long to read.
 The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
 https://github.com/dai-shi/react-hooks-global-state
-This post shows simplified versions of the code step by step."/>
+This post shows simplified versions of the code step by step.">
 
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>Steps to Develop Global State for React With Hooks Without Context &middot; Daishi Kato&#39;s blog</title>
     
@@ -34,7 +44,6 @@ This post shows simplified versions of the code step by step."/>
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

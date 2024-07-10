@@ -4,23 +4,31 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="How Valtio Proxy State Works (Vanilla Part)" />
-<meta property="og:description" content="Introduction Valtio is a library for global state primarily for React. It&rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&rsquo;s a novel API to add immutability to mutable state.
-What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/" /><meta property="og:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-08-27T22:00:00+09:00" />
-<meta property="article:modified_time" content="2021-08-27T22:00:00+09:00" />
+    <meta property="og:url" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="How Valtio Proxy State Works (Vanilla Part)">
+  <meta property="og:description" content="Introduction Valtio is a library for global state primarily for React. It’s originally modeled to match with useMutableSource API. However, it turns out it’s a novel API to add immutability to mutable state.
+What is immutable state? JavaScript doesn’t support immutability as language, so it’s just a coding contract.
+const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { .">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-08-27T22:00:00+09:00">
+    <meta property="article:modified_time" content="2021-08-27T22:00:00+09:00">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Proxy">
+    <meta property="article:tag" content="Valtio">
+    <meta property="og:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg">
 
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg">
+  <meta name="twitter:title" content="How Valtio Proxy State Works (Vanilla Part)">
+  <meta name="twitter:description" content="Introduction Valtio is a library for global state primarily for React. It’s originally modeled to match with useMutableSource API. However, it turns out it’s a novel API to add immutability to mutable state.
+What is immutable state? JavaScript doesn’t support immutability as language, so it’s just a coding contract.
+const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { .">
 
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/cover.jpg" /><meta name="twitter:title" content="How Valtio Proxy State Works (Vanilla Part)"/>
-<meta name="twitter:description" content="Introduction Valtio is a library for global state primarily for React. It&rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&rsquo;s a novel API to add immutability to mutable state.
-What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count &#43; 1 }; // update it again const immutableState3 = { ."/>
-
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>How Valtio Proxy State Works (Vanilla Part) &middot; Daishi Kato&#39;s blog</title>
     
@@ -32,7 +40,6 @@ const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 

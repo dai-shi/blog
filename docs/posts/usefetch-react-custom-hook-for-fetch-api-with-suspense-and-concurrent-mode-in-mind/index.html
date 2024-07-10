@@ -4,21 +4,31 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:title" content="useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind" />
-<meta property="og:description" content="Introduction While I don&rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &ldquo;useFetch&rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
-I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a custom hook." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/" /><meta property="og:image" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/cover.png" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2019-02-04T12:00:00+09:00" />
-<meta property="article:modified_time" content="2019-02-04T12:00:00+09:00" />
+    <meta property="og:url" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind">
+  <meta property="og:description" content="Introduction While I don’t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is “useFetch”. This could be still useful without react-cache in case sophisticated caching is not necessary.
+I’ve started developing “useFetch” as a tutorial to build a custom hook.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2019-02-04T12:00:00+09:00">
+    <meta property="article:modified_time" content="2019-02-04T12:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Hooks">
+    <meta property="article:tag" content="Async">
+    <meta property="article:tag" content="Fetch">
+    <meta property="article:tag" content="Concurrent">
+    <meta property="og:image" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/cover.png">
 
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/cover.png">
+  <meta name="twitter:title" content="useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind">
+  <meta name="twitter:description" content="Introduction While I don’t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is “useFetch”. This could be still useful without react-cache in case sophisticated caching is not necessary.
+I’ve started developing “useFetch” as a tutorial to build a custom hook.">
 
-    <meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:image" content="https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/cover.png" /><meta name="twitter:title" content="useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind"/>
-<meta name="twitter:description" content="Introduction While I don&rsquo;t feel like coding React without hooks, react-cache still seems to be still far away. Surely, caching in data fetching important, nevertheless I would like to seek possibilities of implementations only with React Hooks. These might be obsoleted in the future, but I want something today, that is &ldquo;useFetch&rdquo;. This could be still useful without react-cache in case sophisticated caching is not necessary.
-I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a custom hook."/>
-
-    <meta name="generator" content="Hugo 0.121.2">
+    <meta name="generator" content="Hugo 0.128.2">
     
       <title>useFetch: React custom hook for Fetch API with Suspense and Concurrent Mode in Mind &middot; Daishi Kato&#39;s blog</title>
     
@@ -30,7 +40,6 @@ I&rsquo;ve started developing &ldquo;useFetch&rdquo; as a tutorial to build a cu
     <link rel="stylesheet" href="/css/custom.css">
     
     
-    <link href="https://blog.axlight.com/index.xml" rel="alternate" type="application/rss+xml" title="Daishi Kato&#39;s blog" />
     
     
 
