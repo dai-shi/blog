@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:url" content="https://blog.axlight.com/posts/how-zustand-was-born/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="How Zustand Was Born">
+  <meta property="og:description" content="Introduction In this post, I would like to share the story behind Zustand’s development. To be precise, I wasn’t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.
+I found my tweet mentioning Zustand, comparing it with other libraries, including mine.
+Comparison of React hooks libraries for global state.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-07-14T13:00:00+09:00">
+    <meta property="article:modified_time" content="2024-07-14T13:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Typescript">
+    <meta property="article:tag" content="Zustand">
+    <meta property="og:image" content="https://blog.axlight.com/posts/how-zustand-was-born/cover.jpg">
+
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/how-zustand-was-born/cover.jpg">
+  <meta name="twitter:title" content="How Zustand Was Born">
+  <meta name="twitter:description" content="Introduction In this post, I would like to share the story behind Zustand’s development. To be precise, I wasn’t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.
+I found my tweet mentioning Zustand, comparing it with other libraries, including mine.
+Comparison of React hooks libraries for global state.">
+
+    <meta name="generator" content="Hugo 0.128.2">
+    
+      <title>How Zustand Was Born &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        14 July 2024
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-zustand-was-born/cover.jpg" />
+      
+    
+		<h1>
+      How Zustand Was Born
+    </h1>
+    
+      <h5>More precisely, since Zustand v3</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-zustand-was-born%2f&text=How%20Zustand%20Was%20Born by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-zustand-was-born%2f&t=How%20Zustand%20Was%20Born">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-zustand-was-born%2f&title=How%20Zustand%20Was%20Born">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-zustand-was-born%2f&title=How%20Zustand%20Was%20Born">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h3 id="introduction">Introduction</h3>
+<p>In this post, I would like to share the story behind Zustand&rsquo;s development. To be precise, I wasn&rsquo;t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.</p>
+<p>I found my tweet mentioning Zustand, comparing it with other libraries, including mine.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Comparison of React hooks libraries for global state. Only about performance/optimization. Not about API design. Please let me know if there are other libraries. <a href="https://t.co/UfoKOh8APL">https://t.co/UfoKOh8APL</a> <a href="https://twitter.com/hashtag/reactjs?src=hash&amp;ref_src=twsrc%5Etfw">#reactjs</a> <a href="https://twitter.com/hashtag/javascript?src=hash&amp;ref_src=twsrc%5Etfw">#javascript</a> <a href="https://twitter.com/hashtag/reacthooks?src=hash&amp;ref_src=twsrc%5Etfw">#reacthooks</a> <a href="https://twitter.com/hashtag/redux?src=hash&amp;ref_src=twsrc%5Etfw">#redux</a> <a href="https://t.co/bPIKzdmP3u">pic.twitter.com/bPIKzdmP3u</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1141004414129324032?ref_src=twsrc%5Etfw">June 18, 2019</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>My belief at that point was that the global state should be passed via React Context so that it works with React Concurrent Mode. So, I made a comparison table to differentiate my library and others, and Zustand was one of them. This was in the year 2019.</p>
+<h3 id="zustand-v3">Zustand v3</h3>
+<p>In 2020, I joined the Poimandres group and took over Zustand&rsquo;s development. My interest back then was to make global state libraries work with React Concurrent Mode. It wasn&rsquo;t possible to get the full benefit from Concurrent Mode, but there was an experimental API called <code>useMutableSource</code> to make the global state compatible with Concurrent Mode.</p>
+<p>I was experimenting with many things using a React Context-based solution with React-Tracked and wondered what we could do with the global state without React Context. Zustand was one year old, but nobody was maintaining it. So, I decided to take it over.</p>
+<p>The experimental <code>useMutableSource</code> API wasn&rsquo;t ready, so the first task was to update various things and fix some bugs. This was when Zustand v3 was born. My hope was to soon release v4 with <code>useMutableSource</code>, but it didn&rsquo;t happen. There&rsquo;s another story behind it.</p>
+<p>Nowadays, it&rsquo;s a well-known pattern to have the global state outside and optionally use React Context to pass its store. Zustand was a pioneer in this pattern. People were very skeptical about not having the global state in React Context, and we had a hard time explaining that it&rsquo;s a valid pattern.</p>
+<h3 id="current-status">Current Status</h3>
+<p>One of the things I care about with Zustand is its simple implementation and its small bundle size. If you look at the source code, you&rsquo;ll see it&rsquo;s nothing more than just using React hooks with a minimal store implementation.</p>
+<p>As of writing, Zustand v4 is the latest version, which has very advanced TypeScript support, and the code is almost entirely rewritten from v3. We have Zustand v5 almost ready for the next release.</p>
+<p>Last but not least, there are several contributors who maintain this project. I didn&rsquo;t expect this would happen when I took over the project. I&rsquo;m very grateful for it. Thanks, everyone.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

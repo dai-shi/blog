@@ -6,8 +6,15 @@
     <description>Recent content in Typescript on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 28 Oct 2023 11:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 14 Jul 2024 13:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Zustand Was Born</title>
+      <link>https://blog.axlight.com/posts/how-zustand-was-born/</link>
+      <pubDate>Sun, 14 Jul 2024 13:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/how-zustand-was-born/</guid>
+      <description>Introduction In this post, I would like to share the story behind Zustand&amp;rsquo;s development. To be precise, I wasn&amp;rsquo;t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.&#xA;I found my tweet mentioning Zustand, comparing it with other libraries, including mine.&#xA;Comparison of React hooks libraries for global state.</description>
+    </item>
     <item>
       <title>Why useSyncExternalStore Is Not Used in Jotai</title>
       <link>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</link>
