@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Daishi Kato&#39;s blog">
 
-    <meta name="generator" content="Hugo 0.128.2">
+    <meta name="generator" content="Hugo 0.129.0">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -114,6 +114,42 @@
 		<h1>Latest Posts</h1>
 	
 </header>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
+			<a href="https://blog.axlight.com/posts/how-jotai-was-born/">How Jotai Was Born</a>
+			<br>
+			<small>
+				9 August 2024
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction In this post, I would like to share the story of why I started developing Jotai. While Jotai is often seen as a similar solution to Recoil, there is a longer history behind its development.
+React Hooks It was October 2018 when React Hooks were first announced. I liked the idea of developing logic outside of React components, and believed that many libraries would soon adopt this approach. I wanted to develop something, and global state management was one field I picked.
+		
+			... <a href="https://blog.axlight.com/posts/how-jotai-was-born/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
+			
+				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
+			
+		</small>
+		
+	</div>
+</div>
 
 
 	<div class="panel panel-default">
@@ -455,41 +491,6 @@ const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 
 				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
 			
 				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
-			
-				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/">How Jotai Specifies Package Entry Points</a>
-			<br>
-			<small>
-				17 April 2022
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction If someone has already looked into package.json in the jotai library, they may find &quot;exports&quot; field.
-https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
-&#34;exports&#34;: { &#34;./package.json&#34;: &#34;./package.json&#34;, &#34;.&#34;: { &#34;types&#34;: &#34;./index.d.ts&#34;, &#34;module&#34;: &#34;./esm/index.js&#34;, &#34;import&#34;: &#34;./esm/index.mjs&#34;, &#34;default&#34;: &#34;./index.js&#34; }, &#34;./utils&#34;: { &#34;types&#34;: &#34;./utils.d.ts&#34;, &#34;module&#34;: &#34;./esm/utils.js&#34;, &#34;import&#34;: &#34;./esm/utils.mjs&#34;, &#34;default&#34;: &#34;./utils.js&#34; }, In the Node.js docs, it is described as Package entry points. Node.js v12.7.0 started implementing it. Nowadays, it&rsquo;s used also by bundlers like webpack and vite.
-		
-			... <a href="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/node"><span class="label label-success">node</span></a>
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
 			
 				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
 			

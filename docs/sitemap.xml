@@ -3,31 +3,34 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/global-state/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/how-jotai-was-born/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/jotai/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/typescript/</loc>
+    <lastmod>2024-08-09T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/how-zustand-was-born/</loc>
     <lastmod>2024-07-14T13:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/typescript/</loc>
-    <lastmod>2024-07-14T13:00:00+09:00</lastmod>
-  </url><url>
     <loc>https://blog.axlight.com/tags/zustand/</loc>
     <lastmod>2024-07-14T13:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/jotai/</loc>
-    <lastmod>2024-04-03T23:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/jotai-tips/</loc>
     <lastmod>2024-04-03T23:00:00+09:00</lastmod>

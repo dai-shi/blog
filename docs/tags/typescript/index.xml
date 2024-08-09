@@ -6,8 +6,15 @@
     <description>Recent content in Typescript on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 14 Jul 2024 13:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Fri, 09 Aug 2024 22:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/tags/typescript/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Jotai Was Born</title>
+      <link>https://blog.axlight.com/posts/how-jotai-was-born/</link>
+      <pubDate>Fri, 09 Aug 2024 22:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/how-jotai-was-born/</guid>
+      <description>Introduction In this post, I would like to share the story of why I started developing Jotai. While Jotai is often seen as a similar solution to Recoil, there is a longer history behind its development.&#xA;React Hooks It was October 2018 when React Hooks were first announced. I liked the idea of developing logic outside of React components, and believed that many libraries would soon adopt this approach. I wanted to develop something, and global state management was one field I picked.</description>
+    </item>
     <item>
       <title>How Zustand Was Born</title>
       <link>https://blog.axlight.com/posts/how-zustand-was-born/</link>
