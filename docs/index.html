@@ -119,6 +119,43 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/how-valtio-was-born/">How Valtio Was Born</a>
+			<br>
+			<small>
+				18 August 2024
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction There was a discussion in our team after releasing Zustand v3 and the brand new Jotai. It was about whether we could develop another library for global state.
+In this post, I will reflect on the start of Valtio&rsquo;s development and its API design.
+Hesitation at First While the idea of a proxy state sounded promising, I was hesitant to develop a third global state library at first. We were already maintaining two libraries in the same problem domain.
+		
+			... <a href="https://blog.axlight.com/posts/how-valtio-was-born/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
+			
+				<a href="https://blog.axlight.com/tags/valtio"><span class="label label-success">valtio</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/how-jotai-was-born/">How Jotai Was Born</a>
 			<br>
 			<small>
@@ -452,47 +489,6 @@ In the early days, I wanted to have data fetching solution, but didn&rsquo;t wan
 				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
 			
 				<a href="https://blog.axlight.com/tags/fetch"><span class="label label-success">fetch</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/">Why We Need Jotai v2 API</a>
-			<br>
-			<small>
-				6 December 2022
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction Jotai is a library for React state management.
-The API (let&rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
-What does it mean? First, atom read function is evaluated in the render phase in React.
-For example, consider a simple derived atom.
-const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function.
-		
-			... <a href="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
-			
-				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
 			
 		</small>
 		

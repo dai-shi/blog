@@ -119,6 +119,47 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/">Why We Need Jotai v2 API</a>
+			<br>
+			<small>
+				6 December 2022
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		Introduction Jotai is a library for React state management.
+The API (let&rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
+What does it mean? First, atom read function is evaluated in the render phase in React.
+For example, consider a simple derived atom.
+const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function.
+		
+			... <a href="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
+			
+				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/">How Jotai Specifies Package Entry Points</a>
 			<br>
 			<small>
@@ -453,46 +494,6 @@ I&rsquo;ve been developing React Tracked for global state that allows state bran
 				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
 			
 				<a href="https://blog.axlight.com/tags/worker"><span class="label label-success">worker</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/">Steps to Develop Global State for React With Hooks Without Context</a>
-			<br>
-			<small>
-				18 February 2020
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
-The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
-https://github.com/dai-shi/react-hooks-global-state
-This post shows simplified versions of the code step by step.
-		
-			... <a href="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
 			
 		</small>
 		

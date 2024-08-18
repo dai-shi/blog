@@ -6,8 +6,15 @@
     <description>Recent content in React on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Aug 2024 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Aug 2024 21:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/tags/react/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Valtio Was Born</title>
+      <link>https://blog.axlight.com/posts/how-valtio-was-born/</link>
+      <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/how-valtio-was-born/</guid>
+      <description>Introduction There was a discussion in our team after releasing Zustand v3 and the brand new Jotai. It was about whether we could develop another library for global state.&#xA;In this post, I will reflect on the start of Valtio&amp;rsquo;s development and its API design.&#xA;Hesitation at First While the idea of a proxy state sounded promising, I was hesitant to develop a third global state library at first. We were already maintaining two libraries in the same problem domain.</description>
+    </item>
     <item>
       <title>How Jotai Was Born</title>
       <link>https://blog.axlight.com/posts/how-jotai-was-born/</link>

@@ -6,13 +6,34 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Aug 2024 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sun, 18 Aug 2024 21:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Global-State</title>
       <link>https://blog.axlight.com/tags/global-state/</link>
-      <pubDate>Fri, 09 Aug 2024 22:00:00 +0900</pubDate>
+      <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/tags/global-state/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>React</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Typescript</title>
+      <link>https://blog.axlight.com/tags/typescript/</link>
+      <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/typescript/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Valtio</title>
+      <link>https://blog.axlight.com/tags/valtio/</link>
+      <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/valtio/</guid>
       <description></description>
     </item>
     <item>
@@ -20,20 +41,6 @@
       <link>https://blog.axlight.com/tags/jotai/</link>
       <pubDate>Fri, 09 Aug 2024 22:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/tags/jotai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>React</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Fri, 09 Aug 2024 22:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/tags/react/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Typescript</title>
-      <link>https://blog.axlight.com/tags/typescript/</link>
-      <pubDate>Fri, 09 Aug 2024 22:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
     </item>
     <item>
@@ -90,13 +97,6 @@
       <link>https://blog.axlight.com/tags/proxy/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/tags/proxy/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Valtio</title>
-      <link>https://blog.axlight.com/tags/valtio/</link>
-      <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/tags/valtio/</guid>
       <description></description>
     </item>
     <item>
