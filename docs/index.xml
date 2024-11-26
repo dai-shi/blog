@@ -6,8 +6,15 @@
     <description>Recent content on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 03 Sep 2024 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Tue, 26 Nov 2024 21:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Thoughts on What RSC Means for SPAs</title>
+      <link>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</link>
+      <pubDate>Tue, 26 Nov 2024 21:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</guid>
+      <description>Introduction RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:&#xA;The core feature, which is the ability to serialize and deserialize React components and other values, and The best practice based on the core feature, which I kind of think is still to be explored. SPAs, or Single Page Applications, can often be deployed as static files.</description>
+    </item>
     <item>
       <title>How I Got Involved in OSS</title>
       <link>https://blog.axlight.com/posts/how-i-got-involved-in-oss/</link>

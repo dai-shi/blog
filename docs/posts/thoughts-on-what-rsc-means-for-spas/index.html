@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:url" content="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Thoughts on What RSC Means for SPAs">
+  <meta property="og:description" content="Introduction RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:
+The core feature, which is the ability to serialize and deserialize React components and other values, and The best practice based on the core feature, which I kind of think is still to be explored. SPAs, or Single Page Applications, can often be deployed as static files.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-11-26T21:00:00+09:00">
+    <meta property="article:modified_time" content="2024-11-26T21:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Rsc">
+    <meta property="article:tag" content="Framework">
+    <meta property="og:image" content="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/cover.jpg">
+
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/cover.jpg">
+  <meta name="twitter:title" content="Thoughts on What RSC Means for SPAs">
+  <meta name="twitter:description" content="Introduction RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:
+The core feature, which is the ability to serialize and deserialize React components and other values, and The best practice based on the core feature, which I kind of think is still to be explored. SPAs, or Single Page Applications, can often be deployed as static files.">
+
+    <meta name="generator" content="Hugo 0.129.0">
+    
+      <title>Thoughts on What RSC Means for SPAs &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        26 November 2024
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/cover.jpg" />
+      
+    
+		<h1>
+      Thoughts on What RSC Means for SPAs
+    </h1>
+    
+      <h5>Wanna try Waku?</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-what-rsc-means-for-spas%2f&text=Thoughts%20on%20What%20RSC%20Means%20for%20SPAs by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-what-rsc-means-for-spas%2f&t=Thoughts%20on%20What%20RSC%20Means%20for%20SPAs">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-what-rsc-means-for-spas%2f&title=Thoughts%20on%20What%20RSC%20Means%20for%20SPAs">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-what-rsc-means-for-spas%2f&title=Thoughts%20on%20What%20RSC%20Means%20for%20SPAs">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p>RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:</p>
+<ul>
+<li>The core feature, which is the ability to serialize and deserialize React components and other values, and</li>
+<li>The best practice based on the core feature, which I kind of think is still to be explored.</li>
+</ul>
+<p>SPAs, or Single Page Applications, can often be deployed as static files. While a separate server may exist, it typically doesn’t serve the SPA itself. In this context, an SPA can have multiple pages, but let&rsquo;s not argue about the precise definition.</p>
+<p>Now, as the name suggests, RSC usually requires a runtime server, and it will be more powerful with a server. But, it&rsquo;s often said that we can use RSC without a server.</p>
+<p>In this post, I would like to share my random brief thoughts on this topic.</p>
+<p>To focus the discussion, I would like to exclude SSR (Server-Side Rendering) from the scope. SSR adds a capability to generate HTML on the runtime server or at build time, and it&rsquo;s just one additional feature that&rsquo;s valuable in any case.</p>
+<h2 id="how-can-rsc-benefit-spas-right-away">How can RSC benefit SPAs right away?</h2>
+<p>Even without a runtime server, RSC offers specific advantages for SPAs.</p>
+<p>If we don&rsquo;t have a runtime server, there seems to be no benefit of RSC for SPAs. However, the serialization capability of RSC has a merit for SPAs if we want to reduce the JS bundle size. If parts of the component tree are somewhat static, we can render the components at build time and serialize them.</p>
+<p>The RSC payload is text and can be served as a static file. We don&rsquo;t need to send the JS code to generate the RSC payload. For example, a markdown renderer can run at build time, and if we don&rsquo;t need to render markdown on the client, we don&rsquo;t need to include the markdown renderer in the JS bundle.</p>
+<p>The static files of RSC payloads don&rsquo;t need to be loaded initially. SPAs can fetch them on demand, just like we do lazy loading for JS bundles. So, we can basically offload some client work to the build process.</p>
+<p>In this context, SPAs don&rsquo;t necessarily mean client-first. The component tree would be server-first, and then we add client components. Even if an app is mostly built with client components, we would still have some server components as server components and client components can be mixed in the component tree.</p>
+<p>One drawback, in my mind, is the mental shift. Now, we need to think about what should be server components and what should be client components. With pure SPAs, we don&rsquo;t need to worry about it. So, this is a trade-off.</p>
+<h2 id="what-can-rsc-do-if-we-have-an-api-server-for-spas">What can RSC do if we have an API server for SPAs?</h2>
+<p>If we had an API server with an SPA, we could use RSC. Typically, we would use JSON for the API response, but that can be replaced with an RSC payload.</p>
+<p>The benefits of using an RSC payload instead of plain JSON are:</p>
+<ul>
+<li>We can send rendered components in addition to data: Again, this avoids sending JS bundles to render the components.</li>
+<li>We can stream data: Data can be sent in chunks over time, allowing users to see it as it arrives.</li>
+<li>We don&rsquo;t need to define the data format. The RSC payload is just renderable on the client.</li>
+</ul>
+<p>So, basically, it&rsquo;s just another wire protocol. But, it&rsquo;s for React. We typically use the <code>&quot;use server&quot;</code> directive, which allows seamless integration with the server and helps with type checking.</p>
+<h2 id="anything-else">Anything else?</h2>
+<p>A router library will play an important role in integrating RSC capabilities. They provide user-facing APIs and hide some of the complexity of RSC. It doesn&rsquo;t have to be a router. There can be another library to hide the complexity of RSC. It&rsquo;s just that the router seems the most common library for now.</p>
+<h2 id="closing-notes">Closing notes</h2>
+<p>These were just my initial reflections on how RSC might benefit SPAs. There would be more to uncover, and probably I should revisit this topic with some working examples. <a href="https://waku.gg">Waku</a> can be used to create such examples that use RSC for static sites. If you are curious about how this works in practice, I encourage you to try it out.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

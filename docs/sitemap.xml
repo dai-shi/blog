@@ -3,21 +3,30 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.axlight.com/</loc>
-    <lastmod>2024-09-03T22:00:00+09:00</lastmod>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/framework/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/rsc/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</loc>
+    <lastmod>2024-11-26T21:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/how-i-got-involved-in-oss/</loc>
     <lastmod>2024-09-03T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/oss/</loc>
-    <lastmod>2024-09-03T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2024-09-03T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2024-09-03T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
     <lastmod>2024-09-03T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/global-state/</loc>
