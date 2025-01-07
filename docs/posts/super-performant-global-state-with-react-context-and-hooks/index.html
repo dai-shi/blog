@@ -28,7 +28,7 @@ This post introduces a library for global state with performance.">
   <meta name="twitter:description" content="Introduction There are many libraries to provide global state in React. React itself doesn’t provide such a feature, probably because separation of concerns is important and having global state naively is not idiomatic. However, in certain cases, having global state is good as long as it’s properly implemented. It’s likely that performance drops down compared to using non-global state (incl. multiple contexts).
 This post introduces a library for global state with performance.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>Super performant global state with React context and hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -290,7 +290,7 @@ optimization. It doesn&rsquo;t change the semantics at all.</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">ReactDOM</span>.<span style="color:#a6e22e">render</span>(&lt;<span style="color:#f92672">App</span> /&gt;, document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
 </span></span></code></pre></div><h3 id="demo">Demo</h3>
-<!-- raw HTML omitted -->
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/01_minimal?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 <h3 id="closing-notes">Closing notes</h3>
 <p>I didn&rsquo;t explain everything about the library.
 Most notably, this library is kind of a fork of

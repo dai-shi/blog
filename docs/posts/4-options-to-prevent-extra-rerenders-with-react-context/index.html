@@ -25,7 +25,7 @@
   <meta name="twitter:title" content="4 options to prevent extra rerenders with React context">
   <meta name="twitter:description" content="Introduction React context and useContext are very handy. You would have no problem using it while developing a small app. If the size of your app became non-trivial, you might experience some performance issues with regard to useContext. This is because useContext will trigger rerender whenever the context value is changed. This happens even if the part of the value is not used in render. This is by design. If useContext were to conditionally trigger rerenders, the hook would become non-composable.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>4 options to prevent extra rerenders with React context &middot; Daishi Kato&#39;s blog</title>
     
@@ -350,7 +350,7 @@ This effortless optimization is what I call &ldquo;state usage tracking.&rdquo;<
 <p><a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</a></p>
 <p>There&rsquo;s also <a href="https://github.com/dai-shi/react-tracked#blogs">a list of blog posts</a>.</p>
 <h3 id="full-example-demo">Full example demo</h3>
-<!-- raw HTML omitted -->
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/08_comparison?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 <p><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/08_comparison">Source code in the repo</a></p>
 <h3 id="closing-notes">Closing notes</h3>
 <p>If you have already read some previous blog posts of mine,

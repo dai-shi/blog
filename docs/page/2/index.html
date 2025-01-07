@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Daishi Kato&#39;s blog">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -119,6 +119,53 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/">Why You Don&#39;t Need Signals in React</a>
+			<br>
+			<small>
+				23 April 2023
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<h3 id="introduction">Introduction</h3>
+<p>In the world of web frontend development, signals have become a popular topic.
+At their core, signals are used to represent changes in state over time.
+Some developers have discussed the potential of using signals
+in conjunction with React.</p>
+<p>Signals are actually an older concept, and it&rsquo;s uncertain
+how they are understood by modern web developers.
+Initially, I was confused about the characteristics of signals,
+but I later realized that they can be boiled down to two main aspects:</p>
+		
+			... <a href="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
+			
+				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
+			
+				<a href="https://blog.axlight.com/tags/signals"><span class="label label-success">signals</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">Demystifying Create React Signals Internals</a>
 			<br>
 			<small>
@@ -127,8 +174,16 @@
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.
-We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks.
+		<h2 id="introduction">Introduction</h2>
+<p>When I first saw SolidJS and Preact Signals,
+I thought they are interesting but they are different from React.
+What made me motivated is <a href="https://www.npmjs.com/package/@preact/signals-react">@preact/signals-react</a>.
+I didn&rsquo;t like the original implementation using REACT INTERNALS,
+and that drove me to create something.</p>
+<p>We already had Jotai. Jotai atoms are like signals,
+representing reactive sources,
+and allowing to form a dependency graph or a data flow.
+The missing piece was signal-like syntax without hooks.</p>
 		
 			... <a href="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">Read More</a>
 		
@@ -161,8 +216,22 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
-In the early days, I wanted to have data fetching solution, but didn&rsquo;t want to complicate Jotai itself. So, jotai/query package was created. It&rsquo;s an integration with React Query v3.
+		<h2 id="introduction">Introduction</h2>
+<p>When Jotai development was started (before releasing v1),
+it has a simple goal. It optimizes re-renders, which was
+often a problem with useState and useContext using a big state object.
+We also wanted to avoid using selector function,
+which is popularized by Redux and widely used.</p>
+<p>In the early days, I wanted to have data fetching solution,
+but didn&rsquo;t want to complicate Jotai itself.
+So, <code>jotai/query</code> package was created.
+It&rsquo;s an integration with React Query v3.
+It went well, but I noticed a certain mismatch with users.
+While my mental model was to create a data fetching API <em>for</em> Jotai,
+people want full features from React Query.
+I had been struggling with the mismatch, and
+ended up with creating a new library <code>jotai-tanstack-query</code>.
+It integrates TanStack Query v4 and covers full features.</p>
 		
 			... <a href="https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/">Read More</a>
 		
@@ -201,11 +270,26 @@ In the early days, I wanted to have data fetching solution, but didn&rsquo;t wan
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Jotai is a library for React state management.
-The API (let&rsquo;s call it v1 API) is designed to a) be friendly with Concurrent React, and b) be compatible with Recoil as much as possible.
-What does it mean? First, atom read function is evaluated in the render phase in React.
-For example, consider a simple derived atom.
-const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function.
+		<h2 id="introduction">Introduction</h2>
+<p><a href="https://github.com/pmndrs/jotai">Jotai</a>
+is a library for React state management.</p>
+<p>The API (let&rsquo;s call it v1 API) is designed to
+a) be friendly with Concurrent React, and
+b) be compatible with Recoil as much as possible.</p>
+<p>What does it mean?
+First, atom read function is evaluated in the render phase in React.</p>
+<p>For example, consider a simple derived atom.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">countAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#ae81ff">0</span>);
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">doubleAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>((<span style="color:#a6e22e">get</span>) =&gt; <span style="color:#a6e22e">get</span>(<span style="color:#a6e22e">countAtom</span>) <span style="color:#f92672">*</span> <span style="color:#ae81ff">2</span>);
+</span></span></code></pre></div><p>In the example, <code>(get) =&gt; get(countAtom) * 2</code> is the read function.
+When <code>countAtom</code> is updated, the library doesn&rsquo;t
+invoke the read function of <code>doubleAtom</code> immediately.
+Instead, it triggers the component that uses <code>doubleAtom</code> to re-render.
+The component re-renders eventually, and
+it&rsquo;s when the read function of <code>doubleAtom</code> is invoked.
+The benefit of this behavior might be hypothetical,
+but React allows to schedule re-renders, which means
+it can skip invoking read functions in concurrent rendering.</p>
 		
 			... <a href="https://blog.axlight.com/posts/why-we-need-jotai-v2-api/">Read More</a>
 		
@@ -242,9 +326,34 @@ const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction If someone has already looked into package.json in the jotai library, they may find &quot;exports&quot; field.
-https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
-&#34;exports&#34;: { &#34;./package.json&#34;: &#34;./package.json&#34;, &#34;.&#34;: { &#34;types&#34;: &#34;./index.d.ts&#34;, &#34;module&#34;: &#34;./esm/index.js&#34;, &#34;import&#34;: &#34;./esm/index.mjs&#34;, &#34;default&#34;: &#34;./index.js&#34; }, &#34;./utils&#34;: { &#34;types&#34;: &#34;./utils.d.ts&#34;, &#34;module&#34;: &#34;./esm/utils.js&#34;, &#34;import&#34;: &#34;./esm/utils.mjs&#34;, &#34;default&#34;: &#34;./utils.js&#34; }, In the Node.js docs, it is described as Package entry points. Node.js v12.7.0 started implementing it. Nowadays, it&rsquo;s used also by bundlers like webpack and vite.
+		<h2 id="introduction">Introduction</h2>
+<p>If someone has already looked into <code>package.json</code> in the jotai library,
+they may find <code>&quot;exports&quot;</code> field.</p>
+<p><a href="https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31">https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>  <span style="color:#e6db74">&#34;exports&#34;</span><span style="color:#960050;background-color:#1e0010">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./package.json&#34;</span>: <span style="color:#e6db74">&#34;./package.json&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;.&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./index.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/index.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./index.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">&#34;./utils&#34;</span>: {
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;types&#34;</span>: <span style="color:#e6db74">&#34;./utils.d.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;module&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.js&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;import&#34;</span>: <span style="color:#e6db74">&#34;./esm/utils.mjs&#34;</span>,
+</span></span><span style="display:flex;"><span>      <span style="color:#f92672">&#34;default&#34;</span>: <span style="color:#e6db74">&#34;./utils.js&#34;</span>
+</span></span><span style="display:flex;"><span>    },
+</span></span></code></pre></div><p>In the Node.js docs, it is described as
+<a href="https://nodejs.org/api/packages.html#package-entry-points">Package entry points</a>.
+Node.js v12.7.0 <a href="https://nodejs.org/en/blog/release/v12.7.0/">started implementing it.</a>
+Nowadays, it&rsquo;s used also by bundlers like webpack and vite.</p>
+<p>We use package entry points for separating modules.
+For example, <code>jotai</code> is a core module exporting core functions.
+<code>jotai/utils</code> is a separate module which exports additional functions
+based on core functions.
+(By the way, another option is to publish two packages instead.
+But, we prefer multiple entry points in a single package.)</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/">Read More</a>
 		
@@ -277,11 +386,17 @@ https://github.com/pmndrs/jotai/blob/v1.6.4/package.json#L18-L31
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Recently, I often got asked about this question: Which is recommended, valtio or jotai?
-For those who are not familiar with them, they are two out of many state management libraries that I developed.
-https://github.com/pmndrs/valtio
-https://github.com/pmndrs/jotai
-Now, from the library perspective, their implementations are very different. However, from the usage perspective, I understand the confusion. Both serve similar functionalities and we don&rsquo;t usually use both in a single app.
+		<h2 id="introduction">Introduction</h2>
+<p>Recently, I often got asked about this question:
+Which is recommended, valtio or jotai?</p>
+<p>For those who are not familiar with them,
+they are two out of many state management libraries that I developed.</p>
+<p><a href="https://github.com/pmndrs/valtio">https://github.com/pmndrs/valtio</a></p>
+<p><a href="https://github.com/pmndrs/jotai">https://github.com/pmndrs/jotai</a></p>
+<p>Now, from the library perspective, their implementations are very different.
+However, from the usage perspective, I understand the confusion.
+Both serve similar functionalities and we don&rsquo;t usually use both
+in a single app.</p>
 		
 			... <a href="https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/">Read More</a>
 		
@@ -318,9 +433,38 @@ Now, from the library perspective, their implementations are very different. How
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction In the previous article, we explained how Valtio proxy state works. It tracks mutations of state and create immutable snapshot.
-Let&rsquo;s recap the API in vanilla part of Valtio.
-// Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it ++state.count; // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 } // Mutate it again state.
+		<h2 id="introduction">Introduction</h2>
+<p>In <a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/">the previous article</a>,
+we explained how <a href="http://github.com/pmndrs/valtio">Valtio</a>
+proxy state works.
+It tracks mutations of state and create immutable snapshot.</p>
+<p>Let&rsquo;s recap the API in vanilla part of Valtio.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#75715e">// Create a new proxy state to detect mutations
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">state</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">proxy</span>({ <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// You can mutate it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#f92672">++</span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a snapshot
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap1</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Mutate it again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">*=</span> <span style="color:#ae81ff">10</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Create a snapshot again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">snap2</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">snapshot</span>(<span style="color:#a6e22e">state</span>); <span style="color:#75715e">// ---&gt; { count: 10 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// The previous snapshot is not changed
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#a6e22e">snap1</span>); <span style="color:#75715e">// ---&gt; { count: 1 }
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// You can subscribe to it
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">subscribe</span>(<span style="color:#a6e22e">state</span>, () =&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">console</span>.<span style="color:#a6e22e">log</span>(<span style="color:#e6db74">&#39;State changed to&#39;</span>, <span style="color:#a6e22e">state</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Then, mutate it again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">state</span>.<span style="color:#a6e22e">text</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;hello&#39;</span>; <span style="color:#75715e">// ---&gt; &#34;State changed to { count: 10, text: &#39;hello&#39; }&#34;
+</span></span></span></code></pre></div><p>Now, let&rsquo;s see how we can use the state in React.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/">Read More</a>
 		
@@ -355,9 +499,17 @@ Let&rsquo;s recap the API in vanilla part of Valtio.
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction I stumbled upon 7GUIS tasks while reading XState Tutorials. This motivated me to challenge those 7 tasks with jotai.
-It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
-It&rsquo;s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.
+		<h2 id="introduction">Introduction</h2>
+<p>I stumbled upon <a href="https://eugenkiss.github.io/7guis/">7GUIS</a> tasks while reading
+<a href="https://xstate.js.org/docs/tutorials/7guis/counter.html">XState Tutorials</a>.
+This motivated me to challenge those 7 tasks with
+<a href="https://github.com/pmndrs/jotai">jotai</a>.</p>
+<p>It turned out that this would be a good resource to learn jotai.
+They are from basic tasks to advanced tasked, and you will
+see how they are implemented, occasionally magically.</p>
+<p>It&rsquo;s recommended to try it yourself first.
+If you succeed to implement it, then you can compare.
+Even if you fail, you can read and learn.</p>
 		
 			... <a href="https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/">Read More</a>
 		
@@ -396,9 +548,27 @@ It&rsquo;s recommended to try it yourself first. If you succeed to implement it,
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Valtio is a library for global state primarily for React. It&rsquo;s originally modeled to match with useMutableSource API. However, it turns out it&rsquo;s a novel API to add immutability to mutable state.
-What is immutable state? JavaScript doesn&rsquo;t support immutability as language, so it&rsquo;s just a coding contract.
-const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state const immutableState2 = { ...immutableState1, count: immutableState1.count + 1 }; // update it again const immutableState3 = { .
+		<h2 id="introduction">Introduction</h2>
+<p><a href="http://github.com/pmndrs/valtio">Valtio</a> is a library for
+global state primarily for React.
+It&rsquo;s originally modeled to match with
+<a href="https://github.com/reactjs/rfcs/blob/master/text/0147-use-mutable-source.md">useMutableSource</a>
+API.
+However, it turns out it&rsquo;s a novel API to add
+immutability to mutable state.</p>
+<p>What is immutable state? JavaScript doesn&rsquo;t support
+immutability as language, so it&rsquo;s just a coding contract.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState1</span> <span style="color:#f92672">=</span> { <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">text</span><span style="color:#f92672">:</span> <span style="color:#e6db74">&#39;hello&#39;</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// update the state
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState2</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState1</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState1</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// update it again
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">immutableState3</span> <span style="color:#f92672">=</span> { ...<span style="color:#a6e22e">immutableState2</span>, <span style="color:#a6e22e">count</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">immutableState2</span>.<span style="color:#a6e22e">count</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span> };
+</span></span></code></pre></div><p>Some people might be familiar with this pattern,
+or it can be new to some other people.
+We always create a new object without modifying the existing ones.
+This allows us to compare the state objects.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/">Read More</a>
 		
@@ -431,9 +601,15 @@ const immutableState1 = { count: 0, text: &#39;hello&#39; }; // update the state
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.
-Tearing is an undesirable behavior in which two components render with different values for same global state.
-Branching is a desirable behavior in which a component renders with a stale value for a state in a transition update.
+		<h2 id="introduction">Introduction</h2>
+<p>The React team announced <a href="https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html">The Plan for React 18</a> with various features.
+Among them, concurrent rendering is one of my interests
+because I have been developing various global state libraries
+and there are known issues called &ldquo;tearing&rdquo; and &ldquo;branching&rdquo;.</p>
+<p>Tearing is an undesirable behavior in which
+two components render with different values for same global state.</p>
+<p>Branching is a desirable behavior in which
+a component renders with a stale value for a state in a transition update.</p>
 		
 			... <a href="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/">Read More</a>
 		
@@ -454,42 +630,6 @@ Branching is a desirable behavior in which a component renders with a stale valu
 				<a href="https://blog.axlight.com/tags/context"><span class="label label-success">context</span></a>
 			
 				<a href="https://blog.axlight.com/tags/concurrent"><span class="label label-success">concurrent</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/">Developing a Memoization Library With Proxies</a>
-			<br>
-			<small>
-				29 November 2020
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction It&rsquo;s been a while since I started developing reactive-react-redux and react-tracked. These libraries provide so called state usage tracking to optimize render in React. This approach, I think, is pretty novel and quite a lot of my effort has been put to improve its performance.
-Lately, I thought it would be nicer if this can be used more broadly. I wondered if it can be used in vanilla JS. What would be an API in vanilla JS?
-		
-			... <a href="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/proxy"><span class="label label-success">proxy</span></a>
-			
-				<a href="https://blog.axlight.com/tags/memoization"><span class="label label-success">memoization</span></a>
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
 			
 		</small>
 		

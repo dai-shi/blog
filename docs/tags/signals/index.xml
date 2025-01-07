@@ -13,14 +13,14 @@
       <link>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</guid>
-      <description>Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.&#xA;Signals are actually an older concept, and it&amp;rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:</description>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;In the world of web frontend development, signals have become a popular topic.&#xA;At their core, signals are used to represent changes in state over time.&#xA;Some developers have discussed the potential of using signals&#xA;in conjunction with React.&lt;/p&gt;&#xA;&lt;p&gt;Signals are actually an older concept, and it&amp;rsquo;s uncertain&#xA;how they are understood by modern web developers.&#xA;Initially, I was confused about the characteristics of signals,&#xA;but I later realized that they can be boiled down to two main aspects:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Demystifying Create React Signals Internals</title>
       <link>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</link>
       <pubDate>Sun, 26 Feb 2023 23:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</guid>
-      <description>Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn&amp;rsquo;t like the original implementation using REACT INTERNALS, and that drove me to create something.&#xA;We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks.</description>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;When I first saw SolidJS and Preact Signals,&#xA;I thought they are interesting but they are different from React.&#xA;What made me motivated is &lt;a href=&#34;https://www.npmjs.com/package/@preact/signals-react&#34;&gt;@preact/signals-react&lt;/a&gt;.&#xA;I didn&amp;rsquo;t like the original implementation using REACT INTERNALS,&#xA;and that drove me to create something.&lt;/p&gt;&#xA;&lt;p&gt;We already had Jotai. Jotai atoms are like signals,&#xA;representing reactive sources,&#xA;and allowing to form a dependency graph or a data flow.&#xA;The missing piece was signal-like syntax without hooks.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

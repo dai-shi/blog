@@ -13,7 +13,7 @@
       <link>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</guid>
-      <description>This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.&#xA;Background When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers.</description>
+      <description>&lt;p&gt;This is a short article to explain how I inject a client-side script in Playground. Note that this is a workaround solution until I find a better way.&lt;/p&gt;&#xA;&lt;h3 id=&#34;background&#34;&gt;Background&lt;/h3&gt;&#xA;&lt;p&gt;When developing a GraphQL server with Apollo Server, GraphQL Playground is a tool that you are likely to use. Now, suppose we have an Apollo server that authenticates with a token in an HTTP header. Luckily, Playground has an editor to specify HTTP headers. However, what if we need to call OAuth provider to get an accessToken? Surely, we could run &lt;code&gt;curl&lt;/code&gt; to get a token, copy it in the terminal and paste it in the browser. It should be much easier if we could simply sign in in the browser.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

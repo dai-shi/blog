@@ -26,3 +26,8 @@ disqusShortname = "blog-axlight-com"
 	[[params.navlinks]]
 	name = "Contact"
 	url = "https://contact.axlight.com"
+
+[markup]
+	[markup.goldmark]
+		[markup.goldmark.renderer]
+			unsafe = true

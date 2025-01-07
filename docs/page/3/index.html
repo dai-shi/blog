@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Daishi Kato&#39;s blog">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -119,6 +119,55 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/">Developing a Memoization Library With Proxies</a>
+			<br>
+			<small>
+				29 November 2020
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<h3 id="introduction">Introduction</h3>
+<p>It&rsquo;s been a while since I started developing
+<a href="https://github.com/dai-shi/reactive-react-redux">reactive-react-redux</a>
+and <a href="https://github.com/dai-shi/react-tracked">react-tracked</a>.
+These libraries provide so called
+<a href="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">state usage tracking</a> to optimize render in React.
+This approach, I think, is pretty novel and
+quite a lot of my effort has been put to improve its performance.</p>
+<p>Lately, I thought it would be nicer if this can be used more broadly.
+I wondered if it can be used in vanilla JS.
+What would be an API in vanilla JS?
+It would be good if it&rsquo;s easy to understand.
+My idea ended up with memoization, mainly because
+the primary goal is to be a replacement of
+<a href="https://github.com/reduxjs/reselect">reselect</a>.</p>
+		
+			... <a href="https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/proxy"><span class="label label-success">proxy</span></a>
+			
+				<a href="https://blog.axlight.com/tags/memoization"><span class="label label-success">memoization</span></a>
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/">Developing React Global State Library With Atom Abstraction</a>
 			<br>
 			<small>
@@ -127,9 +176,21 @@
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction I have been developing various global state libraries for React. For example:
-react-tracked react-hooks-global-state My main motivation is to eliminate selector functions that are only required for render optimization. Render optimization here means it avoids extra re-renders. An extra re-render is a re-render process that produces the same view result as before.
-Since Recoil is announced, I&rsquo;m very interested in atom abstraction because it eliminates selector functions for render optimization and the API seems pretty intuitive.
+		<h2 id="introduction">Introduction</h2>
+<p>I have been developing various global state libraries for React.
+For example:</p>
+<ul>
+<li><a href="https://github.com/dai-shi/react-tracked">react-tracked</a></li>
+<li><a href="https://github.com/dai-shi/react-hooks-global-state">react-hooks-global-state</a></li>
+</ul>
+<p>My main motivation is to eliminate selector functions that
+are only required for render optimization.
+Render optimization here means it avoids extra re-renders.
+An extra re-render is a re-render process that produces
+the same view result as before.</p>
+<p>Since <a href="https://github.com/facebookexperimental/Recoil">Recoil</a> is announced,
+I&rsquo;m very interested in atom abstraction because it eliminates
+selector functions for render optimization and the API seems pretty intuitive.</p>
 		
 			... <a href="https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/">Read More</a>
 		
@@ -168,9 +229,18 @@ Since Recoil is announced, I&rsquo;m very interested in atom abstraction because
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Redux is a framework-agnostic library for global state. It&rsquo;s often used with React.
-While I like the abstraction of Redux, React will introduce Concurrent Mode in the near future. If we want to get benefit of useTransition, state must be inside React to allow state branching. That means we can&rsquo;t get the benefit with Redux.
-I&rsquo;ve been developing React Tracked for global state that allows state branching. It works well in Concurrent Mode.
+		<h3 id="introduction">Introduction</h3>
+<p>Redux is a framework-agnostic library for global state.
+It&rsquo;s often used with React.</p>
+<p>While I like the abstraction of Redux,
+React will introduce Concurrent Mode in the near future.
+If we want to get benefit of <code>useTransition</code>,
+state must be inside React to allow state branching.
+That means we can&rsquo;t get the benefit with Redux.</p>
+<p>I&rsquo;ve been developing <a href="https://react-tracked.js.org">React Tracked</a>
+for global state that allows state branching.
+It works well in Concurrent Mode.
+That leaves me a question: What is a use case that only Redux can do.</p>
 		
 			... <a href="https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/">Read More</a>
 		
@@ -205,10 +275,19 @@ I&rsquo;ve been developing React Tracked for global state that allows state bran
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which turns out to be too long to read.
-The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
-https://github.com/dai-shi/react-hooks-global-state
-This post shows simplified versions of the code step by step.
+		<h3 id="introduction">Introduction</h3>
+<p>Developing with React hooks is fun for me.
+I have been developing several libraries.
+The very first library was a library for global state.
+It&rsquo;s naively called &ldquo;react-hooks-global-state&rdquo; which
+turns out to be too long to read.</p>
+<p>The initial version of the library was published in Oct 2018.
+Time has passed since then, I learned a lot, and now
+v1.0.0 of the library is published.</p>
+<p><a href="https://github.com/dai-shi/react-hooks-global-state">https://github.com/dai-shi/react-hooks-global-state</a></p>
+<p>This post shows simplified versions of the code step by step.
+It would help understand what this library is aiming at,
+while the real code is a bit complex in TypeScript.</p>
 		
 			... <a href="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/">Read More</a>
 		
@@ -245,10 +324,26 @@ This post shows simplified versions of the code step by step.
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction This is a short post about my small library.
-Apollo Client is a library for GraphQL. Apollo Link is an interface to extend Apollo Client.
-Typically, you would initialize apollo client like this.
-import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } from &#39;apollo-cache-inmemory&#39;; import { HttpLink } from &#39;apollo-link-http&#39;; const cache = new InMemoryCache(); const link = new HttpLink({ uri }); const client = new ApolloClient({ cache: cache, link: link, }); I want to define the link in another file and lazy load it, because it is not an HttpLink but a complicated large link.
+		<h2 id="introduction">Introduction</h2>
+<p>This is a short post about my small library.</p>
+<p><a href="https://github.com/apollographql/apollo-client">Apollo Client</a>
+is a library for GraphQL.
+<a href="https://github.com/apollographql/apollo-link">Apollo Link</a>
+is an interface to extend Apollo Client.</p>
+<p>Typically, you would initialize apollo client like this.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-js" data-lang="js"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">ApolloClient</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-client&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">InMemoryCache</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-cache-inmemory&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">HttpLink</span> } <span style="color:#a6e22e">from</span> <span style="color:#e6db74">&#39;apollo-link-http&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">cache</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">InMemoryCache</span>();
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">link</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">HttpLink</span>({ <span style="color:#a6e22e">uri</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">client</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">new</span> <span style="color:#a6e22e">ApolloClient</span>({
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">cache</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">cache</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">link</span><span style="color:#f92672">:</span> <span style="color:#a6e22e">link</span>,
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre></div><p>I want to define the link in another file and lazy load it,
+because it is not an HttpLink but a complicated large link.</p>
 		
 			... <a href="https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/">Read More</a>
 		
@@ -283,10 +378,16 @@ import { ApolloClient } from &#39;apollo-client&#39;; import { InMemoryCache } f
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction I have been developing React Tracked, which is a library for global state with React Hooks and Context.
-https://react-tracked.js.org
-This is a small library and focuses on only one thing. It optimizes re-renders using state usage tracking. More technically, it uses Proxies to detect the usage in render, and only triggers re-renders if necessary.
-Because of that, the usage of React Tracked is very straightforward. It is just like the normal useContext.
+		<h3 id="introduction">Introduction</h3>
+<p>I have been developing React Tracked, which is
+a library for global state with React Hooks and Context.</p>
+<p><a href="https://react-tracked.js.org">https://react-tracked.js.org</a></p>
+<p>This is a small library and focuses on only one thing.
+It optimizes re-renders using state usage tracking.
+More technically, it uses Proxies to detect the usage in render,
+and only triggers re-renders if necessary.</p>
+<p>Because of that, the usage of React Tracked is very straightforward.
+It is just like the normal useContext. Here&rsquo;s an example.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/">Read More</a>
 		
@@ -323,8 +424,16 @@ Because of that, the usage of React Tracked is very straightforward. It is just 
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction React released Concurrent Mode in the experimental channel and Suspense for Data Fetching. This release is for library authors, and not for production apps yet. The new data fetching pattern proposed is called Render-as-You-Fetch.
-This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling REST APIs. But, some of discussions are not limited to REST. One could invoke GraphQL endpoints with simple fetch calls. For more complex use cases with GraphQL, it&rsquo;s worth looking into Relay documentation too.
+		<h3 id="introduction">Introduction</h3>
+<p>React released Concurrent Mode in the experimental channel
+and <a href="https://reactjs.org/docs/concurrent-mode-suspense.html">Suspense for Data Fetching</a>.
+This release is for library authors, and not for production apps yet.
+The new data fetching pattern proposed is called Render-as-You-Fetch.</p>
+<p>This post mainly discuss Render-as-You-Fetch for basic fetch calls,
+like calling REST APIs. But, some of discussions are not limited to REST.
+One could invoke GraphQL endpoints with simple fetch calls.
+For more complex use cases with GraphQL, it&rsquo;s worth looking into
+<a href="https://relay.dev/docs/en/experimental/a-guided-tour-of-relay#advanced-data-fetching">Relay documentation</a> too.</p>
 		
 			... <a href="https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/">Read More</a>
 		
@@ -361,9 +470,21 @@ This post mainly discuss Render-as-You-Fetch for basic fetch calls, like calling
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction We have been waiting for &ldquo;Suspense for Data Fetching&rdquo; for a long time. It is now provided as an experimental feature in the experimental channel.
-Check out the official docs for details.
-Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Adopting Concurrent Mode Concurrent Mode API Reference They are trying best to explain new mind sets with analogies. That means it&rsquo;s totally different from the usage with traditional React.
+		<h3 id="introduction">Introduction</h3>
+<p>We have been waiting for &ldquo;Suspense for Data Fetching&rdquo; for a long time.
+It is now provided as an experimental feature in
+<a href="https://reactjs.org/blog/2019/10/22/react-release-channels.html">the experimental channel</a>.</p>
+<p>Check out the official docs for details.</p>
+<ol>
+<li><a href="https://reactjs.org/docs/concurrent-mode-intro.html">Introducing Concurrent Mode</a></li>
+<li><a href="https://reactjs.org/docs/concurrent-mode-suspense.html">Suspense for Data Fetching</a></li>
+<li><a href="https://reactjs.org/docs/concurrent-mode-patterns.html">Concurrent UI Patterns</a></li>
+<li><a href="https://reactjs.org/docs/concurrent-mode-adoption.html">Adopting Concurrent Mode</a></li>
+<li><a href="https://reactjs.org/docs/concurrent-mode-reference.html">Concurrent Mode API Reference</a></li>
+</ol>
+<p>They are trying best to explain new mind sets with analogies.
+That means it&rsquo;s totally different from the usage with traditional React.
+Yes, it is different and promising.</p>
 		
 			... <a href="https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/">Read More</a>
 		
@@ -400,10 +521,18 @@ Introducing Concurrent Mode Suspense for Data Fetching Concurrent UI Patterns Ad
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction I have been developing a React Hooks library called React Tracked. This is the library I put much effort lately as well as my other libraries.
-https://github.com/dai-shi/react-tracked
-This library solves a performance issue with React Context. For those who are interested in the fundamental problem, please take a look at the long issue.
-What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fancy features. You can simply replace Context.
+		<h3 id="introduction">Introduction</h3>
+<p>I have been developing a React Hooks library called React Tracked.
+This is the library I put much effort lately as well as
+my other libraries.</p>
+<p><a href="https://github.com/dai-shi/react-tracked">https://github.com/dai-shi/react-tracked</a></p>
+<p>This library solves a performance issue with React Context.
+For those who are interested in the fundamental problem,
+please take a look at <a href="https://github.com/facebook/react/issues/14110">the long issue</a>.</p>
+<p>What&rsquo;s notable in this library is that
+it doesn&rsquo;t provide any new fancy features.
+You can simply replace Context.Provider and useContext
+with the custom ones, it just works with performance.</p>
 		
 			... <a href="https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/">Read More</a>
 		
@@ -438,8 +567,15 @@ What&rsquo;s notable in this library is that it doesn&rsquo;t provide any new fa
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction It is said that Redux has been overused in some use cases and React context+hooks plays well in such use cases. While I agree with it, Redux should work well in some other situations. Redux should help developing larger apps with many developers. Various libraries in Redux ecosystem should accelerate development. There&rsquo;s another situation in which Redux may help, and that is Web Workers.
-A while back, Surma posted a nice blog post: React + Redux + Comlink = Off-main-thread
+		<h3 id="introduction">Introduction</h3>
+<p>It is said that Redux has been overused in some use cases
+and React context+hooks plays well in such use cases.
+While I agree with it, Redux should work well in some other situations.
+Redux should help developing larger apps with many developers.
+Various libraries in Redux ecosystem should accelerate development.
+There&rsquo;s another situation in which Redux may help, and that is Web Workers.</p>
+<p>A while back, Surma posted a nice blog post:
+<a href="https://dassur.ma/things/react-redux-comlink/">React + Redux + Comlink = Off-main-thread</a></p>
 		
 			... <a href="https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/">Read More</a>
 		
@@ -454,40 +590,6 @@ A while back, Surma posted a nice blog post: React + Redux + Comlink = Off-main-
 				<a href="https://blog.axlight.com/tags/redux"><span class="label label-success">redux</span></a>
 			
 				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/worker"><span class="label label-success">worker</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/">How I Developed React Hooks for Web Workers</a>
-			<br>
-			<small>
-				8 September 2019
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction I have been developing several react hooks libraries. They provide custom hooks for certain purposes. One of them is for web workers. I started it for fun. I got some feedbacks and improved. This post shows the current implementation which aims the use in production.
-In this field, Comlink provides a nice transparent API with Proxies. Some might have already tried it with React. I have two reasons why I don&rsquo;t use it for my library.
-		
-			... <a href="https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
 			
 				<a href="https://blog.axlight.com/tags/worker"><span class="label label-success">worker</span></a>
 			

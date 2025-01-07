@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="description" content="">
+    <meta property="og:url" content="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/">
+  <meta property="og:site_name" content="Daishi Kato&#39;s blog">
+  <meta property="og:title" content="Thoughts on State Management Libraries in the React Compiler Era">
+  <meta property="og:description" content="Introduction I’ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.
+What are state management libraries? State management libraries manage the state of your application. For my libraries specifically, the primary goal isn’t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-01-07T22:00:00+09:00">
+    <meta property="article:modified_time" content="2025-01-07T22:00:00+09:00">
+    <meta property="article:tag" content="React">
+    <meta property="article:tag" content="Global-State">
+    <meta property="article:tag" content="Compiler">
+    <meta property="article:tag" content="Rsc">
+    <meta property="article:tag" content="Zustand">
+    <meta property="article:tag" content="Jotai">
+    <meta property="og:image" content="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/cover.jpg">
+
+    
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/cover.jpg">
+  <meta name="twitter:title" content="Thoughts on State Management Libraries in the React Compiler Era">
+  <meta name="twitter:description" content="Introduction I’ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.
+What are state management libraries? State management libraries manage the state of your application. For my libraries specifically, the primary goal isn’t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.">
+
+    <meta name="generator" content="Hugo 0.140.0">
+    
+      <title>Thoughts on State Management Libraries in the React Compiler Era &middot; Daishi Kato&#39;s blog</title>
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    
+    <link rel="stylesheet" href="/css/custom.css">
+    
+    
+    
+    
+
+    
+    
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top visible-xs">
+	<div class="container-fluid">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+			
+		</div>
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				
+				
+          
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+          
+				
+          
+            <li><a href="https://contact.axlight.com">Contact</a></li>
+          
+				
+			</ul>
+		</div>
+	</div>
+</nav>
+<div class="container-fluid">
+	<div class="row">
+		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
+	<div id="menu-content" class="vertical-align">
+		
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+		
+		
+		
+		
+		
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+		
+		<div id="social" class="text-center">
+			
+				<a href="https://github.com/dai-shi"><i class="fa fa-github fa-2x"></i></a>
+			
+				<a href="https://twitter.com/dai_shi"><i class="fa fa-twitter fa-2x"></i></a>
+			
+
+			
+		</div>
+		<div id="links" class="text-center">
+			
+			
+        
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
+        
+			
+        
+          <a href="https://contact.axlight.com">Contact</a>
+        
+			
+		</div>
+    <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CEAI427J&placement=blogaxlightcom" id="_carbonads_js"></script>
+	</div>
+</div>
+
+		<div id="content" class="col-xs-12 col-sm-8 col-md-9">
+			<div class="row">
+				<div id="post" class="col-sm-offset-1 col-sm-10 col-md-10 col-lg-8">
+
+
+<main>
+	<header>
+    <h4>
+      <small>
+        7 January 2025
+      </small>
+    </h4>
+    
+      
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/cover.jpg" />
+      
+    
+		<h1>
+      Thoughts on State Management Libraries in the React Compiler Era
+    </h1>
+    
+      <h5>RSC also matters</h5>
+    
+	</header>
+
+  <style>
+#share-buttons {display: inline-block; vertical-align: middle;}
+#share-buttons:after {content: ""; display: block; clear: both;}
+#share-buttons > a {
+position: relative;
+text-align: left; 
+height: 54px; 
+width: 54px; 
+float: left; 
+text-align: center;
+}
+#share-buttons > a > i {color: #d5d5d5;}
+#share-buttons > a:hover {cursor: pointer;}
+#share-buttons > a.twitter:hover > i {color: #55ACEE;}
+#share-buttons > a.facebook:hover > i {color: #3B5998;}
+#share-buttons > a.reddit:hover > i {color: #FF4301;}
+#share-buttons > a.pocket:hover > i {color: #EE4056;}
+#share-buttons > a.twitter > i {font-size: 32px; margin-top: 10px;}
+#share-buttons > a.facebook > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.reddit > i {font-size: 28px; margin-top: 12px;}
+#share-buttons > a.pocket > i {font-size: 28px; margin-top: 12px;}
+</style>
+
+<span style="color: silver;">Share on: </span>
+<div id="share-buttons">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-state-management-libraries-in-the-react-compiler-era%2f&text=Thoughts%20on%20State%20Management%20Libraries%20in%20the%20React%20Compiler%20Era by %40dai_shi">
+    <i class="fa fa-twitter"></i>
+  </a>
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-state-management-libraries-in-the-react-compiler-era%2f&t=Thoughts%20on%20State%20Management%20Libraries%20in%20the%20React%20Compiler%20Era">
+    <i class="fa fa-facebook"></i>
+  </a>
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-state-management-libraries-in-the-react-compiler-era%2f&title=Thoughts%20on%20State%20Management%20Libraries%20in%20the%20React%20Compiler%20Era">
+    <i class="fa fa-reddit"></i>
+  </a>
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fthoughts-on-state-management-libraries-in-the-react-compiler-era%2f&title=Thoughts%20on%20State%20Management%20Libraries%20in%20the%20React%20Compiler%20Era">
+    <i class="fa fa-get-pocket"></i>
+  </a>
+</div>
+
+
+	<article>
+		<h2 id="introduction">Introduction</h2>
+<p>I&rsquo;ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.</p>
+<h2 id="what-are-state-management-libraries">What are state management libraries?</h2>
+<p>State management libraries manage the state of your application. For my libraries specifically, the primary goal isn&rsquo;t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.</p>
+<p>The primary goal of what I call global state libraries is to overcome the limitations of React&rsquo;s state solutions: useState and useContext. With React Context, it&rsquo;s difficult to avoid unnecessary re-renders because React triggers re-renders even when only a small part of the state changes. Global state libraries address this by providing their own mechanisms to subscribe to state changes and trigger re-renders efficiently.</p>
+<h2 id="how-does-the-react-compiler-change-the-game">How does the React Compiler change the game?</h2>
+<p>The React Compiler transforms React user code, producing optimized code with full memoization. In short, we no longer need to manually memoize with <code>useMemo</code>, <code>useCallback</code>, or <code>React.memo</code>. So, why does this matter to global state libraries?</p>
+<p>Essentially, the React Compiler will address the limitations of React Context. As of this writing, it doesn&rsquo;t optimize re-renders yet, but if it becomes advanced enough, React will be able to avoid unnecessary re-renders with React Context. The core problem that global state libraries are designed to solve may disappear.</p>
+<h2 id="how-do-react-server-components-come-into-play">How do React Server Components come into play?</h2>
+<p>React Server Components (RSCs) allow React components to be rendered on the server, sending serialized results over the wire. While this is a powerful feature, does it impact global state libraries?</p>
+<p>Compared to the React Compiler, RSCs have a less direct effect. However, some global state libraries are used for caching server state. While developers might already use other libraries for this purpose, if global state libraries handle server state caching, RSCs could reduce their necessity. What remains for global state libraries could be minimal, and they might not need to &ldquo;manage&rdquo; complex states anymore.</p>
+<h2 id="what-should-global-state-libraries-do-to-survive">What should global state libraries do to survive?</h2>
+<p>As I mentioned, the primary goal of global state libraries is to avoid unnecessary re-renders. However, their value extends beyond that. These libraries offer ways to organize states, compose states, and connect to external services. Those capabilities remain useful even if the primary goal becomes obsolete.</p>
+<p>Moreover, enabling client-side state to work seamlessly with server-side state would be a powerful feature. It could simplify server interactions and improve developer experience. While I don&rsquo;t have a concrete idea yet, this is one of the reasons I started developing <a href="https://waku.gg">Waku</a>.</p>
+<p>Now, let&rsquo;s take a brief look at each library.&quot;</p>
+<h3 id="zustand">Zustand</h3>
+<p>Aside from render optimization with selectors, the biggest benefit of Zustand is that its state exists outside of React. This is something React state with Context cannot address, so Zustand will continue to have a role.</p>
+<p>The biggest risk for Zustand is its simplicity. In the Compiler era, a new library offering a more straightforward solution could replace it. However, its simplicity is also its strength. It can be maintained by anyone and thus will remain viable in the long term.</p>
+<h3 id="jotai">Jotai</h3>
+<p>Jotai was initially designed to avoid extra re-renders, but it introduced a new principle: atoms, popularized by Recoil. Atoms allow defining state outside of React while keeping it managed within React. Jotai also offers an option to create a store that holds atom values outside of React. The strength of the atom model lies in its declarative nature and composability, enabling the creation of a data flow graph for managing complex state.</p>
+<p>The biggest risk for Jotai is that many users may not need to manage such complex state. For simpler use cases, React state with Context might be enough. However, the declarative atom model could be expanded to the server side, which might be a promising direction.</p>
+<h3 id="valtio">Valtio</h3>
+<p>Valtio has two main aspects. First, it bridges the gap between mutable and immutable state. JavaScript objects are inherently mutable, and <code>valtio/vanilla</code> provides a way to derive immutable snapshots from mutable state. Second, <code>valtio/react</code> offers render optimization via proxies, which works magically behind the scenes.</p>
+<p>The render optimization in Valtio conflicts conceptually with the React Compiler. It&rsquo;s a runtime solution vs. a build-time solution. That said, Valtio v2 works perfectly with the React Compiler. While the second aspect may lose value in the Compiler era, the first aspect, managing state with plain JavaScript objects, remains highly useful. Few other libraries offer this capability.</p>
+<h2 id="closing-notes">Closing Notes</h2>
+<p>While I feel some concerns about the future of global state libraries, nothing will change anytime soon. The React Compiler is still experimental, and RSC is still new. It will take time for people to adapt to this new era. In the meantime, global state libraries will continue to play a role in the React ecosystem.</p>
+<p>As I discussed, the three libraries still hold value even in the new era. However, I believe I should take action to ensure they can survive in the future. After all, if things don&rsquo;t evolve, they won&rsquo;t last.</p>
+
+	</article>
+</main>
+
+
+  <div id="disqus_thread"></div>
+<script>
+    window.disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "blog-axlight-com" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+
+<div id="bottom-nav" class="text-center center-block">
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </div>
+  
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
+  
+  
+  <script src="https://blog.axlight.com//js/App.js"></script>
+  
+</body>
+</html>

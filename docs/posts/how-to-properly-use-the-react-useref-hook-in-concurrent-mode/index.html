@@ -26,7 +26,7 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
   <meta name="twitter:description" content="Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
 React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>How to properly use the React useRef hook in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
@@ -236,7 +236,7 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
 </span></span></code></pre></div><p>(In fact, we don&rsquo;t need <code>ConcurrentMode</code>, but just <code>StrictMode</code> is enough.)</p>
 <p>Please checkout the following codesandbox to see the actual behavior.</p>
-<!-- raw HTML omitted -->
+<iframe src="https://codesandbox.io/embed/x2p46v02z4?fontsize=14" title="x2p46v02z4" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 <h3 id="final-notes">Final notes</h3>
 <p>The reason I want to use <code>useRef</code> is to develop a bindings library for Redux. It requires to subscribe the global store and update components when the state is updated. The ref is used to keep track of the last rendered state. For more information, check out the GitHub repository.</p>
 <p><a href="https://github.com/dai-shi/react-hooks-easy-redux">https://github.com/dai-shi/react-hooks-easy-redux</a></p>

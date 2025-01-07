@@ -10,7 +10,7 @@
   <meta property="og:description" content="Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai’s primary focus is React Suspense from the beginning.
 In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
 https://codesandbox.io/s/vjfpcd
-import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAtom } from &#34;jotai&#34;; const id = 1; const postAtom = atom(async (get) =&gt; { const res = await fetch(`https://jsonplaceholder.">
+import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAtom } from &#34;jotai&#34;; const id = 1; const postAtom = atom(async (get) =&gt; { const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`); const data = await res.json(); return data; }); const Post = () =&gt; { const { title } = useAtomValue(postAtom); return &lt;div&gt;Title: {title}&lt;/div&gt;; }; const App = () =&gt; ( &lt;Suspense fallback=&#34;Loading...&#34;&gt; &lt;div&gt; &lt;Post /&gt; &lt;/div&gt; &lt;/Suspense&gt; ); export default App; There are no issues so far.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -29,9 +29,9 @@ import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAto
   <meta name="twitter:description" content="Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai’s primary focus is React Suspense from the beginning.
 In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
 https://codesandbox.io/s/vjfpcd
-import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAtom } from &#34;jotai&#34;; const id = 1; const postAtom = atom(async (get) =&gt; { const res = await fetch(`https://jsonplaceholder.">
+import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAtom } from &#34;jotai&#34;; const id = 1; const postAtom = atom(async (get) =&gt; { const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${id}`); const data = await res.json(); return data; }); const Post = () =&gt; { const { title } = useAtomValue(postAtom); return &lt;div&gt;Title: {title}&lt;/div&gt;; }; const App = () =&gt; ( &lt;Suspense fallback=&#34;Loading...&#34;&gt; &lt;div&gt; &lt;Post /&gt; &lt;/div&gt; &lt;/Suspense&gt; ); export default App; There are no issues so far.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>How to Use Jotai and useTransition for Mutation &middot; Daishi Kato&#39;s blog</title>
     

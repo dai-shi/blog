@@ -10,7 +10,8 @@
   <meta property="og:description" content="Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
 We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
 https://github.com/dai-shi/react-tracked
-The example we show is the one from Redux: Todo List">
+The example we show is the one from Redux: Todo List
+Folder structure - src/ - index.tsx - state.ts - hooks/ - useAddTodo.ts - useToggleTodo.ts - useVisibilityFilter.ts - useVisibleTodos.ts - components/ - AddTodo.tsx - App.tsx - FilterLink.tsx - Footer.tsx - Todo.tsx - VisibleTodoList.tsx We have two folders components and hooks. Components are basically views. Hooks include logic.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -30,9 +31,10 @@ The example we show is the one from Redux: Todo List">
   <meta name="twitter:description" content="Introduction React hooks have changed the way to compose components. This post will show an example which is very hooks-oriented.
 We use two libraries: react-tracked and immer. While immer makes it easy to update state in an immutable way, react-tracked makes it easy to read state with tracking for optimization. Please check out the repo for more details.
 https://github.com/dai-shi/react-tracked
-The example we show is the one from Redux: Todo List">
+The example we show is the one from Redux: Todo List
+Folder structure - src/ - index.tsx - state.ts - hooks/ - useAddTodo.ts - useToggleTodo.ts - useVisibilityFilter.ts - useVisibleTodos.ts - components/ - AddTodo.tsx - App.tsx - FilterLink.tsx - Footer.tsx - Todo.tsx - VisibleTodoList.tsx We have two folders components and hooks. Components are basically views. Hooks include logic.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>How to use react-tracked: React hooks-oriented Todo List example &middot; Daishi Kato&#39;s blog</title>
     
@@ -497,7 +499,7 @@ Notice the hook returns a tuple, a value and a setter function.</p>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">render</span>(<span style="color:#a6e22e">React</span>.<span style="color:#a6e22e">createElement</span>(<span style="color:#a6e22e">App</span>), document.<span style="color:#a6e22e">getElementById</span>(<span style="color:#e6db74">&#39;app&#39;</span>));
 </span></span></code></pre></div><p>Notice the <code>&lt;Provider&gt;</code> passes the <code>useValue</code> from state.ts.</p>
 <h3 id="online-demo">Online demo</h3>
-<!-- raw HTML omitted -->
+<iframe src="https://codesandbox.io/embed/github/dai-shi/react-tracked/tree/master/examples/07_todolist?fontsize=14" title="react-tracked-example" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%; height:500px; border:0; border-radius: 4px; overflow:hidden;" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe>
 <p><a href="https://github.com/dai-shi/react-tracked/tree/master/examples/07_todolist">Source code in the repo</a></p>
 <h3 id="closing-notes">Closing notes</h3>
 <p>As I wrote this post, I noticed something.

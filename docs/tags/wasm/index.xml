@@ -13,7 +13,7 @@
       <link>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</link>
       <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</guid>
-      <description>Introduction One of the technologies we should keep eyes on in the web world is WebAssembly or wasm. As I am new to it, I won&amp;rsquo;t describe much of its fundamentals. Please visit the official web site to learn from scratch.&#xA;https://webassembly.org/&#xA;This short article describes my first trial on wasm. What I want to try is just to run example code, but I&amp;rsquo;d start with writing the example code in wasm(wat).</description>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;One of the technologies we should keep eyes on in the web world is WebAssembly or wasm. As I am new to it, I won&amp;rsquo;t describe much of its fundamentals. Please visit the official web site to learn from scratch.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://webassembly.org/&#34;&gt;https://webassembly.org/&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This short article describes my first trial on wasm. What I want to try is just to run example code, but I&amp;rsquo;d start with writing the example code in wasm(wat).&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

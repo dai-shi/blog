@@ -8,7 +8,7 @@
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="Developing React custom hooks for abortable async functions with AbortController">
   <meta property="og:description" content="In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
-Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can’t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.">
+Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can’t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch. Technically, we can use it to cancel promises, and it would be nice to have an easy way to handle abortable async functions. In the React world, we are expecting the Hooks API soon. I’ve started a project to implement custom hooks for abortable async functions.">
   <meta property="og:locale" content="en_us">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -25,9 +25,9 @@ Recap JavaScript promise is not abortable. The fetch API is based on promise, an
   <meta name="twitter:image" content="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/cover.png">
   <meta name="twitter:title" content="Developing React custom hooks for abortable async functions with AbortController">
   <meta name="twitter:description" content="In my previous article, I introduced how the custom hook useAsyncTask handles async functions with AbortController and demonstrated a typeahead search example. In this article, I explain about the implementation of useAsyncTask.
-Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can’t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch.">
+Recap JavaScript promise is not abortable. The fetch API is based on promise, and hence you can’t cancel it in pure JavaScript. To cancel fetch, the DOM spec introduced AbortController. The AbortController is a general interface and not specific to fetch. Technically, we can use it to cancel promises, and it would be nice to have an easy way to handle abortable async functions. In the React world, we are expecting the Hooks API soon. I’ve started a project to implement custom hooks for abortable async functions.">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>Developing React custom hooks for abortable async functions with AbortController &middot; Daishi Kato&#39;s blog</title>
     

@@ -14,7 +14,7 @@
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Daishi Kato&#39;s blog">
 
-    <meta name="generator" content="Hugo 0.129.0">
+    <meta name="generator" content="Hugo 0.140.0">
     
       <title>Daishi Kato&#39;s blog</title>
     
@@ -119,6 +119,50 @@
 	<div class="panel panel-default">
 	<div class="panel-header">
 		<h3>
+			<a href="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/">Thoughts on State Management Libraries in the React Compiler Era</a>
+			<br>
+			<small>
+				7 January 2025
+			</small>
+		</h3>
+	</div>
+	<div class="panel-body">
+		<h2 id="introduction">Introduction</h2>
+<p>I&rsquo;ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.</p>
+<h2 id="what-are-state-management-libraries">What are state management libraries?</h2>
+<p>State management libraries manage the state of your application. For my libraries specifically, the primary goal isn&rsquo;t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.</p>
+		
+			... <a href="https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/">Read More</a>
+		
+	</div>
+	<div class="panel-footer">
+		
+		<small class="text-muted">
+			
+			
+				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
+			
+				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
+			
+				<a href="https://blog.axlight.com/tags/compiler"><span class="label label-success">compiler</span></a>
+			
+				<a href="https://blog.axlight.com/tags/rsc"><span class="label label-success">rsc</span></a>
+			
+				<a href="https://blog.axlight.com/tags/zustand"><span class="label label-success">zustand</span></a>
+			
+				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
+			
+				<a href="https://blog.axlight.com/tags/valtio"><span class="label label-success">valtio</span></a>
+			
+		</small>
+		
+	</div>
+</div>
+
+
+	<div class="panel panel-default">
+	<div class="panel-header">
+		<h3>
 			<a href="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/">Thoughts on What RSC Means for SPAs</a>
 			<br>
 			<small>
@@ -127,8 +171,13 @@
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:
-The core feature, which is the ability to serialize and deserialize React components and other values, and The best practice based on the core feature, which I kind of think is still to be explored. SPAs, or Single Page Applications, can often be deployed as static files.
+		<h2 id="introduction">Introduction</h2>
+<p>RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:</p>
+<ul>
+<li>The core feature, which is the ability to serialize and deserialize React components and other values, and</li>
+<li>The best practice based on the core feature, which I kind of think is still to be explored.</li>
+</ul>
+<p>SPAs, or Single Page Applications, can often be deployed as static files. While a separate server may exist, it typically doesn’t serve the SPA itself. In this context, an SPA can have multiple pages, but let&rsquo;s not argue about the precise definition.</p>
 		
 			... <a href="https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/">Read More</a>
 		
@@ -161,11 +210,14 @@ The core feature, which is the ability to serialize and deserialize React compon
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction In this post, I would like to reflect on my journey in open source software development.
-My first OSS contribution Around the year 2000, I made my first contribution to OSS: an Ethernet driver for NetBSD/mac68k. It was written in C, and now, looking back, I can barely understand the code.
-Found this link on the Web:
-http://cvsweb.netbsd.org/bsdweb.cgi/src/sys/arch/mac68k/nubus/if_netdock_nubus.c?rev=1.35&amp;content-type=text/x-cvsweb-markup
-Chicken Scheme Another phase in my OSS journey was working with Scheme.
+		<h3 id="introduction">Introduction</h3>
+<p>In this post, I would like to reflect on my journey in open source software development.</p>
+<h3 id="my-first-oss-contribution">My first OSS contribution</h3>
+<p>Around the year 2000, I made my first contribution to OSS: an Ethernet driver for NetBSD/mac68k. It was written in C, and now, looking back, I can barely understand the code.</p>
+<p>Found this link on the Web:</p>
+<p><a href="http://cvsweb.netbsd.org/bsdweb.cgi/src/sys/arch/mac68k/nubus/if_netdock_nubus.c?rev=1.35&amp;content-type=text/x-cvsweb-markup">http://cvsweb.netbsd.org/bsdweb.cgi/src/sys/arch/mac68k/nubus/if_netdock_nubus.c?rev=1.35&amp;content-type=text/x-cvsweb-markup</a></p>
+<h3 id="chicken-scheme">Chicken Scheme</h3>
+<p>Another phase in my OSS journey was working with Scheme. Although my contributions were small, I did contribute to a few libraries.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-i-got-involved-in-oss/">Read More</a>
 		
@@ -196,9 +248,11 @@ Chicken Scheme Another phase in my OSS journey was working with Scheme.
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction There was a discussion in our team after releasing Zustand v3 and the brand new Jotai. It was about whether we could develop another library for global state.
-In this post, I will reflect on the start of Valtio&rsquo;s development and its API design.
-Hesitation at First While the idea of a proxy state sounded promising, I was hesitant to develop a third global state library at first. We were already maintaining two libraries in the same problem domain.
+		<h3 id="introduction">Introduction</h3>
+<p>There was a discussion in our team after releasing Zustand v3 and the brand new Jotai. It was about whether we could develop another library for global state.</p>
+<p>In this post, I will reflect on the start of Valtio&rsquo;s development and its API design.</p>
+<h3 id="hesitation-at-first">Hesitation at First</h3>
+<p>While the idea of a proxy state sounded promising, I was hesitant to develop a third global state library at first. We were already maintaining two libraries in the same problem domain. It felt like adding another library would make no sense.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-valtio-was-born/">Read More</a>
 		
@@ -233,8 +287,10 @@ Hesitation at First While the idea of a proxy state sounded promising, I was hes
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction In this post, I would like to share the story of why I started developing Jotai. While Jotai is often seen as a similar solution to Recoil, there is a longer history behind its development.
-React Hooks It was October 2018 when React Hooks were first announced. I liked the idea of developing logic outside of React components, and believed that many libraries would soon adopt this approach. I wanted to develop something, and global state management was one field I picked.
+		<h3 id="introduction">Introduction</h3>
+<p>In this post, I would like to share the story of why I started developing Jotai. While Jotai is often seen as a similar solution to Recoil, there is a longer history behind its development.</p>
+<h3 id="react-hooks">React Hooks</h3>
+<p>It was October 2018 when React Hooks were first announced. I liked the idea of developing logic outside of React components, and believed that many libraries would soon adopt this approach. I wanted to develop something, and global state management was one field I picked. My motivation was to avoid Redux selectors, also known as <code>mapStateToProps</code> at that time. In my work experience, I found that it&rsquo;s pretty hard for beginners to understand referential equality. To avoid extra re-renders, we may need to use memoization libraries such as <code>reselect</code>. It felt unnecessary if the computation of selectors themselves was fairly lightweight.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-jotai-was-born/">Read More</a>
 		
@@ -269,9 +325,10 @@ React Hooks It was October 2018 when React Hooks were first announced. I liked t
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction In this post, I would like to share the story behind Zustand&rsquo;s development. To be precise, I wasn&rsquo;t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.
-I found my tweet mentioning Zustand, comparing it with other libraries, including mine.
-Comparison of React hooks libraries for global state.
+		<h3 id="introduction">Introduction</h3>
+<p>In this post, I would like to share the story behind Zustand&rsquo;s development. To be precise, I wasn&rsquo;t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.</p>
+<p>I found my tweet mentioning Zustand, comparing it with other libraries, including mine.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Comparison of React hooks libraries for global state. Only about performance/optimization. Not about API design. Please let me know if there are other libraries. <a href="https://t.co/UfoKOh8APL">https://t.co/UfoKOh8APL</a> <a href="https://twitter.com/hashtag/reactjs?src=hash&amp;ref_src=twsrc%5Etfw">#reactjs</a> <a href="https://twitter.com/hashtag/javascript?src=hash&amp;ref_src=twsrc%5Etfw">#javascript</a> <a href="https://twitter.com/hashtag/reacthooks?src=hash&amp;ref_src=twsrc%5Etfw">#reacthooks</a> <a href="https://twitter.com/hashtag/redux?src=hash&amp;ref_src=twsrc%5Etfw">#redux</a> <a href="https://t.co/bPIKzdmP3u">pic.twitter.com/bPIKzdmP3u</a></p>
 		
 			... <a href="https://blog.axlight.com/posts/how-zustand-was-born/">Read More</a>
 		
@@ -306,11 +363,19 @@ Comparison of React hooks libraries for global state.
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction I&rsquo;ve been sharing tips about Jotai on Twitter, calling them &ldquo;Jotai tips.&rdquo; As tweets tend to get lost over time, I thought it would be good to have all these tips in one place.
-So, here we go.
-Tip 1: Primitive-like atoms Jotai tips: Primitive-like atoms
-You can derive a primitive atom that behaves exactly the same, and you can add some side effects. pic.twitter.com/7r6tmRGNJ0
-&mdash; Daishi Kato (@dai_shi) August 23, 2023 Tip 2: Early return Jotai tips: early return
+		<h2 id="introduction">Introduction</h2>
+<p>I&rsquo;ve been sharing tips about Jotai on Twitter,
+calling them &ldquo;Jotai tips.&rdquo;
+As tweets tend to get lost over time,
+I thought it would be good to have all these tips in one place.</p>
+<p>So, here we go.</p>
+<h2 id="tip-1-primitive-like-atoms">Tip 1: Primitive-like atoms</h2>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Jotai tips: Primitive-like atoms<br><br>You can derive a primitive atom that behaves exactly the same, and you can add some side effects. <a href="https://t.co/7r6tmRGNJ0">pic.twitter.com/7r6tmRGNJ0</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1694494217379459573?ref_src=twsrc%5Etfw">August 23, 2023</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<h2 id="tip-2-early-return">Tip 2: Early return</h2>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Jotai tips: early return<br><br>Unlike React hooks, Jotai atoms have no limitations regarding early return. <a href="https://t.co/0LaDFNeGc3">pic.twitter.com/0LaDFNeGc3</a></p>
 		
 			... <a href="https://blog.axlight.com/posts/jotai-tips/">Read More</a>
 		
@@ -343,8 +408,9 @@ You can derive a primitive atom that behaves exactly the same, and you can add s
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Jotai is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.
-As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&rsquo;s a repo to evaluate some details.
+		<h2 id="introduction">Introduction</h2>
+<p><a href="https://github.com/pmndrs/jotai">Jotai</a> is developed to solve an extra re-render issue with React Context. A major challenge in its development has been the support of both Suspense and Concurrent rendering. Otherwise, it would have been a simpler implementation and its implementation would closely resemble that of any observable-like libraries.</p>
+<p>As of writing, Jotai is fully compatible with Suspense and Concurrent rendering with some exceptions. There&rsquo;s a repo to evaluate some details.</p>
 		
 			... <a href="https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/">Read More</a>
 		
@@ -383,10 +449,39 @@ As of writing, Jotai is fully compatible with Suspense and Concurrent rendering 
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Jotai is a powerful library designed for seamless integration with React Suspense. Unlike Zustand, Jotai&rsquo;s primary focus is React Suspense from the beginning.
-In its simplest form, Jotai effortlessly works with Suspense, and gives superior developer experience and user experience with async data.
-https://codesandbox.io/s/vjfpcd
-import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAtom } from &#34;jotai&#34;; const id = 1; const postAtom = atom(async (get) =&gt; { const res = await fetch(`https://jsonplaceholder.
+		<h3 id="introduction">Introduction</h3>
+<p><a href="https://github.com/pmndrs/jotai">Jotai</a>
+is a powerful library designed for seamless integration with React Suspense.
+Unlike Zustand, Jotai&rsquo;s primary focus is React Suspense from the beginning.</p>
+<p>In its simplest form, Jotai effortlessly works with Suspense,
+and gives superior developer experience and user experience with async data.</p>
+<p><a href="https://codesandbox.io/s/vjfpcd">https://codesandbox.io/s/vjfpcd</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-tsx" data-lang="tsx"><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">Suspense</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;react&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">import</span> { <span style="color:#a6e22e">atom</span>, <span style="color:#a6e22e">useAtomValue</span>, <span style="color:#a6e22e">useSetAtom</span> } <span style="color:#66d9ef">from</span> <span style="color:#e6db74">&#34;jotai&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">id</span> <span style="color:#f92672">=</span> <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">postAtom</span> <span style="color:#f92672">=</span> <span style="color:#a6e22e">atom</span>(<span style="color:#66d9ef">async</span> (<span style="color:#66d9ef">get</span>) <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">res</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">fetch</span>(<span style="color:#e6db74">`https://jsonplaceholder.typicode.com/posts/</span><span style="color:#e6db74">${</span><span style="color:#a6e22e">id</span><span style="color:#e6db74">}</span><span style="color:#e6db74">`</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> <span style="color:#a6e22e">data</span> <span style="color:#f92672">=</span> <span style="color:#66d9ef">await</span> <span style="color:#a6e22e">res</span>.<span style="color:#a6e22e">json</span>();
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">data</span>;
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">Post</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">const</span> { <span style="color:#a6e22e">title</span> } <span style="color:#f92672">=</span> <span style="color:#a6e22e">useAtomValue</span>(<span style="color:#a6e22e">postAtom</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">return</span> &lt;<span style="color:#f92672">div</span>&gt;<span style="color:#a6e22e">Title</span><span style="color:#f92672">:</span> {<span style="color:#a6e22e">title</span>}&lt;/<span style="color:#f92672">div</span>&gt;;
+</span></span><span style="display:flex;"><span>};
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">App</span> <span style="color:#f92672">=</span> () <span style="color:#f92672">=&gt;</span> (
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#f92672">Suspense</span> <span style="color:#a6e22e">fallback</span><span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Loading...&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>      &lt;<span style="color:#f92672">Post</span> /&gt;
+</span></span><span style="display:flex;"><span>    &lt;/<span style="color:#f92672">div</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#f92672">Suspense</span>&gt;
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">export</span> <span style="color:#66d9ef">default</span> <span style="color:#a6e22e">App</span>;
+</span></span></code></pre></div><p>There are no issues so far.</p>
 		
 			... <a href="https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/">Read More</a>
 		
@@ -421,13 +516,16 @@ import { Suspense } from &#34;react&#34;; import { atom, useAtomValue, useSetAto
 		</h3>
 	</div>
 	<div class="panel-body">
-		Introduction Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript. It does not affect the user code, which should be kept clean.
-Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.
-Here&#39;s the Zustand code in JS in a tweet.
-I think I did this before, but this is slightly a new version.
-Not in 140 chars, but in an image. 😅
-Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
-&mdash; Daishi Kato (@dai_shi) October 20, 2022 However, its TypeScript implementation is quite complicated.
+		<h3 id="introduction">Introduction</h3>
+<p>Note: This post focuses on Zustand library&rsquo;s implementation in TypeScript.
+It does not affect the user code, which should be kept clean.</p>
+<p>Zustand&rsquo;s JavaScript implementation is very small, as seen in the following tweet.</p>
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Here&#39;s the Zustand code in JS in a tweet.<br>I think I did this before, but this is slightly a new version.<br>Not in 140 chars, but in an image. 😅<br><br>Source: <a href="https://t.co/SEBiC7bObe">https://t.co/SEBiC7bObe</a> <a href="https://t.co/kLcHnMN5je">pic.twitter.com/kLcHnMN5je</a></p>&mdash; Daishi Kato (@dai_shi) <a href="https://twitter.com/dai_shi/status/1583082766081531905?ref_src=twsrc%5Etfw">October 20, 2022</a></blockquote>
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+<p>However, its TypeScript implementation is quite complicated.
+There are several reasons, one of which we explore in this post.</p>
 		
 			... <a href="https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/">Read More</a>
 		
@@ -444,46 +542,6 @@ Source: https://t.co/SEBiC7bObe pic.twitter.com/kLcHnMN5je
 				<a href="https://blog.axlight.com/tags/typescript"><span class="label label-success">typescript</span></a>
 			
 				<a href="https://blog.axlight.com/tags/zustand"><span class="label label-success">zustand</span></a>
-			
-		</small>
-		
-	</div>
-</div>
-
-
-	<div class="panel panel-default">
-	<div class="panel-header">
-		<h3>
-			<a href="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/">Why You Don&#39;t Need Signals in React</a>
-			<br>
-			<small>
-				23 April 2023
-			</small>
-		</h3>
-	</div>
-	<div class="panel-body">
-		Introduction In the world of web frontend development, signals have become a popular topic. At their core, signals are used to represent changes in state over time. Some developers have discussed the potential of using signals in conjunction with React.
-Signals are actually an older concept, and it&rsquo;s uncertain how they are understood by modern web developers. Initially, I was confused about the characteristics of signals, but I later realized that they can be boiled down to two main aspects:
-		
-			... <a href="https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/">Read More</a>
-		
-	</div>
-	<div class="panel-footer">
-		
-		<small class="text-muted">
-			
-			
-				<a href="https://blog.axlight.com/tags/react"><span class="label label-success">react</span></a>
-			
-				<a href="https://blog.axlight.com/tags/hooks"><span class="label label-success">hooks</span></a>
-			
-				<a href="https://blog.axlight.com/tags/global-state"><span class="label label-success">global-state</span></a>
-			
-				<a href="https://blog.axlight.com/tags/atom"><span class="label label-success">atom</span></a>
-			
-				<a href="https://blog.axlight.com/tags/jotai"><span class="label label-success">jotai</span></a>
-			
-				<a href="https://blog.axlight.com/tags/signals"><span class="label label-success">signals</span></a>
 			
 		</small>
 		
