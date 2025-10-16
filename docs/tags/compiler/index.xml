@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Compiler on Daishi Kato&#39;s blog</title>
-    <link>https://blog.axlight.com/tags/compiler/</link>
+    <link>http://localhost:1313/tags/compiler/</link>
     <description>Recent content in Compiler on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
-    <atom:link href="https://blog.axlight.com/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/compiler/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thoughts on State Management Libraries in the React Compiler Era</title>
-      <link>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
+      <link>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
+      <guid>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-are-state-management-libraries&#34;&gt;What are state management libraries?&lt;/h2&gt;&#xA;&lt;p&gt;State management libraries manage the state of your application. For my libraries specifically, the primary goal isn&amp;rsquo;t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/">
+    <meta property="og:url" content="http://localhost:1313/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="How to properly use the React useRef hook in Concurrent Mode">
   <meta property="og:description" content="Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
@@ -17,23 +17,23 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
     <meta property="article:tag" content="React">
     <meta property="article:tag" content="Hooks">
     <meta property="article:tag" content="Concurrent">
-    <meta property="og:image" content="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png">
+    <meta property="og:image" content="http://localhost:1313/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png">
+  <meta name="twitter:image" content="http://localhost:1313/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png">
   <meta name="twitter:title" content="How to properly use the React useRef hook in Concurrent Mode">
   <meta name="twitter:description" content="Introduction According to React 16.x Roadmap, we are expecting Concurrent Mode soon.
 React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.">
 
-    <meta name="generator" content="Hugo 0.140.0">
+    <meta name="generator" content="Hugo 0.150.0">
     
       <title>How to properly use the React useRef hook in Concurrent Mode &middot; Daishi Kato&#39;s blog</title>
     
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -56,7 +56,7 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +64,7 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
 				
 				
           
-            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
           
 				
           
@@ -80,13 +80,13 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -101,7 +101,7 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
 			
 			
         
-          <a href="https://blog.axlight.com/posts/">All Posts</a>
+          <a href="http://localhost:1313/posts/">All Posts</a>
         
 			
         
@@ -127,7 +127,7 @@ React 16.x (~Q2 2019): The One with Concurrent Mode Concurrent Mode lets React a
     </h4>
     
       
-        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png" />
+        <img alt="cover" width="100%" src="http://localhost:1313/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/cover.png" />
       
     
 		<h1>
@@ -163,16 +163,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&text=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&text=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&t=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&t=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&title=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&title=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&title=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fhow-to-properly-use-the-react-useref-hook-in-concurrent-mode%2f&title=How%20to%20properly%20use%20the%20React%20useRef%20hook%20in%20Concurrent%20Mode">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -183,8 +183,7 @@ text-align: center;
 <p>According to <a href="https://reactjs.org/blog/2018/11/27/react-16-roadmap.html">React 16.x Roadmap</a>, we are expecting Concurrent Mode soon.</p>
 <blockquote>
 <p>React 16.x (~Q2 2019): The One with Concurrent Mode
-Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.</p>
-</blockquote>
+Concurrent Mode lets React apps be more responsive by rendering component trees without blocking the main thread. It is opt-in and allows React to interrupt a long-running render (for example, rendering a new feed story) to handle a high-priority event (for example, text input or hover). Concurrent Mode also improves the user experience of Suspense by skipping unnecessary loading states on fast connections.</p></blockquote>
 <p>While it is an opt-in feature, you can enable it easily and if your component isn&rsquo;t properly implemented, it won&rsquo;t work correctly. In short, you can&rsquo;t make side effects in your render function. This has always been true, but it hadn&rsquo;t been a real issue until we have Concurrent Mode. In Concurrent Mode, render functions could be invoked multiple times without actually committing (meaning, for example, applying changes to the DOM). Luckily, Strict Mode intentionally invoke render functions twice, and you can notice the wrong behavior in the development mode. Refer <a href="https://reactjs.org/docs/strict-mode.html#detecting-unexpected-side-effects">the doc</a> for more information.</p>
 <p>This short article focuses on <code>useRef</code>, one of React Hooks. The useRef hook is pretty powerful and often can be abused. In general, developers should avoid using <code>useRef</code> if they could use <code>useState</code> instead.</p>
 <p>This article shows example code that uses <code>useRef</code> improperly and how to fix it. The example is a simple counter just to illustrate the issue. It&rsquo;s not product code, and you can actually implement the same example with <code>useState</code>.</p>
@@ -268,7 +267,7 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -282,7 +281,7 @@ Concurrent Mode lets React apps be more responsive by rendering component trees 
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="https://blog.axlight.com//js/App.js"></script>
+  <script src="http://localhost:1313//js/App.js"></script>
   
 </body>
 </html>

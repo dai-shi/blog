@@ -11,7 +11,7 @@ In this post, I would like to share the story behind Zustand's development. To b
 
 I found my tweet mentioning Zustand, comparing it with other libraries, including mine.
 
-{{< tweet user="dai_shi" id="1141004414129324032" >}}
+{{< x user="dai_shi" id="1141004414129324032" >}}
 
 My belief at that point was that the global state should be passed via React Context so that it works with React Concurrent Mode. So, I made a comparison table to differentiate my library and others, and Zustand was one of them. This was in the year 2019.
 

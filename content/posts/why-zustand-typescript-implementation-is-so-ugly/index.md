@@ -12,7 +12,7 @@ It does not affect the user code, which should be kept clean.
 
 Zustand's JavaScript implementation is very small, as seen in the following tweet.
 
-{{< tweet user="dai_shi" id="1583082766081531905" >}}
+{{< x user="dai_shi" id="1583082766081531905" >}}
 
 However, its TypeScript implementation is quite complicated.
 There are several reasons, one of which we explore in this post.

@@ -37,7 +37,7 @@ In the past, I had this tweet, mentioning
 React component centric approach is an internal store,
 where as data centric approach is an external store.
 
-{{< tweet user="dai_shi" id="1381252474682535938" >}}
+{{< x user="dai_shi" id="1381252474682535938" >}}
 
 In this article, our focus is the columns in the table.
 (The rows are from a different perspective.)
@@ -47,7 +47,7 @@ It's "state resides at component level (inside react)"
 vs.
 "state resides at module level (outside react)".
 
-{{< tweet user="dai_shi" id="1342464894155640833" >}}
+{{< x user="dai_shi" id="1342464894155640833" >}}
 
 Again, our focus is the columns in the table.
 

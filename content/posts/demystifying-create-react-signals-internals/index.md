@@ -186,7 +186,7 @@ about the implementation of uncontrolled components.
 
 There's fallback mechanism if uncontrolled components don't work.
 
-{{< tweet user="dai_shi" id="1616639032418799619" >}}
+{{< x user="dai_shi" id="1616639032418799619" >}}
 
 This approach is still considered experimental
 and might have a pitfall.
@@ -258,13 +258,13 @@ In summary, it's still an open problem.
 In addition to `jotai-signal`, `valtio-signal` and `zustand-signal`,
 we can technically create `redux-signal`.
 
-{{< tweet user="dai_shi" id="1629482966895448064" >}}
+{{< x user="dai_shi" id="1629482966895448064" >}}
 
 I think signals in React are still a open research field.
 
 If React will provide a new primitive such as `use(Observable)`,
 we could explore this approach further.
 
-{{< tweet user="dai_shi" id="1628951555658620930" >}}
+{{< x user="dai_shi" id="1628951555658620930" >}}
 
 Until then, let's play with userland solutions.

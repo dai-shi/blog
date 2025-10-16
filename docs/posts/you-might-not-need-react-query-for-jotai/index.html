@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/">
+    <meta property="og:url" content="http://localhost:1313/posts/you-might-not-need-react-query-for-jotai/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="You Might Not Need React Query for Jotai">
   <meta property="og:description" content="Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
@@ -20,23 +20,23 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
     <meta property="article:tag" content="Atom">
     <meta property="article:tag" content="Jotai">
     <meta property="article:tag" content="Fetch">
-    <meta property="og:image" content="https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/cover.jpg">
+    <meta property="og:image" content="http://localhost:1313/posts/you-might-not-need-react-query-for-jotai/cover.jpg">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/cover.jpg">
+  <meta name="twitter:image" content="http://localhost:1313/posts/you-might-not-need-react-query-for-jotai/cover.jpg">
   <meta name="twitter:title" content="You Might Not Need React Query for Jotai">
   <meta name="twitter:description" content="Introduction When Jotai development was started (before releasing v1), it has a simple goal. It optimizes re-renders, which was often a problem with useState and useContext using a big state object. We also wanted to avoid using selector function, which is popularized by Redux and widely used.
 In the early days, I wanted to have data fetching solution, but didn’t want to complicate Jotai itself. So, jotai/query package was created. It’s an integration with React Query v3. It went well, but I noticed a certain mismatch with users. While my mental model was to create a data fetching API for Jotai, people want full features from React Query. I had been struggling with the mismatch, and ended up with creating a new library jotai-tanstack-query. It integrates TanStack Query v4 and covers full features.">
 
-    <meta name="generator" content="Hugo 0.140.0">
+    <meta name="generator" content="Hugo 0.150.0">
     
       <title>You Might Not Need React Query for Jotai &middot; Daishi Kato&#39;s blog</title>
     
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -59,7 +59,7 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,7 +67,7 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
 				
 				
           
-            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
           
 				
           
@@ -83,13 +83,13 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -104,7 +104,7 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
 			
 			
         
-          <a href="https://blog.axlight.com/posts/">All Posts</a>
+          <a href="http://localhost:1313/posts/">All Posts</a>
         
 			
         
@@ -130,7 +130,7 @@ In the early days, I wanted to have data fetching solution, but didn’t want to
     </h4>
     
       
-        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/cover.jpg" />
+        <img alt="cover" width="100%" src="http://localhost:1313/posts/you-might-not-need-react-query-for-jotai/cover.jpg" />
       
     
 		<h1>
@@ -166,16 +166,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&text=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&text=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&t=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&t=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&title=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&title=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&title=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fyou-might-not-need-react-query-for-jotai%2f&title=You%20Might%20Not%20Need%20React%20Query%20for%20Jotai">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -335,7 +335,7 @@ you might not need Jotai if TanStack Query covers your needs.</p>
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -349,7 +349,7 @@ you might not need Jotai if TanStack Query covers your needs.</p>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="https://blog.axlight.com//js/App.js"></script>
+  <script src="http://localhost:1313//js/App.js"></script>
   
 </body>
 </html>

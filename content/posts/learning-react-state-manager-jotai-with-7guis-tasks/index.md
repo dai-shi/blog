@@ -31,7 +31,7 @@ This is pretty easy. Good to try for the first time.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1432313981176205319" >}}
+{{< x user="dai_shi" id="1432313981176205319" >}}
 
 ## Task 2: Temperature Converter
 
@@ -45,7 +45,7 @@ We need to handle non numeric input and thus it's rather straightforward.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1432325078419587079" >}}
+{{< x user="dai_shi" id="1432325078419587079" >}}
 
 ## Task 3: Flight Booker
 
@@ -59,7 +59,7 @@ You would need to keep both string and date for comparison.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1432355221020168196" >}}
+{{< x user="dai_shi" id="1432355221020168196" >}}
 
 ## Task 4: Timer
 
@@ -72,7 +72,7 @@ I'm not 100% sure if my implementation is readable enough.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1432723166086971401" >}}
+{{< x user="dai_shi" id="1432723166086971401" >}}
 
 ## Task 5: CRUD
 
@@ -86,7 +86,7 @@ but you could implement without it.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1433116078540935170" >}}
+{{< x user="dai_shi" id="1433116078540935170" >}}
 
 ## Task 6: Circle Drawer
 
@@ -102,7 +102,7 @@ would be advanced challenges.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1433480261547663377" >}}
+{{< x user="dai_shi" id="1433480261547663377" >}}
 
 ## Task 7: Cells
 
@@ -119,7 +119,7 @@ Note that I cheated formula evaluation with `eval`.
 
 Check the codesandbox link in the following tweet.
 
-{{< tweet user="dai_shi" id="1433804219828490241" >}}
+{{< x user="dai_shi" id="1433804219828490241" >}}
 
 ## Summary
 

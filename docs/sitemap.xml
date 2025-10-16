@@ -2,324 +2,324 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.axlight.com/tags/compiler/</loc>
+    <loc>http://localhost:1313/tags/compiler/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/</loc>
+    <loc>http://localhost:1313/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/global-state/</loc>
+    <loc>http://localhost:1313/tags/global-state/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/jotai/</loc>
+    <loc>http://localhost:1313/tags/jotai/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
+    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
+    <loc>http://localhost:1313/tags/react/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/rsc/</loc>
+    <loc>http://localhost:1313/tags/rsc/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
+    <loc>http://localhost:1313/tags/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</loc>
+    <loc>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/valtio/</loc>
+    <loc>http://localhost:1313/tags/valtio/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/zustand/</loc>
+    <loc>http://localhost:1313/tags/zustand/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/framework/</loc>
+    <loc>http://localhost:1313/tags/framework/</loc>
     <lastmod>2024-11-26T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</loc>
+    <loc>http://localhost:1313/posts/thoughts-on-what-rsc-means-for-spas/</loc>
     <lastmod>2024-11-26T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-i-got-involved-in-oss/</loc>
+    <loc>http://localhost:1313/posts/how-i-got-involved-in-oss/</loc>
     <lastmod>2024-09-03T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/oss/</loc>
+    <loc>http://localhost:1313/tags/oss/</loc>
     <lastmod>2024-09-03T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-valtio-was-born/</loc>
+    <loc>http://localhost:1313/posts/how-valtio-was-born/</loc>
     <lastmod>2024-08-18T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/typescript/</loc>
+    <loc>http://localhost:1313/tags/typescript/</loc>
     <lastmod>2024-08-18T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-jotai-was-born/</loc>
+    <loc>http://localhost:1313/posts/how-jotai-was-born/</loc>
     <lastmod>2024-08-09T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-zustand-was-born/</loc>
+    <loc>http://localhost:1313/posts/how-zustand-was-born/</loc>
     <lastmod>2024-07-14T13:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/jotai-tips/</loc>
+    <loc>http://localhost:1313/posts/jotai-tips/</loc>
     <lastmod>2024-04-03T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/hooks/</loc>
+    <loc>http://localhost:1313/tags/hooks/</loc>
     <lastmod>2023-10-28T11:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/suspense/</loc>
+    <loc>http://localhost:1313/tags/suspense/</loc>
     <lastmod>2023-10-28T11:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/why-use-sync-external-store-is-not-used-in-jotai/</loc>
+    <loc>http://localhost:1313/posts/why-use-sync-external-store-is-not-used-in-jotai/</loc>
     <lastmod>2023-10-28T11:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-to-use-jotai-and-use-transition-for-mutation/</loc>
+    <loc>http://localhost:1313/posts/how-to-use-jotai-and-use-transition-for-mutation/</loc>
     <lastmod>2023-07-28T01:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</loc>
+    <loc>http://localhost:1313/posts/why-zustand-typescript-implementation-is-so-ugly/</loc>
     <lastmod>2023-07-19T15:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/atom/</loc>
+    <loc>http://localhost:1313/tags/atom/</loc>
     <lastmod>2023-04-23T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/signals/</loc>
+    <loc>http://localhost:1313/tags/signals/</loc>
     <lastmod>2023-04-23T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/why-you-dont-need-signals-in-react/</loc>
+    <loc>http://localhost:1313/posts/why-you-dont-need-signals-in-react/</loc>
     <lastmod>2023-04-23T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/demystifying-create-react-signals-internals/</loc>
+    <loc>http://localhost:1313/posts/demystifying-create-react-signals-internals/</loc>
     <lastmod>2023-02-26T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/fetch/</loc>
+    <loc>http://localhost:1313/tags/fetch/</loc>
     <lastmod>2023-01-31T14:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/you-might-not-need-react-query-for-jotai/</loc>
+    <loc>http://localhost:1313/posts/you-might-not-need-react-query-for-jotai/</loc>
     <lastmod>2023-01-31T14:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/why-we-need-jotai-v2-api/</loc>
+    <loc>http://localhost:1313/posts/why-we-need-jotai-v2-api/</loc>
     <lastmod>2022-12-06T14:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-jotai-specifies-package-entry-points/</loc>
+    <loc>http://localhost:1313/posts/how-jotai-specifies-package-entry-points/</loc>
     <lastmod>2022-04-17T17:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/node/</loc>
+    <loc>http://localhost:1313/tags/node/</loc>
     <lastmod>2022-04-17T17:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/proxy/</loc>
+    <loc>http://localhost:1313/tags/proxy/</loc>
     <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/when-i-use-valtio-and-when-i-use-jotai/</loc>
+    <loc>http://localhost:1313/posts/when-i-use-valtio-and-when-i-use-jotai/</loc>
     <lastmod>2022-01-30T18:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-valtio-proxy-state-works-react-part/</loc>
+    <loc>http://localhost:1313/posts/how-valtio-proxy-state-works-react-part/</loc>
     <lastmod>2021-12-26T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/learning-react-state-manager-jotai-with-7guis-tasks/</loc>
+    <loc>http://localhost:1313/posts/learning-react-state-manager-jotai-with-7guis-tasks/</loc>
     <lastmod>2021-09-13T20:23:30+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-valtio-proxy-state-works-vanilla-part/</loc>
+    <loc>http://localhost:1313/posts/how-valtio-proxy-state-works-vanilla-part/</loc>
     <lastmod>2021-08-27T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/concurrent/</loc>
+    <loc>http://localhost:1313/tags/concurrent/</loc>
     <lastmod>2021-06-10T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/context/</loc>
+    <loc>http://localhost:1313/tags/context/</loc>
     <lastmod>2021-06-10T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/redux/</loc>
+    <loc>http://localhost:1313/tags/redux/</loc>
     <lastmod>2021-06-10T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</loc>
+    <loc>http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</loc>
     <lastmod>2021-06-10T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</loc>
+    <loc>http://localhost:1313/posts/developing-a-memoization-library-with-proxies/</loc>
     <lastmod>2020-11-29T14:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/memoization/</loc>
+    <loc>http://localhost:1313/tags/memoization/</loc>
     <lastmod>2020-11-29T14:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/developing-react-global-state-library-with-atom-abstraction/</loc>
+    <loc>http://localhost:1313/posts/developing-react-global-state-library-with-atom-abstraction/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/recoil/</loc>
+    <loc>http://localhost:1313/tags/recoil/</loc>
     <lastmod>2020-08-13T08:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</loc>
+    <loc>http://localhost:1313/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</loc>
     <lastmod>2020-03-29T20:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/worker/</loc>
+    <loc>http://localhost:1313/tags/worker/</loc>
     <lastmod>2020-03-29T20:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</loc>
+    <loc>http://localhost:1313/posts/steps-to-develop-global-state-for-react/</loc>
     <lastmod>2020-02-18T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/apollo/</loc>
+    <loc>http://localhost:1313/tags/apollo/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/apollo-link/</loc>
+    <loc>http://localhost:1313/tags/apollo-link/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/graphql/</loc>
+    <loc>http://localhost:1313/tags/graphql/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/lazy-load-apollo-link-in-apollo-client/</loc>
+    <loc>http://localhost:1313/posts/lazy-load-apollo-link-in-apollo-client/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/lazy-loading/</loc>
+    <loc>http://localhost:1313/tags/lazy-loading/</loc>
     <lastmod>2020-01-10T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/async/</loc>
+    <loc>http://localhost:1313/tags/async/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</loc>
+    <loc>http://localhost:1313/posts/how-to-handle-async-actions-for-global-state-with-react-hooks-and-context/</loc>
     <lastmod>2019-12-20T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</loc>
+    <loc>http://localhost:1313/posts/diving-into-react-suspense-render-as-you-fetch-for-rest-apis/</loc>
     <lastmod>2019-12-16T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</loc>
+    <loc>http://localhost:1313/posts/developing-a-react-library-for-suspense-for-data-fetching-in-concurrent-mode/</loc>
     <lastmod>2019-11-03T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-tracked-documentation-website-with-docusaurus-v2/</loc>
+    <loc>http://localhost:1313/posts/react-tracked-documentation-website-with-docusaurus-v2/</loc>
     <lastmod>2019-10-15T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</loc>
+    <loc>http://localhost:1313/posts/off-main-thread-react-redux-with-performance/</loc>
     <lastmod>2019-09-16T11:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/</loc>
+    <loc>http://localhost:1313/posts/how-i-developed-react-hooks-for-web-workers/</loc>
     <lastmod>2019-09-08T16:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/4-options-to-prevent-extra-rerenders-with-react-context/</loc>
+    <loc>http://localhost:1313/posts/4-options-to-prevent-extra-rerenders-with-react-context/</loc>
     <lastmod>2019-08-21T21:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</loc>
+    <loc>http://localhost:1313/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</loc>
     <lastmod>2019-08-12T10:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</loc>
+    <loc>http://localhost:1313/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</loc>
     <lastmod>2019-07-27T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</loc>
+    <loc>http://localhost:1313/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</loc>
     <lastmod>2019-07-21T13:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</loc>
+    <loc>http://localhost:1313/posts/how-to-use-react-tracked-react-hooks-oriented-todo-list-example/</loc>
     <lastmod>2019-07-08T01:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</loc>
+    <loc>http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</loc>
     <lastmod>2019-07-07T17:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</loc>
+    <loc>http://localhost:1313/posts/four-different-approaches-to-non-redux-global-state-libraries/</loc>
     <lastmod>2019-07-06T16:19:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-hooks-usestate-and-usereducer-are-equivalent-in-theoretical-expressiveness/</loc>
+    <loc>http://localhost:1313/posts/react-hooks-usestate-and-usereducer-are-equivalent-in-theoretical-expressiveness/</loc>
     <lastmod>2019-07-01T08:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/usereducer/</loc>
+    <loc>http://localhost:1313/tags/usereducer/</loc>
     <lastmod>2019-07-01T08:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/benchmark/</loc>
+    <loc>http://localhost:1313/tags/benchmark/</loc>
     <lastmod>2019-06-16T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/benchmark-react-tracked/</loc>
+    <loc>http://localhost:1313/posts/benchmark-react-tracked/</loc>
     <lastmod>2019-06-16T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/super-performant-global-state-with-react-context-and-hooks/</loc>
+    <loc>http://localhost:1313/posts/super-performant-global-state-with-react-context-and-hooks/</loc>
     <lastmod>2019-06-15T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</loc>
+    <loc>http://localhost:1313/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</loc>
     <lastmod>2019-06-03T23:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</loc>
+    <loc>http://localhost:1313/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</loc>
     <lastmod>2019-05-27T00:50:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</loc>
+    <loc>http://localhost:1313/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</loc>
     <lastmod>2019-05-02T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</loc>
+    <loc>http://localhost:1313/posts/new-react-redux-coding-style-with-hooks-without-selectors/</loc>
     <lastmod>2019-04-20T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/compose-react-hooks-like-composing-react-components/</loc>
+    <loc>http://localhost:1313/posts/compose-react-hooks-like-composing-react-components/</loc>
     <lastmod>2019-04-18T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/abortable/</loc>
+    <loc>http://localhost:1313/tags/abortable/</loc>
     <lastmod>2019-04-03T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</loc>
+    <loc>http://localhost:1313/posts/how-to-create-react-custom-hooks-for-data-fetching-with-useeffect/</loc>
     <lastmod>2019-04-03T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/</loc>
+    <loc>http://localhost:1313/posts/how-to-properly-use-the-react-useref-hook-in-concurrent-mode/</loc>
     <lastmod>2019-03-07T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</loc>
+    <loc>http://localhost:1313/posts/usefetch-react-custom-hook-for-fetch-api-with-suspense-and-concurrent-mode-in-mind/</loc>
     <lastmod>2019-02-04T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</loc>
+    <loc>http://localhost:1313/posts/playing-with-react-hooks-and-web-workers/</loc>
     <lastmod>2019-01-29T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/my-first-webassembly-trial-with-node-js-only/</loc>
+    <loc>http://localhost:1313/posts/my-first-webassembly-trial-with-node-js-only/</loc>
     <lastmod>2019-01-22T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/wasm/</loc>
+    <loc>http://localhost:1313/tags/wasm/</loc>
     <lastmod>2019-01-22T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/a-thought-on-react-context-default-value/</loc>
+    <loc>http://localhost:1313/posts/a-thought-on-react-context-default-value/</loc>
     <lastmod>2019-01-11T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</loc>
+    <loc>http://localhost:1313/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/</loc>
     <lastmod>2018-12-31T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/express/</loc>
+    <loc>http://localhost:1313/tags/express/</loc>
     <lastmod>2018-12-22T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</loc>
+    <loc>http://localhost:1313/posts/injecting-a-client-side-script-in-graphql-playground-in-apollo-server/</loc>
     <lastmod>2018-12-22T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/playground/</loc>
+    <loc>http://localhost:1313/tags/playground/</loc>
     <lastmod>2018-12-22T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</loc>
+    <loc>http://localhost:1313/posts/developing-react-custom-hooks-for-redux-without-react-redux/</loc>
     <lastmod>2018-12-14T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</loc>
+    <loc>http://localhost:1313/posts/introduction-to-abortable-async-functions-for-react-with-hooks/</loc>
     <lastmod>2018-12-11T10:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/</loc>
+    <loc>http://localhost:1313/posts/creating-a-minimal-expo-react-native-project-with-typescript-and-jest/</loc>
     <lastmod>2018-12-01T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/expo/</loc>
+    <loc>http://localhost:1313/tags/expo/</loc>
     <lastmod>2018-12-01T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/jest/</loc>
+    <loc>http://localhost:1313/tags/jest/</loc>
     <lastmod>2018-12-01T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/tags/react-native/</loc>
+    <loc>http://localhost:1313/tags/react-native/</loc>
     <lastmod>2018-12-01T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</loc>
+    <loc>http://localhost:1313/posts/react-hooks-tutorial-on-developing-a-custom-hook-for-data-fetching/</loc>
     <lastmod>2018-11-29T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</loc>
+    <loc>http://localhost:1313/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</loc>
     <lastmod>2018-11-16T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</loc>
+    <loc>http://localhost:1313/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</loc>
     <lastmod>2018-11-09T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-global-state-by-context-api-for-typescript/</loc>
+    <loc>http://localhost:1313/posts/react-global-state-by-context-api-for-typescript/</loc>
     <lastmod>2018-11-08T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</loc>
+    <loc>http://localhost:1313/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</loc>
     <lastmod>2018-11-07T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</loc>
+    <loc>http://localhost:1313/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</loc>
     <lastmod>2018-11-04T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/typescript-aware-react-hooks-for-global-state/</loc>
+    <loc>http://localhost:1313/posts/typescript-aware-react-hooks-for-global-state/</loc>
     <lastmod>2018-10-28T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</loc>
+    <loc>http://localhost:1313/posts/clean-expo-react-native-react-apollo-graphql-typescript-boilerplate/</loc>
     <lastmod>2018-10-20T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/react-global-state-by-context-api/</loc>
+    <loc>http://localhost:1313/posts/react-global-state-by-context-api/</loc>
     <lastmod>2018-10-05T12:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/categories/</loc>
+    <loc>http://localhost:1313/categories/</loc>
   </url>
 </urlset>

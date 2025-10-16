@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Zustand on Daishi Kato&#39;s blog</title>
-    <link>https://blog.axlight.com/tags/zustand/</link>
+    <link>http://localhost:1313/tags/zustand/</link>
     <description>Recent content in Zustand on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
-    <atom:link href="https://blog.axlight.com/tags/zustand/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://localhost:1313/tags/zustand/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thoughts on State Management Libraries in the React Compiler Era</title>
-      <link>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
+      <link>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
+      <guid>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-are-state-management-libraries&#34;&gt;What are state management libraries?&lt;/h2&gt;&#xA;&lt;p&gt;State management libraries manage the state of your application. For my libraries specifically, the primary goal isn&amp;rsquo;t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.&lt;/p&gt;</description>
     </item>
     <item>
       <title>How Zustand Was Born</title>
-      <link>https://blog.axlight.com/posts/how-zustand-was-born/</link>
+      <link>http://localhost:1313/posts/how-zustand-was-born/</link>
       <pubDate>Sun, 14 Jul 2024 13:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/posts/how-zustand-was-born/</guid>
+      <guid>http://localhost:1313/posts/how-zustand-was-born/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;In this post, I would like to share the story behind Zustand&amp;rsquo;s development. To be precise, I wasn&amp;rsquo;t the original author of Zustand, and when Zustand v0 was born, I was developing other global state libraries, especially React-Tracked. By the way, I now consider myself a (secondary) author of Zustand.&lt;/p&gt;&#xA;&lt;p&gt;I found my tweet mentioning Zustand, comparing it with other libraries, including mine.&lt;/p&gt;&#xA;&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Comparison of React hooks libraries for global state. Only about performance/optimization. Not about API design. Please let me know if there are other libraries. &lt;a href=&#34;https://t.co/UfoKOh8APL&#34;&gt;https://t.co/UfoKOh8APL&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/reactjs?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#reactjs&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/javascript?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#javascript&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/reacthooks?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#reacthooks&lt;/a&gt; &lt;a href=&#34;https://twitter.com/hashtag/redux?src=hash&amp;amp;ref_src=twsrc%5Etfw&#34;&gt;#redux&lt;/a&gt; &lt;a href=&#34;https://t.co/bPIKzdmP3u&#34;&gt;pic.twitter.com/bPIKzdmP3u&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>Why Zustand Typescript Implementation Is So Ugly</title>
-      <link>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</link>
+      <link>http://localhost:1313/posts/why-zustand-typescript-implementation-is-so-ugly/</link>
       <pubDate>Wed, 19 Jul 2023 15:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/posts/why-zustand-typescript-implementation-is-so-ugly/</guid>
+      <guid>http://localhost:1313/posts/why-zustand-typescript-implementation-is-so-ugly/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Note: This post focuses on Zustand library&amp;rsquo;s implementation in TypeScript.&#xA;It does not affect the user code, which should be kept clean.&lt;/p&gt;&#xA;&lt;p&gt;Zustand&amp;rsquo;s JavaScript implementation is very small, as seen in the following tweet.&lt;/p&gt;&#xA;&lt;blockquote class=&#34;twitter-tweet&#34;&gt;&lt;p lang=&#34;en&#34; dir=&#34;ltr&#34;&gt;Here&amp;#39;s the Zustand code in JS in a tweet.&lt;br&gt;I think I did this before, but this is slightly a new version.&lt;br&gt;Not in 140 chars, but in an image. 😅&lt;br&gt;&lt;br&gt;Source: &lt;a href=&#34;https://t.co/SEBiC7bObe&#34;&gt;https://t.co/SEBiC7bObe&lt;/a&gt; &lt;a href=&#34;https://t.co/kLcHnMN5je&#34;&gt;pic.twitter.com/kLcHnMN5je&lt;/a&gt;&lt;/p&gt;&amp;mdash; Daishi Kato (@dai_shi) &lt;a href=&#34;https://twitter.com/dai_shi/status/1583082766081531905?ref_src=twsrc%5Etfw&#34;&gt;October 20, 2022&lt;/a&gt;&lt;/blockquote&gt;&#xA;&lt;script async src=&#34;https://platform.twitter.com/widgets.js&#34; charset=&#34;utf-8&#34;&gt;&lt;/script&gt;&#xA;&#xA;&#xA;&lt;p&gt;However, its TypeScript implementation is quite complicated.&#xA;There are several reasons, one of which we explore in this post.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/">
+    <meta property="og:url" content="http://localhost:1313/posts/introduction-to-abortable-async-functions-for-react-with-hooks/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="Introduction to abortable async functions for React with hooks">
   <meta property="og:description" content="There is a follow-up article which describes the implementation details of the library. Please visit here.
@@ -19,24 +19,24 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
     <meta property="article:tag" content="Hooks">
     <meta property="article:tag" content="Async">
     <meta property="article:tag" content="Abortable">
-    <meta property="og:image" content="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png">
+    <meta property="og:image" content="http://localhost:1313/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png">
+  <meta name="twitter:image" content="http://localhost:1313/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png">
   <meta name="twitter:title" content="Introduction to abortable async functions for React with hooks">
   <meta name="twitter:description" content="There is a follow-up article which describes the implementation details of the library. Please visit here.
 TL;DR Just visit the example in codesandbox and try it.
 Background You can’t cancel promises in JavaScript and that’s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework. As is noted JavaScript doesn’t have cancellation mechanism, but DOM has it. It’s called AbortController. It’s only supported in recent browsers, but polyfills should help for old browsers and Node.js.">
 
-    <meta name="generator" content="Hugo 0.140.0">
+    <meta name="generator" content="Hugo 0.150.0">
     
       <title>Introduction to abortable async functions for React with hooks &middot; Daishi Kato&#39;s blog</title>
     
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -59,7 +59,7 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -67,7 +67,7 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
 				
 				
           
-            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
           
 				
           
@@ -83,13 +83,13 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -104,7 +104,7 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
 			
 			
         
-          <a href="https://blog.axlight.com/posts/">All Posts</a>
+          <a href="http://localhost:1313/posts/">All Posts</a>
         
 			
         
@@ -130,7 +130,7 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
     </h4>
     
       
-        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png" />
+        <img alt="cover" width="100%" src="http://localhost:1313/posts/introduction-to-abortable-async-functions-for-react-with-hooks/cover.png" />
       
     
 		<h1>
@@ -166,16 +166,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&text=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&text=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&t=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&t=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&title=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&title=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&title=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fintroduction-to-abortable-async-functions-for-react-with-hooks%2f&title=Introduction%20to%20abortable%20async%20functions%20for%20React%20with%20hooks">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -183,8 +183,7 @@ text-align: center;
 
 	<article>
 		<blockquote>
-<p>There is a follow-up article which describes the implementation details of the library. Please visit <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">here</a>.</p>
-</blockquote>
+<p>There is a follow-up article which describes the implementation details of the library. Please visit <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">here</a>.</p></blockquote>
 <h3 id="tldr">TL;DR</h3>
 <p>Just visit the <a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead">example</a> in codesandbox and try it.</p>
 <h3 id="background">Background</h3>
@@ -296,7 +295,7 @@ text-align: center;
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -310,7 +309,7 @@ text-align: center;
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="https://blog.axlight.com//js/App.js"></script>
+  <script src="http://localhost:1313//js/App.js"></script>
   
 </body>
 </html>

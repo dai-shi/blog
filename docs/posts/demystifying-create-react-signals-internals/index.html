@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/">
+    <meta property="og:url" content="http://localhost:1313/posts/demystifying-create-react-signals-internals/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="Demystifying Create React Signals Internals">
   <meta property="og:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn’t like the original implementation using REACT INTERNALS, and that drove me to create something.
@@ -17,23 +17,23 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
     <meta property="article:tag" content="React">
     <meta property="article:tag" content="Signals">
     <meta property="article:tag" content="Global-State">
-    <meta property="og:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg">
+    <meta property="og:image" content="http://localhost:1313/posts/demystifying-create-react-signals-internals/cover.jpg">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg">
+  <meta name="twitter:image" content="http://localhost:1313/posts/demystifying-create-react-signals-internals/cover.jpg">
   <meta name="twitter:title" content="Demystifying Create React Signals Internals">
   <meta name="twitter:description" content="Introduction When I first saw SolidJS and Preact Signals, I thought they are interesting but they are different from React. What made me motivated is @preact/signals-react. I didn’t like the original implementation using REACT INTERNALS, and that drove me to create something.
 We already had Jotai. Jotai atoms are like signals, representing reactive sources, and allowing to form a dependency graph or a data flow. The missing piece was signal-like syntax without hooks.">
 
-    <meta name="generator" content="Hugo 0.140.0">
+    <meta name="generator" content="Hugo 0.150.0">
     
       <title>Demystifying Create React Signals Internals &middot; Daishi Kato&#39;s blog</title>
     
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
+    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -56,7 +56,7 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -64,7 +64,7 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
 				
 				
           
-            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
+            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
           
 				
           
@@ -80,13 +80,13 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -101,7 +101,7 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
 			
 			
         
-          <a href="https://blog.axlight.com/posts/">All Posts</a>
+          <a href="http://localhost:1313/posts/">All Posts</a>
         
 			
         
@@ -127,7 +127,7 @@ We already had Jotai. Jotai atoms are like signals, representing reactive source
     </h4>
     
       
-        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/demystifying-create-react-signals-internals/cover.jpg" />
+        <img alt="cover" width="100%" src="http://localhost:1313/posts/demystifying-create-react-signals-internals/cover.jpg" />
       
     
 		<h1>
@@ -163,16 +163,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&text=Demystifying%20Create%20React%20Signals%20Internals by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdemystifying-create-react-signals-internals%2f&text=Demystifying%20Create%20React%20Signals%20Internals by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&t=Demystifying%20Create%20React%20Signals%20Internals">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fdemystifying-create-react-signals-internals%2f&t=Demystifying%20Create%20React%20Signals%20Internals">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fdemystifying-create-react-signals-internals%2f&title=Demystifying%20Create%20React%20Signals%20Internals">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -395,7 +395,7 @@ we could explore this approach further.</p>
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -409,7 +409,7 @@ we could explore this approach further.</p>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="https://blog.axlight.com//js/App.js"></script>
+  <script src="http://localhost:1313//js/App.js"></script>
   
 </body>
 </html>
