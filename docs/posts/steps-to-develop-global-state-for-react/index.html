@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="http://localhost:1313/posts/steps-to-develop-global-state-for-react/">
+    <meta property="og:url" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="Steps to Develop Global State for React With Hooks Without Context">
   <meta property="og:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It’s naively called “react-hooks-global-state” which turns out to be too long to read.
@@ -21,11 +21,11 @@ This post shows simplified versions of the code step by step. It would help unde
     <meta property="article:tag" content="Typescript">
     <meta property="article:tag" content="Global-State">
     <meta property="article:tag" content="Redux">
-    <meta property="og:image" content="http://localhost:1313/posts/steps-to-develop-global-state-for-react/cover.png">
+    <meta property="og:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/posts/steps-to-develop-global-state-for-react/cover.png">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png">
   <meta name="twitter:title" content="Steps to Develop Global State for React With Hooks Without Context">
   <meta name="twitter:description" content="Introduction Developing with React hooks is fun for me. I have been developing several libraries. The very first library was a library for global state. It’s naively called “react-hooks-global-state” which turns out to be too long to read.
 The initial version of the library was published in Oct 2018. Time has passed since then, I learned a lot, and now v1.0.0 of the library is published.
@@ -39,7 +39,7 @@ This post shows simplified versions of the code step by step. It would help unde
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -62,7 +62,7 @@ This post shows simplified versions of the code step by step. It would help unde
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -70,7 +70,7 @@ This post shows simplified versions of the code step by step. It would help unde
 				
 				
           
-            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
           
 				
           
@@ -86,13 +86,13 @@ This post shows simplified versions of the code step by step. It would help unde
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -107,7 +107,7 @@ This post shows simplified versions of the code step by step. It would help unde
 			
 			
         
-          <a href="http://localhost:1313/posts/">All Posts</a>
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
         
 			
         
@@ -133,7 +133,7 @@ This post shows simplified versions of the code step by step. It would help unde
     </h4>
     
       
-        <img alt="cover" width="100%" src="http://localhost:1313/posts/steps-to-develop-global-state-for-react/cover.png" />
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/cover.png" />
       
     
 		<h1>
@@ -169,16 +169,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsteps-to-develop-global-state-for-react%2f&text=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&text=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fsteps-to-develop-global-state-for-react%2f&t=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&t=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fsteps-to-develop-global-state-for-react%2f&title=Steps%20to%20Develop%20Global%20State%20for%20React%20With%20Hooks%20Without%20Context">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -431,7 +431,7 @@ and React context, as listed below.</p>
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -445,7 +445,7 @@ and React context, as listed below.</p>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="http://localhost:1313//js/App.js"></script>
+  <script src="https://blog.axlight.com//js/App.js"></script>
   
 </body>
 </html>

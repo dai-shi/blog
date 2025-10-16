@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Rsc on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/rsc/</link>
+    <link>https://blog.axlight.com/tags/rsc/</link>
     <description>Recent content in Rsc on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/rsc/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/rsc/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Thoughts on State Management Libraries in the React Compiler Era</title>
-      <link>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
+      <link>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
+      <guid>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing three React state management libraries: Zustand, Jotai, and Valtio. So, how are they going to hold up in the new era with the React Compiler and React Server Components (RSCs)? This post shares my random thoughts on the topic.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-are-state-management-libraries&#34;&gt;What are state management libraries?&lt;/h2&gt;&#xA;&lt;p&gt;State management libraries manage the state of your application. For my libraries specifically, the primary goal isn&amp;rsquo;t just about how the state is managed. This ties into why there are three libraries. They differ in how they deal with states (for example, immutable, atomic, proxy, etc.) and how developers manage their states.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Thoughts on What RSC Means for SPAs</title>
-      <link>http://localhost:1313/posts/thoughts-on-what-rsc-means-for-spas/</link>
+      <link>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</link>
       <pubDate>Tue, 26 Nov 2024 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/thoughts-on-what-rsc-means-for-spas/</guid>
+      <guid>https://blog.axlight.com/posts/thoughts-on-what-rsc-means-for-spas/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;RSC stands for React Server Component, but in this post, I’ll use RSC to refer to a broader architecture consisting of two key aspects:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;The core feature, which is the ability to serialize and deserialize React components and other values, and&lt;/li&gt;&#xA;&lt;li&gt;The best practice based on the core feature, which I kind of think is still to be explored.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;SPAs, or Single Page Applications, can often be deployed as static files. While a separate server may exist, it typically doesn’t serve the SPA itself. In this context, an SPA can have multiple pages, but let&amp;rsquo;s not argue about the precise definition.&lt;/p&gt;</description>
     </item>
   </channel>

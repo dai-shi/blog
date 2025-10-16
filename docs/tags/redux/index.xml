@@ -2,150 +2,150 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Redux on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/redux/</link>
+    <link>https://blog.axlight.com/tags/redux/</link>
     <description>Recent content in Redux on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 10 Jun 2021 21:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/redux/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/redux/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing Global State Libraries With React 18 Alpha Concurrent Rendering</title>
-      <link>http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</link>
+      <link>https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</guid>
+      <guid>https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/</guid>
       <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;The React team announced &lt;a href=&#34;https://reactjs.org/blog/2021/06/08/the-plan-for-react-18.html&#34;&gt;The Plan for React 18&lt;/a&gt; with various features.&#xA;Among them, concurrent rendering is one of my interests&#xA;because I have been developing various global state libraries&#xA;and there are known issues called &amp;ldquo;tearing&amp;rdquo; and &amp;ldquo;branching&amp;rdquo;.&lt;/p&gt;&#xA;&lt;p&gt;Tearing is an undesirable behavior in which&#xA;two components render with different values for same global state.&lt;/p&gt;&#xA;&lt;p&gt;Branching is a desirable behavior in which&#xA;a component renders with a stale value for a state in a transition update.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Developing a Memoization Library With Proxies</title>
-      <link>http://localhost:1313/posts/developing-a-memoization-library-with-proxies/</link>
+      <link>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/developing-a-memoization-library-with-proxies/</guid>
+      <guid>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;It&amp;rsquo;s been a while since I started developing&#xA;&lt;a href=&#34;https://github.com/dai-shi/reactive-react-redux&#34;&gt;reactive-react-redux&lt;/a&gt;&#xA;and &lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;react-tracked&lt;/a&gt;.&#xA;These libraries provide so called&#xA;&lt;a href=&#34;https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/&#34;&gt;state usage tracking&lt;/a&gt; to optimize render in React.&#xA;This approach, I think, is pretty novel and&#xA;quite a lot of my effort has been put to improve its performance.&lt;/p&gt;&#xA;&lt;p&gt;Lately, I thought it would be nicer if this can be used more broadly.&#xA;I wondered if it can be used in vanilla JS.&#xA;What would be an API in vanilla JS?&#xA;It would be good if it&amp;rsquo;s easy to understand.&#xA;My idea ended up with memoization, mainly because&#xA;the primary goal is to be a replacement of&#xA;&lt;a href=&#34;https://github.com/reduxjs/reselect&#34;&gt;reselect&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware</title>
-      <link>http://localhost:1313/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</link>
+      <link>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</link>
       <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</guid>
+      <guid>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Redux is a framework-agnostic library for global state.&#xA;It&amp;rsquo;s often used with React.&lt;/p&gt;&#xA;&lt;p&gt;While I like the abstraction of Redux,&#xA;React will introduce Concurrent Mode in the near future.&#xA;If we want to get benefit of &lt;code&gt;useTransition&lt;/code&gt;,&#xA;state must be inside React to allow state branching.&#xA;That means we can&amp;rsquo;t get the benefit with Redux.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing &lt;a href=&#34;https://react-tracked.js.org&#34;&gt;React Tracked&lt;/a&gt;&#xA;for global state that allows state branching.&#xA;It works well in Concurrent Mode.&#xA;That leaves me a question: What is a use case that only Redux can do.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Steps to Develop Global State for React With Hooks Without Context</title>
-      <link>http://localhost:1313/posts/steps-to-develop-global-state-for-react/</link>
+      <link>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</link>
       <pubDate>Tue, 18 Feb 2020 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/steps-to-develop-global-state-for-react/</guid>
+      <guid>https://blog.axlight.com/posts/steps-to-develop-global-state-for-react/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Developing with React hooks is fun for me.&#xA;I have been developing several libraries.&#xA;The very first library was a library for global state.&#xA;It&amp;rsquo;s naively called &amp;ldquo;react-hooks-global-state&amp;rdquo; which&#xA;turns out to be too long to read.&lt;/p&gt;&#xA;&lt;p&gt;The initial version of the library was published in Oct 2018.&#xA;Time has passed since then, I learned a lot, and now&#xA;v1.0.0 of the library is published.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-hooks-global-state&#34;&gt;https://github.com/dai-shi/react-hooks-global-state&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This post shows simplified versions of the code step by step.&#xA;It would help understand what this library is aiming at,&#xA;while the real code is a bit complex in TypeScript.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Off-main-thread React Redux with Performance</title>
-      <link>http://localhost:1313/posts/off-main-thread-react-redux-with-performance/</link>
+      <link>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</link>
       <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/off-main-thread-react-redux-with-performance/</guid>
+      <guid>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;It is said that Redux has been overused in some use cases&#xA;and React context+hooks plays well in such use cases.&#xA;While I agree with it, Redux should work well in some other situations.&#xA;Redux should help developing larger apps with many developers.&#xA;Various libraries in Redux ecosystem should accelerate development.&#xA;There&amp;rsquo;s another situation in which Redux may help, and that is Web Workers.&lt;/p&gt;&#xA;&lt;p&gt;A while back, Surma posted a nice blog post:&#xA;&lt;a href=&#34;https://dassur.ma/things/react-redux-comlink/&#34;&gt;React + Redux + Comlink = Off-main-thread&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>React hooks-oriented Redux coding pattern without thunks and action creators</title>
-      <link>http://localhost:1313/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</link>
+      <link>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</link>
       <pubDate>Mon, 12 Aug 2019 10:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</guid>
+      <guid>https://blog.axlight.com/posts/react-hooks-oriented-redux-coding-pattern-without-thunks-and-action-creators/</guid>
       <description>&lt;h3 id=&#34;motivation&#34;&gt;Motivation&lt;/h3&gt;&#xA;&lt;p&gt;I love Redux. But that doesn&amp;rsquo;t mean I like all parts of Redux ecosystem.&#xA;Some people dislike Redux because of its boilerplate code. That&amp;rsquo;s sad.&#xA;Boilerplate code is not from the Redux core, but from the ecosystem.&#xA;Don&amp;rsquo;t get me wrong. Best practices are nice and I think&#xA;the recent work of Redux Starter Kit is great. (Claps to Mark)&lt;/p&gt;&#xA;&lt;p&gt;I think I have my own understanding of how to use Redux with React.&#xA;It may not be common and probably it will never be the mainstream.&#xA;I understand Redux is useful and tuned for larger applications.&#xA;What I have in mind is the usage for smaller apps and for beginners.&lt;/p&gt;</description>
     </item>
     <item>
       <title>How I developed a Concurrent Mode friendly library for React Redux</title>
-      <link>http://localhost:1313/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</link>
+      <link>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</link>
       <pubDate>Sat, 27 Jul 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</guid>
+      <guid>https://blog.axlight.com/posts/how-i-developed-a-concurrent-mode-friendly-library-for-react-redux/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;I have been developing several React hooks libraries for months.&#xA;In this post, I will explain why and how I developed&#xA;a React Redux binding library with React hooks.&#xA;The library is implemented to be concurrent mode friendly.&#xA;Let&amp;rsquo;s discuss why it&amp;rsquo;s important and what&amp;rsquo;s the technique behind it.&lt;/p&gt;&#xA;&lt;p&gt;React concurrent mode has not come yet,&#xA;and all discussions are based on the current unstable behavior.&#xA;Please note that when concurrent mode is released and&#xA;best practice is researched, things may change.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Effortless render optimization with state usage tracking with React hooks</title>
-      <link>http://localhost:1313/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</link>
+      <link>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</link>
       <pubDate>Sun, 21 Jul 2019 13:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
+      <guid>https://blog.axlight.com/posts/effortless-render-optimization-with-state-usage-tracking-with-react-hooks/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;React useContext is very handy to avoid prop drilling.&#xA;It can be used to define global state or shared state&#xA;that multiple components in the tree can access.&lt;/p&gt;&#xA;&lt;p&gt;However, useContext is not specifically designed for&#xA;global state and there&amp;rsquo;s a caveat.&#xA;Any change to context value propagates all useContext&#xA;to re-render components.&lt;/p&gt;&#xA;&lt;p&gt;This post shows some example code about the problem&#xA;and the solution with state usage tracking.&lt;/p&gt;&#xA;&lt;h3 id=&#34;problem&#34;&gt;Problem&lt;/h3&gt;&#xA;&lt;p&gt;Let&amp;rsquo;s assume a person object as a state.&lt;/p&gt;</description>
     </item>
     <item>
       <title>What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy</title>
-      <link>http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</link>
+      <link>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</link>
       <pubDate>Sun, 07 Jul 2019 17:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</guid>
+      <guid>https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;There are many libraries for global state with React hooks.&#xA;React Redux also provides hooks API, which is very clean.&lt;/p&gt;&#xA;&lt;p&gt;In general, I would avoid using global state.&#xA;It would reduce the isolation of components.&#xA;Multiple contexts should work fine for certain use cases.&lt;/p&gt;&#xA;&lt;p&gt;But, what if we really need a global state.&lt;/p&gt;&#xA;&lt;h3 id=&#34;problem&#34;&gt;Problem&lt;/h3&gt;&#xA;&lt;p&gt;When a state is a non-trivial object, it&amp;rsquo;s not likely to&#xA;use all properties of the object for one component to render. &#xA;What most libraries do is to provide a selector interface.&#xA;With the selector interface,&#xA;developers can specify which part of the state to use in a component.&#xA;In general, a selector is a function,&#xA;but there are alternative ways to specify part of the state.&#xA;For example, by property names or paths.&#xA;In any case, developers are responsible to write proper selectors. &lt;/p&gt;</description>
     </item>
     <item>
       <title>Four different approaches to non-Redux global state libraries</title>
-      <link>http://localhost:1313/posts/four-different-approaches-to-non-redux-global-state-libraries/</link>
+      <link>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</link>
       <pubDate>Sat, 06 Jul 2019 16:19:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
+      <guid>https://blog.axlight.com/posts/four-different-approaches-to-non-redux-global-state-libraries/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Since React hooks landed,&#xA;there has been many libraries proposed for global state.&#xA;Some of them are simple wrappers around context.&#xA;Whereas, some of them are full featured state management systems.&lt;/p&gt;&#xA;&lt;p&gt;Technically, there are several implementations how to store&#xA;state and notify changes.&#xA;We don&amp;rsquo;t go in detail in this post, but just note two axes.&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;whether context based or external store&lt;/li&gt;&#xA;&lt;li&gt;whether subscriptions based or context propagation&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;In this post, we focus on API design of hooks at the consumer end.&#xA;In my observation,&#xA;there are four approaches to the API design.&#xA;Let&amp;rsquo;s see each approach by example in pseudo code.&#xA;As a simple example, we assume an app that has the followings.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
-      <link>http://localhost:1313/posts/benchmark-react-tracked/</link>
+      <link>https://blog.axlight.com/posts/benchmark-react-tracked/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/benchmark-react-tracked/</guid>
+      <guid>https://blog.axlight.com/posts/benchmark-react-tracked/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;React-Redux provides &lt;a href=&#34;https://react-redux.js.org/api/hooks&#34;&gt;hooks API&lt;/a&gt;&#xA;with nice abstraction.&#xA;Especially, &lt;code&gt;useSelector&lt;/code&gt; is probaly less misused than &lt;code&gt;mapStateToProps&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;react-tracked&lt;/a&gt;&#xA;is a library for global state without Redux.&#xA;This library provides almost compatible hooks API to React-Redux.&#xA;It&amp;rsquo;s developed with performance in mind, and it should&#xA;be as performant as React-Redux, even though it utilizes&#xA;only React context. See the GitHub repo for more information.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;https://github.com/dai-shi/react-tracked&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This post shows benchmark results to convince that&#xA;it actually is performant in one scenario.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Redux meets hooks for non-redux users: a small concrete example with reactive-react-redux</title>
-      <link>http://localhost:1313/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</link>
+      <link>https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</link>
       <pubDate>Mon, 03 Jun 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</guid>
+      <guid>https://blog.axlight.com/posts/redux-meets-hooks-for-non-redux-users-a-small-concrete-example-with-reactive-react-redux/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;If you had already used Redux and loved it,&#xA;you might not understand why people try&#xA;using React context and hooks to replace Redux (a.k.a no Redux hype).&#xA;For those who would think Redux DevTools Extension and middleware&#xA;are nice to have, Redux and context + hooks are actually two options.&#xA;Context + hooks is just fine to share state among components,&#xA;however if apps get bigger, they are likely to require&#xA;Redux or other similar solutions; otherwise they end up having many contexts&#xA;that can&amp;rsquo;t be handled very easily. (I&amp;rsquo;d admit this is hypothetical&#xA;and we would be able to find better solutions in the future.)&lt;/p&gt;</description>
     </item>
     <item>
       <title>Four patterns for global state with React hooks: Context or Redux</title>
-      <link>http://localhost:1313/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</link>
+      <link>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</link>
       <pubDate>Mon, 27 May 2019 00:50:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</guid>
+      <guid>https://blog.axlight.com/posts/four-patterns-for-global-state-with-react-hooks-context-or-redux/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Global state or shared state is one of the biggest issues&#xA;when you start developing a React app.&#xA;Should we use Redux? Do hooks provide a Redux-like solution?&#xA;I would like to show four patterns toward using Redux.&#xA;This is my personal opinion and mainly for new apps.&lt;/p&gt;&#xA;&lt;h3 id=&#34;pattern-1-prop-passing&#34;&gt;Pattern 1: Prop passing&lt;/h3&gt;&#xA;&lt;p&gt;Some might think it wouldn&amp;rsquo;t scale, but the most basic pattern&#xA;should still be prop passing. If the app is small enough,&#xA;define local state in a parent component and simply pass it&#xA;down to child components. I would tolerate two level passing,&#xA;meaning one intermediate component.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
-      <link>http://localhost:1313/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
+      <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
       <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
+      <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&#34;&gt;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/reactive-react-redux&#34;&gt;https://github.com/dai-shi/reactive-react-redux&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.&lt;/p&gt;</description>
     </item>
     <item>
       <title>New React Redux coding style with hooks without selectors</title>
-      <link>http://localhost:1313/posts/new-react-redux-coding-style-with-hooks-without-selectors/</link>
+      <link>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</link>
       <pubDate>Sat, 20 Apr 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/new-react-redux-coding-style-with-hooks-without-selectors/</guid>
+      <guid>https://blog.axlight.com/posts/new-react-redux-coding-style-with-hooks-without-selectors/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;React Redux is one of popular web tech stacks. As I found React hooks so promising, I have been developing a hooks-based library for React Redux called &amp;ldquo;reactive-react-redux.&amp;rdquo;&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/reactive-react-redux&#34;&gt;https://github.com/dai-shi/reactive-react-redux&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Coding style using this library is mentally different from the official react-redux. Thanks to Proxy, developers don&amp;rsquo;t need to care about optimization, but just focus on composition of logic.&lt;/p&gt;&#xA;&lt;p&gt;This library provides two basic hooks: &lt;code&gt;useReduxState&lt;/code&gt; and &lt;code&gt;useReduxDispatch&lt;/code&gt;. This article shows example code how to use them.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Developing React custom hooks for Redux without react-redux</title>
-      <link>http://localhost:1313/posts/developing-react-custom-hooks-for-redux-without-react-redux/</link>
+      <link>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</link>
       <pubDate>Fri, 14 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/developing-react-custom-hooks-for-redux-without-react-redux/</guid>
+      <guid>https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/</guid>
       <description>&lt;h3 id=&#34;background&#34;&gt;Background&lt;/h3&gt;&#xA;&lt;p&gt;Ever since I learned Redux, I&amp;rsquo;ve been thinking an alternative integration of react and redux to the official react-redux library. The intuition behind it is that Redux is super simple which I like a lot, whereas react-redux is complex because of performance tuning. If you are developing a business product, the official react-redux is to go without a doubt, but if you are playing with creating a toy app or you are just starting learning Redux, you might want something more straightforward.&lt;/p&gt;</description>
     </item>
     <item>
       <title>A deadly simple React bindings library for Redux with Hooks API</title>
-      <link>http://localhost:1313/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</link>
+      <link>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</link>
       <pubDate>Fri, 16 Nov 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
+      <guid>https://blog.axlight.com/posts/a-deadly-simple-react-bindings-library-for-redux-with-hooks-api/</guid>
       <description>&lt;blockquote&gt;&#xA;&lt;p&gt;There is a follow-up article which describes the implementation details of this library. Please visit &lt;a href=&#34;https://blog.axlight.com/posts/developing-react-custom-hooks-for-redux-without-react-redux/&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;&lt;/blockquote&gt;&#xA;&lt;p&gt;Redux is one of the popular libraries for React. Although Redux itself is not tied to React, it&amp;rsquo;s often used with the official bindings &lt;code&gt;react-redux&lt;/code&gt; that allows to connect Redux state to any React components.&lt;/p&gt;&#xA;&lt;p&gt;In this article, we propose another bindings library to combine React and Redux. This library tries to be simple and easy for beginners. As of writing, this is still an experimental project and feedbacks are welcome.&lt;/p&gt;</description>
     </item>
     <item>
       <title>React Hooks Tutorial on pure useReducer &#43; useContext for global state like Redux and comparison with react-hooks-global-state</title>
-      <link>http://localhost:1313/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</link>
+      <link>https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</link>
       <pubDate>Fri, 09 Nov 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</guid>
+      <guid>https://blog.axlight.com/posts/react-hooks-tutorial-for-pure-usereducer-usecontext-for-global-state-like-redux-and-comparison/</guid>
       <description>&lt;p&gt;In this article, I will first explain minimal code to implement global state with useReducer and useContext which are called &amp;ldquo;hooks&amp;rdquo; that will be available in React 16.7. I will then compare it with &lt;a href=&#34;https://github.com/dai-shi/react-hooks-global-state&#34;&gt;react-hooks-global-state&lt;/a&gt; which is a tiny library that I&amp;rsquo;ve been developing for global state management primarily for small applications.&lt;/p&gt;&#xA;&lt;p&gt;Note: Global state is convenient for sharing values among components far apart in the component tree, but it shouldn&amp;rsquo;t be abused because it would limit the reusability. Consider if values could be simply passed as props down the component tree.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Redux middleware compatible React Hooks library for easy global state management</title>
-      <link>http://localhost:1313/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</link>
+      <link>https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</link>
       <pubDate>Wed, 07 Nov 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</guid>
+      <guid>https://blog.axlight.com/posts/redux-middleware-compatible-react-hooks-library-for-easy-global-state-management/</guid>
       <description>&lt;h3 id=&#34;the-library&#34;&gt;The library&lt;/h3&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing a library to make use of React Hooks API. The library is for global state mangement with the aim to use it instead of Redux, especially for smaller applications. See the repository for more information and the source code.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-hooks-global-state&#34;&gt;https://github.com/dai-shi/react-hooks-global-state&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Please also check out my previous posts&#xA;[&lt;a href=&#34;https://blog.axlight.com/posts/typescript-aware-react-hooks-for-global-state/&#34;&gt;1&lt;/a&gt;]&#xA;[&lt;a href=&#34;https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/&#34;&gt;2&lt;/a&gt;].&lt;/p&gt;&#xA;&lt;h3 id=&#34;support-for-redux-middleware&#34;&gt;Support for Redux middleware&lt;/h3&gt;&#xA;&lt;p&gt;Originally, the library was extending useState for global state. Later, reducer is supported. Now, middleware support is added. The following is the code snippet from the working example to illustrate how it can be used.&lt;/p&gt;</description>
     </item>
     <item>
       <title>An alternative to React Redux by React Hooks API (For both JavaScript and TypeScript)</title>
-      <link>http://localhost:1313/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</link>
+      <link>https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</link>
       <pubDate>Sun, 04 Nov 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</guid>
+      <guid>https://blog.axlight.com/posts/an-alternative-to-react-redux-by-react-hooks-api-for-both-javascript-and-typescript/</guid>
       <description>&lt;h3 id=&#34;motivation&#34;&gt;Motivation&lt;/h3&gt;&#xA;&lt;p&gt;Everyone is excited about the new React Hooks API. So am I. Having been thinking how to manage global state, the Hooks API seems promising. By the way, I like Redux a lot, but I don&amp;rsquo;t like react-redux a.k.a &lt;code&gt;connect&lt;/code&gt; very much. It is too complicated for beginners to use it properly. For example, reselect / memoization is a hard concept to explain. My recommendation is to structure a global state so that &lt;code&gt;mapStateToProps&lt;/code&gt; only needs to select a part of the state without any logic. If you are really free to structure a global state, you can make it so that it selects direct properties of the state, which means &amp;ldquo;one-depth&amp;rdquo;.&lt;/p&gt;</description>
     </item>
   </channel>

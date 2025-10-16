@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">
+    <meta property="og:url" content="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy">
   <meta property="og:description" content="Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.
@@ -21,11 +21,11 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
     <meta property="article:tag" content="Redux">
     <meta property="article:tag" content="Proxy">
     <meta property="article:tag" content="Global-State">
-    <meta property="og:image" content="http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg">
+    <meta property="og:image" content="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg">
   <meta name="twitter:title" content="What is state usage tracking? A novel approach to intuitive and performant global state with React hooks and Proxy">
   <meta name="twitter:description" content="Introduction There are many libraries for global state with React hooks. React Redux also provides hooks API, which is very clean.
 In general, I would avoid using global state. It would reduce the isolation of components. Multiple contexts should work fine for certain use cases.
@@ -39,7 +39,7 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -62,7 +62,7 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -70,7 +70,7 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
 				
 				
           
-            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
           
 				
           
@@ -86,13 +86,13 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -107,7 +107,7 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
 			
 			
         
-          <a href="http://localhost:1313/posts/">All Posts</a>
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
         
 			
         
@@ -133,7 +133,7 @@ Problem When a state is a non-trivial object, it’s not likely to use all prope
     </h4>
     
       
-        <img alt="cover" width="100%" src="http://localhost:1313/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg" />
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/cover.jpg" />
       
     
 		<h1>
@@ -169,16 +169,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&text=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&text=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&t=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&t=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&title=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&title=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&title=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2fwhat-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy%2f&title=What%20is%20state%20usage%20tracking%3f%20A%20novel%20approach%20to%20intuitive%20and%20performant%20global%20state%20with%20React%20hooks%20and%20Proxy">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -279,7 +279,7 @@ I appreciate for any feedback so that I could write a follow-up post.</p>
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -293,7 +293,7 @@ I appreciate for any feedback so that I could write a follow-up post.</p>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="http://localhost:1313//js/App.js"></script>
+  <script src="https://blog.axlight.com//js/App.js"></script>
   
 </body>
 </html>

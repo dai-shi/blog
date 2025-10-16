@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#"><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script>
+<head prefix="og: http://ogp.me/ns# article: http://ogp.me/ns/article# website: http://ogp.me/ns/website#">
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
     <meta name="description" content="">
-    <meta property="og:url" content="http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/">
+    <meta property="og:url" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/">
   <meta property="og:site_name" content="Daishi Kato&#39;s blog">
   <meta property="og:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering">
   <meta property="og:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called “tearing” and “branching”.
@@ -21,11 +21,11 @@ Branching is a desirable behavior in which a component renders with a stale valu
     <meta property="article:tag" content="Redux">
     <meta property="article:tag" content="Context">
     <meta property="article:tag" content="Concurrent">
-    <meta property="og:image" content="http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
+    <meta property="og:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
 
     
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
+  <meta name="twitter:image" content="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png">
   <meta name="twitter:title" content="Testing Global State Libraries With React 18 Alpha Concurrent Rendering">
   <meta name="twitter:description" content="Introduction The React team announced The Plan for React 18 with various features. Among them, concurrent rendering is one of my interests because I have been developing various global state libraries and there are known issues called “tearing” and “branching”.
 Tearing is an undesirable behavior in which two components render with different values for same global state.
@@ -38,7 +38,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
     
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
-    <link rel="stylesheet" href="http://localhost:1313/css/style.css">
+    <link rel="stylesheet" href="https://blog.axlight.com/css/style.css">
     
     <link rel="stylesheet" href="/css/custom.css">
     
@@ -61,7 +61,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
 				<span class="icon-bar"></span>
 			</button>
 			
-				<a class="navbar-brand" href="http://localhost:1313/">Daishi Kato&#39;s blog</a>
+				<a class="navbar-brand" href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a>
 			
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -69,7 +69,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
 				
 				
           
-            <li><a href="http://localhost:1313/posts/">All Posts</a></li>
+            <li><a href="https://blog.axlight.com/posts/">All Posts</a></li>
           
 				
           
@@ -85,13 +85,13 @@ Branching is a desirable behavior in which a component renders with a stale valu
 		<div id="menu" class="hidden-xs col-sm-4 col-md-3">
 	<div id="menu-content" class="vertical-align">
 		
-			<h1 class="text-center"><a href="http://localhost:1313/">Daishi Kato&#39;s blog</a></h1>
+			<h1 class="text-center"><a href="https://blog.axlight.com/">Daishi Kato&#39;s blog</a></h1>
 		
 		
 		
 		
 		
-			<img id="profile-pic" src="http://localhost:1313//img/profile.png" alt="My Picture" class="img-circle center-block">
+			<img id="profile-pic" src="https://blog.axlight.com//img/profile.png" alt="My Picture" class="img-circle center-block">
 		
 		<div id="social" class="text-center">
 			
@@ -106,7 +106,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
 			
 			
         
-          <a href="http://localhost:1313/posts/">All Posts</a>
+          <a href="https://blog.axlight.com/posts/">All Posts</a>
         
 			
         
@@ -132,7 +132,7 @@ Branching is a desirable behavior in which a component renders with a stale valu
     </h4>
     
       
-        <img alt="cover" width="100%" src="http://localhost:1313/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png" />
+        <img alt="cover" width="100%" src="https://blog.axlight.com/posts/testing-global-state-libraries-with-react-18-alpha-concurrent-rendering/cover.png" />
       
     
 		<h1>
@@ -168,16 +168,16 @@ text-align: center;
 
 <span style="color: silver;">Share on: </span>
 <div id="share-buttons">
-  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=http%3a%2f%2flocalhost%3a1313%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&text=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering by %40dai_shi">
+  <a class="twitter" title="Share this on Twitter" target="_blank" rel="noopener noreferrer" href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&text=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering by %40dai_shi">
     <i class="fa fa-twitter"></i>
   </a>
-  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=http%3a%2f%2flocalhost%3a1313%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&t=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+  <a class="facebook" title="Share this on Facebook" target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&t=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
     <i class="fa fa-facebook"></i>
   </a>
-  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+  <a class="reddit" title="Share this on Reddit" target="_blank" rel="noopener noreferrer" href="https://www.reddit.com/submit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
     <i class="fa fa-reddit"></i>
   </a>
-  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=http%3a%2f%2flocalhost%3a1313%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
+  <a class="pocket" title="Save this on Pocket" target="_blank" rel="noopener noreferrer" href="https://getpocket.com/edit?url=https%3a%2f%2fblog.axlight.com%2fposts%2ftesting-global-state-libraries-with-react-18-alpha-concurrent-rendering%2f&title=Testing%20Global%20State%20Libraries%20With%20React%2018%20Alpha%20Concurrent%20Rendering">
     <i class="fa fa-get-pocket"></i>
   </a>
 </div>
@@ -270,7 +270,7 @@ If you are interested, please clone the repository and try it by yourself.</p>
 
 
 <div id="bottom-nav" class="text-center center-block">
-	<a href=" http://localhost:1313/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
+	<a href=" https://blog.axlight.com/" class="btn btn-default"><i class="fa fa-home"></i> Home</a>
 </div>
 
 						</div>
@@ -284,7 +284,7 @@ If you are interested, please clone the repository and try it by yourself.</p>
   <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.2/js/bootstrap.min.js"></script>
   
   
-  <script src="http://localhost:1313//js/App.js"></script>
+  <script src="https://blog.axlight.com//js/App.js"></script>
   
 </body>
 </html>

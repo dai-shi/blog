@@ -2,269 +2,269 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/</link>
+    <link>https://blog.axlight.com/tags/</link>
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Compiler</title>
-      <link>http://localhost:1313/tags/compiler/</link>
+      <link>https://blog.axlight.com/tags/compiler/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/compiler/</guid>
+      <guid>https://blog.axlight.com/tags/compiler/</guid>
       <description></description>
     </item>
     <item>
       <title>Global-State</title>
-      <link>http://localhost:1313/tags/global-state/</link>
+      <link>https://blog.axlight.com/tags/global-state/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/global-state/</guid>
+      <guid>https://blog.axlight.com/tags/global-state/</guid>
       <description></description>
     </item>
     <item>
       <title>Jotai</title>
-      <link>http://localhost:1313/tags/jotai/</link>
+      <link>https://blog.axlight.com/tags/jotai/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/jotai/</guid>
+      <guid>https://blog.axlight.com/tags/jotai/</guid>
       <description></description>
     </item>
     <item>
       <title>React</title>
-      <link>http://localhost:1313/tags/react/</link>
+      <link>https://blog.axlight.com/tags/react/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/react/</guid>
+      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     <item>
       <title>Rsc</title>
-      <link>http://localhost:1313/tags/rsc/</link>
+      <link>https://blog.axlight.com/tags/rsc/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/rsc/</guid>
+      <guid>https://blog.axlight.com/tags/rsc/</guid>
       <description></description>
     </item>
     <item>
       <title>Valtio</title>
-      <link>http://localhost:1313/tags/valtio/</link>
+      <link>https://blog.axlight.com/tags/valtio/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/valtio/</guid>
+      <guid>https://blog.axlight.com/tags/valtio/</guid>
       <description></description>
     </item>
     <item>
       <title>Zustand</title>
-      <link>http://localhost:1313/tags/zustand/</link>
+      <link>https://blog.axlight.com/tags/zustand/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/zustand/</guid>
+      <guid>https://blog.axlight.com/tags/zustand/</guid>
       <description></description>
     </item>
     <item>
       <title>Framework</title>
-      <link>http://localhost:1313/tags/framework/</link>
+      <link>https://blog.axlight.com/tags/framework/</link>
       <pubDate>Tue, 26 Nov 2024 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/framework/</guid>
+      <guid>https://blog.axlight.com/tags/framework/</guid>
       <description></description>
     </item>
     <item>
       <title>Oss</title>
-      <link>http://localhost:1313/tags/oss/</link>
+      <link>https://blog.axlight.com/tags/oss/</link>
       <pubDate>Tue, 03 Sep 2024 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/oss/</guid>
+      <guid>https://blog.axlight.com/tags/oss/</guid>
       <description></description>
     </item>
     <item>
       <title>Typescript</title>
-      <link>http://localhost:1313/tags/typescript/</link>
+      <link>https://blog.axlight.com/tags/typescript/</link>
       <pubDate>Sun, 18 Aug 2024 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/typescript/</guid>
+      <guid>https://blog.axlight.com/tags/typescript/</guid>
       <description></description>
     </item>
     <item>
       <title>Hooks</title>
-      <link>http://localhost:1313/tags/hooks/</link>
+      <link>https://blog.axlight.com/tags/hooks/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/hooks/</guid>
+      <guid>https://blog.axlight.com/tags/hooks/</guid>
       <description></description>
     </item>
     <item>
       <title>Suspense</title>
-      <link>http://localhost:1313/tags/suspense/</link>
+      <link>https://blog.axlight.com/tags/suspense/</link>
       <pubDate>Sat, 28 Oct 2023 11:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/suspense/</guid>
+      <guid>https://blog.axlight.com/tags/suspense/</guid>
       <description></description>
     </item>
     <item>
       <title>Atom</title>
-      <link>http://localhost:1313/tags/atom/</link>
+      <link>https://blog.axlight.com/tags/atom/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/atom/</guid>
+      <guid>https://blog.axlight.com/tags/atom/</guid>
       <description></description>
     </item>
     <item>
       <title>Signals</title>
-      <link>http://localhost:1313/tags/signals/</link>
+      <link>https://blog.axlight.com/tags/signals/</link>
       <pubDate>Sun, 23 Apr 2023 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/signals/</guid>
+      <guid>https://blog.axlight.com/tags/signals/</guid>
       <description></description>
     </item>
     <item>
       <title>Fetch</title>
-      <link>http://localhost:1313/tags/fetch/</link>
+      <link>https://blog.axlight.com/tags/fetch/</link>
       <pubDate>Tue, 31 Jan 2023 14:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/fetch/</guid>
+      <guid>https://blog.axlight.com/tags/fetch/</guid>
       <description></description>
     </item>
     <item>
       <title>Node</title>
-      <link>http://localhost:1313/tags/node/</link>
+      <link>https://blog.axlight.com/tags/node/</link>
       <pubDate>Sun, 17 Apr 2022 17:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/node/</guid>
+      <guid>https://blog.axlight.com/tags/node/</guid>
       <description></description>
     </item>
     <item>
       <title>Proxy</title>
-      <link>http://localhost:1313/tags/proxy/</link>
+      <link>https://blog.axlight.com/tags/proxy/</link>
       <pubDate>Sun, 30 Jan 2022 18:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/proxy/</guid>
+      <guid>https://blog.axlight.com/tags/proxy/</guid>
       <description></description>
     </item>
     <item>
       <title>Concurrent</title>
-      <link>http://localhost:1313/tags/concurrent/</link>
+      <link>https://blog.axlight.com/tags/concurrent/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/concurrent/</guid>
+      <guid>https://blog.axlight.com/tags/concurrent/</guid>
       <description></description>
     </item>
     <item>
       <title>Context</title>
-      <link>http://localhost:1313/tags/context/</link>
+      <link>https://blog.axlight.com/tags/context/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/context/</guid>
+      <guid>https://blog.axlight.com/tags/context/</guid>
       <description></description>
     </item>
     <item>
       <title>Redux</title>
-      <link>http://localhost:1313/tags/redux/</link>
+      <link>https://blog.axlight.com/tags/redux/</link>
       <pubDate>Thu, 10 Jun 2021 21:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/redux/</guid>
+      <guid>https://blog.axlight.com/tags/redux/</guid>
       <description></description>
     </item>
     <item>
       <title>Memoization</title>
-      <link>http://localhost:1313/tags/memoization/</link>
+      <link>https://blog.axlight.com/tags/memoization/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/memoization/</guid>
+      <guid>https://blog.axlight.com/tags/memoization/</guid>
       <description></description>
     </item>
     <item>
       <title>Recoil</title>
-      <link>http://localhost:1313/tags/recoil/</link>
+      <link>https://blog.axlight.com/tags/recoil/</link>
       <pubDate>Thu, 13 Aug 2020 08:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/recoil/</guid>
+      <guid>https://blog.axlight.com/tags/recoil/</guid>
       <description></description>
     </item>
     <item>
       <title>Worker</title>
-      <link>http://localhost:1313/tags/worker/</link>
+      <link>https://blog.axlight.com/tags/worker/</link>
       <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/worker/</guid>
+      <guid>https://blog.axlight.com/tags/worker/</guid>
       <description></description>
     </item>
     <item>
       <title>Apollo</title>
-      <link>http://localhost:1313/tags/apollo/</link>
+      <link>https://blog.axlight.com/tags/apollo/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/apollo/</guid>
+      <guid>https://blog.axlight.com/tags/apollo/</guid>
       <description></description>
     </item>
     <item>
       <title>Apollo-Link</title>
-      <link>http://localhost:1313/tags/apollo-link/</link>
+      <link>https://blog.axlight.com/tags/apollo-link/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/apollo-link/</guid>
+      <guid>https://blog.axlight.com/tags/apollo-link/</guid>
       <description></description>
     </item>
     <item>
       <title>Graphql</title>
-      <link>http://localhost:1313/tags/graphql/</link>
+      <link>https://blog.axlight.com/tags/graphql/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/graphql/</guid>
+      <guid>https://blog.axlight.com/tags/graphql/</guid>
       <description></description>
     </item>
     <item>
       <title>Lazy-Loading</title>
-      <link>http://localhost:1313/tags/lazy-loading/</link>
+      <link>https://blog.axlight.com/tags/lazy-loading/</link>
       <pubDate>Fri, 10 Jan 2020 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/lazy-loading/</guid>
+      <guid>https://blog.axlight.com/tags/lazy-loading/</guid>
       <description></description>
     </item>
     <item>
       <title>Async</title>
-      <link>http://localhost:1313/tags/async/</link>
+      <link>https://blog.axlight.com/tags/async/</link>
       <pubDate>Fri, 20 Dec 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/async/</guid>
+      <guid>https://blog.axlight.com/tags/async/</guid>
       <description></description>
     </item>
     <item>
       <title>Usereducer</title>
-      <link>http://localhost:1313/tags/usereducer/</link>
+      <link>https://blog.axlight.com/tags/usereducer/</link>
       <pubDate>Mon, 01 Jul 2019 08:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/usereducer/</guid>
+      <guid>https://blog.axlight.com/tags/usereducer/</guid>
       <description></description>
     </item>
     <item>
       <title>Benchmark</title>
-      <link>http://localhost:1313/tags/benchmark/</link>
+      <link>https://blog.axlight.com/tags/benchmark/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/benchmark/</guid>
+      <guid>https://blog.axlight.com/tags/benchmark/</guid>
       <description></description>
     </item>
     <item>
       <title>Abortable</title>
-      <link>http://localhost:1313/tags/abortable/</link>
+      <link>https://blog.axlight.com/tags/abortable/</link>
       <pubDate>Wed, 03 Apr 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/abortable/</guid>
+      <guid>https://blog.axlight.com/tags/abortable/</guid>
       <description></description>
     </item>
     <item>
       <title>Wasm</title>
-      <link>http://localhost:1313/tags/wasm/</link>
+      <link>https://blog.axlight.com/tags/wasm/</link>
       <pubDate>Tue, 22 Jan 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/wasm/</guid>
+      <guid>https://blog.axlight.com/tags/wasm/</guid>
       <description></description>
     </item>
     <item>
       <title>Express</title>
-      <link>http://localhost:1313/tags/express/</link>
+      <link>https://blog.axlight.com/tags/express/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/express/</guid>
+      <guid>https://blog.axlight.com/tags/express/</guid>
       <description></description>
     </item>
     <item>
       <title>Playground</title>
-      <link>http://localhost:1313/tags/playground/</link>
+      <link>https://blog.axlight.com/tags/playground/</link>
       <pubDate>Sat, 22 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/playground/</guid>
+      <guid>https://blog.axlight.com/tags/playground/</guid>
       <description></description>
     </item>
     <item>
       <title>Expo</title>
-      <link>http://localhost:1313/tags/expo/</link>
+      <link>https://blog.axlight.com/tags/expo/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/expo/</guid>
+      <guid>https://blog.axlight.com/tags/expo/</guid>
       <description></description>
     </item>
     <item>
       <title>Jest</title>
-      <link>http://localhost:1313/tags/jest/</link>
+      <link>https://blog.axlight.com/tags/jest/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/jest/</guid>
+      <guid>https://blog.axlight.com/tags/jest/</guid>
       <description></description>
     </item>
     <item>
       <title>React-Native</title>
-      <link>http://localhost:1313/tags/react-native/</link>
+      <link>https://blog.axlight.com/tags/react-native/</link>
       <pubDate>Sat, 01 Dec 2018 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/tags/react-native/</guid>
+      <guid>https://blog.axlight.com/tags/react-native/</guid>
       <description></description>
     </item>
   </channel>

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Oss on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/oss/</link>
+    <link>https://blog.axlight.com/tags/oss/</link>
     <description>Recent content in Oss on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 03 Sep 2024 22:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/oss/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/oss/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>How I Got Involved in OSS</title>
-      <link>http://localhost:1313/posts/how-i-got-involved-in-oss/</link>
+      <link>https://blog.axlight.com/posts/how-i-got-involved-in-oss/</link>
       <pubDate>Tue, 03 Sep 2024 22:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/how-i-got-involved-in-oss/</guid>
+      <guid>https://blog.axlight.com/posts/how-i-got-involved-in-oss/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;In this post, I would like to reflect on my journey in open source software development.&lt;/p&gt;&#xA;&lt;h3 id=&#34;my-first-oss-contribution&#34;&gt;My first OSS contribution&lt;/h3&gt;&#xA;&lt;p&gt;Around the year 2000, I made my first contribution to OSS: an Ethernet driver for NetBSD/mac68k. It was written in C, and now, looking back, I can barely understand the code.&lt;/p&gt;&#xA;&lt;p&gt;Found this link on the Web:&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://cvsweb.netbsd.org/bsdweb.cgi/src/sys/arch/mac68k/nubus/if_netdock_nubus.c?rev=1.35&amp;amp;content-type=text/x-cvsweb-markup&#34;&gt;http://cvsweb.netbsd.org/bsdweb.cgi/src/sys/arch/mac68k/nubus/if_netdock_nubus.c?rev=1.35&amp;amp;content-type=text/x-cvsweb-markup&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 id=&#34;chicken-scheme&#34;&gt;Chicken Scheme&lt;/h3&gt;&#xA;&lt;p&gt;Another phase in my OSS journey was working with Scheme. Although my contributions were small, I did contribute to a few libraries.&lt;/p&gt;</description>
     </item>
   </channel>

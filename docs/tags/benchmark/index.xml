@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Benchmark on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/benchmark/</link>
+    <link>https://blog.axlight.com/tags/benchmark/</link>
     <description>Recent content in Benchmark on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 16 Jun 2019 23:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/benchmark/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redux-less context-based useSelector hook that has same performance as React-Redux</title>
-      <link>http://localhost:1313/posts/benchmark-react-tracked/</link>
+      <link>https://blog.axlight.com/posts/benchmark-react-tracked/</link>
       <pubDate>Sun, 16 Jun 2019 23:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/benchmark-react-tracked/</guid>
+      <guid>https://blog.axlight.com/posts/benchmark-react-tracked/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;React-Redux provides &lt;a href=&#34;https://react-redux.js.org/api/hooks&#34;&gt;hooks API&lt;/a&gt;&#xA;with nice abstraction.&#xA;Especially, &lt;code&gt;useSelector&lt;/code&gt; is probaly less misused than &lt;code&gt;mapStateToProps&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;react-tracked&lt;/a&gt;&#xA;is a library for global state without Redux.&#xA;This library provides almost compatible hooks API to React-Redux.&#xA;It&amp;rsquo;s developed with performance in mind, and it should&#xA;be as performant as React-Redux, even though it utilizes&#xA;only React context. See the GitHub repo for more information.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;https://github.com/dai-shi/react-tracked&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;This post shows benchmark results to convince that&#xA;it actually is performant in one scenario.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Benchmark the alpha-released hooks API in React Redux with alternatives</title>
-      <link>http://localhost:1313/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
+      <link>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</link>
       <pubDate>Thu, 02 May 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
+      <guid>https://blog.axlight.com/posts/benchmark-alpha-released-hooks-api-in-react-redux-with-alternatives/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Recently, React Redux released hooks API. It&amp;rsquo;s v7.1.0-alpha.4 as of writing.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&#34;&gt;https://github.com/reduxjs/react-redux/releases/tag/v7.1.0-alpha.4&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;On the other hand, I&amp;rsquo;ve been developing a new React Redux binding library with hooks and Proxy.&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://github.com/dai-shi/reactive-react-redux&#34;&gt;https://github.com/dai-shi/reactive-react-redux&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;It&amp;rsquo;s time to benchmark both of them to have better understanding in performance. The reactive-react-redux library utilizes Proxy to auto-detect state usage, hence it technically has overhead which would affect performance. We would like to learn how much it will be affected in a realistic example.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,38 +2,38 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Worker on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/worker/</link>
+    <link>https://blog.axlight.com/tags/worker/</link>
     <description>Recent content in Worker on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Mar 2020 20:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/worker/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/worker/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Redux in Worker: Off-main-thread Redux Reducers and Middleware</title>
-      <link>http://localhost:1313/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</link>
+      <link>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</link>
       <pubDate>Sun, 29 Mar 2020 20:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</guid>
+      <guid>https://blog.axlight.com/posts/redux-in-worker-off-main-thread-redux-reducers-and-middleware/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;Redux is a framework-agnostic library for global state.&#xA;It&amp;rsquo;s often used with React.&lt;/p&gt;&#xA;&lt;p&gt;While I like the abstraction of Redux,&#xA;React will introduce Concurrent Mode in the near future.&#xA;If we want to get benefit of &lt;code&gt;useTransition&lt;/code&gt;,&#xA;state must be inside React to allow state branching.&#xA;That means we can&amp;rsquo;t get the benefit with Redux.&lt;/p&gt;&#xA;&lt;p&gt;I&amp;rsquo;ve been developing &lt;a href=&#34;https://react-tracked.js.org&#34;&gt;React Tracked&lt;/a&gt;&#xA;for global state that allows state branching.&#xA;It works well in Concurrent Mode.&#xA;That leaves me a question: What is a use case that only Redux can do.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Off-main-thread React Redux with Performance</title>
-      <link>http://localhost:1313/posts/off-main-thread-react-redux-with-performance/</link>
+      <link>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</link>
       <pubDate>Mon, 16 Sep 2019 11:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/off-main-thread-react-redux-with-performance/</guid>
+      <guid>https://blog.axlight.com/posts/off-main-thread-react-redux-with-performance/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;It is said that Redux has been overused in some use cases&#xA;and React context+hooks plays well in such use cases.&#xA;While I agree with it, Redux should work well in some other situations.&#xA;Redux should help developing larger apps with many developers.&#xA;Various libraries in Redux ecosystem should accelerate development.&#xA;There&amp;rsquo;s another situation in which Redux may help, and that is Web Workers.&lt;/p&gt;&#xA;&lt;p&gt;A while back, Surma posted a nice blog post:&#xA;&lt;a href=&#34;https://dassur.ma/things/react-redux-comlink/&#34;&gt;React + Redux + Comlink = Off-main-thread&lt;/a&gt;&lt;/p&gt;</description>
     </item>
     <item>
       <title>How I Developed React Hooks for Web Workers</title>
-      <link>http://localhost:1313/posts/how-i-developed-react-hooks-for-web-workers/</link>
+      <link>https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/</link>
       <pubDate>Sun, 08 Sep 2019 16:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/how-i-developed-react-hooks-for-web-workers/</guid>
+      <guid>https://blog.axlight.com/posts/how-i-developed-react-hooks-for-web-workers/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;I have been developing several react hooks libraries.&#xA;They provide custom hooks for certain purposes.&#xA;One of them is for web workers.&#xA;I started it for fun. I got some feedbacks and improved.&#xA;This post shows the current implementation which aims the use in production.&lt;/p&gt;&#xA;&lt;p&gt;In this field, &lt;a href=&#34;https://github.com/GoogleChromeLabs/comlink&#34;&gt;Comlink&lt;/a&gt;&#xA;provides a nice transparent API with Proxies.&#xA;Some might have already tried it with React.&#xA;I have two reasons why I don&amp;rsquo;t use it for my library.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Playing with React Hooks and Web Workers</title>
-      <link>http://localhost:1313/posts/playing-with-react-hooks-and-web-workers/</link>
+      <link>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</link>
       <pubDate>Tue, 29 Jan 2019 12:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/playing-with-react-hooks-and-web-workers/</guid>
+      <guid>https://blog.axlight.com/posts/playing-with-react-hooks-and-web-workers/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;React Hooks is something I&amp;rsquo;ve been working on lately. What&amp;rsquo;s wonderful is creating custom hooks. If you encapsulate logic nicely in a hook, it can be shared among components and used intuitively. You can find my custom hooks in &lt;a href=&#34;https://github.com/dai-shi&#34;&gt;my GitHub repos&lt;/a&gt;, some of which are very experimental.&lt;/p&gt;&#xA;&lt;p&gt;This time, my experiment is to combine React Hooks and Web Workers. I know it&amp;rsquo;s not too difficult, but let me explain a bit in this short article.&lt;/p&gt;</description>
     </item>
   </channel>

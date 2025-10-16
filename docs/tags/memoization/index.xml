@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Memoization on Daishi Kato&#39;s blog</title>
-    <link>http://localhost:1313/tags/memoization/</link>
+    <link>https://blog.axlight.com/tags/memoization/</link>
     <description>Recent content in Memoization on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 29 Nov 2020 14:00:00 +0900</lastBuildDate>
-    <atom:link href="http://localhost:1313/tags/memoization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://blog.axlight.com/tags/memoization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Developing a Memoization Library With Proxies</title>
-      <link>http://localhost:1313/posts/developing-a-memoization-library-with-proxies/</link>
+      <link>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</link>
       <pubDate>Sun, 29 Nov 2020 14:00:00 +0900</pubDate>
-      <guid>http://localhost:1313/posts/developing-a-memoization-library-with-proxies/</guid>
+      <guid>https://blog.axlight.com/posts/developing-a-memoization-library-with-proxies/</guid>
       <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;It&amp;rsquo;s been a while since I started developing&#xA;&lt;a href=&#34;https://github.com/dai-shi/reactive-react-redux&#34;&gt;reactive-react-redux&lt;/a&gt;&#xA;and &lt;a href=&#34;https://github.com/dai-shi/react-tracked&#34;&gt;react-tracked&lt;/a&gt;.&#xA;These libraries provide so called&#xA;&lt;a href=&#34;https://blog.axlight.com/posts/what-is-state-usage-tracking-a-novel-approach-to-intuitive-and-performant-api-with-react-hooks-and-proxy/&#34;&gt;state usage tracking&lt;/a&gt; to optimize render in React.&#xA;This approach, I think, is pretty novel and&#xA;quite a lot of my effort has been put to improve its performance.&lt;/p&gt;&#xA;&lt;p&gt;Lately, I thought it would be nicer if this can be used more broadly.&#xA;I wondered if it can be used in vanilla JS.&#xA;What would be an API in vanilla JS?&#xA;It would be good if it&amp;rsquo;s easy to understand.&#xA;My idea ended up with memoization, mainly because&#xA;the primary goal is to be a replacement of&#xA;&lt;a href=&#34;https://github.com/reduxjs/reselect&#34;&gt;reselect&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
