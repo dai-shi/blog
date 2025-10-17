@@ -6,8 +6,36 @@
     <description>Recent content in Tags on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 18 Oct 2025 01:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Livestreams</title>
+      <link>https://blog.axlight.com/tags/livestreams/</link>
+      <pubDate>Sat, 18 Oct 2025 01:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/livestreams/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Podcasts</title>
+      <link>https://blog.axlight.com/tags/podcasts/</link>
+      <pubDate>Sat, 18 Oct 2025 01:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/podcasts/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>React</title>
+      <link>https://blog.axlight.com/tags/react/</link>
+      <pubDate>Sat, 18 Oct 2025 01:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/react/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Talks</title>
+      <link>https://blog.axlight.com/tags/talks/</link>
+      <pubDate>Sat, 18 Oct 2025 01:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/tags/talks/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Compiler</title>
       <link>https://blog.axlight.com/tags/compiler/</link>
@@ -27,13 +55,6 @@
       <link>https://blog.axlight.com/tags/jotai/</link>
       <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
       <guid>https://blog.axlight.com/tags/jotai/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>React</title>
-      <link>https://blog.axlight.com/tags/react/</link>
-      <pubDate>Tue, 07 Jan 2025 22:00:00 +0900</pubDate>
-      <guid>https://blog.axlight.com/tags/react/</guid>
       <description></description>
     </item>
     <item>

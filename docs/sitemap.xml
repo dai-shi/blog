@@ -2,10 +2,31 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.axlight.com/tags/compiler/</loc>
-    <lastmod>2025-01-07T22:00:00+09:00</lastmod>
-  </url><url>
     <loc>https://blog.axlight.com/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/livestreams/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/my-react-talks-to-date-in-various-formats/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/podcasts/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/posts/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/react/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/talks/</loc>
+    <lastmod>2025-10-18T01:00:00+09:00</lastmod>
+  </url><url>
+    <loc>https://blog.axlight.com/tags/compiler/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/tags/global-state/</loc>
@@ -14,16 +35,7 @@
     <loc>https://blog.axlight.com/tags/jotai/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
-    <loc>https://blog.axlight.com/posts/</loc>
-    <lastmod>2025-01-07T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/react/</loc>
-    <lastmod>2025-01-07T22:00:00+09:00</lastmod>
-  </url><url>
     <loc>https://blog.axlight.com/tags/rsc/</loc>
-    <lastmod>2025-01-07T22:00:00+09:00</lastmod>
-  </url><url>
-    <loc>https://blog.axlight.com/tags/</loc>
     <lastmod>2025-01-07T22:00:00+09:00</lastmod>
   </url><url>
     <loc>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</loc>

@@ -6,8 +6,15 @@
     <description>Recent content in Posts on Daishi Kato&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Jan 2025 22:00:00 +0900</lastBuildDate>
+    <lastBuildDate>Sat, 18 Oct 2025 01:00:00 +0900</lastBuildDate>
     <atom:link href="https://blog.axlight.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My React Talks to Date in Various Formats</title>
+      <link>https://blog.axlight.com/posts/my-react-talks-to-date-in-various-formats/</link>
+      <pubDate>Sat, 18 Oct 2025 01:00:00 +0900</pubDate>
+      <guid>https://blog.axlight.com/posts/my-react-talks-to-date-in-various-formats/</guid>
+      <description>&lt;h3 id=&#34;introduction&#34;&gt;Introduction&lt;/h3&gt;&#xA;&lt;p&gt;As it turns out, there are quite a few talks I&amp;rsquo;ve done so far,&#xA;and even for me, it&amp;rsquo;s hard to remember all of them.&#xA;Although it&amp;rsquo;s a bit embarrassing to see some old talks of mine,&#xA;I decided to gather them here.&lt;/p&gt;&#xA;&lt;p&gt;The following is ordered from the latest session back to the earliest.&lt;/p&gt;&#xA;&lt;h3 id=&#34;livestream-nick-taylor---2025&#34;&gt;Livestream: Nick Taylor - 2025&lt;/h3&gt;&#xA;&lt;p&gt;How Waku, the Minimal React Framework Came to Be&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Thoughts on State Management Libraries in the React Compiler Era</title>
       <link>https://blog.axlight.com/posts/thoughts-on-state-management-libraries-in-the-react-compiler-era/</link>
