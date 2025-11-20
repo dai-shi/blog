@@ -30,7 +30,7 @@ In the React hooks docs, it’s noted like this:
 useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.
 For a long time, I misunderstood that useReducer is more powerful than useState and there’s some optimization that can’t be achieved by useState.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>React hooks useState and useReducer are equivalent in theoretical expressiveness &middot; Daishi Kato&#39;s blog</title>
     
@@ -188,7 +188,8 @@ text-align: center;
 <code>useState</code> is implemented with <code>useReducer</code>.</p>
 <p>In the React hooks <a href="https://reactjs.org/docs/hooks-reference.html#usereducer">docs</a>, it&rsquo;s noted like this:</p>
 <blockquote>
-<p>useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.</p></blockquote>
+<p>useReducer is usually preferable to useState when you have complex state logic that involves multiple sub-values or when the next state depends on the previous one. useReducer also lets you optimize performance for components that trigger deep updates because you can pass dispatch down instead of callbacks.</p>
+</blockquote>
 <p>For a long time, I misunderstood that useReducer is more powerful than useState
 and there&rsquo;s some optimization that can&rsquo;t be achieved by useState.</p>
 <p>It turns out that useState is as powerful as useReducder in terms of expressiveness. This is because useState allows <a href="https://reactjs.org/docs/hooks-reference.html#functional-updates">functional updates</a>.

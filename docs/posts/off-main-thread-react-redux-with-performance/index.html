@@ -27,7 +27,7 @@ A while back, Surma posted a nice blog post: React &#43; Redux &#43; Comlink = O
   <meta name="twitter:description" content="Introduction It is said that Redux has been overused in some use cases and React context&#43;hooks plays well in such use cases. While I agree with it, Redux should work well in some other situations. Redux should help developing larger apps with many developers. Various libraries in Redux ecosystem should accelerate development. There’s another situation in which Redux may help, and that is Web Workers.
 A while back, Surma posted a nice blog post: React &#43; Redux &#43; Comlink = Off-main-thread">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>Off-main-thread React Redux with Performance &middot; Daishi Kato&#39;s blog</title>
     
@@ -195,7 +195,8 @@ The blog post shows the proof-of-concept code with <a href="https://github.com/G
 <p>However, this PoC code doesn&rsquo;t perform well with React.
 Let me quote a note from the blog post.</p>
 <blockquote>
-<p>Note: It was <a href="https://twitter.com/nejcramovs/status/1156234576093687813">pointed out to me on Twitter</a> that by moving Redux to a worker every state change will cause the creation of a new copy due to structured cloning. This can be bad as it will cause React to rerender the entire app instead of just the elements whose state properties that have changed. While I didn&rsquo;t solve this problem in <em>this</em> blog post, I did talk about a solution in my <a href="https://dassur.ma/things/is-postmessage-slow/">previous blog post</a> in the &ldquo;Patching&rdquo; section.</p></blockquote>
+<p>Note: It was <a href="https://twitter.com/nejcramovs/status/1156234576093687813">pointed out to me on Twitter</a> that by moving Redux to a worker every state change will cause the creation of a new copy due to structured cloning. This can be bad as it will cause React to rerender the entire app instead of just the elements whose state properties that have changed. While I didn&rsquo;t solve this problem in <em>this</em> blog post, I did talk about a solution in my <a href="https://dassur.ma/things/is-postmessage-slow/">previous blog post</a> in the &ldquo;Patching&rdquo; section.</p>
+</blockquote>
 <p>I was so interested in fixing this problem that I can&rsquo;t help myself stopping developing a new library.</p>
 <h3 id="redux-in-worker">Redux-in-Worker</h3>
 <p>My library is called &ldquo;redux-in-worker.&rdquo;

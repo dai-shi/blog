@@ -31,7 +31,7 @@ It’s recommended to try it yourself first. If you succeed to implement it, the
 It turned out that this would be a good resource to learn jotai. They are from basic tasks to advanced tasked, and you will see how they are implemented, occasionally magically.
 It’s recommended to try it yourself first. If you succeed to implement it, then you can compare. Even if you fail, you can read and learn.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>Learning React State Manager Jotai With 7GUIS Tasks &middot; Daishi Kato&#39;s blog</title>
     
@@ -197,7 +197,8 @@ If you succeed to implement it, then you can compare.
 Even if you fail, you can read and learn.</p>
 <h2 id="task-1-counter">Task 1: Counter</h2>
 <blockquote>
-<p>The task is to build a frame containing a label or read-only textfield T and a button B. &hellip;</p></blockquote>
+<p>The task is to build a frame containing a label or read-only textfield T and a button B. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#counter">See full task description</a></p>
 <p>This is pretty easy. Good to try for the first time.</p>
 <p>Check the codesandbox link in the following tweet.</p>
@@ -207,7 +208,8 @@ Even if you fail, you can read and learn.</p>
 
 <h2 id="task-2-temperature-converter">Task 2: Temperature Converter</h2>
 <blockquote>
-<p>The task is to build a frame containing two textfields TC and TF representing the temperature in Celsius and Fahrenheit, respectively. &hellip;</p></blockquote>
+<p>The task is to build a frame containing two textfields TC and TF representing the temperature in Celsius and Fahrenheit, respectively. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#temp">See full task description</a></p>
 <p>This is a bit confusing (at least for me),
 because converting tempertures seems a best fit for derived atoms.
@@ -219,7 +221,8 @@ We need to handle non numeric input and thus it&rsquo;s rather straightforward.<
 
 <h2 id="task-3-flight-booker">Task 3: Flight Booker</h2>
 <blockquote>
-<p>The task is to build a frame containing a combobox C with the two options &ldquo;one-way flight&rdquo; and &ldquo;return flight&rdquo;, two textfields T1 and T2 representing the start and return date, respectively, and a button B for submitting the selected flight. &hellip;</p></blockquote>
+<p>The task is to build a frame containing a combobox C with the two options &ldquo;one-way flight&rdquo; and &ldquo;return flight&rdquo;, two textfields T1 and T2 representing the start and return date, respectively, and a button B for submitting the selected flight. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#flight">See full task description</a></p>
 <p>I thought this is faily easy except for
 parsing a string for a date.
@@ -231,7 +234,8 @@ You would need to keep both string and date for comparison.</p>
 
 <h2 id="task-4-timer">Task 4: Timer</h2>
 <blockquote>
-<p>The task is to build a frame containing a gauge G for the elapsed time e, a label which shows the elapsed time as a numerical value, a slider S by which the duration d of the timer can be adjusted while the timer is running and a reset button R. &hellip;</p></blockquote>
+<p>The task is to build a frame containing a gauge G for the elapsed time e, a label which shows the elapsed time as a numerical value, a slider S by which the duration d of the timer can be adjusted while the timer is running and a reset button R. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#timer">See full task description</a></p>
 <p>Getting hard. We need to take care of timing.
 I&rsquo;m not 100% sure if my implementation is readable enough.</p>
@@ -242,7 +246,8 @@ I&rsquo;m not 100% sure if my implementation is readable enough.</p>
 
 <h2 id="task-5-crud">Task 5: CRUD</h2>
 <blockquote>
-<p>The task is to build a frame containing the following elements: a textfield Tprefix, a pair of textfields Tname and Tsurname, a listbox L, buttons BC, BU and BD and the three labels as seen in the screenshot. &hellip;</p></blockquote>
+<p>The task is to build a frame containing the following elements: a textfield Tprefix, a pair of textfields Tname and Tsurname, a listbox L, buttons BC, BU and BD and the three labels as seen in the screenshot. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#crud">See full task description</a></p>
 <p>This would be a good challenge to handle a list and filter it.
 My implementation uses a technique called atoms-in-atom,
@@ -254,7 +259,8 @@ but you could implement without it.</p>
 
 <h2 id="task-6-circle-drawer">Task 6: Circle Drawer</h2>
 <blockquote>
-<p>The task is to build a frame containing an undo and redo button as well as a canvas area underneath. Left-clicking inside an empty area inside the canvas will create an unfilled circle with a fixed diameter whose center is the left-clicked point. &hellip;</p></blockquote>
+<p>The task is to build a frame containing an undo and redo button as well as a canvas area underneath. Left-clicking inside an empty area inside the canvas will create an unfilled circle with a fixed diameter whose center is the left-clicked point. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#circle">See full task description</a></p>
 <p>This is a fun task. In Web, we can use SVG, so drawing part is trivial.
 On the other hand, movable dialog is hard.
@@ -268,7 +274,8 @@ would be advanced challenges.</p>
 
 <h2 id="task-7-cells">Task 7: Cells</h2>
 <blockquote>
-<p>The task is to create a simple but usable spreadsheet application. The spreadsheet should be scrollable. The rows should be numbered from 0 to 99 and the columns from A to Z. Double-clicking a cell C lets the user change C&rsquo;s formula. After having finished editing the formula is parsed and evaluated and its updated value is shown in C. &hellip;</p></blockquote>
+<p>The task is to create a simple but usable spreadsheet application. The spreadsheet should be scrollable. The rows should be numbered from 0 to 99 and the columns from A to Z. Double-clicking a cell C lets the user change C&rsquo;s formula. After having finished editing the formula is parsed and evaluated and its updated value is shown in C. &hellip;</p>
+</blockquote>
 <p><a href="https://eugenkiss.github.io/7guis/tasks#cells">See full task description</a></p>
 <p>I wanted to try this task from the start.
 I thought this would be very interesting with jotai,

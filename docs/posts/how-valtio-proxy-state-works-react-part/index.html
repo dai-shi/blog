@@ -29,7 +29,7 @@ Let’s recap the API in vanilla part of Valtio.
 Let’s recap the API in vanilla part of Valtio.
 // Create a new proxy state to detect mutations const state = proxy({ count: 0 }); // You can mutate it &#43;&#43;state.count; // Create a snapshot const snap1 = snapshot(state); // ---&gt; { count: 1 } // Mutate it again state.count *= 10; // Create a snapshot again const snap2 = snapshot(state); // ---&gt; { count: 10 } // The previous snapshot is not changed console.log(snap1); // ---&gt; { count: 1 } // You can subscribe to it subscribe(state, () =&gt; { console.log(&#39;State changed to&#39;, state); }); // Then, mutate it again state.text = &#39;hello&#39;; // ---&gt; &#34;State changed to { count: 10, text: &#39;hello&#39; }&#34; Now, let’s see how we can use the state in React.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>How Valtio Proxy State Works (React Part) &middot; Daishi Kato&#39;s blog</title>
     

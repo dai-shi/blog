@@ -29,7 +29,7 @@ Background You can’t cancel promises in JavaScript and that’s one of the rea
 TL;DR Just visit the example in codesandbox and try it.
 Background You can’t cancel promises in JavaScript and that’s one of the reason why libraries such as redux-saga and redux-observables are popular because they allow cancellation. While they are good solutions as well as Redux is, there might be a case when you want just a cancellation mechanism for a promise, not the entire framework. As is noted JavaScript doesn’t have cancellation mechanism, but DOM has it. It’s called AbortController. It’s only supported in recent browsers, but polyfills should help for old browsers and Node.js.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>Introduction to abortable async functions for React with hooks &middot; Daishi Kato&#39;s blog</title>
     
@@ -183,7 +183,8 @@ text-align: center;
 
 	<article>
 		<blockquote>
-<p>There is a follow-up article which describes the implementation details of the library. Please visit <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">here</a>.</p></blockquote>
+<p>There is a follow-up article which describes the implementation details of the library. Please visit <a href="https://blog.axlight.com/posts/developing-react-custom-hooks-for-abortable-async-functions-with-abortcontroller/">here</a>.</p>
+</blockquote>
 <h3 id="tldr">TL;DR</h3>
 <p>Just visit the <a href="https://codesandbox.io/s/github/dai-shi/react-hooks-async/tree/master/examples/04_typeahead">example</a> in codesandbox and try it.</p>
 <h3 id="background">Background</h3>

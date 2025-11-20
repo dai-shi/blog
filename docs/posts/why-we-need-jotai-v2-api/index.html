@@ -34,7 +34,7 @@ What does it mean? First, atom read function is evaluated in the render phase in
 For example, consider a simple derived atom.
 const countAtom = atom(0); const doubleAtom = atom((get) =&gt; get(countAtom) * 2); In the example, (get) =&gt; get(countAtom) * 2 is the read function. When countAtom is updated, the library doesn’t invoke the read function of doubleAtom immediately. Instead, it triggers the component that uses doubleAtom to re-render. The component re-renders eventually, and it’s when the read function of doubleAtom is invoked. The benefit of this behavior might be hypothetical, but React allows to schedule re-renders, which means it can skip invoking read functions in concurrent rendering.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>Why We Need Jotai v2 API &middot; Daishi Kato&#39;s blog</title>
     

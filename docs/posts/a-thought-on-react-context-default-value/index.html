@@ -32,7 +32,7 @@ https://reactjs.org/docs/hooks-intro.html
 Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.
 The defaultValue argument is only used when a component does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing undefined as a Provider value does not cause consuming components to use defaultValue.">
 
-    <meta name="generator" content="Hugo 0.150.0">
+    <meta name="generator" content="Hugo 0.152.0">
     
       <title>A thought on React Context default value &middot; Daishi Kato&#39;s blog</title>
     
@@ -191,7 +191,8 @@ text-align: center;
 <p><a href="https://reactjs.org/docs/hooks-intro.html">https://reactjs.org/docs/hooks-intro.html</a></p>
 <p>Now, this very short article is just about the default value of a context. When you create a context, you pass a default value in the first argument.</p>
 <blockquote>
-<p>The <code>defaultValue</code> argument is <strong>only</strong> used when a component does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing <code>undefined</code> as a Provider value does not cause consuming components to use <code>defaultValue</code>.</p></blockquote>
+<p>The <code>defaultValue</code> argument is <strong>only</strong> used when a component does not have a matching Provider above it in the tree. This can be helpful for testing components in isolation without wrapping them. Note: passing <code>undefined</code> as a Provider value does not cause consuming components to use <code>defaultValue</code>.</p>
+</blockquote>
 <p>So, this is only used if there&rsquo;s no Provider. It&rsquo;s often the case that we require a Provider and if it doesn&rsquo;t exist, we warn developers.</p>
 <h3 id="typical-solution">Typical solution</h3>
 <p>In various code, what I see is something like the following:</p>
